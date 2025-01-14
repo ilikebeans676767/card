@@ -5,7 +5,7 @@ function onFrame() {
     elms.currencies.$cards.$amount.textContent = format(MAX_CARDS - game.stats.cardsDrawn, 0, 13);
     elms.currencies.$points.$amount.textContent = format(game.res.points, 0, 9);
 
-    game.res.energy += delta / 60000 * effects.bulkPower;
+    game.res.energy = addWithCap(game.res.energy, delta / 60000 * effects.bulkPower, effects.energyCap);
     game.time.drawCooldown -= delta / 1000 / effects.cooldownTime;
     let cooldown = getDrawCooldown();
     elms.draw.classList.toggle("anim-card-btn-draw", !!popups.draw.elms.list);
@@ -164,6 +164,7 @@ function getDrawAmount() {
     let count = Math.floor(effects.bulk) + getUsedEnergy();
     count = Math.floor(count * effects.bulkMult);
     count = Math.min(count, MAX_CARDS - game.stats.cardsDrawn);
+    if (!hasCard("standard", "ex", "zip")) count = Math.min(count, 100);
     return count;
 }
 
@@ -172,17 +173,64 @@ function getUsedEnergy() {
 }
 
 function getCardLevelCost(pack, rarity, id, amount = 1) {
-    let data = cards[pack][rarity][cost];
-    let state = game.cards[pack]?.[rarity]?.[cost];
-    if (!state || !data.levelCost) return [Infinity];
-    let [base, rate, res] = data.levelCost;
-    return [sumGeometricSeries(base, rate, amount, state.level - 1), res ?? "points"]
-}
+    let data = cards[pack][rarity][id];
+    if (!data.levelCost) return [Infinity, res];
+    let state = game.cards[pack]?.[rarity]?.[id];
+    if (!state) return [Infinity, res]; 
 
+    let [base, rate, res] = data.levelCost;
+    res ??= "points";
+    if (data.maxLevel) {
+        amount = Math.min(amount, data.maxLevel - state.level);
+        if (amount <= 0) return [Infinity, res];
+    }
+
+    return [sumGeometricSeries(base, rate, amount, state.level - 1), res]
+}
 function getCardLevelMax(pack, rarity, id) {
-    let data = cards[pack][rarity][cost];
-    let state = game.cards[pack]?.[rarity]?.[cost];
+    let data = cards[pack][rarity][id];
+    let state = game.cards[pack]?.[rarity]?.[id];
     if (!state || !data.levelCost) return 0;
     let [base, rate, res] = data.levelCost;
     return maxGeometricSeries(base, rate, game.res[res], state.level - 1);
+}
+function levelUpCard(pack, rarity, id, amount = 1, shouldEmit = true) {
+    let cost = getCardLevelCost(pack, rarity, id, amount);
+    if (game.res[cost[1]] < cost[0]) return;
+    game.res[cost[1]] -= cost[0];
+    let state = game.cards[pack]?.[rarity]?.[id];
+    state.level += amount;
+    if (shouldEmit) {
+        updateEffects();
+        emit("card-upgrade");
+        saveGame();
+    }
+}
+function getCardStarCost(pack, rarity, id) {
+    let data = cards[pack][rarity][id];
+    let state = game.cards[pack]?.[rarity]?.[id];
+    if (!state || data.crown || state.stars >= 5) return Infinity;
+    return (data.starCost ?? cardStarCost[pack][rarity])(state.stars, data.starDiff ?? 0);
+}
+function starUpCard(pack, rarity, id, shouldEmit = true) {
+    let cost = getCardStarCost(pack, rarity, id);
+    let state = game.cards[pack]?.[rarity]?.[id] ?? {amount: 0};
+    if (state.amount < cost) return;
+    state.amount -= cost;
+    state.stars++;
+    if (shouldEmit) {
+        updateEffects();
+        emit("card-upgrade");
+        saveGame();
+    }
+}
+function buyCard(pack, rarity, id) {
+    if (hasCard(pack, rarity, id) || popups.draw.elms.list) return;
+
+    let cost = cards[pack][rarity][id];
+    if (game.res[cost[1]] < cost[0]) return;
+    game.res[cost[1]] -= cost[0];
+
+    emit("card-upgrade");
+    callPopup("draw", { res: [], cards: [[pack, rarity, id, 1]] });
 }

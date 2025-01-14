@@ -1,8 +1,7 @@
 let popups = {};
 
 function makePopup(...content) {
-    let popup = $make("div");
-    popup.classList.add("popup");
+    let popup = $make("div.popup");
 
     let body = popup.$body = $make("div", ...content);
     popup.append(body);

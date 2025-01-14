@@ -1,22 +1,42 @@
 
-let tooltipTimeout = 0;
+let tooltip = {
+    timeout: 0,
+    element: null,
+    contentFunc: null,
+}
 function registerTooltip(element, contentFunc) {
     element.addEventListener("pointerenter", () => {
-        clearTimeout(tooltipTimeout);
+        clearTimeout(tooltip.timeout);
         document.body.addEventListener("pointermove", updateTooltipPos);
-        tooltipTimeout = setTimeout(() => {
+        tooltip.element = element;
+        tooltip.contentFunc = contentFunc;
+        tooltip.timeout = setTimeout(() => {
             elms.tooltip.innerHTML = "";
             contentFunc(elms.tooltip);
             elms.tooltip.classList.add("active");
         }, elms.tooltip.classList.contains("active") ? 0 : 300);
     });
     element.addEventListener("pointerleave", () => {
-        clearTimeout(tooltipTimeout);
+        clearTimeout(tooltip.timeout);
         document.body.removeEventListener("pointermove", updateTooltipPos);
-        tooltipTimeout = setTimeout(() => {
+        tooltip.element = tooltip.contentFunc = null
+        tooltip.timeout = setTimeout(() => {
             elms.tooltip.classList.remove("active");
         }, 100);
     });
+}
+function registerTooltipEvent(event) {
+    if (!tooltip.element) return;
+    let elm = tooltip.element;
+    let callback = () => {
+        requestAnimationFrame(() => tooltip.contentFunc(elms.tooltip));
+    }
+    let leave = () => {
+        removeEvent(event, callback);
+        elm.removeEventListener("pointerleave", leave);
+    }
+    addEvent(event, callback);
+    elm.addEventListener("pointerleave", leave);
 }
 
 
@@ -35,6 +55,7 @@ let tooltipTemplates = {
     card (pack, rarity, id, mode = null) {
         let data = cards[pack][rarity][id];
         return (tooltip) => {
+            registerTooltipEvent("card-update");
             let state = game.cards[pack]?.[rarity]?.[id];
 
             let level = 1, stars = 1;
@@ -59,7 +80,7 @@ let tooltipTemplates = {
                     <small>${state ? `
                         ${data.crown 
                             ? ``
-                            : `(you have <span class="number">${format(state.amount)}</span> extra copies)<br>`
+                            : `(<span class="number">+${format(state.amount)}</span> extra copies)<br>`
                         }
                         ${data.crown 
                             ? `(crown card)`
@@ -77,10 +98,52 @@ let tooltipTemplates = {
                 <div>
                     ${format.effect(data.desc, curFx, newFx)}
                 </div>
-                <div class="tooltip-quote">
-                    “${data.quote}“
-                </div>
             `
+
+            if (mode == "level-up") {
+                if (!data.levelCost) {
+                    tooltip.innerHTML += `<div class="tooltip-action">
+                        This card can not be upgraded.
+                    </div>`
+                } else if (data.maxLevel && state.level >= data.maxLevel) {
+                    tooltip.innerHTML += `<div class="tooltip-action">
+                        Max level reached.
+                    </div>`
+                } else {
+                    let levelCost = getCardLevelCost(pack, rarity, id);
+                    let canLevelUp = game.res[levelCost[1]] >= levelCost[0];
+                    let name = currencies[levelCost[1]].name;
+                    tooltip.innerHTML += `<div class="tooltip-formula"> 
+                        <h4>Upgrade cost:</h4>
+                        <div><span>${name}</span>${$number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
+                    </div><div class="tooltip-action">
+                        ${canLevelUp ? "Click to upgrade." : "Insufficient " + name + "."}
+                    </div>`
+                }
+            } else if (mode == "star-up") {
+                if (data.crown) {
+                    tooltip.innerHTML += `<div class="tooltip-action">
+                        This card can not be fused.
+                    </div>`
+                } else if (state.star >= 5) {
+                    tooltip.innerHTML += `<div class="tooltip-action">
+                        Max star reached.
+                    </div>`
+                } else {
+                    let starCost = getCardStarCost(pack, rarity, id);
+                    let canStarUp = state.amount >= starCost;
+                    tooltip.innerHTML += `<div class="tooltip-formula"> 
+                        <h4>Fusion cost:</h4>
+                        <div><span>Extra copies</span>${$number(format(state.amount) + " / " + format(starCost))}</div>
+                    </div><div class="tooltip-action">
+                        ${canStarUp ? "Click to fuse." : "Insufficient copies."}
+                    </div>`
+                }
+            } else {
+                tooltip.innerHTML += `<div class="tooltip-quote">
+                    “${data.quote}“
+                </div>`
+            }
         }
     }
 }

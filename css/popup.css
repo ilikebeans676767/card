@@ -23,17 +23,25 @@
 
 .popup.draw-popup .big-card {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: justify;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 50vh) perspective(100vh) rotateY(180deg);
     width: min(calc(100vw - 50px), 240px);
     aspect-ratio: 2 / 3;
+    box-sizing: content-box;
 
     background: var(--pack-bg);
-    border: 1px solid var(--pack-border);
-    border-radius: 10px;
+    color: var(--pack-color);
+    border: solid var(--pack-border);
+    border-width: 20px 1px;
     box-shadow: var(--shadow-0);
-
+    padding: 10px;
 }
 .popup.draw-popup .big-card[style*="--timer"] {
     transform: translate(-50%, -50%) scale(calc(1 + var(--timer) * 0.2)) translate(var(--shake)) rotate(var(--rotate));
@@ -44,6 +52,15 @@
     transition: transform 0.3s, opacity 0.3s;
     opacity: 0;
     pointer-events: none;
+}
+.popup.draw-popup .big-card .in-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.popup.draw-popup .big-card .out-flex {
+    display: flex;
 }
 
 .popup.draw-popup .card-list {

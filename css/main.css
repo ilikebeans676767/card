@@ -36,6 +36,7 @@
     --card-gradient: #0000, #0007, #000a, #000c;
 
     --pack-bg: linear-gradient(190deg, #c55, #bb3, #4c4, #3bb, #77d, #c6c, #c55);
+    --pack-color: #000a;
     --pack-border: white;
 
     --tooltip-background: #000e;
@@ -82,6 +83,11 @@ button:active {
     border-color: var(--border-0);
     color: var(--color-active);
     background: linear-gradient(var(--bg-0), var(--bg-1));
+}
+button:disabled {
+    border-color: var(--border-0);
+    color: var(--color-active);
+    background: linear-gradient(var(--bg-0), var(--bg-0));
 }
 button.thick {
     padding: 10px 13px;
@@ -203,6 +209,9 @@ main {
 
 .number {
     font-family: var(--number-font);
+}
+.flex-fill {
+    flex: 1;
 }
 
 .anim-float-in {

@@ -20,20 +20,42 @@ popups.draw = {
         };
         this.elms = {};
 
-        let bigCard = this.elms.bigCard = $make("div");
-        bigCard.classList.add("big-card");
+        let bigCard = this.elms.bigCard = $make("div.big-card");
+        bigCard.innerHTML = `
+            <div class="out-flex">
+                <span class="number">DTCGco.™</span>
+                <div class="flex-fill"></div>
+                <small style="text-align: end;">
+                    ${
+                        loot.cards[0]?.[2] == "ex" ? "SPECIAL EXTRA<br/>LIMITED EDITION" :
+                        loot.res.length ? "BONUS ITEMS<br>INCLUDED" :
+                            "FIRST<br>EDITION"
+                    }
+                </small>
+            </div>
+            <div class="in-flex flex-fill">
+                <h1 class="number">OMEGA CARDS</h1>
+            </div>
+            <small class="out-flex" style="align-items: end">
+                <span>
+                    PACK OF<br>
+                    <b>${format(loot.cards.reduce((x, y) => x + y[3], 0))}</b> CARDS
+                </span>
+                <div class="flex-fill"></div>
+                <small style="text-align: end; font-size: 0.5em">
+                    © DUDUCAT TRADING CARD GAME CO.
+                </small>
+            </small>
+        `
         popup.$body.append(bigCard);
 
-        let list = this.elms.list = $make("div");
-        list.classList.add("card-list");
+        let list = this.elms.list = $make("div.card-list");
         popup.$body.append(list);
 
-        let result = this.elms.result = $make("div");
-        result.classList.add("draw-result");
+        let result = this.elms.result = $make("div.draw-result");
         popup.$body.append(result);
 
-        let resultCur = $make("div");
-        resultCur.classList.add("draw-result-currencies");
+        let resultCur = $make("div.draw-result-currencies");
         for (let res of loot.res) {
             let div = createCurrencyUI(currencies[res[0]]);
             div.$amount.textContent = format(res[1]);
@@ -42,8 +64,7 @@ popups.draw = {
         result.append(resultCur);
 
 
-        let close = $make("button", "Continue");
-        close.classList.add("primary", "thick");
+        let close = $make("button.primary.thick", "Continue");
         close.onclick = () => popup.close();
         result.append(close);
         

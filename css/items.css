@@ -67,10 +67,10 @@
 .game-card-stars {
     position: absolute;
     inset: 0 0 auto 0;
-    padding: 0px 10px 10px 10px;
+    padding: 5px 10px 10px 10px;
     color: var(--card-color);
     background: linear-gradient(0deg, var(--card-gradient));
-    font-size: 32px;
+    font-size: 18px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -78,6 +78,27 @@
 .game-card-stars:empty {
     display: none;
 }
-.game-card-stars > * {
-    margin-inline: -6px;
+.game-card-stars.crown {
+    font-size: 24px;
+    line-height: 18px;
 }
+
+.card-block > .game-card:not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.card-block > .card-action {
+    display: flex;
+}
+.card-block > .card-action > * {
+    flex: 1;
+    border-radius: 0;
+}
+.card-block > .card-action > :first-child {
+    border-bottom-left-radius: 5px;
+}
+.card-block > .card-action > :last-child {
+    border-bottom-right-radius: 5px;
+}
+
+

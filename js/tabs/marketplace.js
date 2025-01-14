@@ -6,8 +6,7 @@ tabs.marketplace = {
     elms: {},
 
     onInit() {
-        let list = this.elms.list = $make("div");
-        list.classList.add("card-list");
+        let list = this.elms.list = $make("div.card-list");
         elms.tab.append(list);
 
         this.updateCards();
@@ -40,15 +39,30 @@ tabs.marketplace = {
     makeCard(pack, rarity, id) {
         let listId = pack + " " + rarity + " " + id;
 
-        let div = $make("div");
-        div.classList.add("card-block");
+        let div = $make("div.card-block");
         
         let card = div.$card = createCardUI(pack, rarity, id);
         registerTooltip(card, tooltipTemplates.card(pack, rarity, id))
         div.append(card);
         
+        let actions = $make("div.card-action");
+        div.append(actions);
+        
+        let buyBtn = div.$levelBtn = $make("button");
+        buyBtn.onclick = () => buyCard(pack, rarity, id);
+        registerTooltip(buyBtn, tooltipTemplates.card(pack, rarity, id, "buy"))
+        actions.append(buyBtn);
+        
         div.update = () => {
             card.update();
+            let data = cards[pack][rarity][id];
+            
+            let canBuy = game.res[data.buyCost[1]] >= data.buyCost[0];
+            buyBtn.disabled = !canBuy;
+            levelText = $icon("tabler:shopping-cart");
+
+            if (buyBtn.innerHTML != levelText) buyBtn.innerHTML = levelText;
+            
         }
 
         this.cards[listId] = div;
