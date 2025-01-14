@@ -45,6 +45,9 @@ tabs.collection = {
         let card = div.$card = createCardUI(pack, rarity, id);
         registerTooltip(card, tooltipTemplates.card(pack, rarity, id))
         div.append(card);
+
+        let ups = $make("div.card-upgrades");
+        card.append("ups");
         
         div.update = () => {
             card.update();
