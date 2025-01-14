@@ -1,0 +1,84 @@
+.popup {
+    z-index: 2000000;
+    position: fixed;
+    inset: 0;
+    background: #0007;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup > div {
+    padding: 10px;
+    max-height: 100%;
+}
+
+.popup:not(.clear) > div {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: var(--shadow-0);
+}
+
+.popup.draw-popup .big-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50vh) perspective(100vh) rotateY(180deg);
+    width: min(calc(100vw - 50px), 240px);
+    aspect-ratio: 2 / 3;
+
+    background: var(--pack-bg);
+    border: 1px solid var(--pack-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-0);
+
+}
+.popup.draw-popup .big-card[style*="--timer"] {
+    transform: translate(-50%, -50%) scale(calc(1 + var(--timer) * 0.2)) translate(var(--shake)) rotate(var(--rotate));
+    transition: transform calc(calc(1 - var(--timer)) * calc(1 - var(--timer)) * 0.3s);
+}
+.popup.draw-popup .big-card.broken {
+    transform: translate(-50%, -50%) scale(3);
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.popup.draw-popup .card-list {
+    max-height: calc(100vh + 20px);
+    overflow: hidden;
+    margin-block: -10px;
+    padding-block: 100px calc(max(var(--padding, 50px), 50px) + 50px);
+}
+.popup.draw-popup .card-list.done {
+    overflow-y: auto;
+}
+
+.popup.draw-popup .draw-result {
+    display: none;
+    text-align: center;
+}
+
+.popup.draw-popup .card-list.done + .draw-result {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: max(calc(50% - var(--height) / 2), 0px);
+    width: 100%;
+    padding: 20px;
+    display: block;
+    animation: float-in .5s;
+}
+.popup.draw-popup .draw-result-currencies {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 5px;
+    margin-bottom: 5px;
+    justify-content: center;
+    text-align: start;
+}
+.popup.draw-popup .draw-result-currencies > * {
+    width: 160px;
+}

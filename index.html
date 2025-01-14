@@ -3,15 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Trillion Free Draws</title>
 
-    <script src="js/lib/lz-string.min.js"></script>
-    
-    <script src="js/main.js"></script>
-    <script src="js/logic.js"></script>
-    <script src="js/consts/cards.js"></script>
+    <title>One Trillion Free Draws</title>
+    <meta property="og:image" content="res/thumbnail.jpg" />
+    <meta property="og:description" content="All of these free draws are yours to take... if you can draw them all :P" />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/items.css" />
+    <link rel="stylesheet" href="css/popup.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap">
 </head>
 <body>
-    
+    <div id="loading" class="popup">
+        <div>
+            <h1><span class="number">One Trillion</span> Free Draws</h1>
+            <span id="loading-desc"></span>
+            <noscript>
+                It seems like you're one of the few visiting this page with JavaScript disabled or not available.
+                <br/>Since this page is a browser game and thus ultilizes JavaScript, displaying this notice is all I can do unless you enable it.
+            </noscript>
+        </div>
+    </div>
+    <aside id="sidebar">
+        <div id="currencies">
+        </div>
+        <div id="draw-zone">
+            <button id="draw-button">
+                <span id="draw-button-action">Draw</span>
+                <span id="draw-button-amount">&times;1</span>
+            </button>
+        </div>
+        <div id="draw-options">
+        </div>
+    </aside>
+    <main>
+        <div id="tab-buttons" class="tab-buttons"></div>
+        <div id="tab-content">
+            
+        </div>
+    </main>
+    <div id="tooltip"></div>
 </body>
+<!---->
+    <script src="js/lib/lz-string.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lootalot@1"></script>
+
+    <script src="js/consts/currencies.js"></script>
+    <script src="js/consts/effect.js"></script>
+    <script src="js/consts/cards.js"></script>
+
+    <script src="js/tabs.js"></script>
+    <script src="js/tabs/collection.js"></script>
+    <script src="js/tabs/marketplace.js"></script>
+
+    <script src="js/popups.js"></script>
+    <script src="js/popups/draw.js"></script>
+
+    <script src="js/data.js"></script>
+    <script src="js/logic.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/main.js"></script>
+<!---->
 </html>

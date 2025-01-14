@@ -6,16 +6,27 @@ function getNewGame() {
     return {
         res: {
             points: 0,
-            draws: 1e12,
+            energy: 0,
         },
-        cards: {}
+        time: {
+            now: Date.now(),
+            drawCooldown: 0,
+        },
+        stats: {
+            cardsDrawn: 0
+        },
+        cards: {},
+        option: {
+            notation: "common",
+        },
     }
 }
 
 function loadGame() {
     let newGame = getNewGame();
     try {
-        game = fixSave(JSON.parse(LZString.decompress(localStorage.getItem(SAVE_KEY))))
+        game = JSON.parse(LZString.decompress(localStorage.getItem(SAVE_KEY)))
+        fixSave(game, newGame);
     } catch {
         game = newGame;
     }

@@ -1,0 +1,35 @@
+#tooltip {
+    background: var(--tooltip-background);
+    padding: 0px;
+    pointer-events: none;
+    position: fixed;
+    z-index: 2000000000;
+    padding: 7px 10px;
+    margin: 15px;
+    overflow: hidden;
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: var(--shadow-3);
+    max-width: 360px;
+}
+#tooltip.active {
+    opacity: 1;
+}
+#tooltip small {
+    color: var(--color-1);
+    font-size: 12px;
+}
+#tooltip > .tooltip-header {
+    padding: 7px 10px;
+    margin: -7px -10px 7px -10px;
+    background: linear-gradient(20deg, var(--background-2), transparent);
+}
+#tooltip > .tooltip-quote {
+    color: var(--color-1);
+    text-align: end;
+    font-style: italic;
+    margin-top: 7px;
+}
