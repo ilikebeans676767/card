@@ -43,7 +43,7 @@ function registerTooltipEvent(event) {
 }
 
 function prefersNoTooltips() {
-    return window.matchMedia("(max-width: 800px) or (hover: none)").matches;
+    return window.innerWidth < 800 || window.matchMedia("hover: none").matches;
 }
 
 
