@@ -27,14 +27,16 @@ popups.draw = {
                 <div class="flex-fill"></div>
                 <small style="text-align: end;">
                     ${
-                        loot.cards[0]?.[2] == "ex" ? "SPECIAL EXTRA<br/>LIMITED EDITION" :
+                        loot.cards[0]?.[1] == "ex" ? "SPECIAL EXTRA<br/>LIMITED EDITION" :
                         loot.res.length ? "BONUS ITEMS<br>INCLUDED" :
                             "FIRST<br>EDITION"
                     }
                 </small>
             </div>
             <div class="in-flex flex-fill">
+                <div class="number" style="font-size:4em">Ω</div>
                 <h1 class="number">OMEGA CARDS</h1>
+                <div>TRADING CARD GAME</div>
             </div>
             <small class="out-flex" style="align-items: end">
                 <span>
@@ -57,7 +59,7 @@ popups.draw = {
 
         let resultCur = $make("div.draw-result-currencies");
         for (let res of loot.res) {
-            let div = createCurrencyUI(currencies[res[0]]);
+            let div = createCurrencyUI(res[0]);
             div.$amount.textContent = format(res[1]);
             resultCur.append(div);
         }
@@ -99,7 +101,12 @@ popups.draw = {
                 } else {
                     let [pack, rarity, id, count] = state.loot.cards[state.index];
                     let card = createCardUI(pack, rarity, id);
+                    registerTooltip(card, tooltipTemplates.card(pack, rarity, id));
                     card.classList.add("anim-float-in");
+                    if (count > 1) {
+                        let holder = $make("div.draw-amount.number", "×" + format(count));
+                        card.append(holder);
+                    }
                     localElms.list.append(card);
                     localElms.list.scrollTo({ top: localElms.list.scrollHeight, behavior: 'smooth' });
                     state.index++;
@@ -119,8 +126,9 @@ popups.draw = {
         }
 
         game.time.drawCooldown = 1;
-        emit("card-update");
         updateEffects();
+        updateUnlocks();
+        emit("card-update");
         saveGame();
     },
     onClose() {

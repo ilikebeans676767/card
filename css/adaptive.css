@@ -1,0 +1,95 @@
+@media (max-width: 960px) {
+    body {
+        margin: 0;
+    }
+
+    #sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        background: transparent;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+    #currencies {
+        position: fixed;
+        inset: 0 0 auto 0;
+        padding: 10px;
+        overflow-x: auto;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+        align-content: flex-start;
+        background: linear-gradient(0deg, #0000, #0007, #000a, #000c);
+        height: 74px;
+    }
+    #currencies > * {
+        width: 280px;
+    }
+    #draw-zone {
+        position: fixed;
+        inset: auto 0 44px 0;
+        padding: 0 max(25px, calc(50% - 180px));
+        padding-top: 10px;
+        min-height: 92px;
+        background: linear-gradient(#0000, #0007, #000a, #000c);
+    }
+    #draw-button {
+        font-size: 1em;
+        display: flex;
+    }
+    #draw-button-amount {
+        margin-top: 0;
+        flex: 1;
+    }
+
+
+    main {
+        flex-direction: column-reverse;
+    }
+    #tab-buttons {
+        flex: 0 0 45px;
+        border-bottom: none;
+        border-top: 1px solid var(--border-1);
+        padding: 0 10px 10px 10px;
+    }
+    #tab-content {
+        margin-bottom: 0px;
+        padding-block: 80px 90px;
+    }
+    .tab-buttons > button > iconify-icon {
+        font-size: 21px;
+        vertical-align: -4px;
+    }
+    .tab-buttons > button:hover {
+        background: linear-gradient(0deg, #0000 60%, var(--background-1));
+    }
+    .tab-buttons > button:active {
+        background: linear-gradient(0deg, #0000 50%, var(--background-2));
+    }
+    .tab-buttons > button:disabled {
+        background: linear-gradient(0deg, #0000, var(--border-0) 60%, var(--border-1));
+        font-weight: bold;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .tab-buttons > button {
+        font-size: 0;
+        width: 50px;
+    }
+
+    .popup:not(.clear) > div {
+        min-width: none;
+        max-width: none;
+        width: 100%;
+    }
+
+    .popup:not(.clear) > div > .actions {
+        flex-direction: column;
+        align-items: justify;
+    }
+}

@@ -4,6 +4,14 @@
     flex-direction: column;
     gap: 2px;
 }
+#currencies .hoz-group {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+}
+#currencies .hoz-group > * {
+    flex: 1;
+}
 .currency {
     position: relative;
     background: var(--background-2);
@@ -30,43 +38,48 @@
 }
 
 .game-card {
+    --inside-radius: 5px;
+
     position: relative;
     width: 120px;
-    aspect-ratio: 2 / 3;
-    background: var(--background-0);
-    border: 1px solid var(--border-1);
+    height: 180px;
+    background: var(--rarity-gradient);
     border-radius: 5px;
     box-shadow: var(--shadow-1);
-    overflow: hidden;
+    /* overflow: hidden; */
     text-align: center;
+    box-sizing: content-box;
+    padding: 1px;
 
     user-select: none;
     -webkit-user-select: none;
 }
+.game-card::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: var(--background-0);
+    border-radius: var(--inside-radius);
+}
 .game-card > img {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
+    width: 120px;
+    height: 180px;
+    margin: 1px;
     pointer-events: none;
-}
-.game-card > img::after {
-    position: absolute;
-    inset: 0;
-    content: " ";
-    display: block;
-    background: linear-gradient(var(--background-1), var(--background-2));
 }
 .game-card-name {
     position: absolute;
-    inset: auto 0 0 0;
+    inset: auto 1px 1px 1px;
     padding: 20px 10px 5px 10px;
     color: var(--card-color);
     background: linear-gradient(var(--card-gradient));
+    border-radius: 0 0 4px 4px;
 }
 .game-card-stars {
     position: absolute;
-    inset: 0 0 auto 0;
+    inset: 1px 1px auto 1px;
     padding: 5px 10px 10px 10px;
     color: var(--card-color);
     background: linear-gradient(0deg, var(--card-gradient));
@@ -74,6 +87,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    border-radius: 4px 4px 0 0;
 }
 .game-card-stars:empty {
     display: none;
@@ -82,8 +96,22 @@
     font-size: 24px;
     line-height: 18px;
 }
+.game-card .draw-amount {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 5px;
+    position: absolute;
+    left: 80%;
+    top: -10px;
+    transform: translateX(-50%) rotate(10deg);
+    z-index: 2;
+}
 
-.card-block > .game-card:not(:last-child) {
+.card-block > .game-card:not(:last-child),
+.card-block > .game-card:not(:last-child)::before,
+.card-block > .game-card:not(:last-child) .game-card-name {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -100,5 +128,26 @@
 .card-block > .card-action > :last-child {
     border-bottom-right-radius: 5px;
 }
+.card-block > .card-action > :is([state="off"], [state="max"]) {
+    color: var(--color-2);
+    opacity: 0.5;
+}
+.card-block > .card-action > :not([state]):disabled {
+    --fill: calc(var(--progress) * 100%);
+    background: linear-gradient(var(--bg-1), var(--bg-1)), linear-gradient(var(--bg-0), var(--bg-0));
+    background-position: bottom;
+    background-repeat: no-repeat, repeat;
+    background-size: 100% var(--fill), 100% 100%;
+    transition: background-size 0.3s;
+}
+.card-block > .card-action > :not(:disabled) {
+    --bg-0: var(--button-value-bg-0);
+    --bg-1: var(--button-value-bg-1);
+    --bg-2: var(--button-value-bg-2);
+    --color: var(--button-inv-color);
+    --color-active: var(--button-inv-color-active);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
+
 
 

@@ -26,6 +26,9 @@
     --button-primary-bg-0: #666;
     --button-primary-bg-1: #999e;
     --button-primary-bg-2: #dddd;
+    --button-value-bg-0: #992;
+    --button-value-bg-1: #cc3e;
+    --button-value-bg-2: #ff4d;
 
     --shadow-0: 0 1px 2px #0005;
     --shadow-1: 0 2px 4px #0007;
@@ -37,7 +40,12 @@
 
     --pack-bg: linear-gradient(190deg, #c55, #bb3, #4c4, #3bb, #77d, #c6c, #c55);
     --pack-color: #000a;
-    --pack-border: white;
+    --pack-border: linear-gradient(#999, #fff 10%, #fff 90%, #999);
+
+    --rarity-n: linear-gradient(70deg, #aaa7, #777a);
+    --rarity-r: linear-gradient(170deg, #aab, #fff);
+    --rarity-sr: linear-gradient(170deg, #cc0, #ff3);
+    --rarity-ex: linear-gradient(170deg, #faa, #dd1, #5f5, #3ff, #aaf, #f9f, #faa);
 
     --tooltip-background: #000e;
 }
@@ -50,6 +58,7 @@ body {
     background: var(--background-0);
     color: var(--color-0);
     font-family: var(--content-font);
+    overflow: hidden;
 
     display: flex;
     align-items: stretch;
@@ -65,6 +74,7 @@ button {
     --bg-2: var(--button-bg-2);
     --color: var(--button-color);
     --color-active: var(--button-color-active);
+    --text-shadow: none;
     font-family: var(--content-font);
     font-size: inherit;
     cursor: pointer;
@@ -74,7 +84,12 @@ button {
     border: 1px solid var(--border-0);
     border-radius: 5px;
     padding: 7px 10px;
+    margin: 0;
     box-shadow: inset var(--shadow-0), var(--shadow-1);
+    text-shadow: var(--text-shadow);
+}
+button > * {
+    filter: drop-shadow(var(--text-shadow));
 }
 button:hover {
     border-color: var(--border-1);
@@ -98,7 +113,7 @@ button.primary {
     --bg-2: var(--button-primary-bg-2);
     --color: var(--button-inv-color);
     --color-active: var(--button-inv-color-active);
-    text-shadow: 0 1px var(--button-inv-text-shadow);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
 }
 
 h1, h2, h3, h4, h5 {
@@ -125,10 +140,15 @@ h1, h2, h3, h4, h5 {
     margin: 0 -10px;
     padding: 0 10px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+#draw-zone .currency {
+    margin: -10px -5px 5px -5px;
 }
 #draw-button {
-    position: absolute;
-    inset: auto 10px -100px 10px;
+    margin-bottom: -100px;
     padding: 15px 15px 115px 15px;
 
     color: var(--color-0);
@@ -167,7 +187,31 @@ rarity::before {
     text-transform: uppercase;
     font-family: var(--number-font);
     font-style: italic;
-    margin-inline-end: 0.3ch;
+    padding-inline-end: 0.3ch;
+
+    background: var(--rarity-gradient);
+    color: transparent;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+[rarity="n"] { 
+    --rarity-gradient: var(--rarity-n);
+}
+[rarity="r"] { 
+    --rarity-gradient: var(--rarity-r);
+}
+[rarity="sr"] { 
+    --rarity-gradient: var(--rarity-sr);
+}
+[rarity="ssr"] { 
+    --rarity-gradient: var(--rarity-ssr);
+}
+[rarity="ur"] { 
+    --rarity-gradient: var(--rarity-ur);
+}
+[rarity="ex"] { 
+    --rarity-gradient: var(--rarity-ex);
 }
 
 main {
@@ -177,9 +221,17 @@ main {
 }
 #tab-buttons {
     padding: 0 20px;
+    display: flex;
+    overflow-x: auto;
+    flex-shrink: 0;
+}
+#tab-buttons > * {
+    flex-shrink: 0;
 }
 #tab-content {
     padding: 20px;
+    margin-bottom: -10px;
+    overflow-y: auto;
 }
 
 .tab-buttons {

@@ -21,7 +21,8 @@ function $number(inside) {
 }
 
 
-function createCurrencyUI(currency) {
+function createCurrencyUI(id) {
+    let currency = currencies[id];
     let title = $make("span", currency.name);
     let amount = $make("span", 0);
 
@@ -36,9 +37,11 @@ function createCardUI(pack, rarity, id) {
     let data = cards[pack][rarity][id];
 
     let div = $make("article.game-card");
+    div.setAttribute("rarity", rarity);
 
     let img = div.$img = $make("img");
     img.src = `res/cards/${pack}/${rarity}_${id}.png`;
+    img.onerror = () => (img.src = "res/cards/placeholder.png");
     div.append(img);
     let name = div.$name = $make("div.game-card-name");
     name.innerHTML = `<rarity rarity="${rarity}"></rarity> ${data.name}`;

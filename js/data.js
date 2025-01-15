@@ -6,6 +6,7 @@ function getNewGame() {
     return {
         res: {
             points: 0,
+            shreds: 0,
             energy: 0,
         },
         time: {

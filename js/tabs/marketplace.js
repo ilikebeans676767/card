@@ -21,6 +21,7 @@ tabs.marketplace = {
     },
 
     updateCards() {
+        let destroyingCards = {...this.cards};
         let cardList = [];
         let pack = "standard", rarity = "ex";
         for (let id in cards[pack][rarity]) {
@@ -31,9 +32,14 @@ tabs.marketplace = {
         for (let card of cardList) {
             let [pack, rarity, id] = card;
             let listId = pack + " " + rarity + " " + id;
+            delete destroyingCards[listId];
             let div = this.cards[listId] || this.makeCard(pack, rarity, id);
             div.update();
             this.elms.list.append(div);
+        }
+        for (let card in destroyingCards) {
+            destroyingCards[card].remove();
+            delete this.cards[card];
         }
     },
     makeCard(pack, rarity, id) {
@@ -57,6 +63,7 @@ tabs.marketplace = {
             card.update();
             let data = cards[pack][rarity][id];
             
+            buyBtn.style.setProperty("--progress", game.res[data.buyCost[1]] / data.buyCost[0]);
             let canBuy = game.res[data.buyCost[1]] >= data.buyCost[0];
             buyBtn.disabled = !canBuy;
             levelText = $icon("tabler:shopping-cart");

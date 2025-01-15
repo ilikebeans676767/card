@@ -23,8 +23,8 @@ tabs.collection = {
     updateCards() {
         let cardList = [];
         let pack = "standard";
-        if (game.cards[pack]) for (let rarity in game.cards[pack]) for (let id in cards[pack][rarity]) {
-            if (game.cards[pack][rarity][id]) cardList.push([pack, rarity, id]);
+        if (game.cards[pack]) for (let rarity in cards[pack]) for (let id in cards[pack][rarity]) {
+            if (game.cards[pack][rarity]?.[id]) cardList.push([pack, rarity, id]);
         }
 
         for (let card of cardList) {
@@ -41,7 +41,8 @@ tabs.collection = {
         let div = $make("div.card-block");
         
         let card = div.$card = createCardUI(pack, rarity, id);
-        registerTooltip(card, tooltipTemplates.card(pack, rarity, id))
+        registerTooltip(card, tooltipTemplates.card(pack, rarity, id));
+        card.onclick = () => { if (prefersNoTooltips()) callPopup("card", pack, rarity, id); }
         div.append(card);
 
         let actions = $make("div.card-action");
@@ -64,13 +65,17 @@ tabs.collection = {
             
             let levelText = "";
             if (!data.levelCost) {
+                levelBtn.setAttribute("state", "off");
                 levelBtn.disabled = true;
                 levelText = $icon("tabler:circle-minus");
             } else if (data.maxLevel && state.level >= data.maxLevel) {
+                levelBtn.setAttribute("state", "max");
                 levelBtn.disabled = true;
                 levelText = $icon("tabler:check");
             } else {
+                levelBtn.removeAttribute("state");
                 let levelCost = getCardLevelCost(pack, rarity, id);
+                levelBtn.style.setProperty("--progress", game.res[levelCost[1]] / levelCost[0]);
                 let canLevelUp = game.res[levelCost[1]] >= levelCost[0];
                 levelBtn.disabled = !canLevelUp;
                 levelText = $icon("tabler:arrow-big-up");
@@ -79,13 +84,17 @@ tabs.collection = {
             
             let starText = "";
             if (data.crown) {
+                starBtn.setAttribute("state", "off");
                 starBtn.disabled = true;
                 starText = $icon("tabler:circle-minus");
             } else if (state.star >= 5) {
+                starBtn.setAttribute("state", "max");
                 starBtn.disabled = true;
                 starText = $icon("tabler:check");
             } else {
+                starBtn.removeAttribute("state");
                 let starCost = getCardStarCost(pack, rarity, id);
+                starBtn.style.setProperty("--progress", state.amount / starCost);
                 let canStarUp = state.amount >= starCost;
                 starBtn.disabled = !canStarUp;
                 starText = $icon("tabler:star");

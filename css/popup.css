@@ -19,6 +19,30 @@
     border-radius: 10px;
     margin: 10px;
     box-shadow: var(--shadow-0);
+    min-width: 320px;
+    max-width: 480px;
+}
+
+.popup:not(.clear) > div > .info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.popup:not(.clear) > div > .info > .header {
+    padding: 10px;
+    margin: -10px -10px 0 -10px;
+    background: linear-gradient(20deg, var(--background-2), transparent);
+}
+.popup:not(.clear) > div > .info > .quote {
+    color: var(--color-1);
+    text-align: end;
+    font-style: italic;
+}
+.popup:not(.clear) > div > .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 10px;
 }
 
 .popup.draw-popup .big-card {
@@ -38,10 +62,9 @@
 
     background: var(--pack-bg);
     color: var(--pack-color);
-    border: solid var(--pack-border);
-    border-width: 20px 1px;
+    border-image: var(--pack-border) 30 / 20px 1px;
     box-shadow: var(--shadow-0);
-    padding: 10px;
+    padding: 30px 10px;
 }
 .popup.draw-popup .big-card[style*="--timer"] {
     transform: translate(-50%, -50%) scale(calc(1 + var(--timer) * 0.2)) translate(var(--shake)) rotate(var(--rotate));
@@ -68,9 +91,11 @@
     overflow: hidden;
     margin-block: -10px;
     padding-block: 100px calc(max(var(--padding, 50px), 50px) + 50px);
+    pointer-events: none;
 }
 .popup.draw-popup .card-list.done {
     overflow-y: auto;
+    pointer-events: unset;
 }
 
 .popup.draw-popup .draw-result {
@@ -87,6 +112,7 @@
     padding: 20px;
     display: block;
     animation: float-in .5s;
+    z-index: 3;
 }
 .popup.draw-popup .draw-result-currencies {
     display: flex;

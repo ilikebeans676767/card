@@ -64,7 +64,7 @@ const cards = {
             },
             "n5": {
                 name: "Bigger Wrap",
-                desc: "{+0} energy cap. Bulk energy production past the energy cap are slowed down.",
+                desc: "{+0} bulk energy cap. Bulk energy production past the energy cap are slowed down.",
                 quote: "You can idle for real this time",
                 condition: () => hasCard("standard", "n", "n4"),
                 levelCost: [100, 1.8],
@@ -112,6 +112,154 @@ const cards = {
                 effectors: {}
             },
         },
+        r: {
+            "n0": {
+                name: "Epic Shredding Machine",
+                desc: "{+0%} shred multiplier.",
+                quote: "Instead of using a small office-made shredder, why not use the giant ones made for ASMR videos on the internet?",
+                condition: () => flags.unlocked.shreds,
+                levelCost: [100000, 1.2],
+                starDiff: 0.2,
+                effects: [
+                    (level, star) => level * star * 20,
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+            "n0b": {
+                name: "Amazing Shredding Moments",
+                desc: "{+0%} shred multiplier.",
+                quote: "Apparently people on the internet love watching things being shredded to pieces!"
+                    + " You figure out you could record your Epic Shredding Machines shredding cards and upload it to PipeTube to earn some sweet, sweet ad revenue in the process",
+                condition: () => hasCard("standard", "r", "n0"),
+                levelCost: [2500, 1.25, "shreds"],
+                starDiff: 0.3,
+                effects: [
+                    (level, star) => level * star * 20,
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+            "n1": {
+                name: "Point Multiplier",
+                desc: "{+0%} point multiplier.",
+                quote: "Every incremental game needs exponential growth, a generic currency needs a generic multiplier upgrade",
+                levelCost: [100000, 1.3],
+                effects: [
+                    (level, star) => 40 + level * [0, 10, 20, 40, 80, 160][star],
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+            "n1b": {
+                name: "Money Press",
+                desc: "{+0%} point multiplier.",
+                quote: "Press some of your shreds into money. This is precisely how legal money are made too, people won't even be able to notice a difference",
+                condition: () => flags.unlocked.shreds,
+                levelCost: [1000, 1.12, "shreds"],
+                starDiff: 0.2,
+                effects: [
+                    (level, star) => 25 + level ** (0.9 + star * 0.1) * [0, 25, 50, 100, 180, 250][star],
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+            "n2": {
+                name: "Bulkier Card Packs",
+                desc: "{+0%} bulk draw, but {+1%} cooldown duration.",
+                quote: "The bulkier, the better",
+                condition: () => hasCard("standard", "n", "n3") && hasCard("standard", "ex", "zip"),
+                levelCost: [200000, 2],
+                starDiff: 0.9,
+                effects: [
+                    (level, star) => 20 + level * [0, 5, 10, 16, 25, 40][star],
+                    (level, star) => 2 * level,
+                ],
+                effectors: {
+                    bulk: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    cooldownTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                }
+            },
+            "n3": {
+                name: "Card Opener Factory",
+                desc: "{+0%} energy gain, but {+1%} cooldown duration.",
+                quote: "Produces large quantity of card openers",
+                condition: () => hasCard("standard", "n", "n4") && hasCard("standard", "ex", "zip"),
+                levelCost: [250000, 1.8],
+                starDiff: 0.8,
+                effects: [
+                    (level, star) => 20 + level * [0, 5, 10, 16, 25, 40][star],
+                    (level, star) => 2 * level,
+                ],
+                effectors: {
+                    bulkPower: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    cooldownTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                }
+            },
+            "n3b": {
+                name: "Recycling",
+                desc: "{+0%} energy gain.",
+                quote: "Reusing cards to open more cards is a good idea actually",
+                condition: () => hasCard("standard", "r", "n3") && flags.unlocked.shreds,
+                levelCost: [1000, 1.25, "shreds"],
+                starDiff: 1.2,
+                effects: [
+                    (level, star) => 10 * level * star,
+                ],
+                effectors: {
+                    bulkPower: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n3c": {
+                name: "Composter",
+                desc: "{+0%} bulk energy cap.",
+                quote: "Recycle even harder with this composter designed to make a lot of cards",
+                condition: () => hasCard("standard", "r", "n3b"),
+                levelCost: [1000, 1.2, "shreds"],
+                starDiff: 0.9,
+                effects: [
+                    (level, star) => 25 * (level + 1) * [0, 1, 2, 3, 5, 8, 13][star],
+                ],
+                effectors: {
+                    energyCap: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4": {
+                name: "Endurance Training",
+                desc: "{+0%} card multiplier, but {+1%} cooldown duration and pack breaking duration.",
+                quote: "The card packs got some endurance training! Now they are harder to break into, but the contents are increased!",
+                condition: () => hasCard("standard", "ex", "zip"),
+                levelCost: [50000, 2],
+                starDiff: 1,
+                effects: [
+                    (level, star) => 8 + level * [0, 2, 4, 7, 12, 20][star],
+                    (level, star) => 5 * level,
+                ],
+                effectors: {
+                    bulkMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    cooldownTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                    breakTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                }
+            },
+        },
+        sr: {
+            "n1": {
+                name: "Perfectly Generic Card",
+                desc: "{+0%} point multiplier.",
+                quote: "A perfectly generic card that boosts the perfectly generic currency, the genericness is getting too perfect to handle",
+                levelCost: [125, 5],
+                effects: [
+                    (level, star) => 40 + level ** (0.9 + star * 0.1) * [0, 10, 20, 40, 80, 160][star],
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+        },
         ex: {
             "zip": {
                 name: "StackRAR",
@@ -124,12 +272,24 @@ const cards = {
                     revealTime: [priority.multiplicative, (x) => x * 2]
                 }
             },
+            "shred": {
+                name: "Shredder",
+                desc: "Duplicate cards that are useless are shredded into a new currency called Shreds, including crowned cards and cards with max stars.",
+                quote: "Act as if nothing has ever happened",
+                condition: () => game.cards.standard?.r,
+                crown: true,
+                buyCost: [2500000, "points"],
+                effects: [],
+                effectors: {}
+            },
         }
     }
 }
 
 const cardStarCost = {
     standard: {
-        n: (x, n = 0) => Math.floor((20 + 5 * x) * (x + n) ** (x + 1))
+        n: (x, n = 0) => Math.floor((20 + 5 * x) * (x + n) ** (x + 1)),
+        r: (x, n = 0) => Math.floor((10 + 5 * x) * (x + n) ** (x + 0.5)),
+        sr: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
     }
 }

@@ -3,7 +3,11 @@ const MAX_CARDS = 1e12;
 function onFrame() {
     elms.currencies.$cards.$title.textContent = "Cards left";
     elms.currencies.$cards.$amount.textContent = format(MAX_CARDS - game.stats.cardsDrawn, 0, 13);
-    elms.currencies.$points.$amount.textContent = format(game.res.points, 0, 9);
+    if (flags.unlocked.points) elms.currencies.$points.$amount.textContent = format(game.res.points, 0, 7);
+    if (flags.unlocked.shreds) elms.currencies.$shreds.$amount.textContent = format(game.res.shreds, 0, 7);
+    if (flags.unlocked.energy) {
+        elms.currencies.$energy.$amount.textContent = format(game.res.energy, 0, 7) + " / " + format(effects.energyCap, 0, 7);
+    }
 
     game.res.energy = addWithCap(game.res.energy, delta / 60000 * effects.bulkPower, effects.energyCap);
     game.time.drawCooldown -= delta / 1000 / effects.cooldownTime;
@@ -22,6 +26,18 @@ function onFrame() {
 
     tabs[currentTab]?.onFrame?.();
     emit("frame");
+}
+
+function updateUnlocks() {
+    flags.unlocked.points = hasCard("standard", "n", "n1");
+    elms.currencies.$points.style.display = flags.unlocked.points ? "" : "none";
+    flags.unlocked.shreds = hasCard("standard", "ex", "shred");
+    elms.currencies.$shreds.style.display = flags.unlocked.shreds ? "" : "none";
+    flags.unlocked.energy = hasCard("standard", "n", "n4");
+    elms.currencies.$energy.style.display = flags.unlocked.energy ? "" : "none";
+
+    flags.unlocked.market = hasCard("standard", "n", "c1");
+    tabButtons.marketplace.style.display = flags.unlocked.market ? "" : "none";
 }
 
 // ----- Effect logic
@@ -80,7 +96,11 @@ function addCard(pack, rarity, id, amount) {
         stars: 1,
         level: 1,
     };
-    game.cards[pack][rarity][id].amount += amount;
+
+    let data = cards[pack][rarity][id];
+    let state = game.cards[pack][rarity][id];
+    if (data.crown || state.stars >= 5) state.amount = 0;
+    else state.amount += amount;
 }
 
 function hasCard(pack, rarity, id) {
@@ -130,21 +150,42 @@ function doDraw(count) {
         res: [],
         cards: [],
     };
+
+    let resLoot = {
+        shreds: 0,
+    }
     for (let loot of rawLoot) {
         let [type, target] = loot.item.split(":");
         if (type == "res") {
             if (loot.count > 0) lootList.res.push([target, loot.count]);
         } else if (type == "card") {
             let [pack, rarity, id] = target.split("/");
+
             if (hasCard("standard", "ex", "zip")) {
                 lootList.cards.push([pack, rarity, id, loot.count]);
             } else for (let i = 0; i < loot.count; i++) {
                 lootList.cards.push([pack, rarity, id, 1]);
             }
+
+            if (flags.unlocked.shreds) {
+                let data = cards[pack][rarity][id];
+                let state = game.cards[pack]?.[rarity]?.[id] ?? { stars: 0 };
+
+                if (data.crown || state.stars >= 5) {
+                    if (state.stars == 0) loot.count -= 1;
+                    let cardShreds = loot.count * effects.shredMult;
+                    if (data.crown) cardShreds *= effects.shredCrownMult;
+                    let rIndex = ["r", "sr", "ssr", "ur"].indexOf(rarity);
+                    let rMult = [effects.shredRMult, effects.shredSRMult, effects.shredSSRMult, effects.shredURMult];
+                    for (let i = 0; i <= rIndex; i++) cardShreds *= rMult[i];
+                    resLoot.shreds += cardShreds;
+                }
+            }
         }
     }
 
     lootList.cards.shuffle();
+    for (let r in resLoot) if (resLoot[r]) lootList.res.push([r, resLoot[r]]);
     callPopup("draw", lootList);
 }
 
@@ -202,6 +243,7 @@ function levelUpCard(pack, rarity, id, amount = 1, shouldEmit = true) {
     state.level += amount;
     if (shouldEmit) {
         updateEffects();
+        updateUnlocks();
         emit("card-upgrade");
         saveGame();
     }
@@ -220,6 +262,7 @@ function starUpCard(pack, rarity, id, shouldEmit = true) {
     state.stars++;
     if (shouldEmit) {
         updateEffects();
+        updateUnlocks();
         emit("card-upgrade");
         saveGame();
     }
@@ -227,10 +270,11 @@ function starUpCard(pack, rarity, id, shouldEmit = true) {
 function buyCard(pack, rarity, id) {
     if (hasCard(pack, rarity, id) || popups.draw.elms.list) return;
 
-    let cost = cards[pack][rarity][id];
+    let cost = cards[pack][rarity][id].buyCost;
     if (game.res[cost[1]] < cost[0]) return;
     game.res[cost[1]] -= cost[0];
 
-    emit("card-upgrade");
+    console.log(tabs.marketplace.cards[pack + " " + rarity + " " + id]);
+    tabs.marketplace.cards[pack + " " + rarity + " " + id]?.remove();
     callPopup("draw", { res: [], cards: [[pack, rarity, id, 1]] });
 }

@@ -9,11 +9,27 @@ const baseEffect = {
     pointsExtra: 0,
     pointsMult: 1,
 
+    shredMult: 1,
+    shredRMult: 1,
+    shredSRMult: 1,
+    shredSSRMult: 1,
+    shredURMult: 1,
+    shredCrownMult: 10,
+
     cooldownTime: 3,
     breakTime: 5,
     breakSkip: 0.3,
     revealTime: 0.5,
     revealSkip: 1,
+}
+
+const flags = {
+    unlocked: {
+        points: false,
+        shreds: false,
+        energy: false,
+        market: false,
+    }
 }
 
 const priority = {

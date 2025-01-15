@@ -26,39 +26,40 @@
     margin-top: 7px;
 }
 
-#tooltip > .tooltip-header {
+#tooltip > .header {
     padding: 7px 10px;
     margin: -7px -10px 0 -10px;
     background: linear-gradient(20deg, var(--background-2), transparent);
 }
-
-#tooltip > .tooltip-quote {
+#tooltip > .quote {
     color: var(--color-1);
     text-align: end;
     font-style: italic;
 }
 
-#tooltip > .tooltip-formula > h4 {
+#tooltip > .formula > h4 {
     font: inherit;
     color: var(--color-1);
     text-align: center;
     border-bottom: 1px solid var(--border-0);
     padding-block: 0 2px;
 }
-#tooltip > .tooltip-formula > div {
+#tooltip > .formula > div {
     display: flex;
     border-bottom: 1px dashed var(--border-0);
     padding-block: 3px 2px;
+    gap: 1em;
 }
-#tooltip > .tooltip-formula > div > span {
+#tooltip > .formula > div > span {
     display: block;
     flex: 1;
+    white-space: nowrap;
 }
-#tooltip > .tooltip-formula > div > :last-child {
+#tooltip > .formula > div > :last-child {
     text-align: end;
 }
 
-#tooltip > .tooltip-action {
+#tooltip > .action {
     color: var(--color-1);
     text-align: center;
 }
