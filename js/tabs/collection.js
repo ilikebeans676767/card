@@ -67,7 +67,7 @@ tabs.collection = {
             if (!data.levelCost) {
                 levelBtn.setAttribute("state", "off");
                 levelBtn.disabled = true;
-                levelText = $icon("tabler:circle-minus");
+                levelText = $icon("tabler:minus");
             } else if (data.maxLevel && state.level >= data.maxLevel) {
                 levelBtn.setAttribute("state", "max");
                 levelBtn.disabled = true;
@@ -86,8 +86,8 @@ tabs.collection = {
             if (data.crown) {
                 starBtn.setAttribute("state", "off");
                 starBtn.disabled = true;
-                starText = $icon("tabler:circle-minus");
-            } else if (state.star >= 5) {
+                starText = $icon("tabler:minus");
+            } else if (state.stars >= 5) {
                 starBtn.setAttribute("state", "max");
                 starBtn.disabled = true;
                 starText = $icon("tabler:check");

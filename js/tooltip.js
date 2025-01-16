@@ -132,7 +132,7 @@ let tooltipTemplates = {
                     tooltip.innerHTML += `<div class="action">
                         This card can not be fused.
                     </div>`
-                } else if (state.star >= 5) {
+                } else if (state.stars >= 5) {
                     tooltip.innerHTML += `<div class="action">
                         Max star reached.
                     </div>`

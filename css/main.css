@@ -52,6 +52,7 @@
 
 * {
     box-sizing: border-box;
+    touch-action: manipulation;
 }
 
 body {
@@ -65,7 +66,6 @@ body {
     position: fixed;
     inset: 0;
     font-size: 16px;
-    touch-action: manipulation;
 }
 
 button {
@@ -118,6 +118,12 @@ button.primary {
 
 h1, h2, h3, h4, h5 {
     margin-block: 0;
+}
+hr {
+    border: none;
+    height: 1px;
+    margin-block: 10px;
+    background: radial-gradient(var(--border-1), var(--border-0), #0000 70%);
 }
 
 #sidebar {

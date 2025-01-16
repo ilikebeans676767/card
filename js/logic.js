@@ -179,6 +179,7 @@ function doDraw(count) {
                     let rMult = [effects.shredRMult, effects.shredSRMult, effects.shredSSRMult, effects.shredURMult];
                     for (let i = 0; i <= rIndex; i++) cardShreds *= rMult[i];
                     resLoot.shreds += cardShreds;
+                    console.log(pack, rarity, id, cardShreds);
                 }
             }
         }

@@ -206,6 +206,7 @@ const cards = {
                 quote: "Reusing cards to open more cards is a good idea actually",
                 condition: () => hasCard("standard", "r", "n3") && flags.unlocked.shreds,
                 levelCost: [1000, 1.25, "shreds"],
+                maxLevel: 40,
                 starDiff: 1.2,
                 effects: [
                     (level, star) => 10 * level * star,
@@ -217,9 +218,10 @@ const cards = {
             "n3c": {
                 name: "Composter",
                 desc: "{+0%} bulk energy cap.",
-                quote: "Recycle even harder with this composter designed to make a lot of cards",
+                quote: "Recycle even harder with this composter designed to make a metric-scrap-ton of cards",
                 condition: () => hasCard("standard", "r", "n3b"),
                 levelCost: [1000, 1.2, "shreds"],
+                maxLevel: 75,
                 starDiff: 0.9,
                 effects: [
                     (level, star) => 25 * (level + 1) * [0, 1, 2, 3, 5, 8, 13][star],
