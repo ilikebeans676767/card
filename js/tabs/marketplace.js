@@ -49,6 +49,7 @@ tabs.marketplace = {
         
         let card = div.$card = createCardUI(pack, rarity, id);
         registerTooltip(card, tooltipTemplates.card(pack, rarity, id))
+        card.onclick = () => { if (prefersNoTooltips()) callPopup("card", pack, rarity, id, "purchase"); }
         div.append(card);
         
         let actions = $make("div.card-action");

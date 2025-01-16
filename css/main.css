@@ -115,6 +115,15 @@ button.primary {
     --color-active: var(--button-inv-color-active);
     --text-shadow: 0 1px var(--button-inv-text-shadow);
 }
+button.value {
+    --bg-0: var(--button-value-bg-0);
+    --bg-1: var(--button-value-bg-1);
+    --bg-2: var(--button-value-bg-2);
+    --color: var(--button-inv-color);
+    --color-active: var(--button-inv-color-active);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
+
 
 h1, h2, h3, h4, h5 {
     margin-block: 0;
@@ -124,6 +133,11 @@ hr {
     height: 1px;
     margin-block: 10px;
     background: radial-gradient(var(--border-1), var(--border-0), #0000 70%);
+}
+iconify-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
 }
 
 #sidebar {

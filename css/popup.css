@@ -21,29 +21,59 @@
     box-shadow: var(--shadow-0);
     min-width: 320px;
     max-width: 480px;
+    overflow-y: auto;
 }
 
-.popup:not(.clear) > div > .info {
+.popup:not(.clear) > div .info {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.popup:not(.clear) > div > .info > .header {
+.popup:not(.clear) > div .header {
     padding: 10px;
     margin: -10px -10px 0 -10px;
     background: linear-gradient(20deg, var(--background-2), transparent);
 }
-.popup:not(.clear) > div > .info > .quote {
+.popup:not(.clear) > div .quote {
     color: var(--color-1);
     text-align: end;
     font-style: italic;
 }
-.popup:not(.clear) > div > .actions {
+.popup:not(.clear) > div .actions {
     display: flex;
     flex-direction: row;
     justify-content: end;
     margin-top: 10px;
+    gap: 5px;
 }
+.popup:not(.clear) > div .formula > h4 {
+    font: inherit;
+    color: var(--color-1);
+    text-align: center;
+    border-bottom: 1px solid var(--border-0);
+    padding-block: 0 2px;
+}
+.popup:not(.clear) > div .formula:not(:first-child) {
+    margin-top: 10px;
+}
+.popup:not(.clear) > div .formula > div {
+    display: flex;
+    border-bottom: 1px dashed var(--border-0);
+    padding-block: 3px 2px;
+    gap: 1em;
+}
+.popup:not(.clear) > div .formula > div > span {
+    display: block;
+    flex: 1;
+    white-space: nowrap;
+}
+.popup:not(.clear) > div .formula > div > :last-child {
+    text-align: end;
+}
+.popup:not(.clear) > div .formula + .actions {
+    margin-top: 5px;
+}
+
 
 .popup.draw-popup .big-card {
     position: absolute;
@@ -124,4 +154,8 @@
 }
 .popup.draw-popup .draw-result-currencies > * {
     width: 160px;
+}
+
+.popup-card-actions {
+    margin-top: 10px;
 }

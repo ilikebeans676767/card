@@ -107,6 +107,7 @@
     top: -10px;
     transform: translateX(-50%) rotate(10deg);
     z-index: 2;
+    white-space: nowrap;
 }
 
 .card-block > .game-card:not(:last-child),

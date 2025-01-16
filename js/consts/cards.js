@@ -209,7 +209,7 @@ const cards = {
                 maxLevel: 40,
                 starDiff: 1.2,
                 effects: [
-                    (level, star) => 10 * level * star,
+                    (level, star) => 10 * level * [0, 1, 1.5, 2, 3, 4][star],
                 ],
                 effectors: {
                     bulkPower: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
@@ -224,7 +224,7 @@ const cards = {
                 maxLevel: 75,
                 starDiff: 0.9,
                 effects: [
-                    (level, star) => 25 * (level + 1) * [0, 1, 2, 3, 5, 8, 13][star],
+                    (level, star) => 25 * (level + 1) * [0, 1, 2, 3, 5, 8][star],
                 ],
                 effectors: {
                     energyCap: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
