@@ -191,7 +191,6 @@ popups.card = {
             else upBtn.disabled = true;
             upBtn.onclick = () => { buyCard(pack, rarity, id); popups.card.state.popup.close(); }
             actions.append(upBtn);
-            actions.append(viewBtn);
         }
     },
     onClose() {
