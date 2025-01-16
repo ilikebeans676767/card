@@ -13,7 +13,7 @@ function $make(def, ...content) {
 }
 
 function $icon(source, inline = true) {
-    return `<iconify-icon icon="${source}"${inline ? " inline" : ""}></iconify-icon>`;
+    return `<iconify-icon icon="${source}"${inline ? ' inline=""' : ""}></iconify-icon>`;
 }
 
 function $number(inside) {
@@ -53,17 +53,61 @@ function createCardUI(pack, rarity, id) {
 
     div.update = () => {
         let state = game.cards[pack]?.[rarity]?.[id];
+        let starsHTML = "";
         if (!state) {
-            stars.innerHTML = "";
+            starsHTML = "";
         } else if (data.crown) {
-            stars.innerHTML = $icon("ph:crown-fill");
+            starsHTML = $icon("ph:crown-fill");
         } else {
-            stars.innerHTML = "";
+            starsHTML = "";
             for (let a = 0; a < 5; a++) {
-                stars.innerHTML += $icon(`tabler:star${a < state.stars ? "-filled" : ""}`);;
+                starsHTML += $icon(`tabler:star${a < state.stars ? "-filled" : ""}`);
             }
+        }
+        if (stars.innerHTML != starsHTML) {
+            console.log(stars.innerHTML, starsHTML);
+            stars.innerHTML = starsHTML;
         }
     }
 
+    return div;
+}
+
+function createChoiceGroup(options, value, onChoice) {
+    let div = $make("div.choice-group");
+    div.value = value;
+    let buttons = {};
+
+    function set(value) {
+        div.value = value;
+        update(value);
+        onChoice(value);
+    }
+
+    function update(value) {
+        for (let btn in buttons) {
+           buttons[btn].disabled = btn == value;
+        }
+    }
+
+    for (const opt in options) {
+        let btn = $make("button", options[opt]);
+        btn.onclick = () => set(opt);
+        buttons[opt] = btn;
+        div.append(btn);
+    }
+
+    div.scrollToChoice = () => {
+        let value = div.value;
+        console.log(value);
+        if (buttons[value]) {
+            let divRect = div.getBoundingClientRect();
+            let btnRect = buttons[value].getBoundingClientRect();
+            div.scrollTo({ left: (btnRect.left + btnRect.right - divRect.width) / 2 - divRect.left });
+            console.log(divRect, btnRect);
+        }
+    }
+
+    update(value);
     return div;
 }

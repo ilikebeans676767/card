@@ -15,7 +15,7 @@ const cards = {
                 quote: "ここにいる",
                 levelCost: [10, 1.2],
                 effects: [
-                    (level, star) => level * star,
+                    (level, star) => level ** ((game.cards.standard?.sr?.n1?.stars ?? 0) * .1 + 1) * star,
                 ],
                 effectors: {
                     points: [priority.additive, (x) => x + fx(0)]
@@ -29,7 +29,7 @@ const cards = {
                 levelCost: [5, 1.15],
                 starDiff: 0.2,
                 effects: [
-                    (level, star) => level * star,
+                    (level, star) => level ** ((game.cards.standard?.sr?.n2?.stars ?? 0) * .1 + 1) * star,
                 ],
                 effectors: {
                     pointsExtra: [priority.additive, (x) => x + fx(0)]
@@ -205,7 +205,7 @@ const cards = {
                 desc: "{+0%} energy gain.",
                 quote: "Reusing cards to open more cards is a good idea actually",
                 condition: () => hasCard("standard", "r", "n3") && flags.unlocked.shreds,
-                levelCost: [1000, 1.25, "shreds"],
+                levelCost: [1000, 1.4, "shreds"],
                 maxLevel: 40,
                 starDiff: 1.2,
                 effects: [
@@ -220,7 +220,7 @@ const cards = {
                 desc: "{+0%} bulk energy cap.",
                 quote: "Recycle even harder with this composter designed to make a metric-scrap-ton of cards",
                 condition: () => hasCard("standard", "r", "n3b"),
-                levelCost: [1000, 1.2, "shreds"],
+                levelCost: [1000, 1.3, "shreds"],
                 maxLevel: 75,
                 starDiff: 0.9,
                 effects: [
@@ -236,6 +236,7 @@ const cards = {
                 quote: "The card packs got some endurance training! Now they are harder to break into, but the contents are increased!",
                 condition: () => hasCard("standard", "ex", "zip"),
                 levelCost: [50000, 2],
+                maxLevel: 40,
                 starDiff: 1,
                 effects: [
                     (level, star) => 8 + level * [0, 2, 4, 7, 12, 20][star],
@@ -249,7 +250,7 @@ const cards = {
             },
         },
         sr: {
-            "n1": {
+            "n0": {
                 name: "Perfectly Generic Card",
                 desc: "{+0%} point multiplier.",
                 quote: "A perfectly generic card that boosts the perfectly generic currency, the genericness is getting too perfect to handle",
@@ -260,6 +261,24 @@ const cards = {
                 effectors: {
                     pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
                 }
+            },
+            "n1": {
+                name: "A Pair of Points",
+                desc: "Raise the level in <b><rarity rarity='n'></rarity> A Single Point</b>'s effect by {^0:1}",
+                quote: "Two is always better than one",
+                effects: [
+                    (level, star) => 1 + star * 0.1,
+                ],
+                effectors: {}
+            },
+            "n2": {
+                name: "Dice Extractor",
+                desc: "Raise the level in <b><rarity rarity='n'></rarity> Half a Point</b>'s effect by {^0:1}",
+                quote: "Let the pips on the die guide you",
+                effects: [
+                    (level, star) => 1 + star * 0.1,
+                ],
+                effectors: {}
             },
         },
         ex: {

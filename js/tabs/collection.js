@@ -27,12 +27,16 @@ tabs.collection = {
             if (game.cards[pack][rarity]?.[id]) cardList.push([pack, rarity, id]);
         }
 
+        let shouldAppend = false;
+        let index = 0;
         for (let card of cardList) {
             let [pack, rarity, id] = card;
             let listId = pack + " " + rarity + " " + id;
             let div = this.cards[listId] || this.makeCard(pack, rarity, id);
             div.update();
-            this.elms.list.append(div);
+            if (this.elms.list.children[index] != div) shouldAppend = true;
+            if (shouldAppend) this.elms.list.append(div);
+            index++;
         }
     },
     makeCard(pack, rarity, id) {

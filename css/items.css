@@ -130,8 +130,7 @@
     border-bottom-right-radius: 5px;
 }
 .card-block > .card-action > :is([state="off"], [state="max"]) {
-    color: var(--color-2);
-    opacity: 0.5;
+    color: var(--color-3);
 }
 .card-block > .card-action > :not([state]):disabled {
     --fill: calc(var(--progress) * 100%);
@@ -139,7 +138,6 @@
     background-position: bottom;
     background-repeat: no-repeat, repeat;
     background-size: 100% var(--fill), 100% 100%;
-    transition: background-size 0.3s;
 }
 .card-block > .card-action > :not(:disabled) {
     --bg-0: var(--button-value-bg-0);
@@ -150,5 +148,41 @@
     --text-shadow: 0 1px var(--button-inv-text-shadow);
 }
 
+.opt-container {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-2);
+}
+.opt-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-top: 10px;
+    gap: 10px;
+}
+.opt-entry > label {
+    flex: 0 0 200px;
+    text-align: end;
+}
+.opt-entry > span {
+    display: block;
+    width: 100%;
+}
+
+.choice-group {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    gap: 2px;
+}
+.choice-group button:disabled {
+    color: var(--color-0);
+    border-color: var(--border-1);
+    font-weight: bold;
+    background: var(--background-1);
+    box-shadow: inset var(--shadow-2), inset var(--shadow-1);
+}
 
 

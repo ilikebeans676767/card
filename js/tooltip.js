@@ -72,13 +72,17 @@ let tooltipTemplates = {
             for (let f of data.effects) curFx.push(f(level, stars));
 
             if (mode == "level-up") {
-                newFx = [];
-                fx = (x) => newFx[x];
-                for (let f of data.effects) newFx.push(f(level + 1, stars));
+                if (!data.maxLevel || level < data.maxLevel) {
+                    newFx = [];
+                    fx = (x) => newFx[x];
+                    for (let f of data.effects) newFx.push(f(level + 1, stars));
+                }
             } else if (mode == "star-up") {
-                newFx = [];
-                fx = (x) => newFx[x];
-                for (let f of data.effects) newFx.push(f(level, stars + 1));
+                if (stars < 5) {
+                    newFx = [];
+                    fx = (x) => newFx[x];
+                    for (let f of data.effects) newFx.push(f(level, stars + 1));
+                }
             }
 
             tooltip.innerHTML = `

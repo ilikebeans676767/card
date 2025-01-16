@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadGame();
     updateEffects();
     updateUnlocks();
+    updateMusic();
     setTab("collection");
     time = performance.now();
     requestAnimationFrame(loop);

@@ -5,6 +5,8 @@ let currentTab = "";
 function initTabs() {
     makeTabButton("collection");
     makeTabButton("marketplace");
+    elms.tab.$buttons.append($make("div.flex-fill"));
+    makeTabButton("options");
 }
 
 function makeTabButton(id) {

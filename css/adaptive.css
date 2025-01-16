@@ -77,6 +77,24 @@
     
 }
 
+@media (max-width: 600px) {
+    .opt-entry {
+        flex-direction: column;
+        gap: 2px;
+    }
+    .opt-entry > label {
+        text-align: start;
+        flex: auto;
+    }
+    .choice-group {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        padding: 5px 10px;
+        margin: -5px -10px;
+    }
+}
+
 @media (max-width: 480px) {
     .tab-buttons > button {
         font-size: 0;
@@ -87,7 +105,7 @@
         content: attr(tab-name);
         font-size: 1.5em;
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         font-weight: bold;
     }
 

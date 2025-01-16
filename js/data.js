@@ -18,7 +18,8 @@ function getNewGame() {
         },
         cards: {},
         option: {
-            notation: "common",
+            notation: "default",
+            music: "",
         },
     }
 }
