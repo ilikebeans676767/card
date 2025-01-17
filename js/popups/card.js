@@ -66,6 +66,10 @@ popups.card = {
             <div class="header">
                 <h2><rarity rarity="${rarity}"></rarity> ${data.name}</h2>
                 <small>${state ? `
+                    ${data.faction
+                        ? `(${data.faction} faction)<br>`
+                        : ``
+                    }
                     ${data.crown 
                         ? ``
                         : `(<span class="number">+${format(state.amount)}</span> extra copies)<br>`
@@ -119,7 +123,7 @@ popups.card = {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
                         <h4>Upgrade cost:</h4>
-                        <div><span>${name}</span>${$number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
+                        <div><span>${name}</span>${_number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
                     </div>
                     <div class="actions popup-upg-actions"></div>
                 `);
@@ -130,7 +134,7 @@ popups.card = {
                 upBtn.onclick = () => levelUpCard(pack, rarity, id);
                 actions.append(upBtn);
                 let viewBtn = $make("button");
-                viewBtn.innerHTML = $icon(viewType == "level-up" ? "tabler:eye-filled" : "tabler:eye");
+                viewBtn.innerHTML = _icon(viewType == "level-up" ? "tabler:eye-filled" : "tabler:eye");
                 viewBtn.onclick = () => setViewType("level-up");
                 actions.append(viewBtn);
             }
@@ -159,7 +163,7 @@ popups.card = {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
                         <h4>Fusion cost:</h4>
-                        <div><span>"${data.name}" extra copies</span>${$number(format(state.amount) + " / " + format(starCost))}</div>
+                        <div><span>"${data.name}" extra copies</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
                     </div>
                     <div class="actions popup-upg-actions"></div>
                 `);
@@ -170,7 +174,7 @@ popups.card = {
                 upBtn.onclick = () => starUpCard(pack, rarity, id);
                 actions.append(upBtn);
                 let viewBtn = $make("button");
-                viewBtn.innerHTML = $icon(viewType == "star-up" ? "tabler:eye-filled" : "tabler:eye");
+                viewBtn.innerHTML = _icon(viewType == "star-up" ? "tabler:eye-filled" : "tabler:eye");
                 viewBtn.onclick = () => setViewType("star-up");
                 actions.append(viewBtn);
             }
@@ -181,7 +185,7 @@ popups.card = {
             localElms.actions.insertAdjacentHTML("beforeend", `
                 <div class="formula" style="padding-inline: 10px">
                     <h4>Purchase cost:</h4>
-                    <div><span>${name}</span>${$number(format(game.res[buyCost[1]]) + " / " + format(buyCost[0]))}</div>
+                    <div><span>${name}</span>${_number(format(game.res[buyCost[1]]) + " / " + format(buyCost[0]))}</div>
                 </div>
                 <div class="actions popup-upg-actions"></div>
             `);

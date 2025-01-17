@@ -71,18 +71,18 @@ tabs.collection = {
             if (!data.levelCost) {
                 levelBtn.setAttribute("state", "off");
                 levelBtn.disabled = true;
-                levelText = $icon("tabler:minus");
+                levelText = _icon("tabler:minus");
             } else if (data.maxLevel && state.level >= data.maxLevel) {
                 levelBtn.setAttribute("state", "max");
                 levelBtn.disabled = true;
-                levelText = $icon("tabler:check");
+                levelText = _icon("tabler:check");
             } else {
                 levelBtn.removeAttribute("state");
                 let levelCost = getCardLevelCost(pack, rarity, id);
                 levelBtn.style.setProperty("--progress", game.res[levelCost[1]] / levelCost[0]);
                 let canLevelUp = game.res[levelCost[1]] >= levelCost[0];
                 levelBtn.disabled = !canLevelUp;
-                levelText = $icon("tabler:arrow-big-up");
+                levelText = _icon("tabler:arrow-big-up");
             }
             if (levelBtn.innerHTML != levelText) levelBtn.innerHTML = levelText;
             
@@ -90,18 +90,18 @@ tabs.collection = {
             if (data.crown) {
                 starBtn.setAttribute("state", "off");
                 starBtn.disabled = true;
-                starText = $icon("tabler:minus");
+                starText = _icon("tabler:minus");
             } else if (state.stars >= 5) {
                 starBtn.setAttribute("state", "max");
                 starBtn.disabled = true;
-                starText = $icon("tabler:check");
+                starText = _icon("tabler:check");
             } else {
                 starBtn.removeAttribute("state");
                 let starCost = getCardStarCost(pack, rarity, id);
                 starBtn.style.setProperty("--progress", state.amount / starCost);
                 let canStarUp = state.amount >= starCost;
                 starBtn.disabled = !canStarUp;
-                starText = $icon("tabler:star");
+                starText = _icon("tabler:star");
             }
             if (starBtn.innerHTML != starText) starBtn.innerHTML = starText;
         }

@@ -91,11 +91,11 @@ popups.draw = {
         } else if (state.phase == "revealing") {
             while (state.timer <= 0) {
                 if (state.index >= state.loot.cards.length) {
+                    state.phase = "done";
                     popups.draw.onDone();
                     localElms.list.classList.add("done");
                     if (localElms.list.scrollHeight > localElms.list.clientHeight) localElms.list.style.setProperty("--padding", localElms.result.scrollHeight + "px");
                     localElms.result.style.setProperty("--height", localElms.list.scrollHeight + localElms.result.scrollHeight * 2 + "px");
-                    state.phase = "done";
                     removeEvent("frame", popups.draw.onFrame);
                     break;
                 } else {

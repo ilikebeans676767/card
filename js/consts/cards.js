@@ -50,7 +50,7 @@ const cards = {
             },
             "n4": {
                 name: "Self-Filling Pack",
-                desc: "{+0} bulk power. Bulk power generates bulk energy which acts as a temporary bulk draw increase that is spent upon drawing.",
+                desc: "{+0} bulk power. Bulk power passively generates bulk energy.",
                 quote: "Incremental games, also known as idle games",
                 condition: () => hasCard("standard", "n", "n3"),
                 levelCost: [25, 2],
@@ -176,7 +176,7 @@ const cards = {
                 levelCost: [200000, 2],
                 starDiff: 0.9,
                 effects: [
-                    (level, star) => 20 + level * [0, 5, 10, 16, 25, 40][star],
+                    (level, star) => 20 + level * star * 5,
                     (level, star) => 2 * level,
                 ],
                 effectors: {
@@ -192,7 +192,7 @@ const cards = {
                 levelCost: [250000, 1.8],
                 starDiff: 0.8,
                 effects: [
-                    (level, star) => 20 + level * [0, 5, 10, 16, 25, 40][star],
+                    (level, star) => 20 + level * star * 5,
                     (level, star) => 2 * level,
                 ],
                 effectors: {
@@ -224,7 +224,7 @@ const cards = {
                 maxLevel: 75,
                 starDiff: 0.9,
                 effects: [
-                    (level, star) => 25 * (level + 1) * [0, 1, 2, 3, 5, 8][star],
+                    (level, star) => 25 * (level + 1) * [0, 1, 2, 3, 5, 7][star],
                 ],
                 effectors: {
                     energyCap: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
@@ -239,13 +239,83 @@ const cards = {
                 maxLevel: 40,
                 starDiff: 1,
                 effects: [
-                    (level, star) => 8 + level * [0, 2, 4, 7, 12, 20][star],
+                    (level, star) => 8 + level * star * 2,
                     (level, star) => 5 * level,
                 ],
                 effectors: {
                     bulkMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                     cooldownTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
                     breakTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                }
+            },
+            "n5a": {
+                name: "Trending",
+                desc: "{+0} fire power per gain.",
+                quote: "ah,<br>that's hot,<br>..., that's hot",
+                faction: "fire",
+                levelCost: [2, 1.5, "fire"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => level * star,
+                ],
+                effectors: {
+                    fireGain: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n5b": {
+                name: "Ocean",
+                desc: "{+0} water power per gain.",
+                quote: "i'm blue da be dee da be die",
+                faction: "water",
+                levelCost: [2, 1.5, "water"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => level * star,
+                ],
+                effectors: {
+                    waterGain: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n5c": {
+                name: "Forest",
+                desc: "{+0} leaf power per gain.",
+                quote: "team trees ftw",
+                faction: "leaf",
+                levelCost: [2, 1.5, "leaf"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => level * star,
+                ],
+                effectors: {
+                    leafGain: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n5d": {
+                name: "Air",
+                desc: "{+0} sun power per gain.",
+                quote: "feel the breath",
+                faction: "sun",
+                levelCost: [2, 1.5, "sun"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => level * star,
+                ],
+                effectors: {
+                    sunGain: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n5e": {
+                name: "Earth",
+                desc: "{+0} moon power per gain.",
+                quote: "it is our home",
+                faction: "moon",
+                levelCost: [2, 1.5, "moon"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => level * star,
+                ],
+                effectors: {
+                    moonGain: [priority.additive, (x) => x + fx(0)],
                 }
             },
         },
@@ -280,6 +350,96 @@ const cards = {
                 ],
                 effectors: {}
             },
+            "n3": {
+                name: "Card Warehouse",
+                desc: "{+0%} bulk energy cap.",
+                quote: "At this rate you will need to get yourself a bigger room just so you can store all your cards",
+                condition: () => hasCard("standard", "r", "n3b"),
+                levelCost: [10000000, 5, "shreds"],
+                maxLevel: 75,
+                starDiff: 0.9,
+                effects: [
+                    (level, star) => 10 * level * [0, 2, 3, 5, 8, 12][star],
+                ],
+                effectors: {
+                    energyCap: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4a": {
+                name: "Fire Power Mastery",
+                desc: "{+0%} fire power, leaf power, and point gains.",
+                quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
+                faction: "fire",
+                levelCost: [10, 1.2, "fire"],
+                effects: [
+                    (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
+                ],
+                effectors: {
+                    fireGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    leafGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4b": {
+                name: "Water Power Mastery",
+                desc: "{+0%} water power, fire power, and point gains.",
+                quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
+                faction: "water",
+                levelCost: [10, 1.2, "water"],
+                effects: [
+                    (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
+                ],
+                effectors: {
+                    fireGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    waterGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4c": {
+                name: "Leaf Power Mastery",
+                desc: "{+0%} leaf power, water power, and point gains.",
+                quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
+                faction: "leaf",
+                levelCost: [10, 1.2, "leaf"],
+                effects: [
+                    (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
+                ],
+                effectors: {
+                    leafGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    waterGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4d": {
+                name: "Sun Power Mastery",
+                desc: "{+0%} sun power, moon power, and point gains.",
+                quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
+                faction: "sun",
+                levelCost: [10, 1.2, "sun"],
+                effects: [
+                    (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
+                ],
+                effectors: {
+                    sunGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    moonGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4e": {
+                name: "Moon Power Mastery",
+                desc: "{+0%} moon power, sun power, and point gains.",
+                quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
+                faction: "moon",
+                levelCost: [10, 1.2, "moon"],
+                effects: [
+                    (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
+                ],
+                effectors: {
+                    sunGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    moonGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
         },
         ex: {
             "zip": {
@@ -300,6 +460,16 @@ const cards = {
                 condition: () => game.cards.standard?.r,
                 crown: true,
                 buyCost: [2500000, "points"],
+                effects: [],
+                effectors: {}
+            },
+            "faction": {
+                name: "Overused Faction System",
+                desc: "Unlock Factions. Use factioned draws to get factioned currencies and faction-specific cards.",
+                quote: "Long ago, the five factions lived together in harmony. Then, everything changed when the fire faction attacked.",
+                condition: () => game.cards.standard?.sr && flags.unlocked.shreds,
+                crown: true,
+                buyCost: [2.5e9, "shreds"],
                 effects: [],
                 effectors: {}
             },

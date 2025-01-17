@@ -30,6 +30,21 @@
     --button-value-bg-0: #992;
     --button-value-bg-1: #cc3e;
     --button-value-bg-2: #ff4d;
+    --button-fire-bg-0: #311;
+    --button-fire-bg-1: #522e;
+    --button-fire-bg-2: #733d;
+    --button-water-bg-0: #114;
+    --button-water-bg-1: #226e;
+    --button-water-bg-2: #338d;
+    --button-leaf-bg-0: #121;
+    --button-leaf-bg-1: #232e;
+    --button-leaf-bg-2: #353d;
+    --button-sun-bg-0: #221;
+    --button-sun-bg-1: #431e;
+    --button-sun-bg-2: #652d;
+    --button-moon-bg-0: #214;
+    --button-moon-bg-1: #316e;
+    --button-moon-bg-2: #528d;
 
     --shadow-0: 0 1px 2px #0005;
     --shadow-1: 0 2px 4px #0007;
@@ -38,6 +53,7 @@
 
     --card-color: white;
     --card-gradient: #0000, #0007, #000a, #000c;
+    --card-star-color: #ff8;
 
     --pack-bg: linear-gradient(190deg, #c55, #bb3, #4c4, #3bb, #77d, #c6c, #c55);
     --pack-color: #000a;
@@ -47,6 +63,18 @@
     --rarity-r: linear-gradient(170deg, #aab, #fff);
     --rarity-sr: linear-gradient(170deg, #cc0, #ff3);
     --rarity-ex: linear-gradient(170deg, #faa, #dd1, #5f5, #3ff, #aaf, #f9f, #faa);
+
+    --faction-fire-bg: #733d;
+    --faction-water-bg: #338d;
+    --faction-leaf-bg: #353d;
+    --faction-sun-bg: #652d;
+    --faction-moon-bg: #528d;
+    --faction-fire-color: #f99;
+    --faction-water-color: #bbf;
+    --faction-leaf-color: #8f8;
+    --faction-sun-color: #ee6;
+    --faction-moon-color: #f8f;
+
 
     --tooltip-background: #000e;
 }
@@ -125,6 +153,31 @@ button.value {
     --color: var(--button-inv-color);
     --color-active: var(--button-inv-color-active);
     --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
+button.f-fire {
+    --bg-0: var(--button-fire-bg-0);
+    --bg-1: var(--button-fire-bg-1);
+    --bg-2: var(--button-fire-bg-2);
+}
+button.f-water {
+    --bg-0: var(--button-water-bg-0);
+    --bg-1: var(--button-water-bg-1);
+    --bg-2: var(--button-water-bg-2);
+}
+button.f-leaf {
+    --bg-0: var(--button-leaf-bg-0);
+    --bg-1: var(--button-leaf-bg-1);
+    --bg-2: var(--button-leaf-bg-2);
+}
+button.f-sun {
+    --bg-0: var(--button-sun-bg-0);
+    --bg-1: var(--button-sun-bg-1);
+    --bg-2: var(--button-sun-bg-2);
+}
+button.f-moon {
+    --bg-0: var(--button-moon-bg-0);
+    --bg-1: var(--button-moon-bg-1);
+    --bg-2: var(--button-moon-bg-2);
 }
 
 

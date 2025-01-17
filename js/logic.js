@@ -8,6 +8,11 @@ function onFrame() {
     if (flags.unlocked.energy) {
         elms.currencies.$energy.$amount.textContent = format(game.res.energy, 0, 7) + " / " + format(effects.energyCap, 0, 7);
     }
+    if (flags.unlocked.faction) {
+        ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
+            elms.currencies["$" + x].$amount.textContent = format(game.res[x]);
+        })
+    }
 
     game.res.energy = addWithCap(game.res.energy, delta / 60000 * effects.bulkPower, effects.energyCap);
     game.time.drawCooldown -= delta / 1000 / effects.cooldownTime;
@@ -38,6 +43,11 @@ function updateUnlocks() {
 
     flags.unlocked.market = hasCard("standard", "n", "c1");
     tabButtons.marketplace.style.display = flags.unlocked.market ? "" : "none";
+
+    flags.unlocked.faction = hasCard("standard", "ex", "faction");
+    elms.currencies.$factions.style.display = 
+        elms.draw.$factionPicker.style.display = flags.unlocked.faction ? "" : "none";
+    elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction);
 }
 
 // ----- Effect logic
@@ -111,10 +121,20 @@ function makeLootTable() {
     let lootDef = [];
     lootDef.push([
         { item: "res:points", count: [
-            Math.floor((effects.points) * effects.pointsMult), 
+            Math.floor(effects.points * effects.pointsMult), 
             Math.floor((effects.points + effects.pointsExtra) * effects.pointsMult)
         ] }
     ]);
+
+    let faction = game.drawPref.faction;
+    if (faction) {
+        lootDef.push([
+            { item: "res:" + faction, 
+                count: Math.floor(effects[faction + "Gain"] * effects.factionMult), 
+                p: effects.factionChance
+            }
+        ]);
+    }
 
     let pack = "standard";
     let cardDef = [];
@@ -127,6 +147,7 @@ function makeLootTable() {
         for (let id in cards[pack][rarity]) {
             let card = cards[pack][rarity][id];
             if (card.condition && !card.condition()) continue;
+            if (card.faction && card.faction != faction) continue;
 
             let cardDef = { item: `card:${pack}/${rarity}/${id}`, w: 1 };
             if (card.crown) cardDef.w /= 10;

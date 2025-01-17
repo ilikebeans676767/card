@@ -66,15 +66,36 @@ let tooltipTemplates = {
             tooltip.innerHTML = `
                 <div class="header">
                     <h2>${data.name}</h2>
-                    <small>${
-                        id == "cards" ? `(you've drawn ${$number(format(game.stats.cardsDrawn, 0, 14))})`
-                            : `(you have ${$number(format(game.res[id], 0, 9))})`
-                    }</small>
+                    <small></small>
                 </div>
                 <div class="quote">
                     “${data.quote}“
                 </div>
             `
+
+            let info = tooltip.querySelector("small");
+            let update = () => {
+                if (!info.isConnected || !tooltip.classList.contains("active")) removeEvent("frame", update);
+                else {
+                    if (id == "energy") {
+                        let eff = addWithCapEfficiency(game.res[id], effects.energyCap, 2);
+                        info.innerHTML = `
+                            (you have ${_number(format(game.res[id], 0, 14))})<br>
+                            (${_number(format(effects.bulkPower * eff))}/min)
+                            ${effects.bulkPower == 0 ? "" 
+                                : eff == 1 ? `(${_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower * 60))} until cap)` 
+                                : `(${_number(format(eff * 100) + "%")} efficiency)`
+                            }
+                        `
+                    } else if (id == "cards") {
+                        info.innerHTML = `(you've drawn ${_number(format(game.stats.cardsDrawn, 0, 14))})`
+                    } else {
+                        info.innerHTML = `(you have ${_number(format(game.res[id], 0, 14))})`
+                    }
+                }
+            }
+            update();
+            addEvent("frame", update);  
         }
     },
     card (pack, rarity, id, mode = null) {
@@ -107,6 +128,10 @@ let tooltipTemplates = {
                 <div class="header">
                     <h2><rarity rarity="${rarity}"></rarity> ${data.name}</h2>
                     <small>${state ? `
+                        ${data.faction
+                            ? `(${data.faction} faction)`
+                            : ``
+                        }
                         ${data.crown 
                             ? ``
                             : `(<span class="number">+${format(state.amount)}</span> extra copies)<br>`
@@ -144,7 +169,7 @@ let tooltipTemplates = {
                     let name = currencies[levelCost[1]].name;
                     tooltip.innerHTML += `<div class="formula"> 
                         <h4>Upgrade cost:</h4>
-                        <div><span>${name}</span>${$number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
+                        <div><span>${name}</span>${_number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
                     </div><div class="action">
                         ${canLevelUp ? "Click to upgrade." : "Insufficient " + name + "."}
                     </div>`
@@ -163,7 +188,7 @@ let tooltipTemplates = {
                     let canStarUp = state.amount >= starCost;
                     tooltip.innerHTML += `<div class="formula"> 
                         <h4>Fusion cost:</h4>
-                        <div><span>"${data.name}" extra copies</span>${$number(format(state.amount) + " / " + format(starCost))}</div>
+                        <div><span>"${data.name}" extra copies</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
                     </div><div class="action">
                         ${canStarUp ? "Click to fuse." : "Insufficient copies."}
                     </div>`
@@ -173,7 +198,7 @@ let tooltipTemplates = {
                 let name = currencies[data.buyCost[1]].name;
                 tooltip.innerHTML += `<div class="formula"> 
                     <h4>Purchase cost:</h4>
-                    <div><span>${name}</span>${$number(format(game.res[data.buyCost[1]]) + " / " + format(data.buyCost[0]))}</div>
+                    <div><span>${name}</span>${_number(format(game.res[data.buyCost[1]]) + " / " + format(data.buyCost[0]))}</div>
                 </div><div class="action">
                     ${canBuy ? "Click to purchase." : "Insufficient " + name + "."}
                 </div>`

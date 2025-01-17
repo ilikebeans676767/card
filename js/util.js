@@ -109,6 +109,13 @@ format.suffix.base = (number, list, max) => {
     return str;
 }
 
+format.time = (seconds, max = 2) => {
+    let list = [format.decimal(seconds % 60) + "s"];
+    if ((seconds /= 60) >= 1) list.unshift(format.decimal(seconds % 60) + "m");
+    if ((seconds /= 60) >= 1) list.unshift(format.decimal(seconds % 24) + "h");
+    if ((seconds /= 24) >= 1) list.unshift(format.decimal(seconds) + "d");
+    return list.slice(0, max).join(" ");
+}
 
 format.effect = (str, oldValues, newValues = null) => {
     return str.replaceAll(/\{([+\-x×/\^])([0-9])([%])?(?::([^}]+))?\}/g, 
@@ -132,8 +139,12 @@ format.effect = (str, oldValues, newValues = null) => {
 
 function addWithCap(a, b, cap, strength = 2) {
     if (a + b <= cap) return a + b;
-    let baseA = a ** strength / cap ** (strength - 1) + b;
+    let baseA = (a <= cap ? a : a ** strength / cap ** (strength - 1)) + b;
     return (baseA * cap ** (strength - 1)) ** (1 / strength);
+}
+function addWithCapEfficiency(a, cap, strength = 2) {
+    if (a < cap) return 1;
+    return (cap / a) ** ((strength - 1) / strength) / strength;
 }
 
 function sumGeometricSeries(base, rate, n, owned = 0) {

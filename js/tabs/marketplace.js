@@ -67,7 +67,7 @@ tabs.marketplace = {
             buyBtn.style.setProperty("--progress", game.res[data.buyCost[1]] / data.buyCost[0]);
             let canBuy = game.res[data.buyCost[1]] >= data.buyCost[0];
             buyBtn.disabled = !canBuy;
-            levelText = $icon("tabler:shopping-cart");
+            levelText = _icon("tabler:shopping-cart");
 
             if (buyBtn.innerHTML != levelText) buyBtn.innerHTML = levelText;
             

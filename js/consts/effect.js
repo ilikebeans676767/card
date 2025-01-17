@@ -16,6 +16,14 @@ const baseEffect = {
     shredURMult: 1,
     shredCrownMult: 10,
 
+    fireGain: 1,
+    waterGain: 1,
+    leafGain: 1,
+    sunGain: 1,
+    moonGain: 1,
+    factionMult: 1,
+    factionChance: 1e-6,
+
     cooldownTime: 3,
     breakTime: 5,
     breakSkip: 0.3,
@@ -29,6 +37,7 @@ const flags = {
         shreds: false,
         energy: false,
         market: false,
+        faction: false,
     }
 }
 

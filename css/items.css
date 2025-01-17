@@ -12,6 +12,11 @@
 #currencies .hoz-group > * {
     flex: 1;
 }
+#currencies .faction-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
 .currency {
     position: relative;
     background: var(--background-2);
@@ -24,6 +29,21 @@
     font-family: var(--number-font);
     position: absolute;
     right: 5px;
+}
+.currency.f-fire {
+    background: var(--faction-fire-bg);
+}
+.currency.f-water {
+    background: var(--faction-water-bg);
+}
+.currency.f-leaf {
+    background: var(--faction-leaf-bg);
+}
+.currency.f-sun {
+    background: var(--faction-sun-bg);
+}
+.currency.f-moon {
+    background: var(--faction-moon-bg);
 }
 
 .currency::before {
@@ -61,6 +81,21 @@
     background: var(--background-0);
     border-radius: var(--inside-radius);
 }
+.game-card.f-fire {
+    --card-color: var(--faction-fire-color);
+}
+.game-card.f-water {
+    --card-color: var(--faction-water-color);
+}
+.game-card.f-leaf {
+    --card-color: var(--faction-leaf-color);
+}
+.game-card.f-sun {
+    --card-color: var(--faction-sun-color);
+}
+.game-card.f-moon {
+    --card-color: var(--faction-moon-color);
+}
 .game-card > img {
     position: absolute;
     inset: 0;
@@ -81,7 +116,7 @@
     position: absolute;
     inset: 1px 1px auto 1px;
     padding: 5px 10px 10px 10px;
-    color: var(--card-color);
+    color: var(--color-2);
     background: linear-gradient(0deg, var(--card-gradient));
     font-size: 18px;
     display: flex;
@@ -91,6 +126,9 @@
 }
 .game-card-stars:empty {
     display: none;
+}
+.game-card-stars [icon*="-fill"] {
+    color: var(--card-star-color);
 }
 .game-card-stars.crown {
     font-size: 24px;
@@ -183,6 +221,24 @@
     font-weight: bold;
     background: var(--background-1);
     box-shadow: inset var(--shadow-2), inset var(--shadow-1);
+}
+.choice-group button.f-fire:disabled {
+    background: var(--button-fire-bg-0);
+}
+.choice-group button.f-water:disabled {
+    background: var(--button-water-bg-0);
+}
+.choice-group button.f-leaf:disabled {
+    background: var(--button-leaf-bg-0);
+}
+.choice-group button.f-sun:disabled {
+    background: var(--button-sun-bg-0);
+}
+.choice-group button.f-moon:disabled {
+    background: var(--button-moon-bg-0);
+}
+.faction-picker > * {
+    flex: 1;
 }
 
 

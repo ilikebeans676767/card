@@ -13,11 +13,70 @@ function $make(def, ...content) {
 }
 
 function $icon(source, inline = true) {
+    let icon = $make("iconify-icon");
+    icon.setAttribute("icon", source);
+    if (inline) icon.setAttribute("inline", "");
+    return icon;
+}
+
+function _icon(source, inline = true) {
     return `<iconify-icon icon="${source}"${inline ? ' inline=""' : ""}></iconify-icon>`;
 }
 
-function $number(inside) {
+function _number(inside) {
     return `<span class="number">${inside}</span>`;
+}
+
+
+function initUI() {
+    elms.currencies = $("#currencies");
+    elms.currencies.append(elms.currencies.$cards = createCurrencyUI("cards"));
+    let hozHolder;
+    elms.currencies.append(hozHolder = $make("div.hoz-group"));
+    hozHolder.append(elms.currencies.$points = createCurrencyUI("points"));
+    hozHolder.append(elms.currencies.$shreds = createCurrencyUI("shreds"));
+    elms.currencies.append(elms.currencies.$factions = hozHolder = $make("div.faction-group"));
+    ["fire", "water", "leaf", "sun", "moon"].forEach(x => {
+        let elm = elms.currencies["$" + x] = createCurrencyUI(x)
+        hozHolder.append(elm);
+        elm.$title.innerHTML = _icon(currencies[x].icon);
+        elm.classList.add("f-" + x);
+    })
+
+    elms.sidebar = $("#sidebar");
+
+    elms.draw = $("#draw-button");
+    elms.draw.onclick = onDrawButtonClick;
+    elms.draw.$action = $("#draw-button-action");
+    elms.draw.$amount = $("#draw-button-amount");
+    elms.draw.insertAdjacentElement("afterend", elms.currencies.$energy = createCurrencyUI("energy"));
+    elms.draw.$options = $("#draw-options");
+    elms.draw.$options.append(elms.draw.$factionPicker = hozHolder = createChoiceGroup({
+        "": $icon("tabler:circle"),
+        "fire": $icon(currencies.fire.icon),
+        "water": $icon(currencies.water.icon),
+        "leaf": $icon(currencies.leaf.icon),
+        "sun": $icon(currencies.sun.icon),
+        "moon": $icon(currencies.moon.icon),
+    }, game.drawPref.faction, (x) => {
+        game.drawPref.faction = x;
+        saveGame();
+    }))
+    hozHolder.classList.add("faction-picker");
+    ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => hozHolder.childNodes[i + 1].classList.add("f-" + x));
+
+    let btn = $make("button#draw-opt-show", $icon("tabler:chevron-right"));
+    btn.onclick = () => elms.sidebar.classList.add("option-active");
+    elms.draw.insertAdjacentElement("afterend", btn);
+    btn = $make("button#draw-opt-hide", $icon("tabler:chevron-left"));
+    btn.onclick = () => elms.sidebar.classList.remove("option-active");
+    hozHolder.prepend(btn);
+
+    elms.tooltip = $("#tooltip");
+
+    elms.tab = $("#tab-content");
+    elms.tab.$buttons = $("#tab-buttons");
+    initTabs();
 }
 
 
@@ -40,6 +99,7 @@ function createCardUI(pack, rarity, id) {
 
     let div = $make("article.game-card");
     div.setAttribute("rarity", rarity);
+    if (data.faction) div.classList.add("f-" + data.faction);
 
     let img = div.$img = $make("img");
     img.src = `res/cards/${pack}/${rarity}_${id}.png`;
@@ -59,11 +119,11 @@ function createCardUI(pack, rarity, id) {
         if (!state) {
             starsHTML = "";
         } else if (data.crown) {
-            starsHTML = $icon("ph:crown-fill");
+            starsHTML = _icon("ph:crown-fill");
         } else {
             starsHTML = "";
             for (let a = 0; a < 5; a++) {
-                starsHTML += $icon(`tabler:star${a < state.stars ? "-filled" : ""}`);
+                starsHTML += _icon(`tabler:star${a < state.stars ? "-filled" : ""}`);
             }
         }
         if (stars.innerHTML != starsHTML) {
