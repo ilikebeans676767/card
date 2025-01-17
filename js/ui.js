@@ -30,6 +30,8 @@ function createCurrencyUI(id) {
     div.$title = title;
     div.$amount = amount;
 
+    registerTooltip(div, tooltipTemplates.currency(id));
+
     return div;
 }
 

@@ -135,7 +135,7 @@ hr {
     border: none;
     height: 1px;
     margin-block: 10px;
-    background: radial-gradient(var(--border-1), var(--border-0), #0000 70%);
+    background: linear-gradient(90deg, #0000, var(--border-0) 20%, var(--border-1), var(--border-0) 80%, #0000);
 }
 iconify-icon {
     display: inline-block;

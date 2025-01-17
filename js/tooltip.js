@@ -59,6 +59,24 @@ function updateTooltipPos(ev) {
 }
 
 let tooltipTemplates = {
+    currency (id) {
+        return (tooltip) => {
+            let data = currencies[id];
+
+            tooltip.innerHTML = `
+                <div class="header">
+                    <h2>${data.name}</h2>
+                    <small>${
+                        id == "cards" ? `(you've drawn ${$number(format(game.stats.cardsDrawn, 0, 14))})`
+                            : `(you have ${$number(format(game.res[id], 0, 9))})`
+                    }</small>
+                </div>
+                <div class="quote">
+                    “${data.quote}“
+                </div>
+            `
+        }
+    },
     card (pack, rarity, id, mode = null) {
         let data = cards[pack][rarity][id];
         return (tooltip) => {

@@ -31,6 +31,8 @@ tabs.options = {
             saveGame();
         }));
 
+        container.append($make("hr"));
+
         makeEntry("Background Music", choiceGroup = createChoiceGroup({
             "": "Disabled",
             "conscious": "Enabled",
