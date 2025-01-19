@@ -117,18 +117,28 @@ tabs.options = {
 
 
 
-        entry = makeEntry("", ...(() => {
+        entry = makeEntry("Info", ...(() => {
             let list = [];
             let btn;
 
             let holder = $make("div.choice-group");
             list.push(holder);
 
-            btn = $make("button", "About");
+            btn = $make("button", "About & Credits");
             btn.onclick = () => {
                 callPopup("about");
             }
             holder.append(btn);
+
+            return list;
+        })());
+
+        entry = makeEntry("Other other", ...(() => {
+            let list = [];
+            let btn;
+
+            let holder = $make("div.choice-group");
+            list.push(holder);
 
             btn = $make("button", "johnvertisement");
             btn.onclick = () => {
@@ -138,7 +148,7 @@ tabs.options = {
                 popup.$content.style.textAlign = "center";
                 popup.$content.innerHTML = `
                     <iframe src="https://john.citrons.xyz/embed?ref=example.com" class="john"></iframe>
-                    <small class="unimportant">(note: links open in this tab, ctrl+click to not accidentally close the game)</small>
+                    <small class="unimportant">(Note: links open in this tab, ctrl+click to not accidentally close the game)</small>
                 `
             }
             holder.append(btn);
