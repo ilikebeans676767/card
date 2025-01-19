@@ -102,8 +102,16 @@ function createCardUI(pack, rarity, id) {
     if (data.faction) div.classList.add("f-" + data.faction);
 
     let img = div.$img = $make("img");
-    img.src = `res/cards/${pack}/${rarity}_${id}.png`;
-    img.onerror = () => (img.src = "res/cards/placeholder.png");
+    if (data.noImage) {
+        img.src = "res/cards/placeholder.png";
+    } else {
+        img.src = `res/cards/${pack}/${rarity}_${id}.png`;
+        img.onerror = () => {
+            img.src = "res/cards/placeholder.png";
+            data.noImage = true;
+            delete img.onerror;
+        };
+    }
     div.append(img);
     let name = div.$name = $make("div.game-card-name");
     name.innerHTML = `<rarity rarity="${rarity}"></rarity> ${data.name}`;
@@ -127,7 +135,6 @@ function createCardUI(pack, rarity, id) {
             }
         }
         if (stars.innerHTML != starsHTML) {
-            console.log(stars.innerHTML, starsHTML);
             stars.innerHTML = starsHTML;
         }
     }

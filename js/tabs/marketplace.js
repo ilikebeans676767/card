@@ -17,8 +17,6 @@ tabs.marketplace = {
         this.elms = {};
         removeEvent("card-update", this.onCardUpdate);
     },
-    onFrame() {
-    },
 
     updateCards() {
         let destroyingCards = {...this.cards};

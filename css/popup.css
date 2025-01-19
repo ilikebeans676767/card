@@ -6,6 +6,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: popup-in .1s;
+}
+.popup.closing {
+    opacity: 0;
+    animation: popup-out .1s;
+    pointer-events: none;
 }
 
 .popup > div {
@@ -18,12 +24,19 @@
     border: 1px solid var(--border-0);
     border-radius: 10px;
     margin: 10px;
-    box-shadow: var(--shadow-0);
+    box-shadow: var(--shadow-3);
     min-width: 320px;
     max-width: 480px;
     overflow-y: auto;
+    animation: draw-in .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.popup.closing:not(.clear) > div {
+    animation: popup-body-out .1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 
+.popup:not(.clear) > div p {
+    margin-block: 10px 0;
+}
 .popup:not(.clear) > div .info {
     display: flex;
     flex-direction: column;
@@ -42,6 +55,8 @@
 .popup:not(.clear) > div .actions {
     display: flex;
     flex-direction: row;
+    align-items: end;
+    align-items: last baseline;
     justify-content: end;
     margin-top: 10px;
     gap: 5px;
@@ -73,6 +88,11 @@
 .popup:not(.clear) > div .formula + .actions {
     margin-top: 5px;
 }
+.popup:not(.clear) > div .action-group {
+    display: flex;
+    gap: 5px;
+}
+
 
 
 .popup.draw-popup .big-card {
@@ -158,4 +178,28 @@
 
 .popup-card-actions {
     margin-top: 10px;
+}
+
+@keyframes popup-in {
+    from {
+        background: #0000;
+    } to {
+        background: #0007;
+    }
+}
+@keyframes popup-out {
+    from {
+        background: #0007;
+        opacity: 1;
+    } to {
+        background: #0000;
+        opacity: 0;
+    }
+}
+@keyframes popup-body-out {
+    from {
+        transform: none;
+    } to {
+        transform: scale(0.8);
+    }
 }

@@ -1,7 +1,7 @@
 :root {
     --title-font: "Roboto Condensed", sans-serif;
     --content-font: "Roboto Condensed", sans-serif;
-    --number-font: "Do Hyeon", sans-serif;
+    --number-font: "Do Hyeon", "Roboto Condensed", sans-serif;
 
     --background-0: black;
     --background-1: #222e;
@@ -27,15 +27,18 @@
     --button-primary-bg-0: #666;
     --button-primary-bg-1: #999e;
     --button-primary-bg-2: #dddd;
+    --button-danger-bg-0: #833;
+    --button-danger-bg-1: #b66e;
+    --button-danger-bg-2: #f99d;
     --button-value-bg-0: #992;
     --button-value-bg-1: #cc3e;
     --button-value-bg-2: #ff4d;
     --button-fire-bg-0: #311;
     --button-fire-bg-1: #522e;
     --button-fire-bg-2: #733d;
-    --button-water-bg-0: #114;
-    --button-water-bg-1: #226e;
-    --button-water-bg-2: #338d;
+    --button-water-bg-0: #124;
+    --button-water-bg-1: #236e;
+    --button-water-bg-2: #358d;
     --button-leaf-bg-0: #121;
     --button-leaf-bg-1: #232e;
     --button-leaf-bg-2: #353d;
@@ -62,15 +65,17 @@
     --rarity-n: linear-gradient(70deg, #aaa7, #777a);
     --rarity-r: linear-gradient(170deg, #aab, #fff);
     --rarity-sr: linear-gradient(170deg, #cc0, #ff3);
+    --rarity-ssr: linear-gradient(170deg, #7af, #cef 50%, #7af 50%, #fff);
+    --rarity-ur: linear-gradient(170deg, #317, #72f 10%, #c7f 15%, #fff 70%, #c7f 70%, #72f);
     --rarity-ex: linear-gradient(170deg, #faa, #dd1, #5f5, #3ff, #aaf, #f9f, #faa);
 
     --faction-fire-bg: #733d;
-    --faction-water-bg: #338d;
+    --faction-water-bg: #358d;
     --faction-leaf-bg: #353d;
     --faction-sun-bg: #652d;
     --faction-moon-bg: #528d;
     --faction-fire-color: #f99;
-    --faction-water-color: #bbf;
+    --faction-water-color: #bdf;
     --faction-leaf-color: #8f8;
     --faction-sun-color: #ee6;
     --faction-moon-color: #f8f;
@@ -146,6 +151,14 @@ button.primary {
     --color-active: var(--button-inv-color-active);
     --text-shadow: 0 1px var(--button-inv-text-shadow);
 }
+button.danger {
+    --bg-0: var(--button-danger-bg-0);
+    --bg-1: var(--button-danger-bg-1);
+    --bg-2: var(--button-danger-bg-2);
+    --color: var(--button-inv-color);
+    --color-active: var(--button-inv-color-active);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
 button.value {
     --bg-0: var(--button-value-bg-0);
     --bg-1: var(--button-value-bg-1);
@@ -195,6 +208,20 @@ iconify-icon {
     width: 1em;
     height: 1em;
 }
+a {
+    font-weight: bold;
+    color: var(--color-1);
+    text-decoration-color: var(--border-1);
+}
+a:hover {
+    color: var(--color-0);
+    text-decoration-color: var(--color-0);
+}
+a:active {
+    color: var(--color-0);
+    text-decoration: none;
+}
+
 
 #sidebar {
     flex: 0 0 300px;
@@ -343,6 +370,9 @@ main {
 .flex-fill {
     flex: 1;
 }
+.unimportant {
+    color: var(--color-1);
+}
 
 .anim-float-in {
     animation: float-in .3s;
@@ -354,6 +384,18 @@ main {
     } to {
         transform: none;
         opacity: 1;
+    }
+}
+.anim-draw-in {
+    animation: draw-in .3s;
+}
+@keyframes draw-in {
+    from {
+        transform-origin: top;
+        transform: translateY(100%) translateZ(-50px) perspective(50px) rotateX(-90deg);
+    } to {
+        transform-origin: 50% 10%;
+        transform: none;
     }
 }
 .anim-card-btn-draw {

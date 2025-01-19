@@ -118,7 +118,7 @@ format.time = (seconds, max = 2) => {
 }
 
 format.effect = (str, oldValues, newValues = null) => {
-    return str.replaceAll(/\{([+\-x×/\^])([0-9])([%])?(?::([^}]+))?\}/g, 
+    return str.replaceAll(/\{([+\-x×/\^])?([0-9])([%])?(?::([^}]+))?\}/g, 
         (_, prefix, index, suffix, formatArg) => {
             {
                 if (prefix == "x") prefix = "×";

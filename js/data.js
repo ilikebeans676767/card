@@ -1,37 +1,5 @@
 let game = {}
-
-const SAVE_KEY = "gacha";
-
-function getNewGame() {
-    return {
-        res: {
-            points: 0,
-            shreds: 0,
-            energy: 0,
-
-            fire: 0,
-            water: 0,
-            leaf: 0,
-            sun: 0,
-            moon: 0,
-        },
-        time: {
-            now: Date.now(),
-            drawCooldown: 0,
-        },
-        stats: {
-            cardsDrawn: 0
-        },
-        cards: {},
-        drawPref: {
-            faction: ""
-        },
-        option: {
-            notation: "default",
-            music: "",
-        },
-    }
-}
+let lastSaveTime = Date.now();
 
 function loadGame() {
     let newGame = getNewGame();
@@ -47,9 +15,24 @@ function saveGame() {
     if (popups.draw.elms.list && popups.draw.state.phase != "done") return;
     try {
         localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify(game)));
+        lastSaveTime = Date.now();
+        return true;
     } catch (e) {
         console.error(e);
+        return false;
     }
+}
+
+function getTextSaveString() {
+    return LZString.compressToBase64(JSON.stringify(game));
+}
+
+function hardReset(keepOptions = true) {
+    navigator.clipboard.writeText(LZString.compressToBase64(JSON.stringify(game)));
+    if (keepOptions) localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify({options: game.options})));
+    else localStorage.removeItem(SAVE_KEY);
+    saveGame = () => {};
+    document.location.reload();
 }
 
 function fixSave(game, newGame) {

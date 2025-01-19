@@ -133,6 +133,12 @@
         text-align: start;
         flex: auto;
     }
+    .opt-entry > label > small {
+        display: inline;
+    }
+    .opt-entry > label > small::before {
+        content: " ";
+    }
     .choice-group {
         overflow-x: auto;
         flex-wrap: nowrap;
@@ -163,9 +169,19 @@
     }
 
     .popup:not(.clear) > div > .actions {
-        flex-direction: column;
-        align-items: justify;
+        flex-direction: column-reverse;
+        align-items: stretch;
     }
+    .popup:not(.clear) > div > .actions > .flex-fill {
+        display: none;
+    }
+    .save-actions {
+        align-items: stretch;
+    }
+    .popup:not(.clear) > div .action-group > * {
+        flex: 1;
+    }
+    
 
     .popup-upg-main-action {
         flex: 1;

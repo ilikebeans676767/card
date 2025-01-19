@@ -14,6 +14,8 @@ function onFrame() {
         })
     }
 
+    game.stats.timePlayed += delta / 1000;
+
     game.res.energy = addWithCap(game.res.energy, delta / 60000 * effects.bulkPower, effects.energyCap);
     game.time.drawCooldown -= delta / 1000 / effects.cooldownTime;
     let cooldown = getDrawCooldown();
@@ -31,6 +33,8 @@ function onFrame() {
 
     tabs[currentTab]?.onFrame?.();
     emit("frame");
+
+    if (game.time.now - lastSaveTime >= 60000) saveGame();
 }
 
 function updateUnlocks() {
@@ -299,4 +303,17 @@ function buyCard(pack, rarity, id) {
     console.log(tabs.marketplace.cards[pack + " " + rarity + " " + id]);
     tabs.marketplace.cards[pack + " " + rarity + " " + id]?.remove();
     callPopup("draw", { res: [], cards: [[pack, rarity, id, 1]] });
+}
+
+function getTotalStars(pack) {
+    let count = { stars: 0, crowns: 0 };
+    for (let rarity in game.cards[pack]) {
+        for (let id in game.cards[pack][rarity]) {
+            let data = cards[pack][rarity][id];
+            if (data.crown) count.crowns++;
+            else count.stars += game.cards[pack][rarity][id].stars;
+        }
+    }
+    
+    return count;
 }

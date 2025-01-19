@@ -441,6 +441,123 @@ const cards = {
                 }
             },
         },
+        ssr: {
+            "n0": {
+                name: "Homestretch",
+                desc: "{+0%} card multiplier.",
+                quote: "Thank you for going this far into the game! If you like it be sure to leave a like and subscribe for more content like this",
+                levelCost: [1e9, 10],
+                starDiff: 1,
+                effects: [
+                    (level, star) => level * [0, 1.2, 1.5, 1.8, 2.2, 2.6][star],
+                ],
+                effectors: {
+                    bulkMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+            "n0b": {
+                name: "Scrap",
+                desc: "{x0} Shred gain from <rarity rarity='r'></rarity> and above cards.",
+                quote: "quack",
+                faction: "water",
+                condition: () => flags.unlocked.shreds,
+                levelCost: [1e6, 5, "shreds"],
+                starDiff: 1,
+                effects: [
+                    (level, star) => level * star * 2,
+                ],
+                effectors: {
+                    shredRMult: [priority.multiplicative, (x) => x * fx(0)]
+                }
+            },
+            "n0c": {
+                name: "Pyrite",
+                desc: "{x0} Shred gain from <rarity rarity='sr'></rarity> and above cards.",
+                quote: "Despite it's being \"fool's gold\", it can still be used as an ingredient for the <rarity rarity='sr'></rarity> cards",
+                faction: "fire",
+                condition: () => flags.unlocked.shreds,
+                levelCost: [1e9, 10, "shreds"],
+                starDiff: 1,
+                effects: [
+                    (level, star) => level * star * 2,
+                ],
+                effectors: {
+                    shredSRMult: [priority.multiplicative, (x) => x * fx(0)]
+                }
+            },
+            "n1a": {
+                name: "Galaxy",
+                desc: 
+                    "Gain more Points based on the total amount of stars you have in your card collection (crowned cards count as {0} stars each)."
+                    + "<br>(Currently: {1} stars ⇒ {+2%} point gain)",
+                quote: "In a galaxy, far, far away...",
+                faction: "sun",
+                starDiff: 0.6,
+                effects: [
+                    (level, star) => 1 + star * 2,
+                    (level, star) => { let count = getTotalStars("standard"); return count.stars + count.crowns * fx(0); },
+                    (level, star) => fx(1) ** (star * .1 + .9),
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(2) / 100)]
+                }
+            },
+            "n1b": {
+                name: "Royal Junk",
+                desc: 
+                    "Gain more Shreds based on the total amount of crowned cards you have in your collection."
+                    + "<br>(Currently: {1} crowned cards ⇒ {+2%} shred gain)",
+                quote: "More valuable than regular junk",
+                condition: () => flags.unlocked.shreds,
+                starDiff: 0.5,
+                effects: [
+                    (level, star) => 1 + star * 2,
+                    (level, star) => { let count = getTotalStars("standard"); return count.crowns; },
+                    (level, star) => fx(1) ** (star * .2 + 1) * 5,
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(2) / 100)]
+                }
+            },
+            "n1c": {
+                name: "Extra Points",
+                desc: 
+                    "Gain more Points based on the total amount of <rarity rarity='ex'></rarity> cards you have in your collection."
+                    + "<br>(Currently: {1} <rarity rarity='ex'></rarity> cards ⇒ {+2%} point gain)",
+                quote: "More points doesn't hurt, right?",
+                starDiff: 0.2,
+                effects: [
+                    (level, star) => 1 + star * 2,
+                    (level, star) => Object.keys(game.cards.standard.ex).length,
+                    (level, star) => fx(1) ** (star * .2 + 1) * 20,
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(2) / 100)]
+                }
+            },
+        },
+        ur: {
+            "n0": {
+                name: "mom",
+                desc: "{+0%} bulk draw, bulk power, energy cap, and card multiplier.<br>{+1%} shard gain.<br>{x2} point gain.",
+                quote: "<rarity rarity='ur'></rarity> mom's so buffed she's the strongest unit in the game",
+                levelCost: [1e12, 1.5, "shreds"],
+                starDiff: 1,
+                effects: [
+                    (level, star) => level * [0, 1.2, 1.5, 1.8, 2.2, 2.6][star],
+                    (level, star) => level * (2 ** star) * 10,
+                    (level, star) => level ** (.1 * star + 0.9) * (2 ** star),
+                ],
+                effectors: {
+                    bulk: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    bulkMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    bulkPower: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    energyCap: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                    pointsMult: [priority.multiplicative, (x) => x * 1 * fx(2)],
+                }
+            },
+        },
         ex: {
             "zip": {
                 name: "StackRAR",
@@ -482,5 +599,7 @@ const cardStarCost = {
         n: (x, n = 0) => Math.floor((20 + 5 * x) * (x + n) ** (x + 1)),
         r: (x, n = 0) => Math.floor((10 + 5 * x) * (x + n) ** (x + 0.5)),
         sr: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
+        ssr: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
+        ur: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
     }
 }

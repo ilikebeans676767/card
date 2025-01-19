@@ -102,7 +102,7 @@ popups.draw = {
                     let [pack, rarity, id, count] = state.loot.cards[state.index];
                     let card = createCardUI(pack, rarity, id);
                     registerTooltip(card, tooltipTemplates.card(pack, rarity, id));
-                    card.classList.add("anim-float-in");
+                    card.classList.add("anim-draw-in");
                     if (count > 1) {
                         let holder = $make("div.draw-amount.number", "×" + format(count));
                         card.append(holder);

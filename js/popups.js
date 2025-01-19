@@ -7,7 +7,8 @@ function makePopup(...content) {
     popup.append(body);
 
     popup.close = () => {
-        popup.remove();
+        popup.classList.add("closing");
+        setTimeout(() => popup.remove(), 100);
     }
 
     document.body.append(popup);
