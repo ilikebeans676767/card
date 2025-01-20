@@ -30,13 +30,13 @@ popups.save = {
                 popup = callPopup("prompt", "Error", "There was an error trying to copy your save string into the clipboard.");
                 popup.$content.insertAdjacentHTML("afterend", `
                     <p>You can still manually copy your save string from the text box by selecting all the text and copy it.
-                `) 
+                `)
             })
         }
         actionGroup.append(btn);
         btn = $make("button.primary", "Download File");
         btn.onclick = () => {
-            let blob = new Blob([LZString.compressToUint8Array(JSON.stringify(game))], {type: "octet/stream"});
+            let blob = new Blob([LZString.compressToUint8Array(JSON.stringify(game))], { type: "octet/stream" });
             let a = $make("a");
             a.href = URL.createObjectURL(blob);
             a.download = "1tFreeDraws-" + Date.now() + ".e12.sav";
@@ -55,16 +55,16 @@ popups.save = {
                 fixSave(importData, getNewGame());
             } catch {
                 if (saveText.value.includes("...") || saveText.value.includes("…")) {
-                    callPopup("prompt", "Invalid Save", 
+                    callPopup("prompt", "Invalid Save",
                         "Ellipsis detected in save string. Your save might have been truncated by the browser or the operating system. " +
                         "You can use the Download File option instead to make a more reliable backup.");
                 }
-                callPopup("prompt", "Invalid Save", 
+                callPopup("prompt", "Invalid Save",
                     "This save appears to be incorrect or corrupted. " +
                     "Make sure you have copied the entire save string and the save string is not truncated.");
                 return;
             }
-            
+
             this.showImportPopup(importData);
         }
         actionGroup.append(btn);
@@ -75,21 +75,32 @@ popups.save = {
             file.accept = ".e12.sav";
 
             file.onchange = (e) => {
-                file.files[0]?.bytes().then(x => {
-                    let importData = null;
-                    try {
-                        importData = JSON.parse(LZString.decompressFromUint8Array(x));
-                        fixSave(importData, getNewGame());
-                    } catch (e) {
-                        console.log(e);
-                        callPopup("prompt", "Invalid Save", 
-                            "This save appears to be incorrect or corrupted. " +
-                            "Make sure you have copied the entire save string and the save string is not truncated.");
-                        return;
+                let data = file.files[0];
+                if (!data) return;
+                let reader = new FileReader();
+                reader.onloadend = (evt) => {
+                    if (evt.target.readyState == FileReader.DONE) {
+                        var arrayBuffer = evt.target.result,
+                            array = new Uint8Array(arrayBuffer);
+
+                        console.log(array, LZString.decompressFromUint8Array(array));
+
+                        let importData = null;
+                        try {
+                            importData = JSON.parse(LZString.decompressFromUint8Array(array));
+                            fixSave(importData, getNewGame());
+                        } catch (e) {
+                            console.log(e);
+                            callPopup("prompt", "Invalid Save",
+                                "This save appears to be incorrect or corrupted. " +
+                                "Make sure you have copied the entire save string and the save string is not truncated.");
+                            return;
+                        }
+
+                        this.showImportPopup(importData);
                     }
-                    
-                    this.showImportPopup(importData);
-                })
+                }
+                reader.readAsArrayBuffer(data);
             }
 
             file.click();
@@ -100,12 +111,12 @@ popups.save = {
     },
     showImportPopup(importData) {
         let popup = callPopup("prompt", "Import this save?", "Would you like to import this save? Your current game will be overriden!", {
-            no: "No, go back", 
-            "": "", 
+            no: "No, go back",
+            "": "",
             yes$primary: "Yes, import save"
         }, x => {
             if (x == "yes") {
-                if (popup.querySelector("#keep-opt-checkbox").checked) importData.option = {...game.option};
+                if (popup.querySelector("#keep-opt-checkbox").checked) importData.option = { ...game.option };
                 saveGame = () => { return false; }
                 callPopup("prompt", "Importing save...", "(the game will reload in a moment, don't close the game in the process)", {});
                 localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify(importData)));
