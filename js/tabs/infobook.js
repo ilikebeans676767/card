@@ -66,7 +66,7 @@ tabs.infobook = {
         } else if (this.subtab == "gallery") {
             this.elms.cards.append($make("div.infobook-card",
                 $make("h3.header", "Coming soon..."),
-                $make("div.content", "Maybe I add lore to the game..."),
+                $make("div.content", "Maybe I'll add lore to the game..."),
             ))
         }
     },
