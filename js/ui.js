@@ -3,12 +3,18 @@ function $(query) {
 }
 
 function $make(def, ...content) {
+    if (Array.isArray(content[0])) content = content[0];
     let classes = def.split(".");
     let [tag, id] = classes.splice(0, 1)[0].split("#");
     let node = document.createElement(tag);
     if (id) node.id = id;
     if (classes.length) node.classList.add(...classes);
     node.append(...content);
+    return node;
+}
+function $makeHTML(def, html) {
+    let node = $make(def);
+    node.innerHTML = html;
     return node;
 }
 

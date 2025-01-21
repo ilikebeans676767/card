@@ -1,44 +1,44 @@
 const currencies = {
     cards: {
         name: "Cards",
-        quote: "All these free draws are yours to take... if you can draw them all",
+        quote: "Produced for the almighty Omega Cards game, these cards are actually vouchers for you to spend more money to draw more cards... after you use up all your one trillion free card draws, at least. They are too happy about giving people trillions of free cards draws, probably to drown out competitors",
     },
     energy: {
         name: "Bulk Energy",
-        quote: "Incremental game, also known as idle games",
+        quote: "Used as Omega Cards' loyalty program currency to allow you to trade multiple cards at once",
     },
     points: {
         name: "Points",
-        quote: "The world's most generic currency. It is generic enough that people could assign any use case to it",
+        quote: "The world's most generic currency. It is generic enough to be assigned any use case imaginable",
     },
     shreds: {
         name: "Shreds",
-        quote: "Remains of excess cards, reduced to atoms",
+        quote: "Remains of excess cards, reduced to atoms. These cards almost have no trade value (except for the few <rarity rarity='ex'></rarity> cards), so people are inventing new ways to use them, such as shredding them to use as a new upgrade currency",
     },
 
     fire: {
         name: "Fire Power",
         icon: "mingcute:fire-line",
-        quote: "Some consider this humans' greatest achievement",
+        quote: "Power from the fire faction. Some consider dicovering this humans' greatest achievement",
     },
     water: {
         name: "Water Power",
         icon: "akar-icons:water",
-        quote: "Flexible and free-flow, and always reminds you to keep yourself hydrated",
+        quote: "Power from the water faction. Always reminds you to keep yourself hydrated",
     },
     leaf: {
         name: "Leaf Power",
         icon: "tabler:leaf",
-        quote: "Now with the reds and the blues, why not try to be green just for once",
+        quote: "Power from the leaf faction. You feel yourself to be one with nature",
     },
     sun: {
         name: "Sun Power",
         icon: "mingcute:sun-line",
-        quote: "Commander of day and light, also believed to also have the power to control air",
+        quote: "Power from the sun faction. Also believed to also have the power to control air",
     },
     moon: {
         name: "Moon Power",
         icon: "tabler:moon",
-        quote: "Commander of night and darkness, also believed to also have the power to control earth",
+        quote: "Power from the moon faction. Also believed to also have the power to control earth",
     },
 }

@@ -47,6 +47,9 @@ function updateUnlocks() {
 
     flags.unlocked.market = hasCard("standard", "n", "c1");
     tabButtons.marketplace.style.display = flags.unlocked.market ? "" : "none";
+    flags.unlocked.infobook = hasCard("standard", "r", "c1");
+    tabButtons.infobook.style.display = flags.unlocked.infobook ? "" : "none";
+
 
     flags.unlocked.faction = hasCard("standard", "ex", "faction");
     elms.currencies.$factions.style.display = 
@@ -98,6 +101,8 @@ function updateEffects() {
             effects[eftr[1]] = eftr[2](effects[eftr[1]]);
         }
     }
+
+    emit("effect-update");
 }
 
 // ----- Card logic
@@ -144,7 +149,7 @@ function makeLootTable() {
     let cardDef = [];
     lootDef.push(cardDef);
     let rarityList = ["ur", "ssr", "sr", "r", "n"];
-    let rarityChance = { n: 1, r: 1e-3, sr: 1e-5, ssr: 1e-7, ur: 1e-9 }
+    let rarityChance = { n: 1, r: effects.cardRChance, sr: effects.cardSRChance, ssr: effects.cardSSRChance, ur: effects.cardURChance }
     let chanceSum = 0;
     for (let rarity of rarityList) {
         let cardRarityDef = [];
@@ -316,4 +321,19 @@ function getTotalStars(pack) {
     }
     
     return count;
+}
+
+// ----- Infobook logic
+
+function buyStatEntry(group, id) {
+    if (game.flags.statUnlocks[group]?.[id]) return;
+
+    let data = statEntries[group].items[id];
+    if (game.res[data.cost[1]] < data.cost[0]) return;
+
+    game.res[data.cost[1]] -= data.cost[0];
+    if (!game.flags.statUnlocks[group]) game.flags.statUnlocks[group] = {};
+    game.flags.statUnlocks[group][id] = true;
+    saveGame();
+    updateEffects();
 }

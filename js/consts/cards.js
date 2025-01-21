@@ -186,7 +186,7 @@ const cards = {
             },
             "n3": {
                 name: "Card Opener Factory",
-                desc: "{+0%} energy gain, but {+1%} cooldown duration.",
+                desc: "{+0%} bulk power, but {+1%} cooldown duration.",
                 quote: "Produces large quantity of card openers",
                 condition: () => hasCard("standard", "n", "n4") && hasCard("standard", "ex", "zip"),
                 levelCost: [250000, 1.8],
@@ -202,7 +202,7 @@ const cards = {
             },
             "n3b": {
                 name: "Recycling",
-                desc: "{+0%} energy gain.",
+                desc: "{+0%} bulk power.",
                 quote: "Reusing cards to open more cards is a good idea actually",
                 condition: () => hasCard("standard", "r", "n3") && flags.unlocked.shreds,
                 levelCost: [1000, 1.4, "shreds"],
@@ -317,6 +317,14 @@ const cards = {
                 effectors: {
                     moonGain: [priority.additive, (x) => x + fx(0)],
                 }
+            },
+            "c1": {
+                name: "System 2",
+                desc: "Unlock the Infobook. View your stats and other things, though with a price...",
+                quote: "Erm ackstually 🤓",
+                crown: true,
+                effects: [],
+                effectors: {}
             },
         },
         sr: {
@@ -506,33 +514,46 @@ const cards = {
                 name: "Royal Junk",
                 desc: 
                     "Gain more Shreds based on the total amount of crowned cards you have in your collection."
-                    + "<br>(Currently: {1} crowned cards ⇒ {+2%} shred gain)",
+                    + "<br>(Currently: {0} crowned cards ⇒ {+1%} shred gain)",
                 quote: "More valuable than regular junk",
                 condition: () => flags.unlocked.shreds,
                 starDiff: 0.5,
                 effects: [
-                    (level, star) => 1 + star * 2,
                     (level, star) => { let count = getTotalStars("standard"); return count.crowns; },
-                    (level, star) => fx(1) ** (star * .2 + 1) * 5,
+                    (level, star) => fx(0) ** (star * .2 + 1) * 15,
                 ],
                 effectors: {
-                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(2) / 100)]
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
                 }
             },
             "n1c": {
                 name: "Extra Points",
                 desc: 
                     "Gain more Points based on the total amount of <rarity rarity='ex'></rarity> cards you have in your collection."
-                    + "<br>(Currently: {1} <rarity rarity='ex'></rarity> cards ⇒ {+2%} point gain)",
+                    + "<br>(Currently: {0} <rarity rarity='ex'></rarity> cards ⇒ {+1%} point gain)",
                 quote: "More points doesn't hurt, right?",
                 starDiff: 0.2,
                 effects: [
-                    (level, star) => 1 + star * 2,
                     (level, star) => Object.keys(game.cards.standard.ex).length,
-                    (level, star) => fx(1) ** (star * .2 + 1) * 20,
+                    (level, star) => fx(0) ** (star * .2 + 1) * 40,
                 ],
                 effectors: {
-                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(2) / 100)]
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
+            "n1d": {
+                name: "Future Calculator",
+                desc: 
+                    "Gain more Points based on the total amount of stat entries you've unlocked."
+                    + "<br>(Currently: {0} entries ⇒ {+1%} point gain)",
+                quote: "1 ^ 2 + 3 = 4",
+                faction: "moon",
+                effects: [
+                    (level, star) => Object.values(game.flags.statUnlocks).map(x => Object.keys(x).length).reduce((x, y) => x + y),
+                    (level, star) => fx(0) ** (star * .1 + .9) * 5,
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
                 }
             },
         },

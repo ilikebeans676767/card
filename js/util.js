@@ -135,6 +135,11 @@ format.effect = (str, oldValues, newValues = null) => {
     )
 }
 
+format.chance = (chance) => {
+    if (chance < 1e-3) return _number(1) + " in " + _number(format(1 / chance));
+    else return _number(format(chance * 100, 2) + "%");
+}
+
 // ----- Math
 
 function addWithCap(a, b, cap, strength = 2) {

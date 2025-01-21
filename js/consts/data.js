@@ -15,6 +15,9 @@ function getNewGame() {
             sun: 0,
             moon: 0,
         },
+        flags: {
+            statUnlocks: {},
+        },
         time: {
             now: Date.now(),
             drawCooldown: 0,

@@ -186,6 +186,80 @@
     --text-shadow: 0 1px var(--button-inv-text-shadow);
 }
 
+.infobook-holder {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.infobook-holder .tab-buttons {
+    padding-inline: 10px;
+}
+.infobook-cards {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    margin-inline: -20px;
+    padding: 10px 20px 0 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline-start: 20px;
+    align-items: stretch;
+}
+.infobook-card {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 var(--item-width);
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    box-shadow: var(--shadow-2);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+.infobook-card > .header {
+    padding: 7px 10px;
+    background: linear-gradient(20deg, var(--background-2), transparent);
+    border-radius: 4px 4px 0 0;
+}
+.infobook-card > .content {
+    padding: 5px 10px 9px 10px;
+    overflow-y: auto;
+    flex: 1;
+}
+.stat-entry {
+    display: flex;
+    align-items: baseline;
+    align-items: last baseline;
+    border-bottom: 1px dashed var(--border-0);
+    padding-block: 2px;
+    margin-top: 3px;
+}
+.stat-entry > .value {
+    flex: 1;
+    text-align: end;
+}
+.stat-entry > button {
+    padding: 2px 5px;
+    margin-block: -3px;
+}
+.stat-entry > button:disabled {
+    --fill: calc(var(--progress) * 100%);
+    background: linear-gradient(var(--bg-1), var(--bg-1)), linear-gradient(var(--bg-0), var(--bg-0));
+    background-position: bottom;
+    background-repeat: no-repeat, repeat;
+    background-size: 100% var(--fill), 100% 100%;
+}
+.stat-entry > button:not(:disabled) {
+    --bg-0: var(--button-value-bg-0);
+    --bg-1: var(--button-value-bg-1);
+    --bg-2: var(--button-value-bg-2);
+    --color: var(--button-inv-color);
+    --color-active: var(--button-inv-color-active);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
+
+
+
 .opt-container {
     background: var(--background-1);
     border: 1px solid var(--border-0);

@@ -6,6 +6,7 @@ function initTabs() {
     makeTabButton("collection");
     makeTabButton("marketplace");
     elms.tab.$buttons.append($make("div.flex-fill"));
+    makeTabButton("infobook");
     makeTabButton("options");
 }
 
