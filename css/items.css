@@ -202,7 +202,7 @@
     display: flex;
     gap: 10px;
     margin: -10px -20px;
-    padding: 10px var(--inline-padding);
+    padding: 10px 0 10px var(--inline-padding);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline-start: var(--inline-padding);
@@ -214,7 +214,6 @@
     content: "";
     display: block;
     flex: 0 0 calc(var(--length) * calc(var(--item-width) + 10px) + var(--inline-padding) - 10px);
-    margin-left: calc(var(--inline-padding) * -1);
 }
 .infobook-card {
     position: absolute;

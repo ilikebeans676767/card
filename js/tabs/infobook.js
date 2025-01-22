@@ -56,7 +56,7 @@ tabs.infobook = {
         if (state.viewWidth != viewWidth) {
             state.viewWidth = viewWidth;
             viewStyle ||= getComputedStyle(localElms.cards);
-            viewWidth -= parseFloat(viewStyle.paddingLeft) + parseFloat(viewStyle.paddingRight);
+            viewWidth -= parseFloat(viewStyle.getPropertyValue("--inline-padding")) * 2;
             let gap = parseFloat(viewStyle.gap);
             let cols = state.cols = Math.floor((viewWidth + gap) / 300);
             let width = state.colWidth = (viewWidth - gap * (cols - 1)) / cols;
