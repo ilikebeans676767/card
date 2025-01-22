@@ -190,31 +190,45 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
 }
 .infobook-holder .tab-buttons {
     padding-inline: 10px;
 }
 .infobook-cards {
+    --inline-padding: 40px;
     flex: 1;
+    position: relative;
     display: flex;
     gap: 10px;
-    margin-inline: -20px;
-    padding: 10px 20px 0 20px;
+    margin: -10px -20px;
+    padding: 10px var(--inline-padding);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline-start: 20px;
+    scroll-padding-inline-start: var(--inline-padding);
     align-items: stretch;
+    mask: linear-gradient(white, white) left / calc(100% - 40px) repeat-y, 
+        linear-gradient(90deg, white, #0000) right / 40px repeat-y;
+}
+.infobook-cards::after {
+    content: "";
+    display: block;
+    flex: 0 0 calc(var(--length) * calc(var(--item-width) + 10px) + var(--inline-padding) - 10px);
+    margin-left: calc(var(--inline-padding) * -1);
 }
 .infobook-card {
+    position: absolute;
+    left: calc(var(--index) * calc(var(--item-width) + 10px) + var(--inline-padding));
+    width: var(--item-width);
+    top: 10px;
+    bottom: 10px;
     display: flex;
     flex-direction: column;
-    flex: 0 0 var(--item-width);
     background: var(--background-1);
     border: 1px solid var(--border-0);
     border-radius: 5px;
     box-shadow: var(--shadow-2);
     scroll-snap-align: start;
-    scroll-snap-stop: always;
 }
 .infobook-card > .header {
     padding: 7px 10px;
@@ -225,6 +239,37 @@
     padding: 5px 10px 9px 10px;
     overflow-y: auto;
     flex: 1;
+}
+.page-indicators {
+    margin-block: 10px 5px;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    z-index: 1;
+}
+.page-indicators > .indicator {
+    flex: 0 1 40px;
+    height: 5px;
+    background: linear-gradient(var(--background-1), var(--color-0)) 
+        -1px calc(var(--lit, 0) * calc(100% + 2px) - 1px) 
+        / calc(100% + 2px) 10000% no-repeat;
+    border: 1px solid var(--border-0);
+    box-shadow: var(--shadow-1);
+    border-radius: 2px;
+}
+.infobook-holder .page-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+.infobook-holder .page-button.left {
+    left: -15px;
+    top: 50%;
+}
+.infobook-holder .page-button.right {
+    right: -15px;
+    top: 50%;
 }
 .stat-entry {
     display: flex;

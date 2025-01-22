@@ -374,6 +374,14 @@ main {
     color: var(--color-1);
 }
 
+.no-scroll-bar {
+    scrollbar-width: none;
+}
+.no-scroll-bar::-webkit-scrollbar {
+    appearance: none;
+    display: none;
+}
+
 .anim-float-in {
     animation: float-in .3s;
 }

@@ -22,8 +22,19 @@ tabs.infobook = {
         tabButtons.className = "tab-buttons";
         holder.append(tabButtons);
 
-        let cards = this.elms.cards = $make("div.infobook-cards");
+        let indicator = this.elms.indicator = $make("div.page-indicators");
+        holder.append(indicator);
+
+        let cards = this.elms.cards = $make("div.infobook-cards.no-scroll-bar");
         holder.append(cards);
+
+        let btnLeft = $make("button.page-button.left", $icon("tabler:chevron-left"));
+        btnLeft.onclick = () => cards.scrollBy({left: -this.state.colWidth, behavior: "smooth"});
+        holder.append(btnLeft);
+
+        let btnRight = $make("button.page-button.right", $icon("tabler:chevron-right"));
+        btnRight.onclick = () => cards.scrollBy({left: this.state.colWidth, behavior: "smooth"});
+        holder.append(btnRight);
 
         this.updateSubtab();
         addEvent("frame", this.onFrame);
@@ -41,15 +52,46 @@ tabs.infobook = {
         let localElms = tabs.infobook.elms;
         let state = tabs.infobook.state;
         let viewWidth = localElms.cards.clientWidth;
+        let viewStyle;
         if (state.viewWidth != viewWidth) {
             state.viewWidth = viewWidth;
-            let viewStyle = getComputedStyle(localElms.cards);
+            viewStyle ||= getComputedStyle(localElms.cards);
             viewWidth -= parseFloat(viewStyle.paddingLeft) + parseFloat(viewStyle.paddingRight);
             let gap = parseFloat(viewStyle.gap);
-            let cols = Math.floor((viewWidth + gap) / 300);
-            let width = (viewWidth - gap * (cols - 1)) / cols;
+            let cols = state.cols = Math.floor((viewWidth + gap) / 300);
+            let width = state.colWidth = (viewWidth - gap * (cols - 1)) / cols;
             console.log(gap, cols, width);
             localElms.cards.style.setProperty("--item-width", width + "px");
+            state.viewDirty = true;
+        }
+
+        let viewX = localElms.cards.scrollLeft;
+        let viewW = localElms.cards.scrollWidth;
+        if (state.viewX != viewX || state.viewW != viewW || state.viewDirty) {
+            state.viewX = viewX;
+            state.viewW = viewW;
+            state.viewDirty = false;
+            viewStyle ||= getComputedStyle(localElms.cards);
+            let gap = parseFloat(viewStyle.gap);
+            let pos = viewX / (state.colWidth + gap);
+            let len = localElms.cards.childElementCount;
+            let cols = state.cols;
+            while (localElms.indicator.childElementCount < len) {
+                let index = localElms.indicator.childElementCount;
+                let newDiv = $make("div.indicator");
+                newDiv.onclick = () => localElms.cards.childNodes[index].scrollIntoView({behavior: "smooth"});
+                localElms.indicator.append(newDiv);
+            }
+            while (localElms.indicator.childElementCount > len) {
+                localElms.indicator.lastElementChild.remove();
+            }
+            localElms.cards.style.setProperty("--length", len);
+            for (let a = 0; a < len; a++) {
+                localElms.cards.childNodes[a].style.setProperty("--index", a);
+                localElms.indicator.childNodes[a].style.setProperty("--lit", 
+                    Math.max(Math.min((cols + 1) / 2 - Math.abs(a - (cols - 1) / 2 - pos), 1), 0)
+                );
+            }
         }
     },
     updateSubtab() {
@@ -69,6 +111,7 @@ tabs.infobook = {
                 $make("div.content", "Maybe I'll add lore to the game..."),
             ))
         }
+        this.state.viewDirty = true;
     },
 
     clearItems() {
