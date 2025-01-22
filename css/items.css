@@ -214,6 +214,7 @@
     content: "";
     display: block;
     flex: 0 0 calc(var(--length) * calc(var(--item-width) + 10px) + var(--inline-padding) - 10px);
+    background: transparent;
 }
 .infobook-card {
     position: absolute;
