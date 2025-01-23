@@ -13,6 +13,32 @@ function onFrame() {
             elms.currencies["$" + x].$amount.textContent = format(game.res[x]);
         })
     }
+    if (flags.unlocked.skills) {
+        for (let skill in game.time.skillCooldowns) {
+            if (game.drawPref.skills[skill]) continue;
+            game.time.skillCooldowns[skill] -= delta / 1000;
+        }
+        ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
+            let btn = elms.draw.$skills["$" + x];
+            let data = skills[x];
+            let icon;
+            if (hasCard("standard", "ssr", "s_" + x)) {
+                btn.disabled = false;
+                icon = data.icon;
+                btn.classList.add("f-" + x);
+                btn.classList.toggle("disabled", game.time.skillCooldowns[x] > 0);
+                btn.classList.toggle("active", !!game.drawPref.skills[x]);
+                btn.style.setProperty("--cooldown", 
+                    game.drawPref.skills[x] ? '"Active"' : 
+                    game.time.skillCooldowns[x] > 0 ? `"${format.time(game.time.skillCooldowns[x])}"` : "");
+            } else {
+                btn.disabled = true;
+                icon = "tabler:lock";
+            }
+            if (btn.$icon.getAttribute("icon") != icon)
+                btn.$icon.setAttribute("icon", icon);
+        })
+    }
 
     game.stats.timePlayed += delta / 1000;
 
@@ -25,7 +51,7 @@ function onFrame() {
         elms.draw.$amount.textContent = "";
     } else if (cooldown > 0) {
         elms.draw.$action.textContent = "In cooldown";
-        elms.draw.$amount.textContent = format(cooldown, 2) + "s";
+        elms.draw.$amount.textContent = cooldown < 60 ? format(cooldown, 2) + "s" : format.time(cooldown);
     } else {
         elms.draw.$action.textContent = "Draw";
         elms.draw.$amount.textContent = "×" + format(getDrawAmount(), 0, 9);
@@ -54,7 +80,11 @@ function updateUnlocks() {
     flags.unlocked.faction = hasCard("standard", "ex", "faction");
     elms.currencies.$factions.style.display = 
         elms.draw.$factionPicker.style.display = flags.unlocked.faction ? "" : "none";
-    elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction);
+
+    flags.unlocked.skills = hasCard("standard", "ex", "skills");
+    elms.draw.$skills.style.display = flags.unlocked.skills ? "" : "none";
+
+    elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction || flags.unlocked.skills);
 }
 
 // ----- Effect logic
@@ -101,6 +131,28 @@ function updateEffects() {
             effects[eftr[1]] = eftr[2](effects[eftr[1]]);
         }
     }
+
+    // Skill effects
+    if (game.drawPref.skills.water) {
+        effects.energyCap *= effects.skillWaterGain;
+        effects.bulkMult *= effects.skillWaterCard;
+    }
+    if (game.drawPref.skills.leaf) {
+        effects.shredRMult *= effects.skillLeafMult;
+        effects.shredSRMult *= effects.skillLeafMult;
+        effects.shredSSRMult *= effects.skillLeafMult;
+        effects.shredURMult *= effects.skillLeafMult;
+    }
+    if (game.drawPref.skills.sun) {
+        effects.factionMult *= effects.skillSunBuff;
+        effects.pointsMult /= effects.skillSunDebuff;
+        effects.shredMult /= effects.skillSunDebuff;
+    }
+    if (game.drawPref.skills.moon) {
+        effects.pointsMult *= effects.skillMoonBuff;
+        effects.factionMult /= effects.skillMoonDebuff;
+    }
+
 
     emit("effect-update");
 }
@@ -159,6 +211,7 @@ function makeLootTable() {
             if (card.faction && card.faction != faction) continue;
 
             let cardDef = { item: `card:${pack}/${rarity}/${id}`, w: 1 };
+            if (card.pMult) cardDef.w *= card.pMult;
             if (card.crown) cardDef.w /= 10;
 
             cardRarityDef.push(cardDef);
@@ -236,6 +289,7 @@ function getDrawAmount() {
     let count = Math.floor(effects.bulk) + getUsedEnergy();
     count = Math.floor(count * effects.bulkMult);
     count = Math.min(count, MAX_CARDS - game.stats.cardsDrawn);
+    if (game.drawPref.skills.water && game.res.energy >= effects.energyCap) count *= effects.skillWaterCard2;
     if (!hasCard("standard", "ex", "zip")) count = Math.min(count, 100);
     return count;
 }
@@ -321,6 +375,33 @@ function getTotalStars(pack) {
     }
     
     return count;
+}
+
+// ----- Skill logic 
+
+function activateSkill(skill) {
+    let data = skills[skill];
+    if (game.time.skillCooldowns[skill] > 0) return;
+
+    data.trigger();
+    game.stats.skillsUsed[skill] ??= 0;
+    game.stats.skillsUsed[skill]++;
+
+    if (game.drawPref.skills.sun && (game.drawPref.skills.moon || game.drawPref.skills.leaf)) {
+        delete game.drawPref.skills.sun;
+        delete game.drawPref.skills.moon;
+        delete game.drawPref.skills.leaf;
+        doSkillReaction();
+    }
+
+    updateEffects();
+    saveGame();
+}
+
+function doSkillReaction() {
+    game.stats.reactionCount++;
+    elms.draw.$skills.classList.add("reaction");
+    setTimeout(() => elms.draw.$skills.classList.remove("reaction"), 500);
 }
 
 // ----- Infobook logic

@@ -77,21 +77,7 @@ let tooltipTemplates = {
             let update = () => {
                 if (!info.isConnected || !tooltip.classList.contains("active")) removeEvent("frame", update);
                 else {
-                    if (id == "energy") {
-                        let eff = addWithCapEfficiency(game.res[id], effects.energyCap, 2);
-                        info.innerHTML = `
-                            (you have ${_number(format(game.res[id], 0, 14))})<br>
-                            (${_number(format(effects.bulkPower * eff))}/min)
-                            ${effects.bulkPower == 0 ? "" 
-                                : eff == 1 ? `(${_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower * 60))} until cap)` 
-                                : `(${_number(format(eff * 100) + "%")} efficiency)`
-                            }
-                        `
-                    } else if (id == "cards") {
-                        info.innerHTML = `(you've drawn ${_number(format(game.stats.cardsDrawn, 0, 14))})`
-                    } else {
-                        info.innerHTML = `(you have ${_number(format(game.res[id], 0, 14))})`
-                    }
+                    info.innerHTML = getCurrencyInfo(id);
                 }
             }
             update();
@@ -208,5 +194,43 @@ let tooltipTemplates = {
                 </div>`
             }
         }
+    },
+    skill (skill) {
+        let data = skills[skill];
+        return (tooltip) => {
+            if (hasCard("standard", "ssr", "s_" + skill)) {
+                tooltip.innerHTML = `
+                    <div class="header">
+                        <h2>${data.name}</h2>
+                        <small>(skill)</small>
+                    </div>
+                    <div>
+                        ${data.desc()}
+                    </div>
+                `
+            } else {
+                tooltip.innerHTML = `
+                    This skill is locked
+                `
+            }
+        }
+    }
+}
+
+function getCurrencyInfo(id) {
+    if (id == "energy") {
+        let eff = addWithCapEfficiency(game.res[id], effects.energyCap, 2);
+        return `
+            (you have ${_number(format(game.res[id], 0, 14))})<br>
+            (${_number(format(effects.bulkPower * eff))}/min)
+            ${effects.bulkPower == 0 ? "" 
+                : eff == 1 ? `(${_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower * 60))} until cap)` 
+                : `(${_number(format(eff * 100) + "%")} efficiency)`
+            }
+        `
+    } else if (id == "cards") {
+        return `(you've drawn ${_number(format(game.stats.cardsDrawn, 0, 14))})`
+    } else {
+        return `(you have ${_number(format(game.res[id], 0, 14))})`
     }
 }

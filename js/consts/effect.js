@@ -34,6 +34,22 @@ const baseEffect = {
     breakSkip: 0.3,
     revealTime: 0.5,
     revealSkip: 1,
+
+    skillFireSkip: 60,
+    skillFireCooldown: 120,
+    skillWaterGain: 2,
+    skillWaterCard: 1,
+    skillWaterCard2: 1,
+    skillWaterWait: 10,
+    skillWaterCooldown: 240,
+    skillLeafMult: 2,
+    skillLeafCooldown: 600,
+    skillSunBuff: 2,
+    skillSunDebuff: 10,
+    skillSunCooldown: 300,
+    skillMoonBuff: 5,
+    skillMoonDebuff: 2,
+    skillMoonCooldown: 600,
 }
 
 const flags = {
@@ -43,6 +59,7 @@ const flags = {
         energy: false,
         market: false,
         faction: false,
+        skills: false,
     }
 }
 
@@ -99,21 +116,25 @@ const statEntries = {
             },
             cardRChance: {
                 name: "<rarity rarity='r'></rarity> appear chance",
+                condition: () => flags.unlocked.shreds,
                 display: () => format.chance(effects.cardRChance, 0, 7),
                 cost: [1e3, "shreds"],
             },
             cardSRChance: {
                 name: "<rarity rarity='sr'></rarity> appear chance",
+                condition: () => flags.unlocked.shreds,
                 display: () => format.chance(effects.cardSRChance, 0, 7),
                 cost: [1e5, "shreds"],
             },
             cardSSRChance: {
                 name: "<rarity rarity='ssr'></rarity> appear chance",
+                condition: () => flags.unlocked.shreds,
                 display: () => format.chance(effects.cardSSRChance, 0, 7),
                 cost: [1e7, "shreds"],
             },
             cardURChance: {
                 name: "<rarity rarity='ur'></rarity> appear chance",
+                condition: () => flags.unlocked.shreds,
                 display: () => format.chance(effects.cardURChance, 0, 7),
                 cost: [1e9, "shreds"],
             },
@@ -150,6 +171,7 @@ const statEntries = {
     },
     shreds: {
         name: "Shreds", 
+        condition: () => flags.unlocked.shreds,
         items: {
             base: {
                 name: "Base gain",
@@ -169,22 +191,23 @@ const statEntries = {
             srMult: {
                 name: "<rarity rarity='sr'></rarity> card multi",
                 display: () => _number("×" + format(effects.shredSRMult, 2, 7)),
-                cost: [Math.E ** 25, "shreds"],
+                cost: [Math.E ** 20, "shreds"],
             },
             ssrMult: {
                 name: "<rarity rarity='ssr'></rarity> card multi",
                 display: () => _number("×" + format(effects.shredSSRMult, 2, 7)),
-                cost: [Math.E ** 45, "shreds"],
+                cost: [Math.E ** 30, "shreds"],
             },
             urMult: {
                 name: "<rarity rarity='ur'></rarity> card multi",
                 display: () => _number("×" + format(effects.shredURMult, 2, 7)),
-                cost: [Math.E ** 85, "shreds"],
+                cost: [Math.E ** 50, "shreds"],
             },
         }
     },
     faction: {
         name: "Faction", 
+        condition: () => flags.unlocked.faction,
         items: {
             chance: {
                 name: "Power chance",
@@ -237,4 +260,50 @@ const statEntries = {
             },
         }
     },
+    skills: {
+        name: "Skills", 
+        condition: () => flags.unlocked.skills,
+        items: {
+            fireUse: {
+                name: "\"Burst\" use count",
+                condition: () => hasCard("standard", "ssr", "s_fire"),
+                display: () => _number(format(game.stats.skillsUsed.fire ?? 0)),
+                cost: [1e5, "fire"],
+            },
+            waterUse: {
+                name: "\"Freeze Drop\" use count",
+                condition: () => hasCard("standard", "ssr", "s_water"),
+                display: () => _number(format(game.stats.skillsUsed.water ?? 0)),
+                cost: [1e5, "water"],
+            },
+            leafUse: {
+                name: "\"Fertilizer\" use count",
+                condition: () => hasCard("standard", "ssr", "s_leaf"),
+                display: () => _number(format(game.stats.skillsUsed.leaf ?? 0)),
+                cost: [1e5, "leaf"],
+            },
+            sunUse: {
+                name: "\"Photosynthesis\" use count",
+                condition: () => hasCard("standard", "ssr", "s_sun"),
+                display: () => _number(format(game.stats.skillsUsed.sun ?? 0)),
+                cost: [1e5, "sun"],
+            },
+            moonUse: {
+                name: "\"Simplification\" use count",
+                condition: () => hasCard("standard", "ssr", "s_moon"),
+                display: () => _number(format(game.stats.skillsUsed.moon ?? 0)),
+                cost: [1e5, "moon"],
+            },
+            sep0: {
+                separator: true,
+                condition: () => game.stats.reactionCount > 0
+            },
+            reaction: {
+                name: "Skill reactions",
+                condition: () => game.stats.reactionCount > 0,
+                display: () => _number(format(game.stats.reactionCount ?? 0)),
+                cost: [1e14, "shreds"],
+            },
+        }
+    }
 }

@@ -14,6 +14,7 @@ const cards = {
                 desc: "Gain {+0} points per draw.",
                 quote: "ここにいる",
                 levelCost: [10, 1.2],
+                pMult: 1.2,
                 effects: [
                     (level, star) => level ** ((game.cards.standard?.sr?.n1?.stars ?? 0) * .1 + 1) * star,
                 ],
@@ -27,6 +28,7 @@ const cards = {
                 quote: "To explain what half a point even is, we'll need to talk about parallel universes-",
                 condition: () => hasCard("standard", "n", "n1"),
                 levelCost: [5, 1.15],
+                pMult: 1.2,
                 starDiff: 0.2,
                 effects: [
                     (level, star) => level ** ((game.cards.standard?.sr?.n2?.stars ?? 0) * .1 + 1) * star,
@@ -81,6 +83,7 @@ const cards = {
                 desc: "{+0%} pack breaking speed.",
                 quote: "If you haven't noticed it yet, you can click the pack while it's breaking to break it faster",
                 levelCost: [25, 2],
+                pMult: 0.6,
                 starDiff: 0.5,
                 effects: [
                     (level, star) => level * star,
@@ -94,6 +97,7 @@ const cards = {
                 desc: "{+0%} cooldown speed.",
                 quote: "Restock faster with our new fast delivery service—applied to all orders 1 card and above!",
                 levelCost: [25, 2],
+                pMult: 0.6,
                 starDiff: 0.5,
                 effects: [
                     (level, star) => level * star,
@@ -147,6 +151,7 @@ const cards = {
                 desc: "{+0%} point multiplier.",
                 quote: "Every incremental game needs exponential growth, a generic currency needs a generic multiplier upgrade",
                 levelCost: [100000, 1.3],
+                pMult: 1.2,
                 effects: [
                     (level, star) => 40 + level * [0, 10, 20, 40, 80, 160][star],
                 ],
@@ -160,6 +165,7 @@ const cards = {
                 quote: "Press some of your shreds into money. This is precisely how legal money are made too, people won't even be able to notice a difference",
                 condition: () => flags.unlocked.shreds,
                 levelCost: [1000, 1.12, "shreds"],
+                pMult: 1.2,
                 starDiff: 0.2,
                 effects: [
                     (level, star) => 25 + level ** (0.9 + star * 0.1) * [0, 25, 50, 100, 180, 250][star],
@@ -206,6 +212,7 @@ const cards = {
                 quote: "Reusing cards to open more cards is a good idea actually",
                 condition: () => hasCard("standard", "r", "n3") && flags.unlocked.shreds,
                 levelCost: [1000, 1.4, "shreds"],
+                pMult: 0.8,
                 maxLevel: 40,
                 starDiff: 1.2,
                 effects: [
@@ -220,6 +227,7 @@ const cards = {
                 desc: "{+0%} bulk energy cap.",
                 quote: "Recycle even harder with this composter designed to make a metric-scrap-ton of cards",
                 condition: () => hasCard("standard", "r", "n3b"),
+                pMult: 0.8,
                 levelCost: [1000, 1.3, "shreds"],
                 maxLevel: 75,
                 starDiff: 0.9,
@@ -235,6 +243,7 @@ const cards = {
                 desc: "{+0%} card multiplier, but {+1%} cooldown duration and pack breaking duration.",
                 quote: "The card packs got some endurance training! Now they are harder to break into, but the contents are increased!",
                 condition: () => hasCard("standard", "ex", "zip"),
+                pMult: 0.8,
                 levelCost: [50000, 2],
                 maxLevel: 40,
                 starDiff: 1,
@@ -253,8 +262,9 @@ const cards = {
                 desc: "{+0} fire power per gain.",
                 quote: "ah,<br>that's hot,<br>..., that's hot",
                 faction: "fire",
+                pMult: 0.5,
                 levelCost: [2, 1.5, "fire"],
-                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                starCost: x => cardStarCost.standard.sr(x, 3) * 12,
                 effects: [
                     (level, star) => level * star,
                 ],
@@ -267,8 +277,9 @@ const cards = {
                 desc: "{+0} water power per gain.",
                 quote: "i'm blue da be dee da be die",
                 faction: "water",
+                pMult: 0.5,
                 levelCost: [2, 1.5, "water"],
-                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                starCost: x => cardStarCost.standard.sr(x, 3) * 12,
                 effects: [
                     (level, star) => level * star,
                 ],
@@ -281,8 +292,9 @@ const cards = {
                 desc: "{+0} leaf power per gain.",
                 quote: "team trees ftw",
                 faction: "leaf",
+                pMult: 0.5,
                 levelCost: [2, 1.5, "leaf"],
-                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                starCost: x => cardStarCost.standard.sr(x, 3) * 12,
                 effects: [
                     (level, star) => level * star,
                 ],
@@ -295,8 +307,9 @@ const cards = {
                 desc: "{+0} sun power per gain.",
                 quote: "feel the breath",
                 faction: "sun",
+                pMult: 0.5,
                 levelCost: [2, 1.5, "sun"],
-                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                starCost: x => cardStarCost.standard.sr(x, 3) * 12,
                 effects: [
                     (level, star) => level * star,
                 ],
@@ -309,8 +322,9 @@ const cards = {
                 desc: "{+0} moon power per gain.",
                 quote: "it is our home",
                 faction: "moon",
+                pMult: 0.5,
                 levelCost: [2, 1.5, "moon"],
-                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                starCost: x => cardStarCost.standard.sr(x, 3) * 12,
                 effects: [
                     (level, star) => level * star,
                 ],
@@ -333,6 +347,7 @@ const cards = {
                 desc: "{+0%} point multiplier.",
                 quote: "A perfectly generic card that boosts the perfectly generic currency, the genericness is getting too perfect to handle",
                 levelCost: [125, 5],
+                pMult: 2,
                 effects: [
                     (level, star) => 40 + level ** (0.9 + star * 0.1) * [0, 10, 20, 40, 80, 160][star],
                 ],
@@ -344,6 +359,7 @@ const cards = {
                 name: "A Pair of Points",
                 desc: "Raise the level in <b><rarity rarity='n'></rarity> A Single Point</b>'s effect by {^0:1}",
                 quote: "Two is always better than one",
+                pMult: 1.2,
                 effects: [
                     (level, star) => 1 + star * 0.1,
                 ],
@@ -353,6 +369,7 @@ const cards = {
                 name: "Dice Extractor",
                 desc: "Raise the level in <b><rarity rarity='n'></rarity> Half a Point</b>'s effect by {^0:1}",
                 quote: "Let the pips on the die guide you",
+                pMult: 1.2,
                 effects: [
                     (level, star) => 1 + star * 0.1,
                 ],
@@ -378,6 +395,7 @@ const cards = {
                 desc: "{+0%} fire power, leaf power, and point gains.",
                 quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
                 faction: "fire",
+                pMult: 0.5,
                 levelCost: [10, 1.2, "fire"],
                 effects: [
                     (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
@@ -393,6 +411,7 @@ const cards = {
                 desc: "{+0%} water power, fire power, and point gains.",
                 quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
                 faction: "water",
+                pMult: 0.5,
                 levelCost: [10, 1.2, "water"],
                 effects: [
                     (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
@@ -408,6 +427,7 @@ const cards = {
                 desc: "{+0%} leaf power, water power, and point gains.",
                 quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
                 faction: "leaf",
+                pMult: 0.5,
                 levelCost: [10, 1.2, "leaf"],
                 effects: [
                     (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
@@ -423,6 +443,7 @@ const cards = {
                 desc: "{+0%} sun power, moon power, and point gains.",
                 quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
                 faction: "sun",
+                pMult: 0.5,
                 levelCost: [10, 1.2, "sun"],
                 effects: [
                     (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
@@ -438,6 +459,7 @@ const cards = {
                 desc: "{+0%} moon power, sun power, and point gains.",
                 quote: "Yes, these <rarity rarity='sr'></rarity> cards really are just copy and paste, you don't think every gacha game does this all the time?",
                 faction: "moon",
+                pMult: 0.5,
                 levelCost: [10, 1.2, "moon"],
                 effects: [
                     (level, star) => 8 + level * [0, 2, 3, 5, 8, 12][star],
@@ -454,6 +476,7 @@ const cards = {
                 name: "Homestretch",
                 desc: "{+0%} card multiplier.",
                 quote: "Thank you for going this far into the game! If you like it be sure to leave a like and subscribe for more content like this",
+                pMult: 2,
                 levelCost: [1e9, 10],
                 starDiff: 1,
                 effects: [
@@ -491,6 +514,21 @@ const cards = {
                 ],
                 effectors: {
                     shredSRMult: [priority.multiplicative, (x) => x * fx(0)]
+                }
+            },
+            "n0d": {
+                name: "Diamond",
+                desc: "{x0} Shred gain from <rarity rarity='ssr'></rarity> and above cards.",
+                quote: "Diamonds are actually quite common since there are already discoveries on how to fuse them from coal, but the equipments are so expensive that they might be considered rich people's toys",
+                faction: "sun",
+                condition: () => flags.unlocked.skills,
+                levelCost: [10000, 2, "moon"],
+                starDiff: 1,
+                effects: [
+                    (level, star) => level * star * 2,
+                ],
+                effectors: {
+                    shredSSRMult: [priority.multiplicative, (x) => x * fx(0)]
                 }
             },
             "n1a": {
@@ -548,6 +586,7 @@ const cards = {
                     + "<br>(Currently: {0} entries ⇒ {+1%} point gain)",
                 quote: "1 ^ 2 + 3 = 4",
                 faction: "moon",
+                condition: () => flags.unlocked.infobook,
                 effects: [
                     (level, star) => Object.values(game.flags.statUnlocks).map(x => Object.keys(x).length).reduce((x, y) => x + y),
                     (level, star) => fx(0) ** (star * .1 + .9) * 5,
@@ -555,6 +594,206 @@ const cards = {
                 effectors: {
                     pointsMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
                 }
+            },
+            "n1e": {
+                name: "Weird Checkerboard Floor to Question Reality to",
+                desc: 
+                    "Gain more Shreds based on the total amount of skill reactions you've did."
+                    + "<br>(Currently: {0} entries ⇒ {+1%} shred gain)",
+                quote: "All the technological advancements, just for this",
+                condition: () => game.flags.statUnlocks.skills?.reaction,
+                pMult: 0.7,
+                starDiff: 0.2,
+                effects: [
+                    (level, star) => game.stats.reactionCount,
+                    (level, star) => fx(0) ** (star * .1 + .9) * 4 * (1.25 ** star),
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
+            "s_fire": {
+                name: "Burst",
+                desc: "Unlock the \"Burst\" skill.",
+                quote: "Who used explosion magic inside the dungeon again!?",
+                faction: "fire",
+                pMult: 5,
+                crown: true,
+                condition: () => flags.unlocked.skills,
+                effects: [],
+                effectors: {}
+            },
+            "s_fire_1": {
+                name: "Mega Burst",
+                desc: "\"Burst\" skill skips an additional {+0s} per trigger.",
+                quote: "Now with flying colors",
+                faction: "fire",
+                pMult: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_fire"),
+                levelCost: [1000, 1.4, "fire"],
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star],
+                ],
+                effectors: {
+                    skillFireSkip: [priority.additive, (x) => x + fx(0)]
+                }
+            },
+            "s_fire_2": {
+                name: "Explosion Mastery",
+                desc: 
+                    "\"Burst\" skill gains an additional {+0s} time skip per trigger every time you use this skill."
+                    + "<br>(Currently: {1} times ⇒ {+2s} time skip)",
+                quote: "*particle accelerator noises*",
+                faction: "fire",
+                pMult: 0.3,
+                starDiff: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_fire") && game.flags.statUnlocks.skills?.fireUse,
+                effects: [
+                    (level, star) => [0, 2, 3, 5, 7, 10][star],
+                    (level, star) => game.stats.skillsUsed.fire ?? 0,
+                    (level, star) => fx(0) * fx(1)
+                ],
+                effectors: {
+                    skillFireSkip: [priority.additive, (x) => x + fx(2)]
+                }
+            },
+            "s_water": {
+                name: "Freeze Drop",
+                desc: "Unlock the \"Freeze Drop\" skill.",
+                quote: "Do you wanna build a snowman?",
+                faction: "water",
+                pMult: 4,
+                crown: true,
+                condition: () => flags.unlocked.skills,
+                effects: [],
+                effectors: {}
+            },
+            "s_water_1": {
+                name: "Slow, but Steady",
+                desc: "{+0%} card multiplier while \"Freeze Drop\" is active.",
+                quote: "Better be slow to be sure",
+                faction: "water",
+                pMult: 0.5,
+                starDiff: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_water"),
+                levelCost: [1000, 1.3, "water"],
+                effects: [
+                    (level, star) => level * [0, 1, 1.5, 2, 3, 4][star],
+                ],
+                effectors: {
+                    skillWaterCard: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)]
+                }
+            },
+            "s_water_2": {
+                name: "Top of the Mountain",
+                desc: "{+0%} \"Freeze Drop\"'s energy cap boost, but {+1%} card multiplier when energy cap is reached while \"Freeze Drop\" is active.",
+                quote: "🍓",
+                faction: "water",
+                pMult: 0.3,
+                starDiff: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_water"),
+                effects: [
+                    (level, star) => 5 * star,
+                    (level, star) => 5 * star,
+                ],
+                effectors: {
+                    skillWaterGain: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    skillWaterCard2: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
+            "s_leaf": {
+                name: "Fertilizer",
+                desc: "Unlock the \"Fertilizer\" skill.",
+                quote: "Faster trees means faster papers means faster shreds",
+                faction: "leaf",
+                pMult: 3,
+                crown: true,
+                condition: () => flags.unlocked.skills,
+                effects: [],
+                effectors: {}
+            },
+            "s_leaf_1": {
+                name: "Nurture",
+                desc: "Increase \"Fertilizer\" multipler effect by {x0:1}.",
+                quote: "Take care of the trees",
+                faction: "leaf",
+                pMult: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_leaf"),
+                levelCost: [1000, 1.4, "leaf"],
+                effects: [
+                    (level, star) => 1 + level * [0, 0.1, 0.15, 0.2, 0.3, 0.4][star],
+                ],
+                effectors: {
+                    skillLeafMult: [priority.multiplicative, (x) => x * fx(0)]
+                }
+            },
+            "s_sun": {
+                name: "Photosynthesis",
+                desc: "Unlock the \"Photosynthesis\" skill.",
+                quote: "The sun is a deadly lazer",
+                faction: "sun",
+                pMult: 2.5,
+                crown: true,
+                condition: () => flags.unlocked.skills,
+                effects: [],
+                effectors: {}
+            },
+            "s_sun_1": {
+                name: "Extra Light",
+                desc: "Increase \"Photosynthesis\"'s buff and debuff effect by {+0%}.",
+                quote: "Is this a flashbang?",
+                faction: "sun",
+                pMult: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_sun"),
+                levelCost: [1000, 1.2, "sun"],
+                effects: [
+                    (level, star) => level * [0, 1, 1.5, 2, 3, 4][star],
+                ],
+                effectors: {
+                    skillSunBuff: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    skillSunDebuff: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "s_moon": {
+                name: "Simplification",
+                desc: "Unlock the \"Simplification\" skill.",
+                quote: "Can't hold all these currencies",
+                faction: "moon",
+                pMult: 2.5,
+                crown: true,
+                condition: () => flags.unlocked.skills,
+                effects: [],
+                effectors: {}
+            },
+            "s_moon_1": {
+                name: "Abstractify",
+                desc: "Increase \"Simplification\"'s buff by {+0%} but also its debuff by {+1%}.",
+                quote: "This card has been abstracted so much that I can't even bother to write a proper flavor text for it",
+                faction: "moon",
+                pMult: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_moon"),
+                levelCost: [1000, 1.2, "moon"],
+                effects: [
+                    (level, star) => level ** ((game.cards.standard?.ssr?.s_moon_2?.stars ?? 0) * .1 + 1) ** (star * 0.1 + 0.9) * 2.5
+                        * (2 ** star),
+                    (level, star) => level * 5,
+                ],
+                effectors: {
+                    skillMoonBuff: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    skillMoonDebuff: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                }
+            },
+            "s_moon_2": {
+                name: "Abstractify^2",
+                desc: "Raise the effective level in <rarity rarity='ssr'></rarity> Abstractify's buff effect by {^0:1}.",
+                quote: "Yeah, and this one either",
+                faction: "moon",
+                pMult: 0.3,
+                starDiff: 0.5,
+                condition: () => hasCard("standard", "ssr", "s_moon_1"),
+                effects: [
+                    (level, star) => (star * 0.1 + 1),
+                ],
             },
         },
         ur: {
@@ -564,6 +803,7 @@ const cards = {
                 quote: "<rarity rarity='ur'></rarity> mom's so buffed she's the strongest unit in the game",
                 levelCost: [1e12, 1.5, "shreds"],
                 starDiff: 1,
+                pMult: 3,
                 effects: [
                     (level, star) => level * [0, 1.2, 1.5, 1.8, 2.2, 2.6][star],
                     (level, star) => level * (2 ** star) * 10,
@@ -608,6 +848,16 @@ const cards = {
                 condition: () => game.cards.standard?.sr && flags.unlocked.shreds,
                 crown: true,
                 buyCost: [2.5e9, "shreds"],
+                effects: [],
+                effectors: {}
+            },
+            "skills": {
+                name: "Combo",
+                desc: "Unlock active skills. (Individual skills are unlocked through factioned drawing.)",
+                quote: "↑↑↓↓←→←→BA",
+                condition: () => game.cards.standard?.ssr && flags.unlocked.faction,
+                crown: true,
+                buyCost: [1e20, "points"],
                 effects: [],
                 effectors: {}
             },

@@ -126,6 +126,8 @@ popups.draw = {
         }
 
         game.time.drawCooldown = 1;
+        if (game.drawPref.skills.water) game.time.drawCooldown *= effects.skillWaterWait;
+        game.drawPref.skills = {};
         updateEffects();
         updateUnlocks();
         emit("card-update");

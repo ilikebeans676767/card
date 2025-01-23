@@ -71,6 +71,19 @@ function initUI() {
     hozHolder.classList.add("faction-picker");
     ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => hozHolder.childNodes[i + 1].classList.add("f-" + x));
 
+    elms.draw.$options.append(elms.draw.$skills = $make("div.skill-holder"));
+    ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
+        let btn = elms.draw.$skills["$" + x] = $make("button")
+        elms.draw.$skills.append(btn);
+        btn.onclick = () => {
+            if (prefersNoTooltips()) {
+                if (hasCard("standard", "ssr", "s_" + x)) callPopup("skill", x);
+            } else activateSkill(x);
+        }
+        btn.append(btn.$icon = $icon("tabler:lock"));
+        registerTooltip(btn, tooltipTemplates.skill(x));
+    });
+
     let btn = $make("button#draw-opt-show", $icon("tabler:chevron-right"));
     btn.onclick = () => elms.sidebar.classList.add("option-active");
     elms.draw.insertAdjacentElement("afterend", btn);
@@ -96,6 +109,9 @@ function createCurrencyUI(id) {
     div.$amount = amount;
 
     registerTooltip(div, tooltipTemplates.currency(id));
+    div.onclick = () => {
+        if (prefersNoTooltips()) callPopup("currency", id);
+    }
 
     return div;
 }

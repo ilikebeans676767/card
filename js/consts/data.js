@@ -21,14 +21,18 @@ function getNewGame() {
         time: {
             now: Date.now(),
             drawCooldown: 0,
+            skillCooldowns: {}
         },
         stats: {
             timePlayed: 0,
-            cardsDrawn: 0
+            cardsDrawn: 0,
+            skillsUsed: {},
+            reactionCount: 0,
         },
         cards: {},
         drawPref: {
-            faction: ""
+            faction: "",
+            skills: {}
         },
         option: {
             notation: "default",

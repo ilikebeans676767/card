@@ -28,11 +28,11 @@ tabs.infobook = {
         let cards = this.elms.cards = $make("div.infobook-cards.no-scroll-bar");
         holder.append(cards);
 
-        let btnLeft = $make("button.page-button.left", $icon("tabler:chevron-left"));
+        let btnLeft = this.elms.btnLeft = $make("button.page-button.left", $icon("tabler:chevron-left"));
         btnLeft.onclick = () => cards.scrollBy({left: -this.state.colWidth, behavior: "smooth"});
         holder.append(btnLeft);
 
-        let btnRight = $make("button.page-button.right", $icon("tabler:chevron-right"));
+        let btnRight = this.elms.btnRight = $make("button.page-button.right", $icon("tabler:chevron-right"));
         btnRight.onclick = () => cards.scrollBy({left: this.state.colWidth, behavior: "smooth"});
         holder.append(btnRight);
 
@@ -74,8 +74,19 @@ tabs.infobook = {
             viewStyle ||= getComputedStyle(localElms.cards);
             let gap = parseFloat(viewStyle.gap);
             let pos = viewX / (state.colWidth + gap);
-            let len = localElms.cards.childElementCount;
             let cols = state.cols;
+
+            let len = 0;
+            for (let card of localElms.cards.childNodes) {
+                if (!card.style.display) {
+                    card.style.setProperty("--index", len);
+                    len++;
+                }
+            }
+
+            localElms.btnLeft.disabled = pos < 0.5;
+            localElms.btnRight.disabled = pos + cols > len - 0.5;
+
             while (localElms.indicator.childElementCount < len) {
                 let index = localElms.indicator.childElementCount;
                 let newDiv = $make("div.indicator");
@@ -87,7 +98,6 @@ tabs.infobook = {
             }
             localElms.cards.style.setProperty("--length", len);
             for (let a = 0; a < len; a++) {
-                localElms.cards.childNodes[a].style.setProperty("--index", a);
                 localElms.indicator.childNodes[a].style.setProperty("--lit", 
                     Math.max(Math.min((cols + 1) / 2 - Math.abs(a - (cols - 1) / 2 - pos), 1), 0)
                 );
@@ -137,7 +147,7 @@ tabs.infobook = {
 
         if (item.condition) {
             let update = () => {
-                elm.style.display = item.condition() ? "" : "none";
+                div.style.display = item.condition() ? "" : "none";
             }
 
             if (item.event) addEvent(item.event, update);
@@ -171,7 +181,7 @@ tabs.infobook = {
     
             update = () => {
                 if (item.condition) {
-                    if ((elm.style.display = item.condition() ? "" : "none") == none) return;
+                    if ((elm.style.display = item.condition() ? "" : "none") == "none") return;
                 }
                 if (game.flags.statUnlocks[group]?.[id]) {
                     lock.style.display = "none";

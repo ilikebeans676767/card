@@ -118,12 +118,13 @@ format.time = (seconds, max = 2) => {
 }
 
 format.effect = (str, oldValues, newValues = null) => {
-    return str.replaceAll(/\{([+\-x×/\^])?([0-9])([%])?(?::([^}]+))?\}/g, 
+    return str.replaceAll(/\{([+\-x×/\^])?([0-9])([%s])?(?::([^}]+))?\}/g, 
         (_, prefix, index, suffix, formatArg) => {
             {
                 if (prefix == "x") prefix = "×";
                 let args = formatArg?.split(",").map(x => +x) ?? [];
                 let fmt = (x) => (prefix ?? "") + format(x, ...args) + (suffix ?? "");
+                if (suffix == "s") fmt = (x) => (prefix ?? "") + format.time(x, ...args);
                 let str;
                 if (newValues && oldValues[index] != newValues[index])
                     str = fmt(oldValues[index]) + " → " + fmt(newValues[index]);
