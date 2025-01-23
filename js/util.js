@@ -143,6 +143,10 @@ format.chance = (chance) => {
 
 // ----- Math
 
+function cap(a, cap, strength = 2) {
+    if (a < cap) return a;
+    return (a * cap ** (strength - 1)) ** (1 / strength);
+}
 function addWithCap(a, b, cap, strength = 2) {
     if (a + b <= cap) return a + b;
     let baseA = (a <= cap ? a : a ** strength / cap ** (strength - 1)) + b;
