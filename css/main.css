@@ -289,6 +289,7 @@ rarity::before {
     text-transform: uppercase;
     font-family: var(--number-font);
     font-style: italic;
+    font-weight: 700;
     padding-inline-end: 0.3ch;
 
     background: var(--rarity-gradient);
@@ -339,6 +340,7 @@ main {
     flex: 1;
 }
 
+
 .tab-buttons {
     border-bottom: 1px solid var(--border-1);
 }
@@ -372,6 +374,11 @@ main {
 }
 .unimportant {
     color: var(--color-1);
+}
+.section-header {
+    border-bottom: 1px solid var(--border-1);
+    padding-bottom: 2px;
+    margin-bottom: 5px;
 }
 
 .no-scroll-bar {

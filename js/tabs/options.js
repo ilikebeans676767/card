@@ -15,8 +15,6 @@ tabs.options = {
             return div;
         }
 
-
-
         elms.tab.append(container = $make("div.opt-container"));
         container.append($make("h3", "Preferences"));
         makeEntry("Number Format", choiceGroup = createChoiceGroup({

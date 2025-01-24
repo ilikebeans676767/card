@@ -59,6 +59,11 @@ function updateTooltipPos(ev) {
 }
 
 let tooltipTemplates = {
+    text (text) {
+        return (tooltip) => {
+            tooltip.innerHTML = text;
+        }
+    },
     currency (id) {
         return (tooltip) => {
             let data = currencies[id];
@@ -213,6 +218,21 @@ let tooltipTemplates = {
                     This skill is locked
                 `
             }
+        }
+    },
+    badge(badge) {
+        let data = badges[badge];
+        return (tooltip) => {
+            let obtained = !!game.badges[badge];
+            tooltip.innerHTML = `
+                <div class="header">
+                    <h2>${data.name}</h2>
+                    <small>(${obtained ? "obtained " : "locked "}badge)</small>
+                </div>
+                <div>
+                    ${obtained ? data.desc : "???"}
+                </div>
+            `
         }
     }
 }

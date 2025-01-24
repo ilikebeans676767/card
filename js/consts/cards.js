@@ -470,6 +470,95 @@ const cards = {
                     pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
+            "n5a": {
+                name: "Rapid Fire",
+                desc: "{/0:2} \"Burst\" cooldown.",
+                quote: "Needs more dakka",
+                faction: "fire",
+                condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_fire"),
+                pMult: 0.1,
+                levelCost: [2e5, 2, "fire"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => 1 + level * [0, 0.01, 0.02, 0.03, 0.05, 0.08][star],
+                ],
+                effectors: {
+                    skillFireCooldown: [priority.multiplicative, (x) => x / fx(0)],
+                }
+            },
+            "n5b": {
+                name: "Deep Freeze",
+                desc: "{/0:2} \"Freeze Drop\" cooldown.",
+                quote: "Near-absolute zero",
+                faction: "water",
+                condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_water"),
+                pMult: 0.1,
+                levelCost: [2e5, 1.5, "water"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => 1 + level * [0, 0.01, 0.02, 0.04, 0.07, 0.12][star],
+                ],
+                effectors: {
+                    skillWaterCooldown: [priority.multiplicative, (x) => x / fx(0)],
+                }
+            },
+            "n5c": {
+                name: "NPK",
+                desc: "{/0:2} \"Fertilizer\" cooldown.",
+                quote: "Why do one when you can do all of them",
+                faction: "leaf",
+                condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_leaf"),
+                pMult: 0.1,
+                levelCost: [2e5, 1.2, "leaf"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => 1 + level * [0, 0.01, 0.02, 0.04, 0.08, 0.16][star],
+                ],
+                effectors: {
+                    skillLeafCooldown: [priority.multiplicative, (x) => x / fx(0)],
+                }
+            },
+            "n5d": {
+                name: "Summer",
+                desc: "{/0:2} \"Photosynthesis\" cooldown.",
+                quote: "Beach episode not included",
+                faction: "sun",
+                condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_sun"),
+                pMult: 0.1,
+                levelCost: [2e5, 1.3, "sun"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => 1 + level * [0, 0.01, 0.02, 0.04, 0.07, 0.12][star],
+                ],
+                effectors: {
+                    skillSunCooldown: [priority.multiplicative, (x) => x / fx(0)],
+                }
+            },
+            "n5e": {
+                name: "College",
+                desc: "{/0:2} \"Simplification\" cooldown.",
+                quote: "Teaches students about critical thinking",
+                faction: "moon",
+                condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_moon"),
+                pMult: 0.1,
+                levelCost: [2e5, 1.2, "moon"],
+                starCost: x => cardStarCost.standard.sr(x, 3) * 25,
+                effects: [
+                    (level, star) => 1 + level * [0, 0.01, 0.02, 0.04, 0.08, 0.16][star],
+                ],
+                effectors: {
+                    skillMoonCooldown: [priority.multiplicative, (x) => x / fx(0)],
+                }
+            },
+            "c1": {
+                name: "Obsessive-Compulsive",
+                desc: "Unlock the ability to filter cards by criterias.",
+                condition: () => flags.unlocked.faction,
+                quote: "Must... keep it... organized...",
+                crown: true,
+                effects: [],
+                effectors: {}
+            },
         },
         ssr: {
             "n0": {
@@ -564,6 +653,23 @@ const cards = {
                     shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
                 }
             },
+            "n1b2": {
+                name: "Photo Book",
+                desc: 
+                    "Gain more Shreds based on the amount of badges you've got."
+                    + "<br>(Currently: {0} badges ⇒ {+1%} shred gain)",
+                quote: "Ahhh the memories",
+                faction: "leaf",
+                condition: () => flags.unlocked.shreds,
+                starDiff: 0.5,
+                effects: [
+                    (level, star) => Object.keys(game.badges).length,
+                    (level, star) => fx(0) ** (star * 0.1 + 0.9) * 5,
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
             "n1c": {
                 name: "Extra Points",
                 desc: 
@@ -599,7 +705,7 @@ const cards = {
                 name: "Weird Checkerboard Floor to Question Reality to",
                 desc: 
                     "Gain more Shreds based on the total amount of skill reactions you've did."
-                    + "<br>(Currently: {0} entries ⇒ {+1%} shred gain)",
+                    + "<br>(Currently: {0} reactions ⇒ {+1%} shred gain)",
                 quote: "All the technological advancements, just for this",
                 condition: () => game.flags.statUnlocks.skills?.reaction,
                 pMult: 0.7,
@@ -651,7 +757,7 @@ const cards = {
                 effects: [
                     (level, star) => [0, 2, 3, 5, 7, 10][star],
                     (level, star) => game.stats.skillsUsed.fire ?? 0,
-                    (level, star) => fx(0) * cap(fx(1), 100)
+                    (level, star) => fx(0) * cap(fx(1), 50)
                 ],
                 effectors: {
                     skillFireSkip: [priority.additive, (x) => x + fx(2)]
@@ -690,10 +796,10 @@ const cards = {
                 quote: "🍓",
                 faction: "water",
                 pMult: 0.3,
-                starDiff: 0.5,
+                starDiff: 1,
                 condition: () => hasCard("standard", "ssr", "s_water"),
                 effects: [
-                    (level, star) => 5 * star,
+                    (level, star) => 20 * star * star,
                     (level, star) => 5 * star,
                 ],
                 effectors: {
@@ -851,6 +957,16 @@ const cards = {
                 effects: [],
                 effectors: {}
             },
+            "pickit": {
+                name: "pick-it Premium",
+                desc: "Unlock the ability to filter upgradeable cards, albeit for a limited time.",
+                quote: "You can go right to what you want to see. Nothing to get in your way. pick-it Premium will widen and deepen your card-browsing passions.",
+                condition: () => hasCard("standard", "sr", "c1"),
+                crown: true,
+                buyCost: [5500, "water"],
+                effects: [],
+                effectors: {}
+            },
             "skills": {
                 name: "Combo",
                 desc: "Unlock active skills. (Individual skills are unlocked through factioned drawing.)",
@@ -858,6 +974,16 @@ const cards = {
                 condition: () => game.cards.standard?.ssr && flags.unlocked.faction,
                 crown: true,
                 buyCost: [1e20, "points"],
+                effects: [],
+                effectors: {}
+            },
+            "skills2": {
+                name: "Incantation-less Magic Pack",
+                desc: "Unlock cards that reduce cooldowns of skills.",
+                quote: "Did you know that the earlier you learn incantation-less magic the easier it is to do it?",
+                condition: () => game.stats.reactionCount > 0,
+                crown: true,
+                buyCost: [1e30, "points"],
                 effects: [],
                 effectors: {}
             },

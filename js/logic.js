@@ -39,6 +39,18 @@ function onFrame() {
                 btn.$icon.setAttribute("icon", icon);
         })
     }
+    if (flags.unlocked.pickit) {
+        if (tabs.collection.filters.pickit) {
+            game.time.pickit -= delta / 1000;
+            if (game.time.pickit <= 0) {
+                game.time.pickit = 0;
+                if (tabs.collection.elms.pickit) tabs.collection.elms.pickit.childNodes[0].click();
+                else tabs.collection.filters.pickit = false;
+            }
+        } else {
+            game.time.pickit = Math.min(effects.pickitMax, game.time.pickit + delta * effects.pickitRate / 60000);
+        }
+    }
 
     game.stats.timePlayed += delta / 1000;
 
@@ -85,6 +97,8 @@ function updateUnlocks() {
     elms.draw.$skills.style.display = flags.unlocked.skills ? "" : "none";
 
     elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction || flags.unlocked.skills);
+
+    flags.unlocked.pickit = hasCard("standard", "ex", "pickit");
 }
 
 // ----- Effect logic
@@ -279,6 +293,8 @@ function onDrawButtonClick() {
     let amount = getDrawAmount();
     game.res.energy -= getUsedEnergy();
     doDraw(amount);
+    awardBadge(11);
+    if (!game.drawPref.faction && game.drawPref.skills.sun) awardBadge(23);
 }
 
 function getDrawCooldown() {
@@ -300,9 +316,9 @@ function getUsedEnergy() {
 
 function getCardLevelCost(pack, rarity, id, amount = 1) {
     let data = cards[pack][rarity][id];
-    if (!data.levelCost) return [Infinity, res];
+    if (!data.levelCost) return [Infinity, "points"];
     let state = game.cards[pack]?.[rarity]?.[id];
-    if (!state) return [Infinity, res]; 
+    if (!state) return [Infinity, "points"]; 
 
     let [base, rate, res] = data.levelCost;
     res ??= "points";
@@ -402,6 +418,7 @@ function doSkillReaction() {
     game.stats.reactionCount++;
     elms.draw.$skills.classList.add("reaction");
     setTimeout(() => elms.draw.$skills.classList.remove("reaction"), 500);
+    awardBadge(22);
 }
 
 // ----- Infobook logic
@@ -416,5 +433,12 @@ function buyStatEntry(group, id) {
     if (!game.flags.statUnlocks[group]) game.flags.statUnlocks[group] = {};
     game.flags.statUnlocks[group][id] = true;
     saveGame();
+    updateEffects();
+}
+
+function awardBadge(badge) {
+    if (game.badges[badge]) return;
+    game.badges[badge] = Date.now();
+    spawnBadgeNotif(badge);
     updateEffects();
 }

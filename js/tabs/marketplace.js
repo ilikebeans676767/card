@@ -4,8 +4,13 @@ tabs.marketplace = {
 
     cards: {},
     elms: {},
-
     onInit() {
+        elms.tab.append($makeHTML("h3.section-header", "<rarity rarity='ex'></rarity> Cards"));
+
+        elms.tab.append(this.elms.placeholder = $make("div.note-container", `
+            Seems like there isn't anything here...
+        `));
+
         let list = this.elms.list = $make("div.card-list");
         elms.tab.append(list);
 
@@ -39,6 +44,8 @@ tabs.marketplace = {
             destroyingCards[card].remove();
             delete this.cards[card];
         }
+
+        this.elms.placeholder.style.display = cardList.length > 0 ? "none" : "";
     },
     makeCard(pack, rarity, id) {
         let listId = pack + " " + rarity + " " + id;

@@ -22,6 +22,7 @@ function loop() {
     game.time.now = Date.now();
 
     onFrame();
+    updateNotifs();
 
     requestAnimationFrame(loop);
 }

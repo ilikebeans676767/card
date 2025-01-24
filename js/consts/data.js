@@ -21,7 +21,8 @@ function getNewGame() {
         time: {
             now: Date.now(),
             drawCooldown: 0,
-            skillCooldowns: {}
+            skillCooldowns: {},
+            pickit: 5,
         },
         stats: {
             timePlayed: 0,
@@ -30,6 +31,7 @@ function getNewGame() {
             reactionCount: 0,
         },
         cards: {},
+        badges: {},
         drawPref: {
             faction: "",
             skills: {}

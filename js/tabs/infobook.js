@@ -17,6 +17,10 @@ tabs.infobook = {
             gallery: [$icon("tabler:slideshow"), " Gallery"],
         }, this.subtab, (x) => {
             this.subtab = x;
+            if (x == "gallery") {
+                awardBadge(21);
+                saveGame();
+            }
             this.updateSubtab();
         });
         tabButtons.className = "tab-buttons";
@@ -116,10 +120,47 @@ tabs.infobook = {
                 }
             }
         } else if (this.subtab == "gallery") {
+            let badgeContent;
             this.elms.cards.append($make("div.infobook-card",
-                $make("h3.header", "Coming soon..."),
-                $make("div.content", "Maybe I'll add lore to the game..."),
-            ))
+                $make("h3.header", "Badges"),
+                $make("div.content", 
+                    badgeContent = $make("div.badge-list")
+                )
+            ));
+            badgeContent.$list = {};
+            let update = () => {
+                for (let badge in badges) {
+                    let data = badges[badge];
+                    let div;
+                    if (badgeContent.$list[badge]) {
+                        div = badgeContent.$list[badge];
+                    } else {
+                        div = $make("div.badge");
+                        badgeContent.append(badgeContent.$list[badge] = div);
+                        div.append(div.$icon = $make("img"));
+                        registerTooltip(div, tooltipTemplates.badge(badge));
+                        div.onclick = () => {
+                            if (prefersNoTooltips()) callPopup("badge", badge);
+                        }
+                    
+                        if (data.noImage) {
+                            div.$icon.src = "res/badges/placeholder.png";
+                        } else {
+                            div.$icon.src = `res/badges/${badge}.png`;
+                            div.$icon.onerror = () => {
+                                div.$icon.src = "res/badges/placeholder.png";
+                                data.noImage = true;
+                                div.$icon.onerror = undefined;
+                            };
+                        }
+                    }
+                    
+                    let obtained = !!game.badges[badge];
+                    div.classList.toggle("locked", !obtained);
+                }
+            }
+            addEvent(undefined, update);
+            update();
         }
         this.state.viewDirty = true;
     },
@@ -150,9 +191,7 @@ tabs.infobook = {
                 div.style.display = item.condition() ? "" : "none";
             }
 
-            if (item.event) addEvent(item.event, update);
-            if (!this.items[item.event]) this.items[item.event] = [];
-            this.items[item.event].push(update);
+            this.registerEvent(item.event, update);
             update();
         }
 
@@ -196,11 +235,14 @@ tabs.infobook = {
         }
 
         if (update) {
-            if (item.event) addEvent(item.event, update);
-            if (!this.items[item.event]) this.items[item.event] = [];
-            this.items[item.event].push(update);
             update();
+            this.registerEvent(item.event, update);
         }
         return elm;
+    },
+    registerEvent(event, fn) {
+        if (event) addEvent(event, fn);
+        if (!this.items[event]) this.items[event] = [];
+        this.items[event].push(fn);
     }
 }

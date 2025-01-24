@@ -58,7 +58,7 @@ function initUI() {
     elms.draw.insertAdjacentElement("afterend", elms.currencies.$energy = createCurrencyUI("energy"));
     elms.draw.$options = $("#draw-options");
     elms.draw.$options.append(elms.draw.$factionPicker = hozHolder = createChoiceGroup({
-        "": $icon("tabler:circle"),
+        "": $icon("tabler:circle-dashed"),
         "fire": $icon(currencies.fire.icon),
         "water": $icon(currencies.water.icon),
         "leaf": $icon(currencies.leaf.icon),
@@ -69,7 +69,13 @@ function initUI() {
         saveGame();
     }))
     hozHolder.classList.add("faction-picker");
-    ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => hozHolder.childNodes[i + 1].classList.add("f-" + x));
+    ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
+        hozHolder.childNodes[i + 1].classList.add("f-" + x);
+    });
+
+    ["no", "fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
+        registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text("Switch to " + x + " faction"));
+    });
 
     elms.draw.$options.append(elms.draw.$skills = $make("div.skill-holder"));
     ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
@@ -92,6 +98,7 @@ function initUI() {
     hozHolder.prepend(btn);
 
     elms.tooltip = $("#tooltip");
+    elms.notifs = $("#notifs");
 
     elms.tab = $("#tab-content");
     elms.tab.$buttons = $("#tab-buttons");

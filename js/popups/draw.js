@@ -123,6 +123,10 @@ popups.draw = {
         for (let card of loot.cards) {
             game.stats.cardsDrawn += card[3];
             addCard(...card);
+            if (card[1] == "r") awardBadge(12);
+            if (card[1] == "sr") awardBadge(13);
+            if (card[1] == "ssr") awardBadge(14);
+            if (card[1] == "ur") awardBadge(15);
         }
 
         game.time.drawCooldown = 1;

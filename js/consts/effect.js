@@ -35,6 +35,9 @@ const baseEffect = {
     revealTime: 0.5,
     revealSkip: 1,
 
+    pickitRate: 1,
+    pickitMax: 5,
+
     skillFireSkip: 60,
     skillFireCooldown: 120,
     skillWaterGain: 2,
@@ -60,6 +63,7 @@ const flags = {
         market: false,
         faction: false,
         skills: false,
+        pickit: false,
     }
 }
 
@@ -244,7 +248,7 @@ const statEntries = {
             },
             mult: {
                 name: "All Power mult",
-                display: () => _number("×" + effects.factionMult, 2, 7),
+                display: () => _number("×" + format(effects.factionMult, 2, 7)),
                 cost: [1e18, "shreds"],
             },
             calc: {
