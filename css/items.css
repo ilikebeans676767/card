@@ -102,6 +102,7 @@
     width: 120px;
     height: 180px;
     margin: 1px;
+    border-radius: 4px;
     pointer-events: none;
 }
 .game-card-name {
@@ -150,7 +151,8 @@
 
 .card-block > .game-card:not(:last-child),
 .card-block > .game-card:not(:last-child)::before,
-.card-block > .game-card:not(:last-child) .game-card-name {
+.card-block > .game-card:not(:last-child) .game-card-name,
+.card-block > .game-card:not(:last-child) img {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }

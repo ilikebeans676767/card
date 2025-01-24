@@ -836,7 +836,7 @@ const cards = {
             "s_sun": {
                 name: "Photosynthesis",
                 desc: "Unlock the \"Photosynthesis\" skill.",
-                quote: "The sun is a deadly lazer",
+                quote: "The sun is a not-so-deadly lazer",
                 faction: "sun",
                 pMult: 2.5,
                 crown: true,
