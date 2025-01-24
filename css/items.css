@@ -104,6 +104,7 @@
     margin: 1px;
     border-radius: 4px;
     pointer-events: none;
+    image-rendering: pixelated;
 }
 .game-card-name {
     position: absolute;
