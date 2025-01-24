@@ -694,7 +694,7 @@ const cards = {
                 faction: "moon",
                 condition: () => flags.unlocked.infobook,
                 effects: [
-                    (level, star) => Object.values(game.flags.statUnlocks).map(x => Object.keys(x).length).reduce((x, y) => x + y),
+                    (level, star) => Object.values(game.flags.statUnlocks).map(x => Object.keys(x).length).reduce((x, y) => x + y, 0),
                     (level, star) => fx(0) ** (star * .1 + .9) * 5,
                 ],
                 effectors: {
