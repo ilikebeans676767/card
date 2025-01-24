@@ -305,7 +305,7 @@ function getDrawAmount() {
     let count = Math.floor(effects.bulk) + getUsedEnergy();
     count = Math.floor(count * effects.bulkMult);
     count = Math.min(count, MAX_CARDS - game.stats.cardsDrawn);
-    if (game.drawPref.skills.water && game.res.energy >= effects.energyCap) count *= effects.skillWaterCard2;
+    if (game.drawPref.skills.water && game.res.energy >= effects.energyCap) count = Math.floor(count * effects.skillWaterCard2);
     if (!hasCard("standard", "ex", "zip")) count = Math.min(count, 100);
     return count;
 }

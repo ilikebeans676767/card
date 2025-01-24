@@ -57,14 +57,15 @@
     inset: -1px;
     mix-blend-mode: lighten;
     border-radius: 5px;
-    animation: badge-notif-in-overlay 1.2s linear;
+    animation: badge-notif-in-overlay 1s linear;
 }
 .notif.badge-notif.disappearing {
     opacity: 1;
-    animation: badge-notif-out 1.2s ease-in;
+    transform: scale(0);
+    animation: badge-notif-out 1s ease-in;
 }
 .notif.badge-notif.disappearing > .overlay {
-    animation: badge-notif-out-overlay 1.2s linear;
+    animation: badge-notif-out-overlay 1s linear;
 }
 
 @keyframes notif-in {
