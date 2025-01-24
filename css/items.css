@@ -482,6 +482,7 @@
     box-shadow: var(--shadow-1);
     border-radius: 5px;
     flex: 0 0 fit-content;
+    overflow: hidden;
 }
 .card-filters > .choice-group > * {
     border-radius: 0;
