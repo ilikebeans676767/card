@@ -78,7 +78,7 @@
     content: "";
     position: absolute;
     inset: 1px;
-    background: #000000f9;
+    background: #000000cc;
     border-radius: var(--inside-radius);
 }
 .game-card.f-fire {

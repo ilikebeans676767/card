@@ -67,7 +67,18 @@ popups.draw = {
 
 
         let close = $make("button.primary.thick", "Continue");
-        close.onclick = () => popup.close();
+        close.onclick = () => {
+            if (game.stats.cardsDrawn >= 0) {
+                callPopup("prompt", "Game completed!", [
+                    "You've succesfully used up all of your one trillion free draws!",
+                    $make("br"),
+                    $makeHTML("span", `It only took you ${_number(format.time(game.stats.timePlayed, 4))} to do it.`),
+                    $make("hr"),
+                    "This is the end for now, you can wait for an update or you can go to Settings -> Hard Reset to play the game again.",
+                ]);
+            }
+            popup.close();
+        }
         result.append(close);
         
 

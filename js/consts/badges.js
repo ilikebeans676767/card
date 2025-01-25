@@ -28,7 +28,7 @@ const badges = {
         desc: "Create a skill reaction.",
     },
     23: {
-        name: "All that for nothing",
+        name: "Just throw it away",
         desc: "Make a no faction draw with Photosynthesis active.",
     },
 }
