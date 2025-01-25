@@ -68,7 +68,7 @@ popups.draw = {
 
         let close = $make("button.primary.thick", "Continue");
         close.onclick = () => {
-            if (game.stats.cardsDrawn >= 0) {
+            if (game.stats.cardsDrawn >= MAX_CARDS) {
                 callPopup("prompt", "Game completed!", [
                     "You've succesfully used up all of your one trillion free draws!",
                     $make("br"),
