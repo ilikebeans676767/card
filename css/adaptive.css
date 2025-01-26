@@ -98,7 +98,7 @@
     }
     #draw-opt-show {
         position: absolute;
-        top: 15px;
+        bottom: calc(17px + 1.2em);
         left: max(20px, calc(50% - 195px));
         width: 40px;
         height: 40px;
