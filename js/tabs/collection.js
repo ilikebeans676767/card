@@ -119,7 +119,6 @@ tabs.collection = {
             }
             cardList.push([pack, rarity, id]);
         }
-        console.log(cardList);
 
         let shouldAppend = false;
         let index = 0;

@@ -18,6 +18,11 @@ function onFrame() {
             if (game.drawPref.skills[skill]) continue;
             game.time.skillCooldowns[skill] -= delta / 1000;
         }
+        if (game.time.skillCooldowns.fire < 0 && (game.time.skillStacks.fire ?? 0) < effects.skillFireStack - 1) {
+            game.time.skillStacks.fire ??= 0;
+            game.time.skillStacks.fire++;
+            game.time.skillCooldowns.fire = effects.skillFireCooldown;
+        }
         ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
             let btn = elms.draw.$skills["$" + x];
             let data = skills[x];
@@ -26,11 +31,14 @@ function onFrame() {
                 btn.disabled = false;
                 icon = data.icon;
                 btn.classList.add("f-" + x);
-                btn.classList.toggle("disabled", game.time.skillCooldowns[x] > 0);
+                btn.classList.toggle("disabled", game.time.skillCooldowns[x] > 0 && (game.time.skillStacks[x] ?? 0) <= 0);
                 btn.classList.toggle("active", !!game.drawPref.skills[x]);
                 btn.style.setProperty("--cooldown", 
                     game.drawPref.skills[x] ? '"Active"' : 
                     game.time.skillCooldowns[x] > 0 ? `"${format.time(game.time.skillCooldowns[x])}"` : "");
+                btn.style.setProperty("--stack", 
+                    game.time.skillStacks[x] > 0 ? `"${format(game.time.skillStacks[x] + (game.time.skillCooldowns[x] <= 0))}×"` : 
+                    "");
             } else {
                 btn.disabled = true;
                 icon = "tabler:lock";
@@ -150,12 +158,16 @@ function updateEffects() {
     if (game.drawPref.skills.water) {
         effects.energyCap *= effects.skillWaterGain;
         effects.bulkMult *= effects.skillWaterCard;
+        effects.bulkPower *= effects.skillWaterSpeed;
+        effects.skillFireSkip /= effects.skillWaterSpeed;
     }
     if (game.drawPref.skills.leaf) {
         effects.shredRMult *= effects.skillLeafMult;
         effects.shredSRMult *= effects.skillLeafMult;
         effects.shredSSRMult *= effects.skillLeafMult;
         effects.shredURMult *= effects.skillLeafMult;
+        effects.shredCrownMult *= effects.skillLeafMultCrown;
+        effects.shredMult *= effects.skillLeafMultBase;
     }
     if (game.drawPref.skills.sun) {
         effects.factionMult *= effects.skillSunBuff;
@@ -257,6 +269,10 @@ function doDraw(count) {
             if (loot.count > 0) lootList.res.push([target, loot.count]);
         } else if (type == "card") {
             let [pack, rarity, id] = target.split("/");
+            let data = cards[pack][rarity][id];
+            if (data.faction && game.drawPref.skills.sun && effects.skillSunDup > 0) {
+                loot.count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(loot.count)[0]?.count ?? 0;
+            }
 
             if (hasCard("standard", "ex", "zip")) {
                 lootList.cards.push([pack, rarity, id, loot.count]);
@@ -291,10 +307,19 @@ function onDrawButtonClick() {
     if (popups.draw.elms?.list) return;
     if (getDrawCooldown() > 0) return;
     let amount = getDrawAmount();
+    if (amount < 1) return;
     game.res.energy -= getUsedEnergy();
+
     doDraw(amount);
+
     awardBadge(11);
     if (!game.drawPref.faction && game.drawPref.skills.sun) awardBadge(23);
+    elms.draw.$hint.style.display = "none";
+
+    if (game.drawPref.skills.water) {
+        effects.bulkPower /= effects.skillWaterSpeed;
+        effects.skillFireSkip *= effects.skillWaterSpeed;
+    }
 }
 
 function getDrawCooldown() {
@@ -397,7 +422,7 @@ function getTotalStars(pack) {
 
 function activateSkill(skill) {
     let data = skills[skill];
-    if (game.time.skillCooldowns[skill] > 0) return;
+    if (game.time.skillCooldowns[skill] > 0 && (game.time.skillStacks[skill] ?? 0) <= 0) return;
 
     data.trigger();
     game.stats.skillsUsed[skill] ??= 0;

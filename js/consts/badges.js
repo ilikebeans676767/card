@@ -31,4 +31,8 @@ const badges = {
         name: "Just throw it away",
         desc: "Make a no faction draw with Photosynthesis active.",
     },
+    31: {
+        name: "Would you like to buy more draws?",
+        desc: "Use all of your one trillion free draws.",
+    },
 }

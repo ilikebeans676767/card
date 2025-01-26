@@ -10,7 +10,8 @@ const skills = {
         },
         trigger: () => {
             game.res.energy = addWithCap(game.res.energy, effects.skillFireSkip / 60 * effects.bulkPower, effects.energyCap);
-            game.time.skillCooldowns.fire = effects.skillFireCooldown;
+            if (game.time.skillStacks.fire > 0) game.time.skillStacks.fire--;
+            else game.time.skillCooldowns.fire = effects.skillFireCooldown;
         },
     },
     water: {

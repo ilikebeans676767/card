@@ -19,6 +19,7 @@ function updateMusic() {
                 updateMusic();
                 document.body.removeEventListener("pointerdown", d);
             };
+            spawnNotif("Click anywhere to enable background music").style.textAlign = "center";
             document.body.addEventListener("pointerdown", d);
         });
     } else {

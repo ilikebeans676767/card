@@ -69,6 +69,7 @@ popups.draw = {
         let close = $make("button.primary.thick", "Continue");
         close.onclick = () => {
             if (game.stats.cardsDrawn >= MAX_CARDS) {
+                awardBadge(31);
                 callPopup("prompt", "Game completed!", [
                     "You've succesfully used up all of your one trillion free draws!",
                     $make("br"),
@@ -97,8 +98,8 @@ popups.draw = {
                 state.timer = effects.revealTime;
             }
             if (effects.breakTime - state.timer > .1) localElms.bigCard.style.setProperty("--timer", 1 - state.timer / effects.breakTime);
-            localElms.bigCard.style.setProperty("--rotate", Math.random() * 10 - 5 + "deg");
-            localElms.bigCard.style.setProperty("--shake", (Math.random() * 20 - 10) + "px, " + (Math.random() * 20 - 10) + "px");
+            localElms.bigCard.style.setProperty("--rotate", Math.random() * 4 - 2 + "deg");
+            localElms.bigCard.style.setProperty("--shake", (Math.random() * 10 - 5) + "px, " + (Math.random() * 20 - 10) + "px");
         } else if (state.phase == "revealing") {
             while (state.timer <= 0) {
                 if (state.index >= state.loot.cards.length) {

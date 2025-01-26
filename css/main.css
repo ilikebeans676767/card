@@ -65,8 +65,8 @@
     --rarity-n: linear-gradient(70deg, #aaa7, #777a);
     --rarity-r: linear-gradient(170deg, #aab, #fff);
     --rarity-sr: linear-gradient(170deg, #cc0, #ff3);
-    --rarity-ssr: linear-gradient(170deg, #7af, #cef 50%, #7af 50%, #fff);
-    --rarity-ur: linear-gradient(170deg, #317, #72f 10%, #c7f 15%, #fff 70%, #c7f 70%, #72f);
+    --rarity-ssr: linear-gradient(170deg, #7af, #cef 49%, #7af 51%, #fff);
+    --rarity-ur: linear-gradient(170deg, #317, #72f 10%, #c7f 15%, #fff 69%, #c7f 71%, #72f);
     --rarity-ex: linear-gradient(170deg, #faa, #dd1, #5f5, #3ff, #aaf, #f9f, #faa);
 
     --faction-fire-bg: #733d;
@@ -101,6 +101,7 @@ body {
     inset: 0;
     font-size: 16px;
     line-height: 1.2;
+    user-select: none;
 }
 
 button {
@@ -248,6 +249,31 @@ a:active {
 }
 #draw-zone .currency {
     margin: -10px -5px 5px -5px;
+}
+#start-hint {
+    padding: 7px 10px;
+    background: var(--background-0);
+    border: 1px solid var(--border-1);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-2);
+    font-size: 14px;
+    animation: bounce 2s cubic-bezier(0, 1, 0, 1) alternate infinite;
+    position: relative;
+    text-align: center;
+} 
+#start-hint::after {
+    content: " ";
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--border-1) transparent transparent transparent;
+}
+#start-hint hr {
+    margin-block: 7px;
 }
 #draw-button {
     margin-bottom: -100px;
@@ -449,4 +475,11 @@ main {
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+@keyframes bounce {
+    from {
+        transform: translateY(5px);
+    } to {
+        transform: translateY(0px);
+    }
 }

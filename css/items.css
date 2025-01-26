@@ -201,7 +201,6 @@
     flex: 1;
     aspect-ratio: 1;
     position: relative;
-    overflow: hidden;
 }
 .skill-holder > button.disabled {
     border-color: var(--border-0);
@@ -209,17 +208,36 @@
     background: var(--bg-0);
     cursor: default;
 }
+.skill-holder > button::before {
+    content: var(--stack);
+    font-family: var(--number-font);
+    position: absolute;
+    inset: -5px 5px auto 5px;
+    text-align: center;
+    background: var(--bg-2);
+    border: 1px solid var(--border-1);
+    border-radius: 3px;
+    box-shadow: var(--shadow-1);
+    padding: 1px 0 0 0;
+    display: block;
+    font-size: smaller;
+    white-space: nowrap;
+}
 .skill-holder > button::after {
     content: var(--cooldown);
     font-family: var(--number-font);
     position: absolute;
     inset: auto 0 0 0;
+    border-radius: 4px;
     text-align: center;
-    background: linear-gradient(#0000, var(--background-0));
+    background: linear-gradient(#0000, var(--bg-1));
     padding-top: 30px;
     display: block;
     font-size: smaller;
     white-space: nowrap;
+}
+.skill-holder > button.disabled::after {
+    background: linear-gradient(#0000, var(--background-0));
 }
 .skill-holder > button.active {
     background: var(--bg-1);
@@ -472,20 +490,21 @@
 .card-filters {
     background: var(--background-1);
     border: 1px solid var(--border-0);
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     box-shadow: var(--shadow-2);
-    display: flex;
+    white-space: nowrap;
     gap: 10px;
     overflow-x: auto;
 }
 .card-filters > .choice-group {
+    display: inline-flex;
     gap: 0px;
     box-shadow: var(--shadow-1);
     border-radius: 5px;
     padding: 0;
-    margin: 0;
+    margin: 0 10px 0 0;
     flex: 0 0 fit-content;
     overflow: hidden;
 }

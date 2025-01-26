@@ -72,10 +72,28 @@ function initUI() {
     ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
         hozHolder.childNodes[i + 1].classList.add("f-" + x);
     });
-
     ["no", "fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
         registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text("Switch to " + x + " faction"));
     });
+
+    elms.draw.$hint = $("#start-hint");
+    elms.draw.$hint.style.display = "none";
+    elms.draw.$hint.onclick = () => {elms.draw.$hint.style.display = "none"};
+    if (navigator.standalone === false) {
+        elms.draw.$hint.style.display = "";
+        elms.draw.$hint.innerHTML = `
+            <h4>For the best experience:</h4>
+            Press ${_icon("ion:share-outline")} -> "Add to Home Screen" -> "Add"
+        `
+    }
+    if (game.stats.cardsDrawn == 0) {
+        elms.draw.$hint.style.display = "";
+        if (elms.draw.$hint.innerHTML) elms.draw.$hint.innerHTML += "<hr>";
+        elms.draw.$hint.innerHTML += `
+            <h3>You've got ${_number(format.decimal(1e12))} free draws!</h3>
+            Click this big "Draw" button below to start drawing some of them!
+        `
+    }
 
     elms.draw.$options.append(elms.draw.$skills = $make("div.skill-holder"));
     ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
@@ -130,18 +148,20 @@ function createCardUI(pack, rarity, id) {
     div.setAttribute("rarity", rarity);
     if (data.faction) div.classList.add("f-" + data.faction);
 
-    let img = div.$img = $make("img");
-    if (data.noImage) {
-        img.src = "res/cards/placeholder.png";
-    } else {
-        img.src = `res/cards/${pack}/${rarity}_${id}.png`;
-        img.onerror = () => {
+    if (game.option.cardImages) {
+        let img = div.$img = $make("img");
+        if (data.noImage) {
             img.src = "res/cards/placeholder.png";
-            data.noImage = true;
-            delete img.onerror;
-        };
+        } else {
+            img.src = `res/cards/${pack}/${rarity}_${id}.png`;
+            img.onerror = () => {
+                img.src = "res/cards/placeholder.png";
+                data.noImage = true;
+                delete img.onerror;
+            };
+        }
+        div.append(img);
     }
-    div.append(img);
     let name = div.$name = $make("div.game-card-name");
     name.innerHTML = `<rarity rarity="${rarity}"></rarity> ${data.name}`;
     div.append(name);

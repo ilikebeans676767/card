@@ -29,6 +29,13 @@ tabs.options = {
             game.option.notation = choice;
             saveGame();
         }));
+        makeEntry("Card Images", choiceGroup = createChoiceGroup({
+            0: "Disabled",
+            1: "Enabled",
+        }, game.option.cardImages, (choice) => {
+            game.option.cardImages = +choice;
+            saveGame();
+        }));
         container.append($make("hr"));
         makeEntry("Background Music", choiceGroup = createChoiceGroup({
             "": "Disabled",

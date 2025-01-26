@@ -472,7 +472,7 @@ const cards = {
             },
             "n5a": {
                 name: "Rapid Fire",
-                desc: "{/0:2} \"Burst\" cooldown.",
+                desc: "{/0:2} <b>Burst</b> cooldown.",
                 quote: "Needs more dakka",
                 faction: "fire",
                 condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_fire"),
@@ -488,7 +488,7 @@ const cards = {
             },
             "n5b": {
                 name: "Deep Freeze",
-                desc: "{/0:2} \"Freeze Drop\" cooldown.",
+                desc: "{/0:2} <b>Freeze Drop</b> cooldown.",
                 quote: "Near-absolute zero",
                 faction: "water",
                 condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_water"),
@@ -504,7 +504,7 @@ const cards = {
             },
             "n5c": {
                 name: "NPK",
-                desc: "{/0:2} \"Fertilizer\" cooldown.",
+                desc: "{/0:2} <b>Fertilizer</b> cooldown.",
                 quote: "Why do one when you can do all of them",
                 faction: "leaf",
                 condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_leaf"),
@@ -520,7 +520,7 @@ const cards = {
             },
             "n5d": {
                 name: "Summer",
-                desc: "{/0:2} \"Photosynthesis\" cooldown.",
+                desc: "{/0:2} <b>Photosynthesis</b> cooldown.",
                 quote: "Beach episode not included",
                 faction: "sun",
                 condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_sun"),
@@ -536,7 +536,7 @@ const cards = {
             },
             "n5e": {
                 name: "College",
-                desc: "{/0:2} \"Simplification\" cooldown.",
+                desc: "{/0:2} <b>Simplification</b> cooldown.",
                 quote: "Teaches students about critical thinking",
                 faction: "moon",
                 condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_moon"),
@@ -720,7 +720,7 @@ const cards = {
             },
             "s_fire": {
                 name: "Burst",
-                desc: "Unlock the \"Burst\" skill.",
+                desc: "Unlock the <b>Burst</b> skill.",
                 quote: "Who used explosion magic inside the dungeon again!?",
                 faction: "fire",
                 pMult: 5,
@@ -731,7 +731,7 @@ const cards = {
             },
             "s_fire_1": {
                 name: "Mega Burst",
-                desc: "\"Burst\" skill skips an additional {+0s} per trigger.",
+                desc: "<b>Burst</b> skill skips an additional {+0s} per trigger.",
                 quote: "Now with flying colors",
                 faction: "fire",
                 pMult: 0.5,
@@ -747,7 +747,7 @@ const cards = {
             "s_fire_2": {
                 name: "Explosion Mastery",
                 desc: 
-                    "\"Burst\" skill gains an additional {+0s} time skip per trigger every time you use this skill."
+                    "<b>Burst</b> skill gains an additional {+0s} time skip per trigger every time you use this skill."
                     + "<br>(Currently: {1} times ⇒ {+2s} time skip)",
                 quote: "*particle accelerator noises*",
                 faction: "fire",
@@ -765,7 +765,7 @@ const cards = {
             },
             "s_water": {
                 name: "Freeze Drop",
-                desc: "Unlock the \"Freeze Drop\" skill.",
+                desc: "Unlock the <b>Freeze Drop</b> skill.",
                 quote: "Do you wanna build a snowman?",
                 faction: "water",
                 pMult: 4,
@@ -776,7 +776,7 @@ const cards = {
             },
             "s_water_1": {
                 name: "Slow, but Steady",
-                desc: "{+0%} card multiplier while \"Freeze Drop\" is active.",
+                desc: "{+0%} card multiplier while <b>Freeze Drop</b> is active.",
                 quote: "Better be slow to be sure",
                 faction: "water",
                 pMult: 0.5,
@@ -792,7 +792,7 @@ const cards = {
             },
             "s_water_2": {
                 name: "Top of the Mountain",
-                desc: "{+0%} \"Freeze Drop\"'s energy cap boost, but {+1%} card multiplier when energy cap is reached while \"Freeze Drop\" is active.",
+                desc: "{+0%} <b>Freeze Drop</b>'s energy cap boost, but {+1%} card multiplier when energy cap is reached while <b>Freeze Drop</b> is active.",
                 quote: "🍓",
                 faction: "water",
                 pMult: 0.3,
@@ -809,7 +809,7 @@ const cards = {
             },
             "s_leaf": {
                 name: "Fertilizer",
-                desc: "Unlock the \"Fertilizer\" skill.",
+                desc: "Unlock the <b>Fertilizer</b> skill.",
                 quote: "Faster trees means faster papers means faster shreds",
                 faction: "leaf",
                 pMult: 3,
@@ -820,7 +820,7 @@ const cards = {
             },
             "s_leaf_1": {
                 name: "Nurture",
-                desc: "Increase \"Fertilizer\" multipler effect by {x0:1}.",
+                desc: "Increase <b>Fertilizer</b>'s multipler effect by {x0:1}.",
                 quote: "Take care of the trees",
                 faction: "leaf",
                 pMult: 0.5,
@@ -835,7 +835,7 @@ const cards = {
             },
             "s_sun": {
                 name: "Photosynthesis",
-                desc: "Unlock the \"Photosynthesis\" skill.",
+                desc: "Unlock the <b>Photosynthesis</b> skill.",
                 quote: "The sun is a not-so-deadly lazer",
                 faction: "sun",
                 pMult: 2.5,
@@ -846,7 +846,7 @@ const cards = {
             },
             "s_sun_1": {
                 name: "Extra Light",
-                desc: "Increase \"Photosynthesis\"'s buff and debuff effect by {+0%}.",
+                desc: "Increase <b>Photosynthesis</b>'s buff and debuff effect by {+0%}.",
                 quote: "Is this a flashbang?",
                 faction: "sun",
                 pMult: 0.5,
@@ -862,7 +862,7 @@ const cards = {
             },
             "s_moon": {
                 name: "Simplification",
-                desc: "Unlock the \"Simplification\" skill.",
+                desc: "Unlock the <b>Simplification</b> skill.",
                 quote: "Can't hold all these currencies",
                 faction: "moon",
                 pMult: 2.5,
@@ -873,7 +873,7 @@ const cards = {
             },
             "s_moon_1": {
                 name: "Abstractify",
-                desc: "Increase \"Simplification\"'s buff by {+0%} but also its debuff by {+1%}.",
+                desc: "Increase <b>Simplification</b>'s buff by {+0%} but also its debuff by {+1%}.",
                 quote: "This card has been abstracted so much that I can't even bother to write a proper flavor text for it",
                 faction: "moon",
                 pMult: 0.5,
@@ -891,7 +891,7 @@ const cards = {
             },
             "s_moon_2": {
                 name: "Abstractify^2",
-                desc: "Raise the effective level in <rarity rarity='ssr'></rarity> Abstractify's buff effect by {^0:1}.",
+                desc: "Raise the effective level in <rarity rarity='ssr'></rarity><b> Abstractify</b>'s buff effect by {^0:1}.",
                 quote: "Yeah, and this one either",
                 faction: "moon",
                 pMult: 0.3,
@@ -924,6 +924,99 @@ const cards = {
                     pointsMult: [priority.multiplicative, (x) => x * 1 * fx(2)],
                 }
             },
+            "n1a": {
+                name: "Multi-Fire",
+                desc: "Allow stacking of <b>Burst</b> skills, up to {0} uses at once.",
+                quote: "Over 9000 revolutions per second",
+                faction: "fire",
+                condition: () => game.cards.standard?.sr?.n5a?.stars >= 2,
+                pMult: 0.2,
+                effects: [
+                    (level, star) => 1 + star * 2,
+                ],
+                effectors: {
+                    skillFireStack: [priority.additive, (x) => x + fx(0) - 1],
+                }
+            },
+            "n1b": {
+                name: "The Sleeping Game",
+                desc: "While <b>Freeze Drop</b> is active, increase bulk power by {+0%}, but decrease time skip amount of <b>Burst</b> by the same amount.",
+                quote: "Wait, that isn't what the initials mean?",
+                faction: "water",
+                condition: () => game.cards.standard?.sr?.n5b?.stars >= 2,
+                levelCost: [1e6, 2, "water"],
+                pMult: 0.2,
+                effects: [
+                    (level, star) => level * [0, 10, 20, 36, 55, 80][star],
+                ],
+                effectors: {
+                    skillWaterSpeed: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n1c1": {
+                name: "Seed-Picking",
+                desc: 
+                    "<b>Fertilizer</b> also multiply shred gains from crowned cards by {+0%}.",
+                quote: "Cherry-picking but with seeds. Let the best seed wins!",
+                faction: "leaf",
+                condition: () => game.cards.standard?.sr?.n5c?.stars >= 2,
+                levelCost: [1e6, 1.5, "leaf"],
+                pMult: 0.4,
+                effects: [
+                    (level, star) => level * [0, 10, 20, 36, 55, 80][star],
+                ],
+                effectors: {
+                    skillLeafMultCrown: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n1c2": {
+                name: "Electrolytes",
+                desc: 
+                    "<b>Fertilizer</b> also multiply base shred gains by {+0%}.",
+                quote: "It's got what plants crave",
+                faction: "leaf",
+                condition: () => game.cards.standard?.sr?.n5c?.stars >= 2,
+                levelCost: [2.5e6, 2.1, "leaf"],
+                pMult: 0.4,
+                effects: [
+                    (level, star) => level * [0, 10, 20, 36, 55, 80][star],
+                ],
+                effectors: {
+                    skillLeafMultBase: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n1d": {
+                name: "Sticky Cards",
+                desc: 
+                    "Factioned cards drawn while <b>Photosynthesis</b> is active have a {0%} chance to duplicate oneself.",
+                quote: "It's actually two cards stuck into one, why are there so many of them here?",
+                faction: "sun",
+                condition: () => game.cards.standard?.sr?.n5d?.stars >= 2,
+                pMult: 0.2,
+                effects: [
+                    (level, star) => 20 * star,
+                ],
+                effectors: {
+                    skillSunDup: [priority.additive, (x) => x + fx(0) / 100],
+                }
+            },
+            "n1e": {
+                name: "Synergism",
+                desc: 
+                    "<b>Simplification</b>'s base buff effect gains {^0:1} of <rarity rarity=n></rarity> <b>Card Pack</b>'s effect.<br>"
+                    + "(Currently: {+1})",
+                quote: "Oh my god is that a synergism reference?????",
+                faction: "moon",
+                condition: () => game.cards.standard?.sr?.n5e?.stars >= 2 && game.cards.standard?.n?.n3,
+                pMult: 0.2,
+                effects: [
+                    (level, star) => 0.2 * star,
+                    (level, star) => (game.cards.standard.n.n3.level * game.cards.standard.n.n3.stars) ** fx(0),
+                ],
+                effectors: {
+                    skillMoonBuff: [priority.additive, (x) => x + fx(1)],
+                }
+            },
         },
         ex: {
             "zip": {
@@ -931,7 +1024,7 @@ const cards = {
                 desc: "Group together duplicate cards in the draw view, though the compression halves your card revealing speed in the process. Also remove the <span class='number'>100</span> bulk draw limit.",
                 quote: "Please note that StackRAR is not a free card. After a 40 day trial period you must either buy a license or burn this card off of your collection",
                 crown: true,
-                buyCost: [15000, "points"],
+                buyCost: [8000, "points"],
                 effects: [],
                 effectors: {
                     revealTime: [priority.multiplicative, (x) => x * 2]

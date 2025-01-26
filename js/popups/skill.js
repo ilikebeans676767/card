@@ -42,7 +42,7 @@ popups.skill = {
         if (game.drawPref.skills[skill]) {
             localElms.fire.disabled = true;
             localElms.fire.innerHTML = "Activated";
-        } else if (game.time.skillCooldowns[skill] > 0) {
+        } else if (game.time.skillCooldowns[skill] > 0 && (game.time.skillStacks[skill] ?? 0) <= 0) {
             localElms.fire.disabled = true;
             localElms.fire.innerHTML = `In cooldown (${_number(format.time(game.time.skillCooldowns[skill]))})`;
         } else {

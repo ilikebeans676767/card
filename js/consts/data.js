@@ -22,6 +22,7 @@ function getNewGame() {
             now: Date.now(),
             drawCooldown: 0,
             skillCooldowns: {},
+            skillStacks: {},
             pickit: 5,
         },
         stats: {
@@ -38,6 +39,7 @@ function getNewGame() {
         },
         option: {
             notation: "default",
+            cardImages: 1,
             music: "",
         },
     }
