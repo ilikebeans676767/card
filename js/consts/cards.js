@@ -11,7 +11,7 @@ const cards = {
             },
             "n1": {
                 name: "A Single Point",
-                desc: "Gain {+0} points per draw.",
+                desc: "Gain {+0} points per {draw}.",
                 quote: "ここにいる",
                 levelCost: [10, 1.2],
                 pMult: 1.2,
@@ -24,7 +24,7 @@ const cards = {
             },
             "n2": {
                 name: "Half A Point",
-                desc: "Randomly gain zero to {+0} points per draw.",
+                desc: "Randomly gain zero to {+0} points per {draw}.",
                 quote: "To explain what half a point even is, we'll need to talk about parallel universes-",
                 condition: () => hasCard("standard", "n", "n1"),
                 levelCost: [5, 1.15],
@@ -39,8 +39,8 @@ const cards = {
             },
             "n3": {
                 name: "Card Pack",
-                desc: "{+0} bulk draw. Bulk draw allows you to use multiple draws at once.",
-                quote: "Well, if you want to use up all of those one trillion card draws you'll need to start drawing multiple of them at once, you know?",
+                desc: "{+0} base bulk. Base bulk increase the amount of {draws} you make at once.",
+                quote: "Well, if you want to use up all of those one trillion card {draws} you'll need to start {drawing} multiple of them at once, you know?",
                 levelCost: [10, 1.3],
                 starDiff: 0.8,
                 effects: [
@@ -109,7 +109,7 @@ const cards = {
             "c1": {
                 name: "In-Game Shop",
                 desc: "Unlock the Marketplace.",
-                quote: "Find cards that can't be found from drawing, and probably spend all of your money trying to out-bid the highest bidder",
+                quote: "Find cards that can't be found from {drawing}, and probably spend all of your money trying to out-bid the highest bidder",
                 condition: () => hasCard("standard", "n", "n5"),
                 crown: true,
                 effects: [],
@@ -176,7 +176,7 @@ const cards = {
             },
             "n2": {
                 name: "Bulkier Card Packs",
-                desc: "{+0%} bulk draw, but {+1%} cooldown duration.",
+                desc: "{+0%} base bulk, but {+1%} cooldown duration.",
                 quote: "The bulkier, the better",
                 condition: () => hasCard("standard", "n", "n3") && hasCard("standard", "ex", "zip"),
                 levelCost: [200000, 2],
@@ -552,7 +552,7 @@ const cards = {
             },
             "c1": {
                 name: "Obsessive-Compulsive",
-                desc: "Unlock the ability to filter cards by criterias.",
+                desc: "Unlock the ability to filter cards by some criteria.",
                 condition: () => flags.unlocked.faction,
                 quote: "Must... keep it... organized...",
                 crown: true,
@@ -820,7 +820,7 @@ const cards = {
             },
             "s_leaf_1": {
                 name: "Nurture",
-                desc: "Increase <b>Fertilizer</b>'s multipler effect by {x0:1}.",
+                desc: "Increase <b>Fertilizer</b>'s multiplier effect by {x0:1}.",
                 quote: "Take care of the trees",
                 faction: "leaf",
                 pMult: 0.5,
@@ -905,7 +905,7 @@ const cards = {
         ur: {
             "n0": {
                 name: "mom",
-                desc: "{+0%} bulk draw, bulk power, energy cap, and card multiplier.<br>{+1%} shard gain.<br>{x2} point gain.",
+                desc: "{+0%} base bulk, bulk power, energy cap, and card multiplier.<br>{+1%} shard gain.<br>{x2} point gain.",
                 quote: "<rarity rarity='ur'></rarity> mom's so buffed she's the strongest unit in the game",
                 levelCost: [1e12, 1.5, "shreds"],
                 starDiff: 1,
@@ -988,7 +988,7 @@ const cards = {
             "n1d": {
                 name: "Sticky Cards",
                 desc: 
-                    "Factioned cards drawn while <b>Photosynthesis</b> is active have a {0%} chance to duplicate oneself.",
+                    "Factioned cards {drawn} while <b>Photosynthesis</b> is active have a {0%} chance to duplicate oneself.",
                 quote: "It's actually two cards stuck into one, why are there so many of them here?",
                 faction: "sun",
                 condition: () => game.cards.standard?.sr?.n5d?.stars >= 2,
@@ -1021,7 +1021,7 @@ const cards = {
         ex: {
             "zip": {
                 name: "StackRAR",
-                desc: "Group together duplicate cards in the draw view, though the compression halves your card revealing speed in the process. Also remove the <span class='number'>100</span> bulk draw limit.",
+                desc: "Group together duplicate cards in the {draw} view, though the compression halves your card revealing speed in the process. Also remove the <span class='number'>100</span> bulk {draw} limit.",
                 quote: "Please note that StackRAR is not a free card. After a 40 day trial period you must either buy a license or burn this card off of your collection",
                 crown: true,
                 buyCost: [8000, "points"],
@@ -1042,7 +1042,7 @@ const cards = {
             },
             "faction": {
                 name: "Overused Faction System",
-                desc: "Unlock Factions. Use factioned draws to get factioned currencies and faction-specific cards.",
+                desc: "Unlock Factions. Use factioned {draws} to get factioned currencies and faction-specific cards. (Factioned currency has a rare chance to appear.)",
                 quote: "Long ago, the five factions lived together in harmony. Then, everything changed when the fire faction attacked.",
                 condition: () => game.cards.standard?.sr && flags.unlocked.shreds,
                 crown: true,
@@ -1062,7 +1062,7 @@ const cards = {
             },
             "skills": {
                 name: "Combo",
-                desc: "Unlock active skills. (Individual skills are unlocked through factioned drawing.)",
+                desc: "Unlock active skills. (Individual skills are unlocked through factioned {drawing}.)",
                 quote: "↑↑↓↓←→←→BA",
                 condition: () => game.cards.standard?.ssr && flags.unlocked.faction,
                 crown: true,

@@ -97,7 +97,7 @@ const statEntries = {
         name: "Cards", 
         items: {
             cardsDrawn: {
-                name: "Cards drawn",
+                name: "Cards {drawn}",
                 display: () => _number(format(game.stats.cardsDrawn, 0, 13)),
                 cost: [100, "points"],
             },
@@ -105,7 +105,7 @@ const statEntries = {
                 separator: true,
             },
             bulkDraw: {
-                name: "Bulk draw",
+                name: "Base bulk",
                 display: () => _number(format(effects.bulk, 0, 7)),
                 cost: [1e6, "points"],
             },
@@ -115,7 +115,7 @@ const statEntries = {
                 cost: [1e8, "points"],
             },
             bulkMult: {
-                name: "Card draw multiplier",
+                name: "Card multiplier",
                 display: () => _number("×" + format(effects.bulkMult, 2, 7)),
                 cost: [1e10, "points"],
             },
@@ -168,7 +168,7 @@ const statEntries = {
                 cost: [Math.E ** 36, "points"],
             },
             calc: {
-                name: "Gain on draw",
+                name: "Gain on {draw}",
                 display: () => {
                     let bulk = getDrawAmount();
                     return _number("~" + format((effects.points + effects.pointsExtra / 2) * effects.pointsMult * bulk, 0, 7))
@@ -257,7 +257,7 @@ const statEntries = {
                 cost: [1e18, "shreds"],
             },
             calc: {
-                name: "Gain on draw",
+                name: "Gain on {draw}",
                 display: () => {
                     if (!game.drawPref.faction) return "-";
                     let bulk = getDrawAmount();

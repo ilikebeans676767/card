@@ -71,7 +71,7 @@ popups.draw = {
             if (game.stats.cardsDrawn >= MAX_CARDS) {
                 awardBadge(31);
                 callPopup("prompt", "Game completed!", [
-                    "You've succesfully used up all of your one trillion free draws!",
+                    "You've successfully used up all of your one trillion free " + verbify("draws") + "!",
                     $make("br"),
                     $makeHTML("span", `It only took you ${_number(format.time(game.stats.timePlayed, 4))} to do it.`),
                     $make("hr"),

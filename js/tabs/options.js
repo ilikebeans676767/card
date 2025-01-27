@@ -29,6 +29,15 @@ tabs.options = {
             game.option.notation = choice;
             saveGame();
         }));
+        makeEntry(["Verb ", 
+            createInfoButton(() => `Change the verb associated with ${getVerb("drawing")} cards, in places such as the game title and item descriptions.`)
+        ], choiceGroup = createChoiceGroup((
+            Object.fromEntries(Object.entries(verbs).map(([key, item]) => [key, item.draw.toTitleCase()]))
+        ), game.option.verb, (choice) => {
+            game.option.verb = choice;
+            updateVerb();
+            saveGame();
+        }));
         makeEntry("Card Images", choiceGroup = createChoiceGroup({
             0: "Disabled",
             1: "Enabled",
@@ -148,6 +157,7 @@ tabs.options = {
             btn = $make("button", "johnvertisement");
             btn.onclick = () => {
                 let popup = callPopup("prompt", "", "");
+                popup.classList.add("theatre");
                 popup.$header.remove();
                 popup.$content.style.margin = "0";
                 popup.$content.style.textAlign = "center";

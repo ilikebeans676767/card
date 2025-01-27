@@ -88,10 +88,10 @@ popups.card = {
                 `}</small>
             </div>
             <div>
-                ${format.effect(data.desc, curFx, newFx)}
+                ${verbify(format.effect(data.desc, curFx, newFx))}
             </div>
             <div class="quote">
-                “${data.quote}“
+                “${verbify(data.quote)}“
             </div>
         `
 

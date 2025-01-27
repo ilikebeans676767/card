@@ -8,11 +8,11 @@ popups.badge = {
         let info = $make("div.info");
         info.innerHTML = `
             <div class="header">
-                <h2>${data.name}</h2>
+                <h2>${verbify(data.name)}</h2>
                 <small>(${obtained ? "obtained " : "locked "}badge)</small>
             </div>
             <div>
-                ${obtained ? data.desc : "???"}
+                ${obtained ? verbify(data.desc) : "???"}
             </div>
         `
         popup.$body.append(info);

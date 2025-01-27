@@ -90,8 +90,8 @@ function initUI() {
         elms.draw.$hint.style.display = "";
         if (elms.draw.$hint.innerHTML) elms.draw.$hint.innerHTML += "<hr>";
         elms.draw.$hint.innerHTML += `
-            <h3>You've got ${_number(format.decimal(1e12))} free draws!</h3>
-            Click this big "Draw" button below to start drawing some of them!
+            <h3>You've got ${_number(format.decimal(1e12))} free <verb>draws</verb>!</h3>
+            Click this big "Draw" button below to start <verb>drawing</verb> some of them!
         `
     }
 
@@ -121,6 +121,7 @@ function initUI() {
     elms.tab = $("#tab-content");
     elms.tab.$buttons = $("#tab-buttons");
     initTabs();
+    updateVerb();
 }
 
 
@@ -191,6 +192,22 @@ function createCardUI(pack, rarity, id) {
     return div;
 }
 
+function createInfoButton(text) {
+    let div = $icon("mingcute:question-line");
+    div.classList.add("info-button");
+    registerTooltip(div, x => (x.innerHTML = (typeof text == "function" ? text() : text)));
+    div.onclick = () => {
+        if (prefersNoTooltips()) {
+            let popup = callPopup("prompt", "", "");
+            popup.$content.innerHTML = typeof text == "function" ? text() : text;
+            popup.$header.remove();
+            delete popup.$header;
+        }
+    }
+
+    return div;
+}
+
 function createChoiceGroup(options, value, onChoice) {
     let div = $make("div.choice-group");
     div.value = value;
@@ -228,4 +245,58 @@ function createChoiceGroup(options, value, onChoice) {
 
     update(value);
     return div;
+}
+
+let verbs = {
+    draw: {
+        draw: "draw",
+        draws: "draws",
+        drew: "drew",
+        drawn: "drawn",
+        drawing: "drawing",
+    },
+    pull: {
+        draw: "pull",
+        draws: "pulls",
+        drew: "pulled",
+        drawn: "pulled",
+        drawing: "pulling",
+    },
+    summon: {
+        draw: "summon",
+        draws: "summons",
+        drew: "summoned",
+        drawn: "summoned",
+        drawing: "summoning",
+    },
+    gacha: {
+        draw: "gacha",
+        draws: "gachas",
+        drew: "gacha'd",
+        drawn: "gacha'd",
+        drawing: "gacha'ing",
+    }
+}
+
+/** @type {RegExp} */
+let verbRegex = null;
+/** @param {string} str  */
+function verbify(str) {
+    return str.replace(verbRegex, (string, ...args) => {
+        return getVerb(args[0]);
+    })
+}
+function getVerb(verb) {
+    let v = verbs[game.option.verb][verb.toLowerCase()];
+    if (verb[0].toUpperCase() == verb[0]) {
+        v = v[verb[1].toUpperCase() == verb[1] ? "toUpperCase" : "toTitleCase"]();
+    }
+    return v;
+}
+
+function updateVerb() {
+    let verb = game.option.verb;
+    document.title = "One Trillion Free " + getVerb("Draws");
+    let regex = `{(${Object.keys(verbs[verb]).join("|")})}`;
+    verbRegex = new RegExp(regex, "gi");
 }

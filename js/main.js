@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(loop);
     
     $("#loading").remove();
+    awardShow(1);
 });
 
 let time = 0;

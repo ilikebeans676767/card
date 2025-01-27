@@ -27,8 +27,10 @@ function registerTooltip(element, contentFunc) {
         }, 100);
     });
 }
+let registeredTooltipEvents = {};
 function registerTooltipEvent(event) {
-    if (!tooltip.element) return;
+    if (!tooltip.element || registeredTooltipEvents[event]) return;
+    registeredTooltipEvents[event] = true;
     let elm = tooltip.element;
     let func = tooltip.contentFunc;
     let callback = () => {
@@ -36,6 +38,7 @@ function registerTooltipEvent(event) {
     }
     let leave = () => {
         removeEvent(event, callback);
+        delete registeredTooltipEvents[event];
         elm.removeEventListener("pointerleave", leave);
     }
     addEvent(event, callback);
@@ -74,7 +77,7 @@ let tooltipTemplates = {
                     <small></small>
                 </div>
                 <div class="quote">
-                    “${data.quote}“
+                    “${verbify(data.quote)}“
                 </div>
             `
 
@@ -141,7 +144,7 @@ let tooltipTemplates = {
                     `}</small>
                 </div>
                 <div>
-                    ${format.effect(data.desc, curFx, newFx)}
+                    ${verbify(format.effect(data.desc, curFx, newFx))}
                 </div>
             `
 
@@ -195,7 +198,7 @@ let tooltipTemplates = {
                 </div>`
             } else {
                 tooltip.innerHTML += `<div class="quote">
-                    “${data.quote}“
+                    “${verbify(data.quote)}“
                 </div>`
             }
         }
@@ -210,7 +213,7 @@ let tooltipTemplates = {
                         <small>(skill)</small>
                     </div>
                     <div>
-                        ${data.desc()}
+                        ${verbify(data.desc())}
                     </div>
                 `
             } else {
@@ -226,11 +229,11 @@ let tooltipTemplates = {
             let obtained = !!game.badges[badge];
             tooltip.innerHTML = `
                 <div class="header">
-                    <h2>${data.name}</h2>
+                    <h2>${verbify(data.name)}</h2>
                     <small>(${obtained ? "obtained " : "locked "}badge)</small>
                 </div>
                 <div>
-                    ${obtained ? data.desc : "???"}
+                    ${obtained ? verbify(data.desc) : "???"}
                 </div>
             `
         }

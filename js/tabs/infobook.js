@@ -21,6 +21,7 @@ tabs.infobook = {
                 awardBadge(21);
                 saveGame();
             }
+            this.elms.cards.scrollLeft = 0;
             this.updateSubtab();
         });
         tabButtons.className = "tab-buttons";
@@ -128,6 +129,16 @@ tabs.infobook = {
                 )
             ));
             badgeContent.$list = {};
+
+            let showContent;
+            this.elms.cards.append($make("div.infobook-card",
+                $make("h3.header", "Story"),
+                $make("div.content", 
+                    showContent = $make("div.show-list")
+                )
+            ));
+            showContent.$list = {};
+
             let update = () => {
                 for (let badge in badges) {
                     let data = badges[badge];
@@ -157,6 +168,22 @@ tabs.infobook = {
                     
                     let obtained = !!game.badges[badge];
                     div.classList.toggle("locked", !obtained);
+                }
+
+                for (let show in slideshows) {
+                    let data = slideshows[show];
+                    let div;
+                    if (showContent.$list[show]) {
+                        div = showContent.$list[show];
+                    } else {
+                        div = $make("button", data.name);
+                        showContent.append(showContent.$list[show] = div);
+                        div.onclick = () => {
+                            callPopup("slideshow", show)
+                        }
+                    }
+                    
+                    div.style.display = game.flags.showSeen[show] ? "" : "none";
                 }
             }
             addEvent(undefined, update);
@@ -208,7 +235,7 @@ tabs.infobook = {
         } else {
             let content, lock, lockReq;
             elm = $make("div.stat-entry",
-                $makeHTML("span", item.name),
+                $makeHTML("span", verbify(item.name)),
                 content = $make("span.value"),
                 lock = $make("button", 
                     $icon("tabler:lock"), " ",

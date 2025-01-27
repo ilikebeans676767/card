@@ -1,7 +1,7 @@
 const currencies = {
     cards: {
         name: "Cards",
-        quote: "Produced for the almighty Omega Cards game, these cards are actually vouchers for you to spend more money to draw more cards... after you use up all your one trillion free card draws, at least. They are too happy about giving people trillions of free cards draws, probably to drown out competitors",
+        quote: "Produced for the almighty Omega Cards game, these cards are actually vouchers for you to spend more money to {draw} more cards... after you use up all your one trillion free card {draws}, at least. They are too happy about giving people trillions of free card {draws}, in fact, everyone are",
     },
     energy: {
         name: "Bulk Energy",
@@ -19,7 +19,7 @@ const currencies = {
     fire: {
         name: "Fire Power",
         icon: "mingcute:fire-line",
-        quote: "Power from the fire faction. Some consider dicovering this humans' greatest achievement",
+        quote: "Power from the fire faction. Some consider discovering this humans' greatest achievement",
     },
     water: {
         name: "Water Power",

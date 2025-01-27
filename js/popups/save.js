@@ -145,6 +145,6 @@ popups.save = {
         }
 
         makeSummaryEntry("Time played:", format.time(importData.stats.timePlayed));
-        makeSummaryEntry("Cards drawn:", format(importData.stats.cardsDrawn, 0, 13));
+        makeSummaryEntry("Cards " + getVerb("drawn") + ":", format(importData.stats.cardsDrawn, 0, 13));
     }
 }

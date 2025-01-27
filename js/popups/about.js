@@ -3,8 +3,8 @@ popups.about = {
         let popup = makePopup();
 
         let blabs = [
-            "(because we can't help ourselves from inflating free draw counts)",
-            "(because we can't help ourselves from advertising free draw counts)",
+            "(because we can't help ourselves from inflating free " + getVerb("draw") + " counts)",
+            "(because we can't help ourselves from advertising free " + getVerb("draw") + " counts)",
             "(no-download game with cutting-edge web technologies)",
             "(about as generous a gacha game could be)",
             "(and you thought a-thousand-ish was too much)",
@@ -14,7 +14,7 @@ popups.about = {
         popup.$body.innerHTML = `
             <div class="about-scroll">
                 <hgroup class="header">
-                    <h1><span class="number">One Trillion</span> Free Draws</h1>
+                    <h1><span class="number">One Trillion</span> Free ${getVerb("Draws")}</h1>
                     <i><small>${blabs[Math.floor(Math.random() * blabs.length)]}</small></i>
                 </hgroup>
                 <p>

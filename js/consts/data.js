@@ -17,6 +17,7 @@ function getNewGame() {
         },
         flags: {
             statUnlocks: {},
+            showSeen: {},
         },
         time: {
             now: Date.now(),
@@ -40,6 +41,7 @@ function getNewGame() {
         option: {
             notation: "default",
             cardImages: 1,
+            verb: "draw",
             music: "",
         },
     }

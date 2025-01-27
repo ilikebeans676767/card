@@ -1,7 +1,7 @@
 const badges = {
     11: {
         name: "Another Gacha Game to the Pile",
-        desc: "Draw cards for the first time.",
+        desc: "{Draw} cards for the first time.",
     },
     12: {
         name: "Four-Leaf Clover",
@@ -29,10 +29,10 @@ const badges = {
     },
     23: {
         name: "Just throw it away",
-        desc: "Make a no faction draw with Photosynthesis active.",
+        desc: "Make a no faction {draw} with Photosynthesis active.",
     },
     31: {
-        name: "Would you like to buy more draws?",
-        desc: "Use all of your one trillion free draws.",
+        name: "Would you like to buy more {draws}?",
+        desc: "Use all of your one trillion free {draws}.",
     },
 }

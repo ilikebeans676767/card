@@ -73,7 +73,7 @@ function onFrame() {
         elms.draw.$action.textContent = "In cooldown";
         elms.draw.$amount.textContent = cooldown < 60 ? format(cooldown, 2) + "s" : format.time(cooldown);
     } else {
-        elms.draw.$action.textContent = "Draw";
+        elms.draw.$action.textContent = game.option.verb.toTitleCase();
         elms.draw.$amount.textContent = "×" + format(getDrawAmount(), 0, 9);
     }
 
@@ -466,4 +466,10 @@ function awardBadge(badge) {
     game.badges[badge] = Date.now();
     spawnBadgeNotif(badge);
     updateEffects();
+}
+
+function awardShow(show) {
+    if (game.flags.showSeen[show]) return;
+    game.flags.showSeen[show] = 1;
+    callPopup("slideshow", show);
 }

@@ -416,6 +416,12 @@
     83% { box-shadow: 0 2px 4px #f9f; }
     100% { box-shadow: 0 2px 4px #faa; }
 }
+.show-list {
+    padding-block: 5px 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
 
 
 .opt-container {
@@ -622,10 +628,15 @@ input[type="checkbox"]:checked::after {
     text-align: center;
 }
 
+.info-button {
+    color: var(--color-1);
+    cursor: help;
+}
+
 .john {
     background: var(--background-0);
     display: block;
-    width: 500px;
+    width: 732px;
     max-width: min(732px, 100%);
     aspect-ratio: 726 / 90;
     border: none;

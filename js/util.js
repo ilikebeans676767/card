@@ -175,7 +175,16 @@ function maxGeometricSeries(base, rate, amount, owned = 0) {
 }
 
 
-// ----- Array
+// ----- Other
+
+function randomStr(len) {
+    let res = "";
+    let alph = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    for (let a = 0; a < len; a++) {
+        res += alph[Math.floor(Math.random() * alph.length)];
+    }
+    return res;
+}
 
 Array.prototype.shuffle = function() {
     for (let i = this.length - 1; i > 0; i--) {
@@ -184,4 +193,10 @@ Array.prototype.shuffle = function() {
         this[i] = this[j];
         this[j] = temp;
     }
+}
+String.prototype.toTitleCase = function () {
+    return  this.replace(
+        /\w\S*/g,
+        text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+    );
 }

@@ -19,7 +19,7 @@ const skills = {
         icon: "tabler:snowflake",
         desc: () => {
             return `
-                Increase the bulk energy cap by ${_number("×" + format(effects.skillWaterGain, 2))} until the next draw,
+                Increase the bulk energy cap by ${_number("×" + format(effects.skillWaterGain, 2))} until the next {draw},
                 but increase its cooldown by ${_number("×" + format(effects.skillWaterWait, 2))}.
                 <br>Cooldown: ${_number(format.time(effects.skillWaterCooldown))}
             `;
@@ -34,7 +34,7 @@ const skills = {
         icon: "tabler:christmas-tree",
         desc: () => {
             return `
-                Increase all shred multiplier per rarity increase by ${_number("×" + format(effects.skillLeafMult, 2))} for the next draw.
+                Increase all shred multiplier per rarity increase by ${_number("×" + format(effects.skillLeafMult, 2))} for the next {draw}.
                 <br>Cooldown: ${_number(format.time(effects.skillLeafCooldown))}
             `;
         },
@@ -48,7 +48,7 @@ const skills = {
         icon: "icon-park-outline:sapling",
         desc: () => {
             return `
-                Increase faction power gain by ${_number("×" + format(effects.skillSunBuff, 2))} for the next draw,
+                Increase faction power gain by ${_number("×" + format(effects.skillSunBuff, 2))} for the next {draw},
                 but decrease point and shred gain by ${_number("/" + format(effects.skillSunDebuff, 2))}
                 <br>Cooldown: ${_number(format.time(effects.skillSunCooldown))}
             `;
@@ -63,7 +63,7 @@ const skills = {
         icon: "lucide:wrench",
         desc: () => {
             return `
-                Increase point gain by ${_number("×" + format(effects.skillMoonBuff, 2))} for the next draw,
+                Increase point gain by ${_number("×" + format(effects.skillMoonBuff, 2))} for the next {draw},
                 but decrease faction power gain by ${_number("/" + format(effects.skillMoonDebuff, 2))}
                 <br>Cooldown: ${_number(format.time(effects.skillMoonCooldown))}
             `;
