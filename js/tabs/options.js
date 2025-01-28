@@ -165,7 +165,7 @@ tabs.options = {
     
                 return list;
             })());
-            entry.$title.append(this.elms.cloudSaveTimer = $make("small"));
+            entry.$title.append($make("span.save-timer-br"), this.elms.cloudSaveTimer = $make("small"));
         }
 
         elms.tab.append(container = $make("div.opt-container"));
