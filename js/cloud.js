@@ -10,7 +10,6 @@ function initGalaxyAPI() {
     let requests = {};
 
     let send = (msg) => {
-        console.log(msg);
         let echo = Math.random();
         window.top.postMessage({
             ...msg,
@@ -23,7 +22,6 @@ function initGalaxyAPI() {
     window.onmessage = (e) => {
         if (e.origin == "https://galaxy.click") {
             if (e.data?.echo) {
-                console.log(e.data.echo, e.data, requests[e.data.echo]);
                 requests[e.data.echo](e.data);
                 delete requests[e.data.echo];
             }
