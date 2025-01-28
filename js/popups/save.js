@@ -115,6 +115,9 @@ popups.save = {
         if (type == "cloudcheck") {
             title = "Older cloud save";
             desc = "The save on the cloud seems to be older than the current local save. Would you like to import the cloud save?";
+        } if (type == "cloudavail") {
+            title = "Cloud save available!";
+            desc = "There is a cloud save available. Would you like to import it?";
         }
 
         let popup = callPopup("prompt", title, desc, {

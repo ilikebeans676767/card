@@ -21,8 +21,9 @@ function checkCloudSave(explicit = false) {
     cloud.listSaves().then(data => {
         cloudStatus = "";
         cloud.state.loggedOut = false;
-        if (data[0] && data[0].id == game.id && data[0].timestamp > saveTime) {
-            loadFromCloud(0, "cloudcheck");
+        if (data[0] && data[0].timestamp > saveTime) {
+            if (data[0].id == game.id) loadFromCloud(0, "cloudcheck");
+            else if (game.stats.timePlayed < 10) loadFromCloud(0, "cloudavail");
         } else {
             if (data[0]) lastCloudSaveTime = data[0].timestamp;
             lastCloudCheckTime = game.time.now;
@@ -89,7 +90,8 @@ function hardReset(keepOptions = true) {
     if (keepOptions) localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify({options: game.options})));
     else localStorage.removeItem(SAVE_KEY);
     saveGame = () => {};
-    document.location.reload();
+    if (cloud.clearSave) cloud.clearSave(0).then(() => document.location.reload()).catch(() => document.location.reload());
+    else document.location.reload();
 }
 
 function fixSave(game, newGame) {
