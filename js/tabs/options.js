@@ -138,7 +138,7 @@ tabs.options = {
                         callPopup("prompt", "Error", "Please wait 30 seconds between cloud saves.");
                     } else {
                         saveGame();
-                        let waitPopup = callPopup("prompt", "Saving to cloud", "Please wait...");
+                        let waitPopup = callPopup("prompt", "Saving to cloud", "Please wait...", []);
                         saveToCloud(0, (success) => {
                             waitPopup.close();
                             if (success) {
