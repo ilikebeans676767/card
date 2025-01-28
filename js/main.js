@@ -1,15 +1,16 @@
 let elms = {}
 
 document.addEventListener("DOMContentLoaded", () => {
+    initCloud();
     loadGame();
     initUI();
-    initCloud();
     updateEffects();
     updateUnlocks();
     updateMusic();
     setTab("collection");
     time = performance.now();
     requestAnimationFrame(loop);
+    setTimeout(() => checkCloudSave(), 1000);
     
     $("#loading").remove();
     awardShow(1);

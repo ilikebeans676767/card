@@ -124,12 +124,52 @@ tabs.options = {
         })());
         entry.$title.append(this.elms.localSaveTimer = $make("small"));
 
+        if (cloud.type) {
+            entry = makeEntry("Cloud Save", ...(() => {
+                let list = [];
+                let btn;
+    
+                let holder = $make("div.choice-group");
+                list.push(holder);
+    
+                btn = $make("button", "Manual Save");
+                btn.onclick = () => {
+                    if (game.time.now - lastCloudSaveTime < 30000) {
+                        callPopup("prompt", "Error", "Please wait 30 seconds between cloud saves.");
+                    } else {
+                        saveGame();
+                        let waitPopup = callPopup("prompt", "Saving to cloud", "Please wait...");
+                        saveToCloud(0, (success) => {
+                            waitPopup.close();
+                            if (success) {
+                                let popup = callPopup("prompt", "Game saved", "It is now safe to close this tab.");
+                                popup.$content.append($make("br"), $make("small.unimportant", 
+                                    "(Note: this game auto-saves to the cloud after 5 minutes since the last cloud save)"
+                                ))
+                            } else {
 
+                            }
+                        })
+                    }
+                }
+                holder.append(btn);
+                btn = $make("button", "Check Saves");
+                btn.onclick = () => {
+                    if (game.time.now - lastCloudCheckTime < 30000) {
+                        callPopup("prompt", "Error", "Please wait 30 seconds between cloud checks.");
+                    } else {
+                        checkCloudSave(true);
+                    }
+                }
+                holder.append(btn);
+    
+                return list;
+            })());
+            entry.$title.append(this.elms.cloudSaveTimer = $make("small"));
+        }
 
         elms.tab.append(container = $make("div.opt-container"));
         container.append($make("h3", "Other"));
-
-
 
         entry = makeEntry("Info", ...(() => {
             let list = [];
@@ -147,29 +187,31 @@ tabs.options = {
             return list;
         })());
 
-        entry = makeEntry("Other other", ...(() => {
-            let list = [];
-            let btn;
-
-            let holder = $make("div.choice-group");
-            list.push(holder);
-
-            btn = $make("button", "johnvertisement");
-            btn.onclick = () => {
-                let popup = callPopup("prompt", "", "");
-                popup.classList.add("theatre");
-                popup.$header.remove();
-                popup.$content.style.margin = "0";
-                popup.$content.style.textAlign = "center";
-                popup.$content.innerHTML = `
-                    <iframe src="https://john.citrons.xyz/embed?ref=example.com" class="john"></iframe>
-                    <small class="unimportant">(Note: links open in this tab, ctrl+click to not accidentally close the game)</small>
-                `
-            }
-            holder.append(btn);
-
-            return list;
-        })());
+        if (!cloud.type) {
+            entry = makeEntry("Other other", ...(() => {
+                let list = [];
+                let btn;
+    
+                let holder = $make("div.choice-group");
+                list.push(holder);
+    
+                btn = $make("button", "johnvertisement");
+                btn.onclick = () => {
+                    let popup = callPopup("prompt", "", "");
+                    popup.classList.add("theatre");
+                    popup.$header.remove();
+                    popup.$content.style.margin = "0";
+                    popup.$content.style.textAlign = "center";
+                    popup.$content.innerHTML = `
+                        <iframe src="https://john.citrons.xyz/embed?ref=ducdat0507.github.io" class="john"></iframe>
+                        <small class="unimportant">(Note: links open in this tab, ctrl+click to not accidentally close the game)</small>
+                    `
+                }
+                holder.append(btn);
+    
+                return list;
+            })());
+        }
     },
     onDestroy() {
         this.elms = {}
@@ -177,6 +219,14 @@ tabs.options = {
     onFrame() {
         let localSaveTime = (game.time.now - lastSaveTime) / 1000;
         this.elms.localSaveTimer.innerHTML = localSaveTime < 1 ? `(game saved)` : `(last saved ${_number(format.time(localSaveTime))} ago)`
+        if (this.elms.cloudSaveTimer) {
+            let cloudSaveTime = (game.time.now - lastCloudSaveTime) / 1000;
+            this.elms.cloudSaveTimer.innerHTML = `(connected to ${cloud.type})<br>` + (
+                cloud.state.loggedOut ? `(logged out)` :
+                cloudStatus ? `(${cloudStatus.toLowerCase()}...)` :
+                cloudSaveTime < 1 ? `(game saved)` : `(last saved ${_number(format.time(cloudSaveTime))} ago)`
+            )
+        }
     },
 
 

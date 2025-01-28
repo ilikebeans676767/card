@@ -4,6 +4,8 @@ const SAVE_KEY = "gacha";
 
 function getNewGame() {
     return {
+        id: randomStr(16),
+        version: 0,
         res: {
             points: 0,
             shreds: 0,

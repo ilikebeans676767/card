@@ -81,6 +81,7 @@ function onFrame() {
     emit("frame");
 
     if (game.time.now - lastSaveTime >= 60000) saveGame();
+    if (game.time.now - lastCloudSaveTime >= 300000) saveToCloud();
 }
 
 function updateUnlocks() {

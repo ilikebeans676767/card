@@ -109,8 +109,15 @@ popups.save = {
 
         return popup;
     },
-    showImportPopup(importData) {
-        let popup = callPopup("prompt", "Import this save?", "Would you like to import this save? Your current game will be overriden!", {
+    showImportPopup(importData, type = "") {
+        let title = "Import this save?";
+        let desc = "Would you like to import this save? Your current game will be overridden!";
+        if (type == "cloudcheck") {
+            title = "Older cloud save";
+            desc = "The save on the cloud seems to be older than the current local save. Would you like to import the cloud save?";
+        }
+
+        let popup = callPopup("prompt", title, desc, {
             no: "No, go back",
             "": "",
             yes$primary: "Yes, import save"
