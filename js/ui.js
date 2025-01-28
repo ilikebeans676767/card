@@ -199,6 +199,7 @@ function createInfoButton(text) {
     div.onclick = () => {
         if (prefersNoTooltips()) {
             let popup = callPopup("prompt", "", "");
+            popup.$content.style.margin = 0;
             popup.$content.innerHTML = typeof text == "function" ? text() : text;
             popup.$header.remove();
             delete popup.$header;

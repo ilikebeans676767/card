@@ -3,6 +3,7 @@ let elms = {}
 document.addEventListener("DOMContentLoaded", () => {
     loadGame();
     initUI();
+    initCloud();
     updateEffects();
     updateUnlocks();
     updateMusic();
