@@ -162,10 +162,7 @@
         text-align: start;
         flex: auto;
     }
-    .opt-entry > label > small {
-        display: inline;
-    }
-    .opt-entry > label > small::before {
+    .save-timer-br::after {
         content: " ";
     }
     .choice-group {

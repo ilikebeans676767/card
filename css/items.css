@@ -446,12 +446,15 @@
     text-align: end;
 }
 .opt-entry > label > small {
-    display: block;
     color: var(--color-1);
 }
 .opt-entry > span {
     display: block;
     width: 100%;
+}
+.save-timer-br::after {
+    white-space: pre-wrap;
+    content: "\A";
 }
 
 .choice-group {

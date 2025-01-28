@@ -122,7 +122,7 @@ tabs.options = {
 
             return list;
         })());
-        entry.$title.append(this.elms.localSaveTimer = $make("small"));
+        entry.$title.append($make("span.save-timer-br"), this.elms.localSaveTimer = $make("small"));
 
         if (cloud.type) {
             entry = makeEntry("Cloud Save", ...(() => {
@@ -222,7 +222,7 @@ tabs.options = {
         if (this.elms.cloudSaveTimer) {
             let cloudSaveTime = (game.time.now - lastCloudSaveTime) / 1000;
             this.elms.cloudSave.style.display = cloud.state.loggedOut ? "none" : "";
-            this.elms.cloudSaveTimer.innerHTML = `(connected to ${cloud.type})<br>` + (
+            this.elms.cloudSaveTimer.innerHTML = `(connected to ${cloud.type})<span class="save-timer-br"></span>` + (
                 cloud.state.loggedOut ? `(logged out)` :
                 cloudStatus ? `(${cloudStatus.toLowerCase()}...)` :
                 cloudSaveTime < 1 ? `(game saved)` : `(last saved ${_number(format.time(cloudSaveTime))} ago)`
