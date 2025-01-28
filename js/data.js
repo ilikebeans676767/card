@@ -16,7 +16,7 @@ function loadGame() {
 
 function checkCloudSave(explicit = false) {
     if (!cloud.listSaves || cloudStatus) return;
-    let saveTime = game.time.now;
+    let saveTime = Math.min(lastSaveTime, game.time.now);
     cloudStatus = "checking";
     cloud.listSaves().then(data => {
         cloudStatus = "";
