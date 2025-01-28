@@ -13,7 +13,7 @@ popups.currency = {
                 <small></small>
             </div>
             <div class="quote">
-                “${data.quote}“
+                “${verbify(data.quote)}“
             </div>
         `
         this.elms.small = info.querySelector("small");
