@@ -21,6 +21,7 @@ function checkCloudSave(explicit = false) {
     cloud.listSaves().then(data => {
         cloudStatus = "";
         cloud.state.loggedOut = false;
+        console.log(data[0]?.timestamp, saveTime);
         if (data[0] && data[0].timestamp > saveTime) {
             if (data[0].id == game.id) loadFromCloud(0, "cloudcheck");
             else if (game.stats.timePlayed < 10) loadFromCloud(0, "cloudavail");
@@ -29,6 +30,7 @@ function checkCloudSave(explicit = false) {
             lastCloudCheckTime = game.time.now;
         }
     }).catch(e => {
+        console.log(e);
         cloudStatus = "";
         if (e instanceof NoAccountError) {
             cloud.state.loggedOut = true;
