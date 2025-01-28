@@ -14,7 +14,7 @@ const slideshows = {
             ["text", "They make a <i>lot</i> of money."],
             ["text", "The gacha gaming scene has grown into a multi-millillion-dollar worth industry, far greater than any entertainment scene's worth, combined."],
             ["text", "To chase the money, billions of gacha games are coming out every single blink of an eye."],
-            ["text", "Of course, since the market has become diluted with so many games, they need a way to introduce itself to players and prove that they worth their time."],
+            ["text", "Of course, since the market has become diluted with so many games, they need a way to introduce itself to players and prove that they're worth their time."],
             ["image", "4"],
             ["text", "Enter the advertising scene."],
             ["text", "Companies initially advertised their games by showing them good graphics and great gameplay mechanics."],
