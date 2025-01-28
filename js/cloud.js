@@ -10,6 +10,7 @@ function initGalaxyAPI() {
     let requests = {};
 
     let send = (msg) => {
+        console.log(msg);
         let echo = Math.random();
         window.top.postMessage({
             ...msg,
@@ -21,8 +22,8 @@ function initGalaxyAPI() {
     }
     window.onmessage = (e) => {
         if (e.origin == "https://galaxy.click") {
-            // console.log(e.data);
             if (e.data?.echo) {
+                console.log(e.data.echo, e.data, requests[e.data.echo]);
                 requests[e.data.echo](e.data);
                 delete requests[e.data.echo];
             }
@@ -46,7 +47,8 @@ function initGalaxyAPI() {
     }).then((data) => {
         if (data.error) error(data.message);
         return Object.fromEntries(Object.entries(data.list).map(([index, data]) => {
-            let summary = JSON.parse(data.summary)
+            let summary = {};
+            try { JSON.parse(data.summary) } catch {}
             let timestamp = summary.timestamp ?? Date.now();
             delete summary.timestamp;
             let id = summary.id;

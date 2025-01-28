@@ -156,7 +156,7 @@ tabs.options = {
                 btn = $make("button", "Check Saves");
                 btn.onclick = () => {
                     if (game.time.now - lastCloudCheckTime < 30000) {
-                        callPopup("prompt", "Error", "Please wait 30 seconds between cloud checks.");
+                        callPopup("prompt", "Error", "Please wait 30 seconds between cloud save checks.");
                     } else {
                         checkCloudSave(true);
                     }

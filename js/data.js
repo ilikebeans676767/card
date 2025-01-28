@@ -16,7 +16,7 @@ function loadGame() {
 
 function checkCloudSave(explicit = false) {
     if (!cloud.listSaves || cloudStatus) return;
-    let saveTime = Math.min(lastSaveTime, game.time.now);
+    let saveTime = game.time.now;
     cloudStatus = "checking";
     cloud.listSaves().then(data => {
         cloudStatus = "";
@@ -32,7 +32,7 @@ function checkCloudSave(explicit = false) {
         cloudStatus = "";
         if (e instanceof NoAccountError) {
             cloud.state.loggedOut = true;
-            if (explicit) callPopup("dialog", "Error", "You are not logged in");
+            if (explicit) callPopup("dialog", "Error", "You are not logged in. Please log in in order to access cloud save functionalities.");
         } else {
             if (explicit) callPopup("dialog", "Error", "There was an error: " + e.message);
         }
