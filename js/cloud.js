@@ -47,7 +47,7 @@ function initGalaxyAPI() {
         if (data.error) error(data.message);
         return Object.fromEntries(Object.entries(data.list).map(([index, data]) => {
             let summary = JSON.parse(data.summary)
-            let timestamp = summary.timestamp;
+            let timestamp = summary.timestamp ?? Date.now();
             delete summary.timestamp;
             let id = summary.id;
             delete summary.id;
