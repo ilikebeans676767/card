@@ -132,7 +132,7 @@ tabs.options = {
                 let holder = $make("div.choice-group");
                 list.push(holder);
     
-                btn = $make("button", "Manual Save");
+                btn = this.elms.cloudSave = $make("button", "Manual Save");
                 btn.onclick = () => {
                     if (game.time.now - lastCloudSaveTime < 30000) {
                         callPopup("prompt", "Error", "Please wait 30 seconds between cloud saves.");
@@ -221,6 +221,7 @@ tabs.options = {
         this.elms.localSaveTimer.innerHTML = localSaveTime < 1 ? `(game saved)` : `(last saved ${_number(format.time(localSaveTime))} ago)`
         if (this.elms.cloudSaveTimer) {
             let cloudSaveTime = (game.time.now - lastCloudSaveTime) / 1000;
+            this.elms.cloudSave.style.display = cloud.state.loggedOut ? "none" : "";
             this.elms.cloudSaveTimer.innerHTML = `(connected to ${cloud.type})<br>` + (
                 cloud.state.loggedOut ? `(logged out)` :
                 cloudStatus ? `(${cloudStatus.toLowerCase()}...)` :
