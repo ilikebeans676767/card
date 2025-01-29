@@ -270,6 +270,22 @@ let verbs = {
         drawn: "summoned",
         drawing: "summoning",
     },
+    roll: {
+        _anim: "spin",
+        draw: "roll",
+        draws: "rolls",
+        drew: "rolled",
+        drawn: "rolled",
+        drawing: "rolling",
+    },
+    spin: {
+        _anim: "spin",
+        draw: "spin",
+        draws: "spins",
+        drew: "spined",
+        drawn: "spined",
+        drawing: "spinning",
+    },
     gacha: {
         draw: "gacha",
         draws: "gachas",

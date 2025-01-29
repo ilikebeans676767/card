@@ -402,6 +402,8 @@ function buyCard(pack, rarity, id) {
     game.res[cost[1]] -= cost[0];
 
     console.log(tabs.marketplace.cards[pack + " " + rarity + " " + id]);
+    tabs.marketplace.cards[pack + " " + rarity + " " + id]?.dispatchEvent(new PointerEvent("pointerleave"));
+    tabs.marketplace.cards[pack + " " + rarity + " " + id]?.$levelBtn.dispatchEvent(new PointerEvent("pointerleave"));
     tabs.marketplace.cards[pack + " " + rarity + " " + id]?.remove();
     callPopup("draw", { res: [], cards: [[pack, rarity, id, 1]] });
 }

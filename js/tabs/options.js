@@ -137,6 +137,7 @@ tabs.options = {
                     if (game.time.now - lastCloudSaveTime < 30000) {
                         callPopup("prompt", "Error", "Please wait 30 seconds between cloud saves.");
                     } else {
+                        awardBadge(24);
                         saveGame();
                         let waitPopup = callPopup("prompt", "Saving to cloud", "Please wait...", {});
                         saveToCloud(0, (success) => {

@@ -24,6 +24,7 @@ popups.save = {
         saveActions.append(actionGroup);
         btn = $make("button.primary", "Copy to Clipboard");
         btn.onclick = () => {
+            awardBadge(24);
             navigator.clipboard.writeText(getTextSaveString()).then(() => {
                 callPopup("prompt", "Copied", "Save data copied to clipboard.");
             }).catch((e) => {
@@ -36,6 +37,7 @@ popups.save = {
         actionGroup.append(btn);
         btn = $make("button.primary", "Download File");
         btn.onclick = () => {
+            awardBadge(24);
             let blob = new Blob([LZString.compressToUint8Array(JSON.stringify(game))], { type: "octet/stream" });
             let a = $make("a");
             a.href = URL.createObjectURL(blob);

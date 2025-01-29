@@ -31,6 +31,10 @@ const badges = {
         name: "Just throw it away",
         desc: "Make a no faction {draw} with Photosynthesis active.",
     },
+    24: {
+        name: "Safe and Sound",
+        desc: "Manually save your game data to the cloud, or export your save.",
+    },
     31: {
         name: "Would you like to buy more {draws}?",
         desc: "Use all of your one trillion free {draws}.",

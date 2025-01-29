@@ -98,8 +98,15 @@ popups.draw = {
                 state.timer = effects.revealTime;
             }
             if (effects.breakTime - state.timer > .1) localElms.bigCard.style.setProperty("--timer", 1 - state.timer / effects.breakTime);
-            localElms.bigCard.style.setProperty("--rotate", Math.random() * 4 - 2 + "deg");
-            localElms.bigCard.style.setProperty("--shake", (Math.random() * 10 - 5) + "px, " + (Math.random() * 20 - 10) + "px");
+            
+            let anim = verbs[game.option.verb]._anim;
+            if (anim == "spin") {
+                localElms.bigCard.style.setProperty("--rotate", Math.floor((1 - state.timer / effects.breakTime) ** 5 * 3600) + "deg");
+                localElms.bigCard.style.setProperty("--shake", "0px, 0px");
+            } else {
+                localElms.bigCard.style.setProperty("--rotate", Math.random() * 4 - 2 + "deg");
+                localElms.bigCard.style.setProperty("--shake", (Math.random() * 10 - 5) + "px, " + (Math.random() * 20 - 10) + "px");
+            }
         } else if (state.phase == "revealing") {
             while (state.timer <= 0) {
                 if (state.index >= state.loot.cards.length) {
