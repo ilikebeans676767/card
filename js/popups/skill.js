@@ -13,7 +13,7 @@ popups.skill = {
                 <small>(skill)</small>
             </div>
             <div>
-                ${data.desc()}
+                ${verbify(data.desc())}
             </div>
         `
         popup.$body.append(info);

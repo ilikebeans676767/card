@@ -311,6 +311,9 @@ a:active {
 }
 
 rarity::before {
+    filter: var(--rarity-filter);
+}
+rarity::before {
     content: attr(rarity);
     text-transform: uppercase;
     font-family: var(--number-font);
@@ -320,6 +323,7 @@ rarity::before {
 
     background: var(--rarity-gradient);
     color: transparent;
+    text-shadow: none;
 
     -webkit-background-clip: text;
     background-clip: text;

@@ -905,7 +905,7 @@ const cards = {
         ur: {
             "n0": {
                 name: "mom",
-                desc: "{+0%} base bulk, bulk power, energy cap, and card multiplier.<br>{+1%} shard gain.<br>{x2} point gain.",
+                desc: "{+0%} base bulk, bulk power, energy cap, and card multiplier.<br>{+1%} shred gain.<br>{x2} point gain.",
                 quote: "<rarity rarity='ur'></rarity> mom's so buffed she's the strongest unit in the game",
                 levelCost: [1e12, 1.5, "shreds"],
                 starDiff: 1,

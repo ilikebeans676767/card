@@ -113,6 +113,8 @@
     color: var(--card-color);
     background: linear-gradient(var(--card-gradient));
     border-radius: 0 0 4px 4px;
+    text-shadow: var(--shadow-0), var(--shadow-1), var(--shadow-1);
+    --rarity-filter: drop-shadow(var(--shadow-0)) drop-shadow(var(--shadow-0));
 }
 .game-card-stars {
     position: absolute;
