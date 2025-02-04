@@ -21,7 +21,10 @@ function onFrame() {
         if (game.time.skillCooldowns.fire < 0 && (game.time.skillStacks.fire ?? 0) < effects.skillFireStack - 1) {
             game.time.skillStacks.fire ??= 0;
             game.time.skillStacks.fire++;
-            game.time.skillCooldowns.fire = effects.skillFireCooldown;
+            game.time.skillCooldowns.fire += effects.skillFireCooldown;
+        }
+        if (game.time.skillCooldowns.fire < 0 && (game.time.skillStacks.fire ?? 0) >= effects.skillFireStack - 1) {
+            game.time.skillCooldowns.fire = 0;
         }
         ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
             let btn = elms.draw.$skills["$" + x];
