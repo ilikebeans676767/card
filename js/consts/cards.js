@@ -95,7 +95,7 @@ const cards = {
             "n7": {
                 name: "Fast Delivery",
                 desc: "{+0%} cooldown speed.",
-                quote: "Restock faster with our new fast delivery service—applied to all orders 1 card and above!",
+                quote: "Restock faster with our new fast delivery service — applied to all orders 1 card and above!",
                 levelCost: [25, 2],
                 pMult: 0.6,
                 starDiff: 0.5,
@@ -162,7 +162,7 @@ const cards = {
             "n1b": {
                 name: "Money Press",
                 desc: "{+0%} point multiplier.",
-                quote: "Press some of your shreds into money. This is precisely how legal money are made too, people won't even be able to notice a difference",
+                quote: "Press some of your shreds into money. This is precisely how legal money is made too, people won't even be able to notice a difference",
                 condition: () => flags.unlocked.shreds,
                 levelCost: [1000, 1.12, "shreds"],
                 pMult: 1.2,
@@ -505,7 +505,7 @@ const cards = {
             "n5c": {
                 name: "NPK",
                 desc: "{/0:2} <b>Fertilizer</b> cooldown.",
-                quote: "Why do one when you can do all of them",
+                quote: "Why do one when you can do all of them?",
                 faction: "leaf",
                 condition: () => hasCard("standard", "ex", "skills2") && hasCard("standard", "ssr", "s_leaf"),
                 pMult: 0.1,
@@ -704,7 +704,7 @@ const cards = {
             "n1e": {
                 name: "Weird Checkerboard Floor to Question Reality to",
                 desc: 
-                    "Gain more Shreds based on the total amount of skill reactions you've did."
+                    "Gain more Shreds based on the total amount of skill reactions you've done."
                     + "<br>(Currently: {0} reactions ⇒ {+1%} shred gain)",
                 quote: "All the technological advancements, just for this",
                 condition: () => game.flags.statUnlocks.skills?.reaction,
