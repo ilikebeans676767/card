@@ -14,7 +14,7 @@
     SOME THINGS TO NOTE:
     - You can call the `checkMissingStrings(code)` function in the game's developer 
       console to check for missing strings.
-    - Some objects are special, such as `verbs`. Check the comments in default.js to
+    - Some objects are special, such as `verbs`. Check the comments in _default.js to
       learn more about them.
     - You can use your IDE or text editor's JSDoc support to learn more about some
       special objects and to quickly find missing strings as you type.
