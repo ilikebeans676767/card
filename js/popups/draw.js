@@ -66,7 +66,7 @@ popups.draw = {
         result.append(resultCur);
 
 
-        let close = $make("button.primary.thick", str.popups.common.action_continue);
+        let close = $make("button.primary.thick", str.popups.common.action_continue());
         close.onclick = () => {
             if (game.stats.cardsDrawn >= MAX_CARDS) {
                 awardBadge(31);
