@@ -517,6 +517,7 @@
     padding: 0;
     margin: 0 10px 0 0;
     flex: 0 0 fit-content;
+    align-items: stretch;
     overflow: hidden;
 }
 .card-filters > .choice-group > * {

@@ -3,8 +3,11 @@ tabs.options = {
     icon: "akar-icons:gear",
 
     elms: {},
+    
 
     onInit() {
+        let i18n = str.tabs.options;
+
         let container, choiceGroup, entry;
         function makeEntry(title, ...content) {
             let div = $make("div.opt-entry");
@@ -16,39 +19,47 @@ tabs.options = {
         }
 
         elms.tab.append(container = $make("div.opt-container"));
-        container.append($make("h3", "Preferences"));
-        makeEntry("Number Format", choiceGroup = createChoiceGroup({
-            default: "Default",
-            scientific: "Scientific",
-            engineering: "Engineering",
-            si: "SI Prefixes",
-            alphabet: "Alphabet",
-            chinese: "Chinese",
-            korean: "Korean",
-        }, game.option.notation, (choice) => {
+        container.append($make("h3", i18n.headers.prefs()));
+        makeEntry([$icon("ic:outline-language"), " " + i18n.items.language()], choiceGroup = createChoiceGroup((
+            Object.fromEntries(
+                Object.keys(i18nStrings).map(key => [key, i18nStrings[key].name])
+            )
+        ), game.option.language, (choice) => {
+            setLanguage(choice);
+            saveGame();
+        }));
+        makeEntry(i18n.items.notation(), choiceGroup = createChoiceGroup((
+            Object.fromEntries([
+                "default", "common", "scientific", "engineering", "si", "alphabet", "chinese", "korean"
+            ].map(x => [
+                x, i18n.values.notation[x]()
+            ]))
+        ), game.option.notation, (choice) => {
             game.option.notation = choice;
             saveGame();
         }));
-        makeEntry(["Verb ", 
-            createInfoButton(() => `Change the verb associated with ${getVerb("drawing")} cards, in places such as the game title and item descriptions.`)
+        makeEntry([i18n.items.verb() + " ", 
+            createInfoButton(() => verbify(i18n.strings.verb_desc()))
         ], choiceGroup = createChoiceGroup((
-            Object.fromEntries(Object.entries(verbs).map(([key, item]) => [key, item.draw.toTitleCase()]))
+            Object.fromEntries(Object.entries(
+                i18nStrings[game.option.language].verbs
+            ).map(([key, item]) => [key, item[i18nStrings[game.option.language].primaryVerb].toTitleCase()]))
         ), game.option.verb, (choice) => {
             game.option.verb = choice;
             updateVerb();
             saveGame();
         }));
-        makeEntry("Card Images", choiceGroup = createChoiceGroup({
-            0: "Disabled",
-            1: "Enabled",
+        makeEntry(i18n.items.cardImages(), choiceGroup = createChoiceGroup({
+            0: i18n.values.common.hidden(),
+            1: i18n.values.common.shown(),
         }, game.option.cardImages, (choice) => {
             game.option.cardImages = +choice;
             saveGame();
         }));
         container.append($make("hr"));
-        makeEntry("Background Music", choiceGroup = createChoiceGroup({
-            "": "Disabled",
-            "conscious": "Enabled",
+        makeEntry(i18n.items.music(), choiceGroup = createChoiceGroup({
+            "": i18n.values.common.disabled(),
+            "conscious": i18n.values.common.enabled(),
         }, game.option.music, (choice) => {
             game.option.music = choice;
             updateMusic();
@@ -58,62 +69,60 @@ tabs.options = {
 
 
         elms.tab.append(container = $make("div.opt-container"));
-        container.append($make("h3", "Save Management"));
+        container.append($make("h3", i18n.headers.saves()));
 
-        entry = makeEntry("Local Save", ...(() => {
+        entry = makeEntry(i18n.items.localSave(), ...(() => {
             let list = [];
             let btn;
 
             let holder = $make("div.choice-group");
             list.push(holder);
 
-            btn = $make("button", "Manual Save");
+            btn = $make("button", i18n.values.items.manualSave());
             btn.onclick = () => {
+                let i18n = str.popups.save;
                 if (saveGame()) {
-                    let popup = callPopup("prompt", "Game saved", "It is now safe to close this tab.");
+                    let popup = callPopup("prompt", i18n.saved_title(), i18n.saved_desc());
                     popup.$content.append($make("br"), $make("small.unimportant", 
-                        "(Note: this game auto-saves after a minute since the last save and on certain events such as after a draw"
-                            + " and when a setting is changed)"
+                        i18n.saved_noteLocal()
                     ))
                 }
             }
             holder.append(btn);
-            btn = $make("button", "Import/Export Save");
+            btn = $make("button", i18n.values.items.importExport());
             btn.onclick = () => {
                 callPopup("save");
             }
             holder.append(btn);
 
-            btn = $make("button.f-fire", "Hard Reset");
+            btn = $make("button.f-fire", i18n.values.items.hardReset());
             btn.onclick = () => {
+                let i18n = str.popups.save;
                 let popup = callPopup("prompt", 
-                    "Really hard reset?", 
+                    i18n.reset_confirm_title(), 
                     "",
                     {
-                        no: "No, go back",
+                        no: i18n.reset_confirm_action_no(),
                         "": "",
-                        yes$danger: "Yes, hard reset",
+                        yes$danger: i18n.reset_confirm_action_yes(),
                     },
                     (x) => {
                         if (x == "yes") {
-                            callPopup("prompt", "Hard resetting...", "(the game will reload in a moment, don't close the game in the process)", {});
+                            callPopup("prompt", i18n.busy_reset(), i18n.busy_desc(), {});
                             hardReset(popup.querySelector("#keep-opt-checkbox").checked);
                         }
                     }
                 );
-                popup.$content.innerHTML = `
-                    This action will <strong>COMPLETELY WIPE YOUR SAVE CLEAN.</strong> You'll go back to the very beginning 
-                    of the game with <strong>NO BONUSES IN RETURN.</strong>
-                `
+                popup.$content.innerHTML = i18n.reset_confirm_desc1();
                 popup.$content.insertAdjacentHTML("afterend", `
-                    <p>The game will copy the current save data to your clipboard in case you change your mind.</p>
+                    <p>${i18n.reset_confirm_desc2()}</p>
                     <hr>
                     <p>
                         <div class="input-group">
                             <input type="checkbox" id="keep-opt-checkbox" checked>
-                            <label for="keep-opt-checkbox">Keep preferences</label>
+                            <label for="keep-opt-checkbox">${i18n.opt_keepPrefs()}</label>
                         </div>
-                        <small class="unimportant">(Note: preferences that are bound to an unlockable will be changed to a different one)</small>
+                        <small class="unimportant">${i18n.opt_keepPrefs_noteReset()}</small>
                     </p>
                     <hr>
                 `)
@@ -125,27 +134,28 @@ tabs.options = {
         entry.$title.append($make("span.save-timer-br"), this.elms.localSaveTimer = $make("small"));
 
         if (cloud.type) {
-            entry = makeEntry("Cloud Save", ...(() => {
+            entry = makeEntry(i18n.items.cloudSave(), ...(() => {
                 let list = [];
                 let btn;
     
                 let holder = $make("div.choice-group");
                 list.push(holder);
     
-                btn = this.elms.cloudSave = $make("button", "Manual Save");
+                btn = this.elms.cloudSave = $make("button", i18n.values.items.manualSave());
                 btn.onclick = () => {
+                    let i18n = str.popups.save;
                     if (game.time.now - lastCloudSaveTime < 30000) {
-                        callPopup("prompt", "Error", "Please wait 30 seconds between cloud saves.");
+                        callPopup("prompt", str.popup.common.title_error(), i18n.error_cloudSaveCooldown());
                     } else {
                         awardBadge(24);
                         saveGame();
-                        let waitPopup = callPopup("prompt", "Saving to cloud", "Please wait...", {});
+                        let waitPopup = callPopup("prompt", i18n.busy_saving_cloud(), str.popups.save.desc_pleaseWait(), {});
                         saveToCloud(0, (success) => {
                             waitPopup.close();
                             if (success) {
-                                let popup = callPopup("prompt", "Game saved", "It is now safe to close this tab.");
+                                let popup = callPopup("prompt", i18n.saved_title(), i18n.saved_desc());
                                 popup.$content.append($make("br"), $make("small.unimportant", 
-                                    "(Note: this game auto-saves to the cloud after 5 minutes since the last cloud save)"
+                                    i18n.saved_noteCloud()
                                 ))
                             } else {
 
@@ -154,7 +164,7 @@ tabs.options = {
                     }
                 }
                 holder.append(btn);
-                btn = $make("button", "Check Saves");
+                btn = $make("button", i18n.values.items.checkSaves());
                 btn.onclick = () => {
                     if (game.time.now - lastCloudCheckTime < 30000) {
                         callPopup("prompt", "Error", "Please wait 30 seconds between cloud save checks.");
@@ -170,16 +180,16 @@ tabs.options = {
         }
 
         elms.tab.append(container = $make("div.opt-container"));
-        container.append($make("h3", "Other"));
+        container.append($make("h3", i18n.headers.other()));
 
-        entry = makeEntry("Info", ...(() => {
+        entry = makeEntry(i18n.items.info(), ...(() => {
             let list = [];
             let btn;
 
             let holder = $make("div.choice-group");
             list.push(holder);
 
-            btn = $make("button", "About & Credits");
+            btn = $make("button", i18n.values.items.about());
             btn.onclick = () => {
                 callPopup("about");
             }
@@ -189,14 +199,14 @@ tabs.options = {
         })());
 
         if (!cloud.type) {
-            entry = makeEntry("Other other", ...(() => {
+            entry = makeEntry(i18n.items.otherOther(), ...(() => {
                 let list = [];
                 let btn;
     
                 let holder = $make("div.choice-group");
                 list.push(holder);
     
-                btn = $make("button", "johnvertisement");
+                btn = $make("button", i18n.values.items.john());
                 btn.onclick = () => {
                     let popup = callPopup("prompt", "", "");
                     popup.classList.add("theatre");
@@ -205,7 +215,7 @@ tabs.options = {
                     popup.$content.style.textAlign = "center";
                     popup.$content.innerHTML = `
                         <iframe src="https://john.citrons.xyz/embed?ref=ducdat0507.github.io" class="john"></iframe>
-                        <small class="unimportant">(Note: links open in this tab, ctrl+click to not accidentally close the game)</small>
+                        <small class="unimportant">${i18n.strings.john_note()}</small>
                     `
                 }
                 holder.append(btn);
@@ -219,14 +229,15 @@ tabs.options = {
     },
     onFrame() {
         let localSaveTime = (game.time.now - lastSaveTime) / 1000;
-        this.elms.localSaveTimer.innerHTML = localSaveTime < 1 ? `(game saved)` : `(last saved ${_number(format.time(localSaveTime))} ago)`
+        let i18n = str.tabs.options;
+        this.elms.localSaveTimer.innerHTML = localSaveTime < 1 ? i18n.strings.save_recent() : i18n.strings.save_timer(_number(format.time(localSaveTime)))
         if (this.elms.cloudSaveTimer) {
             let cloudSaveTime = (game.time.now - lastCloudSaveTime) / 1000;
             this.elms.cloudSave.style.display = cloud.state.loggedOut ? "none" : "";
-            this.elms.cloudSaveTimer.innerHTML = `(connected to ${cloud.type})<span class="save-timer-br"></span>` + (
-                cloud.state.loggedOut ? `(logged out)` :
-                cloudStatus ? `(${cloudStatus.toLowerCase()}...)` :
-                cloudSaveTime < 1 ? `(game saved)` : `(last saved ${_number(format.time(cloudSaveTime))} ago)`
+            this.elms.cloudSaveTimer.innerHTML = `${i18n.strings["cloud_type_" + cloud.type]()}<span class="save-timer-br"></span>` + (
+                cloud.state.loggedOut ? i18n.strings.cloud_loggedOut() :
+                cloudStatus ? i18n.strings["cloud_status_" + toLowerCase()] :
+                cloudSaveTime < 1 ? i18n.strings.save_recent() : i18n.strings.save_timer(_number(format.time(cloudSaveTime)))
             )
         }
     },

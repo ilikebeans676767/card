@@ -2,6 +2,7 @@ popups.draw = {
     state: {},
     elms: {},
     call(loot) {
+        let i18n = str.popups.draw;
         let popup = makePopup();
         popup.classList.add("clear", "draw-popup");
         popup.onpointerdown = () => {
@@ -35,17 +36,16 @@ popups.draw = {
             </div>
             <div class="in-flex flex-fill">
                 <div class="number" style="font-size:4em">Ω</div>
-                <h1 class="number">OMEGA CARDS</h1>
-                <div>TRADING CARD GAME</div>
+                <h1 class="number">${i18n.strings.pack_title()}</h1>
+                <div>${i18n.strings.pack_subtitle()}</div>
             </div>
             <small class="out-flex" style="align-items: end">
                 <span>
-                    PACK OF<br>
-                    <b>${format(loot.cards.reduce((x, y) => x + y[3], 0))}</b> CARDS
+                    ${i18n.strings.pack_count(format(loot.cards.reduce((x, y) => x + y[3], 0)))}
                 </span>
                 <div class="flex-fill"></div>
                 <small style="text-align: end; font-size: 0.5em">
-                    © DUDUCAT TRADING CARD GAME CO.
+                    ${i18n.strings.brand_full()} 
                 </small>
             </small>
         `
@@ -66,16 +66,16 @@ popups.draw = {
         result.append(resultCur);
 
 
-        let close = $make("button.primary.thick", "Continue");
+        let close = $make("button.primary.thick", str.popups.common.action_continue);
         close.onclick = () => {
             if (game.stats.cardsDrawn >= MAX_CARDS) {
                 awardBadge(31);
-                callPopup("prompt", "Game completed!", [
-                    "You've successfully used up all of your one trillion free " + verbify("draws") + "!",
+                callPopup("prompt", str.popups.complete.strings.title(), [
+                    verbify(str.popups.complete.strings.line1()),
                     $make("br"),
-                    $makeHTML("span", `It only took you ${_number(format.time(game.stats.timePlayed, 4))} to do it.`),
+                    $makeHTML("span", str.popups.complete.strings.line2(_number(format.time(game.stats.timePlayed, 4)))),
                     $make("hr"),
-                    "This is the end for now, you can wait for an update or you can go to Settings -> Hard Reset to play the game again.",
+                    str.popups.complete.strings.line3(),
                 ]);
             }
             popup.close();
@@ -99,7 +99,7 @@ popups.draw = {
             }
             if (effects.breakTime - state.timer > .1) localElms.bigCard.style.setProperty("--timer", 1 - state.timer / effects.breakTime);
             
-            let anim = verbs[game.option.verb]._anim;
+            let anim = str.verbs[game.option.verb]?._anim?.();
             if (anim == "spin") {
                 localElms.bigCard.style.setProperty("--rotate", Math.floor((1 - state.timer / effects.breakTime) ** 5 * 3600) + "deg");
                 localElms.bigCard.style.setProperty("--shake", "0px, 0px");

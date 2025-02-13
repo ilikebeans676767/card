@@ -64,20 +64,21 @@ function updateTooltipPos(ev) {
 let tooltipTemplates = {
     text (text) {
         return (tooltip) => {
-            tooltip.innerHTML = text;
+            tooltip.innerHTML = typeof text == "function" ? text() : text;
         }
     },
     currency (id) {
         return (tooltip) => {
             let data = currencies[id];
+            let i18n = str.currencies[id];
 
             tooltip.innerHTML = `
                 <div class="header">
-                    <h2>${data.name}</h2>
+                    <h2>${i18n.name()}</h2>
                     <small></small>
                 </div>
                 <div class="quote">
-                    “${verbify(data.quote)}“
+                    ${str.format.marks.quote(verbify(i18n.quote()))}
                 </div>
             `
 
@@ -95,6 +96,8 @@ let tooltipTemplates = {
     card (pack, rarity, id, mode = null) {
         let data = cards[pack][rarity][id];
         return (tooltip) => {
+            let i18n = str.cards[pack][rarity][id];
+            let popupI18n = str.popups.card;
             registerTooltipEvent("card-update");
             let state = game.cards[pack]?.[rarity]?.[id];
 
@@ -120,76 +123,74 @@ let tooltipTemplates = {
 
             tooltip.innerHTML = `
                 <div class="header">
-                    <h2><rarity rarity="${rarity}"></rarity> ${data.name}</h2>
+                    <h2><rarity rarity="${rarity}"></rarity> ${i18n.name()}</h2>
                     <small>${state ? `
                         ${data.faction
-                            ? `(${data.faction} faction)`
+                            ? `${popupI18n.factions[data.faction]()}<br>`
                             : ``
                         }
                         ${data.crown 
                             ? ``
-                            : `(<span class="number">+${format(state.amount)}</span> extra copies)<br>`
+                            : `${popupI18n.strings.copies(_number(`+${format(state.amount)}`))}<br>`
                         }
                         ${data.crown 
-                            ? `(crowned card)`
-                            : `(<span class="number">${format(state.stars)}/${format(5)}</span> stars)`
+                            ? popupI18n.strings.crown()
+                            : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
                         }
                         ${data.levelCost ? data.maxLevel
-                            ? `(level <span class="number">${format(state.level)}/${format(data.maxLevel)}</span>)`
-                            : `(level <span class="number">${format(state.level)}</span>)`
+                            ? popupI18n.strings.stars(_number(`${format(state.level)}/${format(data.maxLevel)}`))
+                            : popupI18n.strings.stars(_number(format(state.level)))
                             : ``
                         }
-                    ` : `
-                        (card not yet owned)
-                    `}</small>
+                    ` : popupI18n.strings.notOwned()}</small>
                 </div>
                 <div>
-                    ${verbify(format.effect(data.desc, curFx, newFx))}
+                    ${verbify(format.effect(i18n.desc(), curFx, newFx))}
                 </div>
             `
 
             if (mode == "level-up") {
                 if (!data.levelCost) {
                     tooltip.innerHTML += `<div class="action">
-                        This card can not be upgraded.
+                        ${popupI18n.strings.level_cant()}
                     </div>`
                 } else if (data.maxLevel && state.level >= data.maxLevel) {
                     tooltip.innerHTML += `<div class="action">
-                        Max level reached.
+                        ${popupI18n.strings.level_cant_max()}
                     </div>`
                 } else {
                     let levelCost = getCardLevelCost(pack, rarity, id);
                     let canLevelUp = game.res[levelCost[1]] >= levelCost[0];
-                    let name = currencies[levelCost[1]].name;
+                    let name = str.currencies[levelCost[1]].name();
                     tooltip.innerHTML += `<div class="formula"> 
-                        <h4>Upgrade cost:</h4>
+                        <h4>${popupI18n.strings.level_cost()}</h4>
                         <div><span>${name}</span>${_number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
                     </div><div class="action">
-                        ${canLevelUp ? "Click to upgrade." : "Insufficient " + name + "."}
+                        ${canLevelUp ? popupI18n.strings.level_prompt() : popupI18n.strings.level_cant_cost(name)}
                     </div>`
                 }
             } else if (mode == "star-up") {
                 if (data.crown) {
                     tooltip.innerHTML += `<div class="action">
-                        This card can not be fused.
+                        ${popupI18n.strings.star_cant()}
                     </div>`
                 } else if (state.stars >= 5) {
                     tooltip.innerHTML += `<div class="action">
-                        Max star reached.
+                        ${popupI18n.strings.star_cant_max()}
                     </div>`
                 } else {
                     let starCost = getCardStarCost(pack, rarity, id);
                     let canStarUp = state.amount >= starCost;
                     tooltip.innerHTML += `<div class="formula"> 
-                        <h4>Fusion cost:</h4>
-                        <div><span>"${data.name}" extra copies</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
+                        <h4>${popupI18n.strings.star_cost()}</h4>
+                        <div><span>${popupI18n.strings.star_cost_copies(i18n.name)}</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
                     </div><div class="action">
-                        ${canStarUp ? "Click to fuse." : "Insufficient copies."}
+                        ${canStarUp ? popupI18n.strings.star_prompt() : popupI18n.strings.star_cant_cost()}
                     </div>`
                 }
             } else if (mode == "buy") {
                 let canBuy = game.res[data.buyCost[1]] >= data.buyCost[0];
-                let name = currencies[data.buyCost[1]].name;
+                let name = str.currencies[data.buyCost[1]].name();
                 tooltip.innerHTML += `<div class="formula"> 
                     <h4>Purchase cost:</h4>
                     <div><span>${name}</span>${_number(format(game.res[data.buyCost[1]]) + " / " + format(data.buyCost[0]))}</div>
@@ -198,7 +199,7 @@ let tooltipTemplates = {
                 </div>`
             } else {
                 tooltip.innerHTML += `<div class="quote">
-                    “${verbify(data.quote)}“
+                    ${str.format.marks.quote(verbify(i18n.quote()))}
                 </div>`
             }
         }
@@ -206,20 +207,20 @@ let tooltipTemplates = {
     skill (skill) {
         let data = skills[skill];
         return (tooltip) => {
+            let i18n = str.skills[skill];
+            let popupI18n = str.popups.skill
             if (hasCard("standard", "ssr", "s_" + skill)) {
                 tooltip.innerHTML = `
                     <div class="header">
-                        <h2>${data.name}</h2>
-                        <small>(skill)</small>
+                        <h2>${i18n.name()}</h2>
+                        <small>${popupI18n.strings.skill()}</small>
                     </div>
                     <div>
                         ${verbify(data.desc())}
                     </div>
                 `
             } else {
-                tooltip.innerHTML = `
-                    This skill is locked
-                `
+                tooltip.textContent = popupI18n.strings.skill_locked();
             }
         }
     },
@@ -229,11 +230,11 @@ let tooltipTemplates = {
             let obtained = !!game.badges[badge];
             tooltip.innerHTML = `
                 <div class="header">
-                    <h2>${verbify(data.name)}</h2>
-                    <small>(${obtained ? "obtained " : "locked "}badge)</small>
+                    <h2>${verbify(str.badges[badge].name())}</h2>
+                    <small>${str.popups.badge.strings["state_" + (obtained ? "obtained" : "locked")]()}</small>
                 </div>
                 <div>
-                    ${obtained ? verbify(data.desc) : "???"}
+                    ${obtained ? verbify(str.badges[badge].desc()) : str.popups.badge.strings.lock_desc()}
                 </div>
             `
         }
@@ -241,19 +242,20 @@ let tooltipTemplates = {
 }
 
 function getCurrencyInfo(id) {
+    let i18n = str.popups.currency;
     if (id == "energy") {
         let eff = addWithCapEfficiency(game.res[id], effects.energyCap, 2);
         return `
-            (you have ${_number(format(game.res[id], 0, 14))})<br>
-            (${_number(format(effects.bulkPower * eff))}/min)
+            ${i18n.strings.amount_have(_number(format(game.res[id], 0, 14)))}<br>
+            ${i18n.strings.speed_minute(_number(format(effects.bulkPower * eff)))}
             ${effects.bulkPower == 0 ? "" 
-                : eff == 1 ? `(${_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower * 60))} until cap)` 
-                : `(${_number(format(eff * 100) + "%")} efficiency)`
+                : eff == 1 ? i18n.strings.toCap(_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower * 60)))
+                : i18n.strings.efficiency(_number(format.chance(eff)))
             }
         `
     } else if (id == "cards") {
-        return `(you've drawn ${_number(format(game.stats.cardsDrawn, 0, 14))})`
+        return verbify(i18n.strings.amount_drawn(_number(format(game.stats.cardsDrawn, 0, 14))))
     } else {
-        return `(you have ${_number(format(game.res[id], 0, 14))})`
+        return i18n.strings.amount_have(_number(format(game.res[id], 0, 14)))
     }
 }

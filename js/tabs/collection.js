@@ -78,9 +78,7 @@ tabs.collection = {
         hozHolder.childNodes[1].classList.add("value");
         hozHolder.append(this.elms.pickit.$clock = $make("div.pickit-clock", "0s"));
 
-        elms.tab.append(this.elms.placeholder = $makeHTML("div.note-container", `
-            Seems like there isn't anything here...
-        `));
+        elms.tab.append(this.elms.placeholder = $makeHTML("div.note-container", str.tabs.common.strings.nothing()));
 
         let list = this.elms.list = $make("div.card-list");
         elms.tab.append(list);

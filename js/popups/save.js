@@ -1,10 +1,11 @@
 popups.save = {
     call() {
         let popup = makePopup();
+        let i18n = str.popups.save;
 
-        popup.$body.append(popup.$header = $make("h3.header", "Import/Export Save"));
-        popup.$body.append(popup.$content = $make("p", "The text box below contains your save data. Copy your save and keep it somewhere safe."));
-        popup.$content.innerHTML += "<br>Alternatively, paste your save there and press \"Import from Text Box\" to load the save.";
+        popup.$body.append(popup.$header = $make("h3.header", i18n.ie_title()));
+        popup.$body.append(popup.$content = $make("p", i18n.ie_desc1()));
+        popup.$content.innerHTML += "<br>" + i18n.ie_desc2();
 
         let saveText = $make("textarea.save-box");
         saveText.value = getTextSaveString();
@@ -13,7 +14,7 @@ popups.save = {
         let actions, saveActions, actionGroup, btn;
         popup.$body.append(popup.$actions = actions = $make("div.actions"));
 
-        btn = $make("button", "Close");
+        btn = $make("button", str.popups.common.action_close());
         btn.onclick = popup.close;
         actions.append(btn);
 
@@ -22,20 +23,20 @@ popups.save = {
 
         popup.$body.append(actionGroup = $make("div.action-group"));
         saveActions.append(actionGroup);
-        btn = $make("button.primary", "Copy to Clipboard");
+        btn = $make("button.primary", i18n.ie_action_save_text());
         btn.onclick = () => {
             awardBadge(24);
             navigator.clipboard.writeText(getTextSaveString()).then(() => {
-                callPopup("prompt", "Copied", "Save data copied to clipboard.");
+                callPopup("prompt", i18n.saved_text_title(), i18n.saved_text_desc());
             }).catch((e) => {
-                popup = callPopup("prompt", "Error", "There was an error trying to copy your save string into the clipboard.");
+                popup = callPopup("prompt", str.popups.common.title_error(), i18n.error_copy1());
                 popup.$content.insertAdjacentHTML("afterend", `
-                    <p>You can still manually copy your save string from the text box by selecting all the text and copy it.
+                    <p>${i18n.error_copy2()}
                 `)
             })
         }
         actionGroup.append(btn);
-        btn = $make("button.primary", "Download File");
+        btn = $make("button.primary", i18n.ie_action_save_file());
         btn.onclick = () => {
             awardBadge(24);
             let blob = new Blob([LZString.compressToUint8Array(JSON.stringify(game))], { type: "octet/stream" });
@@ -43,13 +44,13 @@ popups.save = {
             a.href = URL.createObjectURL(blob);
             a.download = "1tFreeDraws-" + Date.now() + ".e12.sav";
             a.click();
-            callPopup("prompt", "Downloading save...", `Save data downloading as "${a.download}"...`);
+            callPopup("prompt", i18n.saved_file_title(), i18n.saved_file_desc(a.download));
         }
         actionGroup.append(btn);
 
         popup.$body.append(actionGroup = $make("div.action-group"));
         saveActions.append(actionGroup);
-        btn = $make("button.danger", "Import from Text Box");
+        btn = $make("button.danger", i18n.ie_action_load_text());
         btn.onclick = () => {
             let importData = null;
             try {
@@ -57,20 +58,16 @@ popups.save = {
                 fixSave(importData, getNewGame());
             } catch {
                 if (saveText.value.includes("...") || saveText.value.includes("…")) {
-                    callPopup("prompt", "Invalid Save",
-                        "Ellipsis detected in save string. Your save might have been truncated by the browser or the operating system. " +
-                        "You can use the Download File option instead to make a more reliable backup.");
+                    callPopup("prompt", i18n.import_error(), i18n.import_error_desc_ellipsis());
                 }
-                callPopup("prompt", "Invalid Save",
-                    "This save appears to be incorrect or corrupted. " +
-                    "Make sure you have copied the entire save string and the save string is not truncated.");
+                callPopup("prompt", i18n.import_error(), i18n.import_error_desc());
                 return;
             }
 
             this.showImportPopup(importData);
         }
         actionGroup.append(btn);
-        btn = $make("button.danger", "Upload File");
+        btn = $make("button.danger", i18n.ie_action_load_file());
         btn.onclick = () => {
             let file = document.createElement("input");
             file.type = "file";
@@ -93,9 +90,7 @@ popups.save = {
                             fixSave(importData, getNewGame());
                         } catch (e) {
                             console.log(e);
-                            callPopup("prompt", "Invalid Save",
-                                "This save appears to be incorrect or corrupted. " +
-                                "Make sure you have copied the entire save string and the save string is not truncated.");
+                            callPopup("prompt", i18n.import_error(), i18n.import_error_desc());
                             return;
                         }
 
@@ -112,25 +107,27 @@ popups.save = {
         return popup;
     },
     showImportPopup(importData, type = "") {
-        let title = "Import this save?";
-        let desc = "Would you like to import this save? Your current game will be overridden!";
+        let i18n = str.popups.save;
+
+        let title = i18n.import_confirm_title();
+        let desc = i18n.import_confirm_desc();
         if (type == "cloudcheck") {
-            title = "Older cloud save";
-            desc = "The save on the cloud seems to be older than the current local save. Would you like to import the cloud save?";
+            title = i18n.import_confirm_cloudcheck_title();
+            desc = i18n.import_confirm_cloudcheck_desc();
         } if (type == "cloudavail") {
-            title = "Cloud save available!";
-            desc = "There is a cloud save available. Would you like to import it?";
+            title = i18n.import_confirm_cloudavail_title();
+            desc = i18n.import_confirm_cloudavail_desc();
         }
 
         let popup = callPopup("prompt", title, desc, {
-            no: "No, go back",
+            no: i18n.import_confirm_action_no(),
             "": "",
-            yes$primary: "Yes, import save"
+            yes$primary: i18n.import_confirm_action_yes(),
         }, x => {
             if (x == "yes") {
                 if (popup.querySelector("#keep-opt-checkbox").checked) importData.option = { ...game.option };
                 saveGame = () => { return false; }
-                callPopup("prompt", "Importing save...", "(the game will reload in a moment, don't close the game in the process)", {});
+                callPopup("prompt", i18n.busy_import(), i18n.busy_desc(), {});
                 localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify(importData)));
                 window.location.reload();
             }
@@ -141,10 +138,9 @@ popups.save = {
             <p>
                 <div class="input-group">
                     <input type="checkbox" id="keep-opt-checkbox">
-                    <label for="keep-opt-checkbox">Keep preferences</label>
+                    <label for="keep-opt-checkbox">${i18n.opt_keepPrefs()}</label>
                 </div>
-                <small class="unimportant">(Note: preferences that are bound to an unlockable will be changed to a different one
-                if said unlockable is not present in the new save)</small>
+                <small class="unimportant">${i18n.opt_keepPrefs_noteImport()}</small>
             </p>
             <hr>
         `)
@@ -156,7 +152,7 @@ popups.save = {
             saveSummary.append(entry);
         }
 
-        makeSummaryEntry("Time played:", format.time(importData.stats.timePlayed));
-        makeSummaryEntry("Cards " + getVerb("drawn") + ":", format(importData.stats.cardsDrawn, 0, 13));
+        makeSummaryEntry(str.stats.general.items.timePlayed.name(), format.time(importData.stats.timePlayed));
+        makeSummaryEntry(verbify(str.stats.cards.items.cardsDrawn.name()), format(importData.stats.cardsDrawn, 0, 13));
     }
 }

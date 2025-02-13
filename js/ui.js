@@ -73,27 +73,12 @@ function initUI() {
         hozHolder.childNodes[i + 1].classList.add("f-" + x);
     });
     ["no", "fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
-        registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text("Switch to " + x + " faction"));
+        registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(() => str.common.switch[x]()));
     });
 
     elms.draw.$hint = $("#start-hint");
     elms.draw.$hint.style.display = "none";
     elms.draw.$hint.onclick = () => {elms.draw.$hint.style.display = "none"};
-    if (navigator.standalone === false) {
-        elms.draw.$hint.style.display = "";
-        elms.draw.$hint.innerHTML = `
-            <h4>For the best experience:</h4>
-            Press ${_icon("ion:share-outline")} -> "Add to Home Screen" -> "Add"
-        `
-    }
-    if (game.stats.cardsDrawn == 0) {
-        elms.draw.$hint.style.display = "";
-        if (elms.draw.$hint.innerHTML) elms.draw.$hint.innerHTML += "<hr>";
-        elms.draw.$hint.innerHTML += `
-            <h3>You've got ${_number(format.decimal(1e12))} free <verb>draws</verb>!</h3>
-            Click this big "Draw" button below to start <verb>drawing</verb> some of them!
-        `
-    }
 
     elms.draw.$options.append(elms.draw.$skills = $make("div.skill-holder"));
     ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
@@ -124,10 +109,29 @@ function initUI() {
     updateVerb();
 }
 
+function updateStartHint() {
+    elms.draw.$hint.innerHTML = "";
+    if (navigator.standalone === false) {
+        elms.draw.$hint.style.display = "";
+        elms.draw.$hint.innerHTML += `
+            <h4>${str.common.hint_ios_title()}</h4>
+            ${str.common.hint_ios_desc(_icon("ion:share-outline"))}
+        `
+    }
+    if (game.stats.cardsDrawn == 0) {
+        elms.draw.$hint.style.display = "";
+        if (elms.draw.$hint.innerHTML) elms.draw.$hint.innerHTML += "<hr>";
+        elms.draw.$hint.innerHTML += `
+            <h3>${verbify(str.common.hint_title(_number(format.decimal(1e12))))}</h3>
+            ${verbify(str.common.hint_desc())}
+        `
+    }
+
+}
 
 function createCurrencyUI(id) {
     let currency = currencies[id];
-    let title = $make("span", currency.name);
+    let title = $make("span", str.currencies[id].name());
     let amount = $make("span", 0);
 
     let div = $make("div.currency", title, amount);
@@ -144,6 +148,7 @@ function createCurrencyUI(id) {
 
 function createCardUI(pack, rarity, id) {
     let data = cards[pack][rarity][id];
+    let i18n = str.cards[pack][rarity][id];
 
     let div = $make("article.game-card");
     div.setAttribute("rarity", rarity);
@@ -164,7 +169,7 @@ function createCardUI(pack, rarity, id) {
         div.append(img);
     }
     let name = div.$name = $make("div.game-card-name");
-    name.innerHTML = `<rarity rarity="${rarity}"></rarity> ${data.name}`;
+    name.innerHTML = `<rarity rarity="${rarity}"></rarity> ${i18n.name()}`;
     div.append(name);
 
     let stars = div.$stars = $make("div.game-card-stars");
@@ -248,53 +253,6 @@ function createChoiceGroup(options, value, onChoice) {
     return div;
 }
 
-let verbs = {
-    draw: {
-        draw: "draw",
-        draws: "draws",
-        drew: "drew",
-        drawn: "drawn",
-        drawing: "drawing",
-    },
-    pull: {
-        draw: "pull",
-        draws: "pulls",
-        drew: "pulled",
-        drawn: "pulled",
-        drawing: "pulling",
-    },
-    summon: {
-        draw: "summon",
-        draws: "summons",
-        drew: "summoned",
-        drawn: "summoned",
-        drawing: "summoning",
-    },
-    roll: {
-        _anim: "spin",
-        draw: "roll",
-        draws: "rolls",
-        drew: "rolled",
-        drawn: "rolled",
-        drawing: "rolling",
-    },
-    spin: {
-        _anim: "spin",
-        draw: "spin",
-        draws: "spins",
-        drew: "spined",
-        drawn: "spined",
-        drawing: "spinning",
-    },
-    gacha: {
-        draw: "gacha",
-        draws: "gachas",
-        drew: "gacha'd",
-        drawn: "gacha'd",
-        drawing: "gacha'ing",
-    }
-}
-
 /** @type {RegExp} */
 let verbRegex = null;
 /** @param {string} str  */
@@ -304,6 +262,7 @@ function verbify(str) {
     })
 }
 function getVerb(verb) {
+    let verbs = i18nStrings[game.option.language].verbs;
     let v = verbs[game.option.verb][verb.toLowerCase()];
     if (verb[0].toUpperCase() == verb[0]) {
         v = v[verb[1].toUpperCase() == verb[1] ? "toUpperCase" : "toTitleCase"]();
@@ -313,7 +272,10 @@ function getVerb(verb) {
 
 function updateVerb() {
     let verb = game.option.verb;
-    document.title = "One Trillion Free " + getVerb("Draws");
+    let verbs = i18nStrings[game.option.language].verbs;
     let regex = `{(${Object.keys(verbs[verb]).join("|")})}`;
     verbRegex = new RegExp(regex, "gi");
+
+    document.title = verbify(str.common.title());
+    updateStartHint();
 }

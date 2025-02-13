@@ -1,7 +1,7 @@
 const MAX_CARDS = 1e12;
 
 function onFrame() {
-    elms.currencies.$cards.$title.textContent = "Cards left";
+    elms.currencies.$cards.$title.textContent = str.currencies.cards.left();
     elms.currencies.$cards.$amount.textContent = format(MAX_CARDS - game.stats.cardsDrawn, 0, 13);
     if (flags.unlocked.points) elms.currencies.$points.$amount.textContent = format(game.res.points, 0, 7);
     if (flags.unlocked.shreds) elms.currencies.$shreds.$amount.textContent = format(game.res.shreds, 0, 7);
@@ -10,7 +10,7 @@ function onFrame() {
     }
     if (flags.unlocked.faction) {
         ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
-            elms.currencies["$" + x].$amount.textContent = format(game.res[x]);
+            elms.currencies["$" + x].$amount.textContent = format(game.res[x], 1);
         })
     }
     if (flags.unlocked.skills) {
@@ -34,7 +34,7 @@ function onFrame() {
                 btn.classList.toggle("disabled", game.time.skillCooldowns[x] > 0 && (game.time.skillStacks[x] ?? 0) <= 0);
                 btn.classList.toggle("active", !!game.drawPref.skills[x]);
                 btn.style.setProperty("--cooldown", 
-                    game.drawPref.skills[x] ? '"Active"' : 
+                    game.drawPref.skills[x] ? '"' + str.common.skills.active() + '"' : 
                     game.time.skillCooldowns[x] > 0 ? `"${format.time(game.time.skillCooldowns[x])}"` : "");
                 btn.style.setProperty("--stack", 
                     game.time.skillStacks[x] > 0 ? `"${format(game.time.skillStacks[x] + (game.time.skillCooldowns[x] <= 0))}×"` : 
@@ -70,10 +70,10 @@ function onFrame() {
         elms.draw.$action.textContent = "";
         elms.draw.$amount.textContent = "";
     } else if (cooldown > 0) {
-        elms.draw.$action.textContent = "In cooldown";
+        elms.draw.$action.textContent = str.common.draw_inCooldown();
         elms.draw.$amount.textContent = cooldown < 60 ? format(cooldown, 2) + "s" : format.time(cooldown);
     } else {
-        elms.draw.$action.textContent = game.option.verb.toTitleCase();
+        elms.draw.$action.textContent = verbify(str.common.draw());
         elms.draw.$amount.textContent = "×" + format(getDrawAmount(), 0, 9);
     }
 

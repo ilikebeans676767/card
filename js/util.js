@@ -8,11 +8,15 @@ const format = (number, precision = 0, length = 4) => {
 
     let precision2 = Math.max(precision, 3);
 
+    let notation = game.option.notation;
+    if (notation == "default") notation = i18nStrings[game.option.language].notation;
+    if (notation == "hodor") return "Hodor";
+
     if (number < 1000) return format.decimal(number, precision);
     if (number < 10 ** length) return format.decimal(number);
 
-    switch (game.option.notation) {
-        case "default": {
+    switch (notation) {
+        case "common": {
             let res = format.suffix(number, precision2, (x) => format.suffix.simple(x, [
                 " K", " M", " B", " T", " Qa", " Qi", " Sx", " Sp", " Oc", " No", 
                 " Dc", " UD", " DD", " TD", " QaD", " QiD", " SxD", " SpD", " OD", " ND",
@@ -54,7 +58,7 @@ const format = (number, precision = 0, length = 4) => {
     }
 
     let exp = Math.floor(Math.log10(number));
-    if (game.option.notation == "engineering") exp = Math.floor(exp / 3) * 3;
+    if (notation == "engineering") exp = Math.floor(exp / 3) * 3;
     let man = number / 10 ** exp;
     return format.significant(man, precision2) + "e" + format(exp, 0, Math.max(length - precision2 - 1, 6));
 }
@@ -110,11 +114,12 @@ format.suffix.base = (number, list, max) => {
 }
 
 format.time = (seconds, max = 2) => {
-    let list = [format.decimal(seconds % 60) + "s"];
-    if ((seconds /= 60) >= 1) list.unshift(format.decimal(seconds % 60) + "m");
-    if ((seconds /= 60) >= 1) list.unshift(format.decimal(seconds % 24) + "h");
-    if ((seconds /= 24) >= 1) list.unshift(format.decimal(seconds) + "d");
-    return list.slice(0, max).join(" ");
+    let i18n = str.format.time;
+    let list = [i18n.second(format.decimal(seconds % 60))];
+    if ((seconds /= 60) >= 1) list.push(i18n.minute(format.decimal(seconds % 60)));
+    if ((seconds /= 60) >= 1) list.push(i18n.hour(format.decimal(seconds % 24)));
+    if ((seconds /= 24) >= 1) list.push(i18n.day(format.decimal(seconds)));
+    return list.slice(0, max).reduce((x, y) => i18n.joiner(x, y));
 }
 
 format.effect = (str, oldValues, newValues = null) => {
@@ -137,8 +142,8 @@ format.effect = (str, oldValues, newValues = null) => {
 }
 
 format.chance = (chance) => {
-    if (chance < 1e-3) return _number(1) + " in " + _number(format(1 / chance));
-    else return _number(format(chance * 100, 2) + "%");
+    if (chance < 1e-3) return str.format.chance.fraction(_number(1), _number(format(1 / chance)));
+    else return _number(str.format.chance.percent(format(chance * 100, 2)));
 }
 
 // ----- Math
@@ -199,4 +204,7 @@ String.prototype.toTitleCase = function () {
         /\w\S*/g,
         text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
     );
+}
+Function.prototype.toString = function () {
+    return "IF YOU CAN SEE THIS, CONTACT GAME AUTHOR"
 }

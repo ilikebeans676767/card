@@ -1,5 +1,6 @@
 popups.prompt = {
-    call(title, description, choices = {close$primary: "Close"}, onChoice = () => {}) {
+    call(title, description, choices = undefined, onChoice = () => {}) {
+        if (!choices) choices = {close$primary: str.popups.common.action_close()}
         let popup = makePopup();
 
         popup.$body.append(popup.$header = $make("h3.header", title));

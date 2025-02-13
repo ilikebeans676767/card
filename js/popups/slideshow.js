@@ -10,6 +10,7 @@ popups.slideshow = {
             skip: false,
         };
         let data = slideshows[show];
+        let i18n = str.popups.slideshow;
 
         let popup = makePopup();
         this.state.popup = popup;
@@ -23,11 +24,11 @@ popups.slideshow = {
         let actions;
         popup.$body.append(popup.$actions = actions = $make("div.actions"));
 
-        let close = $make("button", "I ain't reading allat")
+        let close = $make("button", i18n.strings.action_skip())
         close.onclick = () => popup.close();
         actions.append(close, $make("div.flex-fill"));
 
-        let next = this.elms.next = $make("button.primary", "Next")
+        let next = this.elms.next = $make("button.primary", i18n.strings.action_next())
         next.onclick = () => {
             if (this.state.state == "done") {
                 this.state.index++;
@@ -44,7 +45,8 @@ popups.slideshow = {
     onFrame() {
         let state = popups.slideshow.state;
         let localElms = popups.slideshow.elms;
-        let data = slideshows[state.show];
+        let data = i18nStrings[game.option.language]?.slideshows?.[state.show]
+            ?? i18nStrings.en.slideshows[state.show];
         let directive = data.directives[state.index];
 
         switch (state.state) {
@@ -54,9 +56,9 @@ popups.slideshow = {
                     state.popup.close();
                 } else if (directive[0] == "image") {
                     localElms.newImage = $make("img");
-                    localElms.newImage.src = `res/shows/${state.show}/${directive[1]}.png`;
+                    localElms.newImage.src = `res/slideshows/${state.show}/${directive[1]}.png`;
                     localElms.newImage.onerror = () => {
-                        localElms.newImage.src = `res/shows/placeholder.png`;
+                        localElms.newImage.src = `res/slideshows/placeholder.png`;
                         delete localElms.newImage.onerror;
                     }
                     localElms.newImage.style.opacity = 0;
