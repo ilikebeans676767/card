@@ -47,7 +47,7 @@ function spawnBadgeNotif(badge) {
         ),
         $make("div.info", 
             $make("div", str.notifs.badge_earn()),
-            $make("h3", verbify(data.name))
+            $make("h3", verbify(str.badges[badge].name()))
         ),
         $make("div.overlay")
     )
