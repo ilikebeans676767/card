@@ -505,7 +505,7 @@ let i18nDefault = i18nStrings.en = {
                 n7: {
                     name: "Fast Delivery",
                     desc: "{+0%} cooldown speed.",
-                    quote: "Restock faster with our new fast delivery service—applied to all orders 1 card and above!"
+                    quote: "Restock faster with our new fast delivery service — applied to all orders 1 card and above!",
                 },
                 c1: {
                     name: "In-Game Shop",
@@ -532,7 +532,7 @@ let i18nDefault = i18nStrings.en = {
                 n1b: {
                     name: "Money Press",
                     desc: "{+0%} point multiplier.",
-                    quote: "Press some of your shreds into money. This is precisely how legal money are made too, people won't even be able to notice a difference"
+                    quote: "Press some of your shreds into money. This is precisely how legal money is made too, people won't even be able to notice a difference"
                 },
                 n2: {
                     name: "Bulkier Card Packs",
@@ -649,7 +649,7 @@ let i18nDefault = i18nStrings.en = {
                 n5c: {
                     name: "NPK",
                     desc: "{/0:2} <b>Fertilizer</b> cooldown.",
-                    quote: "Why do one when you can do all of them"
+                    quote: "Why do one when you can do all of them?"
                 },
                 n5d: {
                     name: "Summer",
@@ -715,7 +715,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n1e: {
                     name: "Weird Checkerboard Floor to Question Reality to",
-                    desc: "Gain more Shreds based on the total amount of skill reactions you've did.<br>(Currently: {0} reactions ⇒ {+1%} shred gain)",
+                    desc: "Gain more Shreds based on the total amount of skill reactions you've done.<br>(Currently: {0} reactions ⇒ {+1%} shred gain)",
                     quote: "All the technological advancements, just for this"
                 },
                 s_fire: {
