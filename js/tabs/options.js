@@ -166,6 +166,7 @@ tabs.options = {
                 holder.append(btn);
                 btn = $make("button", i18n.values.items.checkSaves());
                 btn.onclick = () => {
+                    let i18n = str.popups.save;
                     if (game.time.now - lastCloudCheckTime < 30000) {
                         callPopup("prompt", str.popups.common.title_error(), i18n.error_cloudCheckCooldown());
                     } else {
