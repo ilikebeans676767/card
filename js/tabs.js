@@ -8,15 +8,17 @@ function initTabs() {
     elms.tab.$buttons.append($make("div.flex-fill"));
     makeTabButton("infobook");
     makeTabButton("options");
+    updateTabNames();
 }
 
 function makeTabButton(id) {
     let data = tabs[id];
-    let button = $make("button");
-    button.innerHTML = `
-        <iconify-icon icon="${data.icon}" inline></iconify-icon>
-        <span>${data.name}</span>
-    `
+    let label;
+    let button = $make("button", 
+        $icon(data.icon), " ",
+        label = $make("span")
+    );
+    button.$label = label;
     button.onclick = () => {
         setTab(id);
     }
@@ -24,11 +26,17 @@ function makeTabButton(id) {
     return button;
 }
 
+function updateTabNames() {
+    for (let tab in tabButtons) {
+        tabButtons[tab].$label.innerText = str.tabs[tab].name();
+    }
+}
+
 function setTab(tab) {
     tabs[currentTab]?.onDestroy?.();
     elms.tab.innerHTML = "";
     currentTab = tab;
-    elms.tab.setAttribute("tab-name", tabs[currentTab].name);
+    elms.tab.setAttribute("tab-name", str.tabs[currentTab].name());
     tabs[currentTab]?.onInit?.();
 
     for (let id in tabButtons) tabButtons[id].disabled = id == tab;

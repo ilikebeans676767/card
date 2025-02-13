@@ -41,6 +41,7 @@ function getNewGame() {
             skills: {}
         },
         option: {
+            language: "en",
             notation: "default",
             cardImages: 1,
             verb: "draw",

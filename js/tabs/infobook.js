@@ -12,9 +12,9 @@ tabs.infobook = {
         elms.tab.append(holder);
 
         let tabButtons = createChoiceGroup({
-            stats: [$icon("tabler:chart-bar"), " Statistics"],
-            // breakdown: [$icon("uil:apps"), " Breakdown"],
-            gallery: [$icon("tabler:slideshow"), " Gallery"],
+            stats: [$icon("tabler:chart-bar"), " " + str.tabs.infobook.subtabs.stats()],
+            // breakdown: [$icon("uil:apps"), " " + str.tabs.infobook.subtabs.breakdown()],
+            gallery: [$icon("tabler:slideshow"), " " + str.tabs.infobook.subtabs.gallery()],
         }, this.subtab, (x) => {
             this.subtab = x;
             if (x == "gallery") {
@@ -123,7 +123,7 @@ tabs.infobook = {
         } else if (this.subtab == "gallery") {
             let badgeContent;
             this.elms.cards.append($make("div.infobook-card",
-                $make("h3.header", "Badges"),
+                $make("h3.header", str.tabs.infobook.strings.badges()),
                 $make("div.content", 
                     badgeContent = $make("div.badge-list")
                 )
@@ -132,7 +132,7 @@ tabs.infobook = {
 
             let showContent;
             this.elms.cards.append($make("div.infobook-card",
-                $make("h3.header", "Story"),
+                $make("h3.header", str.tabs.infobook.strings.story()),
                 $make("div.content", 
                     showContent = $make("div.show-list")
                 )
@@ -172,11 +172,12 @@ tabs.infobook = {
 
                 for (let show in slideshows) {
                     let data = slideshows[show];
+                    let i18n = str.slideshows[show];
                     let div;
                     if (showContent.$list[show]) {
                         div = showContent.$list[show];
                     } else {
-                        div = $make("button", data.name);
+                        div = $make("button", i18n.name());
                         showContent.append(showContent.$list[show] = div);
                         div.onclick = () => {
                             callPopup("slideshow", show)
@@ -209,7 +210,7 @@ tabs.infobook = {
     },
     makeCard(group, item) {
         let div = $make("div.infobook-card.stat-card",
-            $make("h3.header", item.name),
+            $make("h3.header", str.stats[group].name()),
         );
         div.append(div.$content = $make("div.content"));
 
@@ -235,7 +236,7 @@ tabs.infobook = {
         } else {
             let content, lock, lockReq;
             elm = $make("div.stat-entry",
-                $makeHTML("span", verbify(item.name)),
+                $makeHTML("span", verbify(str.stats[group].items[id].name())),
                 content = $make("span.value"),
                 lock = $make("button", 
                     $icon("tabler:lock"), " ",
@@ -254,7 +255,7 @@ tabs.infobook = {
                     content.innerHTML = item.display();
                 } else {
                     lock.style.display = "";
-                    lockReq.innerHTML = _number(format(item.cost[0])) + " " + currencies[item.cost[1]].name;
+                    lockReq.innerHTML = str.format.joiner.currency(_number(format(item.cost[0])), str.currencies[item.cost[1]].name());
                     lock.style.setProperty("--progress", game.res[item.cost[1]] / item.cost[0])
                     lock.disabled = game.res[item.cost[1]] < item.cost[0];
                 }

@@ -34,9 +34,9 @@ function checkCloudSave(explicit = false) {
         cloudStatus = "";
         if (e instanceof NoAccountError) {
             cloud.state.loggedOut = true;
-            if (explicit) callPopup("dialog", "Error", "You are not logged in. Please log in in order to access cloud save functionalities.");
+            if (explicit) callPopup("dialog", str.popups.common.title_error(), str.popups.save.strings.error_loggedOut());
         } else {
-            if (explicit) callPopup("dialog", "Error", "There was an error: " + e.message);
+            if (explicit) callPopup("dialog", str.popups.common.title_error(), str.popups.common.desc_error(e.message));
         }
     })
 }
@@ -71,7 +71,7 @@ function saveToCloud(slot = 0, func) {
 
 function loadFromCloud(slot = 0, type = null) {
     if (!cloud.save || cloudStatus) return;
-    cloudStatus = "load";
+    cloudStatus = "loading";
     cloud.load(slot).then((data) => {
         cloudStatus = "";
         popups.save.showImportPopup(data, type);

@@ -8,11 +8,11 @@ popups.badge = {
         let info = $make("div.info");
         info.innerHTML = `
             <div class="header">
-                <h2>${verbify(data.name)}</h2>
-                <small>(${obtained ? "obtained " : "locked "}badge)</small>
+                <h2>${verbify(str.badges[badge].name())}</h2>
+                <small>${str.popups.badge.strings["state_" + (obtained ? "obtained" : "locked")]()}</small>
             </div>
             <div>
-                ${obtained ? verbify(data.desc) : "???"}
+                ${obtained ? verbify(str.badges[badge].desc()) : str.popups.badge.strings.lock_desc()}
             </div>
         `
         popup.$body.append(info);
@@ -20,7 +20,7 @@ popups.badge = {
         let actions = $make("div.actions");
         popup.$body.append(actions);
 
-        let close = $make("button.primary", "Close");
+        let close = $make("button.primary", str.popups.common.action_close());
         close.onclick = () => popup.close();
         actions.append(close);
 

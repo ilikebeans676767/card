@@ -5,11 +5,9 @@ tabs.marketplace = {
     cards: {},
     elms: {},
     onInit() {
-        elms.tab.append($makeHTML("h3.section-header", "<rarity rarity='ex'></rarity> Cards"));
+        elms.tab.append($makeHTML("h3.section-header", str.tabs.marketplace.headers.exCards()));
 
-        elms.tab.append(this.elms.placeholder = $make("div.note-container", `
-            Seems like there isn't anything here...
-        `));
+        elms.tab.append(this.elms.placeholder = $make("div.note-container", str.tabs.common.strings.nothing()));
 
         let list = this.elms.list = $make("div.card-list");
         elms.tab.append(list);

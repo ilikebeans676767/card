@@ -18,7 +18,7 @@ popups.card = {
         let actions = $make("div.actions");
         popup.$body.append(actions);
 
-        let close = $make("button.primary", "Close");
+        let close = $make("button.primary", str.popups.common.action_close());
         close.onclick = () => popup.close();
         actions.append(close);
 
@@ -31,7 +31,9 @@ popups.card = {
         let localElms = popups.card.elms;
         let {pack, rarity, id, mode, viewType} = popups.card.state;
         let data = cards[pack][rarity][id];
+        let i18n = str.cards[pack][rarity][id];
         let state = game.cards[pack]?.[rarity]?.[id];
+        let popupI18n = str.popups.card;
 
         let level = 1, stars = 1;
         if (state) ({level, stars} = state);
@@ -64,34 +66,32 @@ popups.card = {
 
         localElms.info.innerHTML = `
             <div class="header">
-                <h2><rarity rarity="${rarity}"></rarity> ${data.name}</h2>
+                <h2><rarity rarity="${rarity}"></rarity> ${i18n.name()}</h2>
                 <small>${state ? `
                     ${data.faction
-                        ? `(${data.faction} faction)<br>`
+                        ? `${popupI18n.factions[data.faction]()}<br>`
                         : ``
                     }
                     ${data.crown 
                         ? ``
-                        : `(<span class="number">+${format(state.amount)}</span> extra copies)<br>`
+                        : `${popupI18n.strings.copies(_number(`+${format(state.amount)}`))}<br>`
                     }
                     ${data.crown 
-                        ? `(crowned card)`
-                        : `(<span class="number">${format(state.stars)}/${format(5)}</span> stars)`
+                        ? popupI18n.strings.crown()
+                        : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
                     }
                     ${data.levelCost ? data.maxLevel
-                        ? `(level <span class="number">${format(state.level)}/${format(data.maxLevel)}</span>)`
-                        : `(level <span class="number">${format(state.level)}</span>)`
+                        ? popupI18n.strings.stars(_number(`${format(state.level)}/${format(data.maxLevel)}`))
+                        : popupI18n.strings.stars(_number(format(state.level)))
                         : ``
                     }
-                ` : `
-                    (card not yet owned)
-                `}</small>
+                ` : popupI18n.strings.notOwned()}</small>
             </div>
             <div>
-                ${verbify(format.effect(data.desc, curFx, newFx))}
+                ${verbify(format.effect(i18n.desc(), curFx, newFx))}
             </div>
             <div class="quote">
-                “${verbify(data.quote)}“
+                ${str.format.marks.quote(verbify(i18n.quote()))}
             </div>
         `
 
@@ -101,34 +101,34 @@ popups.card = {
             if (!data.levelCost) {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
-                        <h4>Upgrade</h4>
+                        <h4>${popupI18n.strings.level_title()}</h4>
                     </div>
                     <div class="actions popup-upg-actions">
-                        <button class="popup-upg-main-action" disabled>Can't upgrade</button>
+                        <button class="popup-upg-main-action" disabled>${popupI18n.strings.level_button_cant()}</button>
                     </div>
                 `);
             } else if (data.maxLevel && state.level >= data.maxLevel) {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
-                        <h4>Upgrade</h4>
+                        <h4>${popupI18n.strings.level_title()}</h4>
                     </div>
                     <div class="actions popup-upg-actions">
-                        <button class="popup-upg-main-action" disabled>Max level reached</button>
+                        <button class="popup-upg-main-action" disabled>${popupI18n.strings.level_button_max()}</button>
                     </div>
                 `);
             } else {
                 let levelCost = getCardLevelCost(pack, rarity, id);
-                let name = currencies[levelCost[1]].name;
+                let name = str.currencies[levelCost[1]].name();
                 let canBuy = game.res[levelCost[1]] >= levelCost[0];
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
-                        <h4>Upgrade cost:</h4>
+                        <h4>${popupI18n.strings.level_cost()}</h4>
                         <div><span>${name}</span>${_number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
                     </div>
                     <div class="actions popup-upg-actions"></div>
                 `);
                 let actions = localElms.actions.querySelector(".popup-upg-actions:last-child");
-                let upBtn = $make("button.popup-upg-main-action", canBuy ? "Upgrade" : "Can't upgrade");
+                let upBtn = $make("button.popup-upg-main-action", canBuy ? popupI18n.strings.level_button() : popupI18n.strings.level_button_cant());
                 if (canBuy) upBtn.classList.add("value");
                 else upBtn.disabled = true;
                 upBtn.onclick = () => levelUpCard(pack, rarity, id);
@@ -142,19 +142,19 @@ popups.card = {
             if (data.crown) {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
-                        <h4>Fusion</h4>
+                        <h4>${popupI18n.strings.star_title()}</h4>
                     </div>
                     <div class="actions popup-upg-actions">
-                        <button class="popup-upg-main-action" disabled>Can't fuse</button>
+                        <button class="popup-upg-main-action" disabled>${popupI18n.strings.star_button_cant()}</button>
                     </div>
                 `);
             } else if (state.stars >= 5) {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
-                        <h4>Fusion</h4>
+                        <h4>${popupI18n.strings.star_title()}</h4>
                     </div>
                     <div class="actions popup-upg-actions">
-                        <button class="popup-upg-main-action" disabled>Max star reached</button>
+                        <button class="popup-upg-main-action" disabled>${popupI18n.strings.star_button_max()}</button>
                     </div>
                 `);
             } else {
@@ -162,13 +162,13 @@ popups.card = {
                 let canBuy = state.amount >= starCost;
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
-                        <h4>Fusion cost:</h4>
-                        <div><span>"${data.name}" extra copies</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
+                        <h4>${popupI18n.strings.star_cost()}</h4>
+                        <div><span>${popupI18n.strings.star_cost_copies(data.name)}</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
                     </div>
                     <div class="actions popup-upg-actions"></div>
                 `);
                 let actions = localElms.actions.querySelector(".popup-upg-actions:last-child");
-                let upBtn = $make("button.popup-upg-main-action", canBuy ? "Fuse" : "Can't fuse");
+                let upBtn = $make("button.popup-upg-main-action", canBuy ? popupI18n.strings.star_button() : popupI18n.strings.star_button_cant());
                 if (canBuy) upBtn.classList.add("value");
                 else upBtn.disabled = true;
                 upBtn.onclick = () => starUpCard(pack, rarity, id);

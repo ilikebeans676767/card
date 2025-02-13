@@ -4,16 +4,17 @@ popups.currency = {
     call(cur) {
         this.state = {cur};
         let data = currencies[cur];
+        let i18n = str.currencies[cur];
         let popup = makePopup();
 
         let info = this.elms.info = $make("div.info");
         info.innerHTML = `
             <div class="header">
-                <h2>${data.name}</h2>
+                <h2>${i18n.name()}</h2>
                 <small></small>
             </div>
             <div class="quote">
-                “${verbify(data.quote)}“
+                ${str.format.marks.quote(verbify(i18n.quote()))}
             </div>
         `
         this.elms.small = info.querySelector("small");
@@ -22,7 +23,7 @@ popups.currency = {
         let actions = $make("div.actions");
         popup.$body.append(actions);
 
-        let close = $make("button.primary", "Close");
+        let close = $make("button.primary", str.popups.common.action_close());
         close.onclick = () => popup.close();
         actions.append(close);
 
