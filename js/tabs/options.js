@@ -145,7 +145,7 @@ tabs.options = {
                 btn.onclick = () => {
                     let i18n = str.popups.save;
                     if (game.time.now - lastCloudSaveTime < 30000) {
-                        callPopup("prompt", str.popup.common.title_error(), i18n.error_cloudSaveCooldown());
+                        callPopup("prompt", str.popups.common.title_error(), i18n.error_cloudSaveCooldown());
                     } else {
                         awardBadge(24);
                         saveGame();
@@ -167,7 +167,7 @@ tabs.options = {
                 btn = $make("button", i18n.values.items.checkSaves());
                 btn.onclick = () => {
                     if (game.time.now - lastCloudCheckTime < 30000) {
-                        callPopup("prompt", "Error", "Please wait 30 seconds between cloud save checks.");
+                        callPopup("prompt", str.popups.common.title_error(), i18n.error_cloudCheckCooldown());
                     } else {
                         checkCloudSave(true);
                     }
