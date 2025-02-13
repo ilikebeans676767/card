@@ -236,7 +236,7 @@ tabs.options = {
             this.elms.cloudSave.style.display = cloud.state.loggedOut ? "none" : "";
             this.elms.cloudSaveTimer.innerHTML = `${i18n.strings["cloud_type_" + cloud.type]()}<span class="save-timer-br"></span>` + (
                 cloud.state.loggedOut ? i18n.strings.cloud_loggedOut() :
-                cloudStatus ? i18n.strings["cloud_status_" + toLowerCase()] :
+                cloudStatus ? i18n.strings["cloud_status_" + cloudStatus.toLowerCase()] :
                 cloudSaveTime < 1 ? i18n.strings.save_recent() : i18n.strings.save_timer(_number(format.time(cloudSaveTime)))
             )
         }
