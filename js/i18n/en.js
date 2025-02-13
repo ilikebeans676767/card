@@ -143,6 +143,30 @@ let i18nDefault = i18nStrings.en = {
         },
         collection: {
             name: "Collection",
+            filters: {
+                rarity: {
+                    any: "Any rarity",
+                    n: "<rarity rarity='n'></rarity> cards", 
+                    r: "<rarity rarity='r'></rarity> cards", 
+                    sr: "<rarity rarity='sr'></rarity> cards", 
+                    ssr: "<rarity rarity='ssr'></rarity> cards", 
+                    ur: "<rarity rarity='ur'></rarity> cards",
+                    ex: "<rarity rarity='ex'></rarity> cards",
+                },
+                faction: {
+                    any: "Any faction", 
+                    none: "No faction",
+                    fire: "Fire faction", 
+                    water: "Water faction", 
+                    leaf: "Leaf faction", 
+                    sun: "Sun faction", 
+                    moon: "Moon faction",
+                },
+                pickit: {
+                    off: "Disable pick-it Premium",
+                    on: "Show upgradeable cards",
+                },
+            }
         },
         marketplace: {
             name: "Marketplace",

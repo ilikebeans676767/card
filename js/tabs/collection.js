@@ -15,6 +15,7 @@ tabs.collection = {
         let filters = this.elms.filters = $make("div.card-filters");
         elms.tab.append(filters);
         let hozHolder;
+        let i18n = str.tabs.collection;
 
         filters.append(hozHolder = createChoiceGroup({
             "": $icon("tabler:asterisk"),
@@ -29,13 +30,13 @@ tabs.collection = {
             this.updateCards();
         }));
         [
-            "Any rarity",
-            "<rarity rarity='n'></rarity> cards", 
-            "<rarity rarity='r'></rarity> cards", 
-            "<rarity rarity='sr'></rarity> cards", 
-            "<rarity rarity='ssr'></rarity> cards", 
-            "<rarity rarity='ur'></rarity> cards",
-            "<rarity rarity='ex'></rarity> cards",
+            i18n.filters.rarity.any,
+            i18n.filters.rarity.n,
+            i18n.filters.rarity.r,
+            i18n.filters.rarity.sr,
+            i18n.filters.rarity.ssr,
+            i18n.filters.rarity.ur,
+            i18n.filters.rarity.ex,
         ].forEach((x, i) => {
             registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(x));
         });
@@ -53,8 +54,13 @@ tabs.collection = {
             this.updateCards();
         }));
         [
-            "Any faction", "No faction",
-            "Fire faction", "Water faction", "Leaf faction", "Sun faction", "Moon faction",
+            i18n.filters.faction.any,
+            i18n.filters.faction.none,
+            i18n.filters.faction.fire,
+            i18n.filters.faction.water,
+            i18n.filters.faction.leaf,
+            i18n.filters.faction.sun,
+            i18n.filters.faction.moon,
         ].forEach((x, i) => {
             registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(x));
         });
@@ -70,8 +76,8 @@ tabs.collection = {
             this.updateCards();
         }));
         [
-            "Disable pick-it Premium",
-            "Show upgradeable cards",
+            i18n.filters.pickit.off,
+            i18n.filters.pickit.on,
         ].forEach((x, i) => {
             registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(x));
         });
