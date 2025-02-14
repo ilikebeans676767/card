@@ -210,7 +210,7 @@ let i18nDefault = i18nStrings.en = {
                     importExport: "Import/Export Save",
                     hardReset: "Hard Reset",
                     checkSaves: "Check Saves",
-                    about: "About & Credits",
+                    about: "About & Credits", 
                     john: "johnvertisement",
                 },
                 common: {
