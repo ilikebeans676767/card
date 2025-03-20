@@ -225,7 +225,7 @@ i18nStrings.zh = {
                     common: "通用",
                     scientific: "科学计数法",
                     engineering: "工程计数法",
-                    si: "SI前缀",
+                    si: "SI（国际单位制）",
                     alphabet: "字母",
                     chinese: "中文",
                     korean: "韩文",
