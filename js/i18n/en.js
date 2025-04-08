@@ -468,19 +468,19 @@ let i18nDefault = i18nStrings.en = {
         standard: {
             n: {
                 n0: {
-                    name: "The Nothing Square",
+                    name: "No Rewards",
                     desc: "No effect.",
                     quote: "That one square that is programmed to be picked 99% of the time"
                 },
                 n1: {
-                    name: "A Single Point",
+                    name: "A Single Dot",
                     desc: "Gain {+0} points per {draw}.",
                     quote: "ここにいる"
                 },
                 n2: {
-                    name: "Half A Point",
+                    name: "Half A Dot",
                     desc: "Randomly gain zero to {+0} points per {draw}.",
-                    quote: "To explain what half a point even is, we'll need to talk about parallel universes-"
+                    quote: "To explain what half a dot even is, we'll need to talk about parallel universes-"
                 },
                 n3: {
                     name: "Card Pack",

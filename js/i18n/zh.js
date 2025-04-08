@@ -1,9 +1,9 @@
 /** @type {typeof i18nDefault} */
 i18nStrings.zh = {
     /** Name of the language, in that language. Don't translate the word "English" to your language. */
-    name: "Simplified Chinese",
+    name: "简体中文",
     /** The number notation to use as the default with the language. */
-    notation: "common",
+    notation: "chinese",
     /** The primary verb. See `verb` for more info. */
     primaryVerb: "draw",
 

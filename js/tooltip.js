@@ -138,8 +138,8 @@ let tooltipTemplates = {
                             : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
                         }
                         ${data.levelCost ? data.maxLevel
-                            ? popupI18n.strings.stars(_number(`${format(state.level)}/${format(data.maxLevel)}`))
-                            : popupI18n.strings.stars(_number(format(state.level)))
+                            ? popupI18n.strings.level(_number(`${format(state.level)}/${format(data.maxLevel)}`))
+                            : popupI18n.strings.level(_number(format(state.level)))
                             : ``
                         }
                     ` : popupI18n.strings.notOwned()}</small>

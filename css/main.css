@@ -113,6 +113,7 @@ button {
     --text-shadow: none;
     font-family: var(--content-font);
     font-size: inherit;
+    line-height: inherit;
     cursor: pointer;
     background: linear-gradient(var(--bg-2), var(--bg-1));
     background-origin: border-box;
