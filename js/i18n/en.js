@@ -598,12 +598,12 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n1: {
                     name: "A Pair of Points",
-                    desc: "Raise the level in <b><rarity rarity='n'></rarity> A Single Point</b>'s effect by {^0:1}",
+                    desc: "Raise the level in <b><rarity rarity='n'></rarity> A Single Dot</b>'s effect by {^0:1}",
                     quote: "This is called a line"
                 },
                 n2: {
                     name: "Dice Extractor",
-                    desc: "Raise the level in <b><rarity rarity='n'></rarity> Half a Point</b>'s effect by {^0:1}",
+                    desc: "Raise the level in <b><rarity rarity='n'></rarity> Half a Dot</b>'s effect by {^0:1}",
                     quote: "Let the pips on the die guide you"
                 },
                 n3: {
