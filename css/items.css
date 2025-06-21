@@ -411,10 +411,10 @@
     margin-top: 10px;
 }
 
-
-.market-item.account-sell {
+.market-item.long {
     width: max(500px, 50%);
 }
+
 .market-item.account-sell .sell-value {
     margin: 10px 0 0 0;
     text-align: start;

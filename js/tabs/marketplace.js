@@ -55,7 +55,7 @@ tabs.marketplace = {
             list = this.elms.adList = $make("div.market-list");
             content.append(list);
 
-            let adBox = this.elms.adBox = $makeHTML("div.market-item", `
+            let adBox = this.elms.adBox = $makeHTML("div.market-item.long", `
                 <h4>${i18n.strings.ad_title()}</h4>
             `)
             adBox.append(adBox.$effect = $make("p"), $make("div.flex-fill"))
@@ -82,7 +82,7 @@ tabs.marketplace = {
             list = $make("div.market-list");
             content.append(list);
             {
-                let card = this.elms.accountSell = $makeHTML("div.market-item.account-sell", `
+                let card = this.elms.accountSell = $makeHTML("div.market-item.long.account-sell", `
                     <h4>${i18n.strings.sellAccount()}</h4>
                     <p>${i18n.strings.sellAccount_desc()}</p>
                 `)
