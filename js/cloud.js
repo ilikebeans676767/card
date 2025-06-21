@@ -70,7 +70,8 @@ function initGalaxyAPI() {
             id: game.id,
             timestamp: Date.now(),
             timePlayed: game.stats.timePlayed, 
-            cardsDrawn: game.stats.cardsDrawn
+            cardsDrawn: game.stats.cardsDrawn, 
+            accountsSold: game.stats.accountsSold
         }),
         data: getTextSaveString()
     }).then((data) => {

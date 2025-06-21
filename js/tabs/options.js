@@ -175,7 +175,7 @@ tabs.options = {
                             } else {
 
                             }
-                        })
+                        }, true)
                     }
                 }
                 holder.append(btn);

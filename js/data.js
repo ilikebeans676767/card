@@ -60,8 +60,8 @@ function saveGame() {
     }
 }
 
-function saveToCloud(slot = 0, func) {
-    if (!cloud.save || cloudStatus || !cloudSaveSafe) return;
+function saveToCloud(slot = 0, func, forced) {
+    if (!cloud.save || cloudStatus || (!cloudSaveSafe && !forced)) return;
     cloudStatus = "saving";
     cloud.save(slot).then(() => {
         cloudStatus = "";

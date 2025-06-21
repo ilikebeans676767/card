@@ -129,7 +129,10 @@ popups.save = {
                 saveGame = () => { return false; }
                 callPopup("prompt", i18n.busy_import(), i18n.busy_desc(), {});
                 localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify(importData)));
-                window.location.reload();
+                if (cloud.save) saveToCloud(0, () => {
+                    window.location.reload();
+                }, true);
+                else window.location.reload();
             }
         });
 
