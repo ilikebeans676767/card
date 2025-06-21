@@ -26,7 +26,7 @@ function checkCloudSave(explicit = false) {
         console.log(data[0]?.timestamp, saveTime);
         if (data[0]) {
             cloudSaveSafe = false;
-            if (data[0].id == game.id && data[0].timestamp > saveTime) loadFromCloud(0, "cloudcheck");
+            if (data[0].id == game.id && data[0].timestamp - 10000 > saveTime) loadFromCloud(0, "cloudcheck");
             else if (data[0].id != game.id) loadFromCloud(0, "cloudavail");
             else cloudSaveSafe = true;
         } else {
