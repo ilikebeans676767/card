@@ -469,7 +469,7 @@ function doDrawTick(count) {
             let [pack, rarity, id] = target.split("/");
             let data = cards[pack][rarity][id];
             if (data.faction && game.drawPref.skills.sun && effects.skillSunDup > 0) {
-                rawLoot[loot].count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(loot.count)[0]?.count ?? 0;
+                rawLoot[loot].count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(rawLoot[loot].count)[0]?.count ?? 0;
             }
 
             let info = {};
