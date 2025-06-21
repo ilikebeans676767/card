@@ -16,7 +16,7 @@ popups.about = {
                 </p>
                 <p>
                     ${i18n.strings.openSource()}<br>
-                    {/LICENSE|${i18n.strings.viewLicense()}}
+                    {LICENSE|${i18n.strings.viewLicense()}}
                     | {https://github.com/ducdat0507/gacha/|${i18n.strings.viewSource()}}
                 </p>
                 <p>
