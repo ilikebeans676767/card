@@ -36,11 +36,18 @@ function _number(inside) {
 
 function initUI() {
     elms.currencies = $("#currencies");
-    elms.currencies.append(elms.currencies.$cards = createCurrencyUI("cards"));
+    registerHorizonalScrollWheel(elms.currencies);
     let hozHolder;
+    elms.currencies.append(elms.currencies.$moneyExp = hozHolder = $make("div.hoz-group.margin-bottom"));
+    hozHolder.append(elms.currencies.$money = createCurrencyUI("money"));
+    hozHolder.append(elms.currencies.$exp = createCurrencyUI("exp"));
+
+    elms.currencies.append(elms.currencies.$cards = createCurrencyUI("cards"));
+
     elms.currencies.append(hozHolder = $make("div.hoz-group"));
     hozHolder.append(elms.currencies.$points = createCurrencyUI("points"));
     hozHolder.append(elms.currencies.$shreds = createCurrencyUI("shreds"));
+
     elms.currencies.append(elms.currencies.$factions = hozHolder = $make("div.faction-group"));
     ["fire", "water", "leaf", "sun", "moon"].forEach(x => {
         let elm = elms.currencies["$" + x] = createCurrencyUI(x)
@@ -75,11 +82,6 @@ function initUI() {
     ["no", "fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
         registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(() => str.common.switch[x]()));
     });
-
-    elms.draw.$hint = $("#start-hint");
-    elms.draw.$hint.style.display = "none";
-    elms.draw.$hint.onclick = () => {elms.draw.$hint.style.display = "none"};
-
     elms.draw.$options.append(elms.draw.$skills = $make("div.skill-holder"));
     ["fire", "water", "leaf", "sun", "moon"].forEach((x, i) => {
         let btn = elms.draw.$skills["$" + x] = $make("button")
@@ -92,6 +94,13 @@ function initUI() {
         btn.append(btn.$icon = $icon("tabler:lock"));
         registerTooltip(btn, tooltipTemplates.skill(x));
     });
+
+    elms.draw.$options.append(elms.draw.$buffs = $make("div.buff-holder"));
+    updateBuffUI();
+
+    elms.draw.$hint = $("#start-hint");
+    elms.draw.$hint.style.display = "none";
+    elms.draw.$hint.onclick = () => {elms.draw.$hint.style.display = "none"};
 
     let btn = $make("button#draw-opt-show", $icon("tabler:chevron-right"));
     btn.onclick = () => elms.sidebar.classList.add("option-active");
@@ -153,6 +162,7 @@ function createCardUI(pack, rarity, id) {
     let div = $make("article.game-card");
     div.setAttribute("rarity", rarity);
     if (data.faction) div.classList.add("f-" + data.faction);
+    if (pack.endsWith("_legacy")) div.classList.add("legacy");
 
     if (game.option.cardImages) {
         let img = div.$img = $make("img");
@@ -197,22 +207,61 @@ function createCardUI(pack, rarity, id) {
     return div;
 }
 
-function createInfoButton(text) {
-    let div = $icon("mingcute:question-line");
-    div.classList.add("info-button");
-    registerTooltip(div, x => (x.innerHTML = (typeof text == "function" ? text() : text)));
-    div.onclick = () => {
-        if (prefersNoTooltips()) {
-            let popup = callPopup("prompt", "", "");
-            popup.$content.style.margin = 0;
-            popup.$content.innerHTML = typeof text == "function" ? text() : text;
-            popup.$header.remove();
-            delete popup.$header;
-        }
+function createBuffUI(type, buff) {
+    let data = buffs[type][buff]
+    let i18n = str.buffs[type][buff];
+
+    let div = $make("button.buff");
+    registerTooltip(div, tooltipTemplates.buff(type, buff))
+
+    for (let icon of data.icons) {
+        div.append($icon(icon));
+    }
+
+    div.update = () => {
+        let state = game.buffs.active[type]?.[buff]
+        if (!state) return;
+        div.style.setProperty("--progress", state.duration / state.maxDuration);
     }
 
     return div;
 }
+
+function createInfoButton(text) {
+    let div = $icon("mingcute:question-line");
+    div.classList.add("info-button");
+    registerInfoButton(div, text);
+    return div;
+}
+function registerInfoButton(elm, text) {
+    registerTooltip(elm, x => (x.innerHTML = (typeof text == "function" ? text() : text)));
+    elm.onclick = () => {
+        if (prefersNoTooltips()) {
+            let popup = callPopup("prompt", "", "");
+            popup.$content.innerHTML = typeof text == "function" ? text() : text;
+            if (popup.$content.children[0]?.nodeName?.toLowerCase() == "p") {
+                popup.$content.replaceWith(...popup.$content.childNodes);
+            }
+            popup.$header.remove();
+            delete popup.$header;
+        }
+    }
+    return elm;
+}
+
+/** @param {HTMLElement} elm */
+function registerHorizonalScrollWheel(elm) {
+    elm.addEventListener("wheel", (e) => {
+        if (elm.scrollWidth > elm.clientWidth && elm.scrollHeight <= elm.clientHeight) {
+            e.preventDefault();
+            elm.scrollBy({
+                behavior: "smooth",
+                left: [0, 16, elm.clientWidth][e.deltaMode] * e.deltaY
+            })
+        }
+    })
+}
+
 
 function createChoiceGroup(options, value, onChoice) {
     let div = $make("div.choice-group");

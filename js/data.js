@@ -1,3 +1,4 @@
+/** @type {ReturnType<typeof getNewGame>} */
 let game = {}
 let lastSaveTime = Date.now();
 let lastCloudSaveTime = Date.now();
@@ -43,6 +44,8 @@ function checkCloudSave(explicit = false) {
 
 function saveGame() {
     if (popups.draw.elms.list && popups.draw.state.phase != "done") return;
+    if (popups.drawLegacy.elms.list && !popups.sell.state.canSave) return;
+    if (popups.sell.elms.popup && !popups.sell.state.canSave) return;
     try {
         localStorage.setItem(SAVE_KEY, LZString.compress(JSON.stringify(game)));
         lastSaveTime = Date.now();

@@ -135,7 +135,7 @@ const cards = {
                 }
             },
             "n2": {
-                condition: () => hasCard("standard", "n", "n3") && hasCard("standard", "ex", "zip"),
+                condition: () => hasCard("standard", "n", "n3") && flags.unlocked.zip,
                 levelCost: [200000, 2],
                 starDiff: 0.9,
                 effects: [
@@ -148,7 +148,7 @@ const cards = {
                 }
             },
             "n3": {
-                condition: () => hasCard("standard", "n", "n4") && hasCard("standard", "ex", "zip"),
+                condition: () => hasCard("standard", "n", "n4") && flags.unlocked.zip,
                 levelCost: [250000, 1.8],
                 starDiff: 0.8,
                 effects: [
@@ -187,7 +187,7 @@ const cards = {
                 }
             },
             "n4": {
-                condition: () => hasCard("standard", "ex", "zip"),
+                condition: () => flags.unlocked.zip,
                 pMult: 0.8,
                 levelCost: [50000, 2],
                 maxLevel: 40,
@@ -200,6 +200,19 @@ const cards = {
                     bulkMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                     cooldownTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
                     breakTime: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)],
+                }
+            },
+            "n4b": {
+                condition: () => flags.unlocked.zip,
+                pMult: 0.6,
+                levelCost: [64000, 2, "shreds"],
+                maxLevel: 50,
+                starDiff: 1.2,
+                effects: [
+                    (level, star) => (9 + level) * star,
+                ],
+                effectors: {
+                    revealTime: [priority.multiplicative, (x) => x / (1 + fx(0) / 100)],
                 }
             },
             "n5a": {
@@ -436,6 +449,7 @@ const cards = {
                 }
             },
             "c1": {
+                available: () => !hasCard("standard_legacy", "ex", "pickit"),
                 condition: () => flags.unlocked.faction,
                 crown: true,
                 effects: [],
@@ -793,6 +807,7 @@ const cards = {
         },
         ex: {
             "zip": {
+                available: () => !hasCard("standard_legacy", "ex", "zip"),
                 crown: true,
                 buyCost: [8000, "points"],
                 effects: [],
@@ -807,6 +822,21 @@ const cards = {
                 effects: [],
                 effectors: {}
             },
+            "offline": {
+                condition: () => flags.unlocked.shreds || game.stats.accountsSold > 0,
+                crown: true,
+                buyCost: () => {
+                    if (game.stats.accountsSold > 0) return [16000, "points"];
+                    return [16000, "shreds"];
+                },
+                effects: [
+                    () => effects.offlineLimit / 60 + (hasCard("standard", "ex", "offline") ? 0 : 30),
+                    () => 30,
+                ],
+                effectors: {
+                    offlineLimit: [priority.additive, (x) => x + fx(1) * 60],
+                }
+            },
             "faction": {
                 condition: () => game.cards.standard?.sr && flags.unlocked.shreds,
                 crown: true,
@@ -815,9 +845,20 @@ const cards = {
                 effectors: {}
             },
             "pickit": {
-                condition: () => hasCard("standard", "sr", "c1"),
+                condition: () => hasCard("standard", "sr", "c1") || hasCard("standard_legacy", "ex", "pickit"),
                 crown: true,
-                buyCost: [5500, "water"],
+                buyCost: () => {
+                    if (game.stats.accountsSold > 0) return [16000, "shreds"];
+                    return [5500, "water"];
+                },
+                effects: [],
+                effectors: {}
+            },
+            "iris": {
+                available: () => !hasCard("standard_legacy", "ex", "pickit"),
+                condition: () => hasCard("standard", "sr", "c1") && hasCard("standard", "ssr", "n1c"),
+                crown: true,
+                buyCost: [24900, "moon"],
                 effects: [],
                 effectors: {}
             },
@@ -836,7 +877,134 @@ const cards = {
                 effectors: {}
             },
         }
-    }
+    },
+    standard_legacy: {
+        n: {
+            "n0": {
+                levelCost: [50, 1.15, "exp"],
+                effects: [
+                    (level, star) => level ** (0.9 + 0.1 * star) * [0, 10, 20, 36, 55, 80][star],
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n1": {
+                levelCost: [50, 1.2, "exp"],
+                effects: [
+                    (level, star) => level ** (0.7 + 0.1 * star) * [0, 10, 20, 36, 55, 80][star],
+                ],
+                effectors: {
+                    shredMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n2": {
+                levelCost: [50, 1.25, "exp"],
+                pMult: 0.25,
+                effects: [
+                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 10, 20, 36, 55, 80][star],
+                ],
+                effectors: {
+                    factionMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n2a": {
+                levelCost: [75, 1.5, "exp"],
+                condition: () => hasCard("standard_legacy", "n", "n2"),
+                pMult: 0.25,
+                effects: [
+                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 20, 40, 70, 100, 160][star],
+                ],
+                effectors: {
+                    fireMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n2b": {
+                levelCost: [75, 1.5, "exp"],
+                condition: () => hasCard("standard_legacy", "n", "n2"),
+                pMult: 0.25,
+                effects: [
+                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 20, 40, 70, 100, 160][star],
+                ],
+                effectors: {
+                    waterMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n2c": {
+                levelCost: [75, 1.5, "exp"],
+                condition: () => hasCard("standard_legacy", "n", "n2"),
+                pMult: 0.25,
+                effects: [
+                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 20, 40, 70, 100, 160][star],
+                ],
+                effectors: {
+                    leafMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n2d": {
+                levelCost: [75, 1.5, "exp"],
+                condition: () => hasCard("standard_legacy", "n", "n2"),
+                pMult: 0.25,
+                effects: [
+                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 20, 40, 70, 100, 160][star],
+                ],
+                effectors: {
+                    sunMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n2e": {
+                levelCost: [75, 1.5, "exp"],
+                condition: () => hasCard("standard_legacy", "n", "n2"),
+                pMult: 0.25,
+                effects: [
+                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 20, 40, 70, 100, 160][star],
+                ],
+                effectors: {
+                    moonMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n3": {
+                levelCost: [50, 1.4, "exp"],
+                effects: [
+                    (level, star) => (level * 5 + 5) * [0, 1, 2, 3, 4, 5][star],
+                ],
+                effectors: {
+                    factionChance: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+        },
+        ex: {
+            "legacy": {
+                condition: () => false,
+                crown: true,
+                effects: [
+                    (level, star) => effects.legacyPickCount,
+                    (level, star) => effects.legacyDrawCount,
+                ],
+                effectors: {},
+            },
+            "zip": {
+                condition: () => false,
+                crown: true,
+                effects: [],
+                effectors: {}
+            },
+            "pickit": {
+                condition: () => false,
+                crown: true,
+                effects: [],
+                effectors: {}
+            },
+            "ads": {
+                condition: () => false,
+                crown: true,
+                effects: [],
+                effectors: {}
+            },
+        }
+    },
+    meta: {
+    },
 }
 
 const cardStarCost = {
@@ -846,5 +1014,8 @@ const cardStarCost = {
         sr: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
         ssr: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
         ur: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x)),
+    },
+    standard_legacy: {
+        n: (x, n = 0) => Math.floor((5 + 5 * x) * (x + n) ** (x + 1)),
     }
 }

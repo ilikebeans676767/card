@@ -1,12 +1,25 @@
 const MAX_CARDS = 1e12;
 
 function onFrame() {
+    game.stats.timePlayed += delta / 1000;
+
+    if (delta > 5000) {
+        if (effects.offlineLimit > 0) {
+            doOfflineGain(delta / 1000);
+        } else {
+            doGain(5);
+        }
+    } else {
+        doGain(delta / 1000);
+    }
+
     elms.currencies.$cards.$title.textContent = str.currencies.cards.left();
     elms.currencies.$cards.$amount.textContent = format(MAX_CARDS - game.stats.cardsDrawn, 0, 13);
     if (flags.unlocked.points) elms.currencies.$points.$amount.textContent = format(game.res.points, 0, 7);
     if (flags.unlocked.shreds) elms.currencies.$shreds.$amount.textContent = format(game.res.shreds, 0, 7);
     if (flags.unlocked.energy) {
         elms.currencies.$energy.$amount.textContent = format(game.res.energy, 0, 7) + " / " + format(effects.energyCap, 0, 7);
+        elms.currencies.$energy.classList.toggle("f-fire", game.res.energy >= effects.energyCap);
     }
     if (flags.unlocked.faction) {
         ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
@@ -14,20 +27,6 @@ function onFrame() {
         })
     }
     if (flags.unlocked.skills) {
-        for (let skill in game.time.skillCooldowns) {
-            if (game.drawPref.skills[skill]) continue;
-            game.time.skillCooldowns[skill] -= delta / 1000;
-        }
-        
-        if (game.time.skillCooldowns.fire < 0 && (game.time.skillStacks.fire ?? 0) < effects.skillFireStack - 1) {
-            game.time.skillStacks.fire ??= 0;
-            game.time.skillStacks.fire++;
-            game.time.skillCooldowns.fire += effects.skillFireCooldown;
-        }
-        if (game.time.skillCooldowns.fire < 0 && (game.time.skillStacks.fire ?? 0) >= effects.skillFireStack - 1) {
-            game.time.skillCooldowns.fire = 0;
-        }
-
         ["fire", "water", "leaf", "sun", "moon"].forEach((x) => {
             let btn = elms.draw.$skills["$" + x];
             let data = skills[x];
@@ -52,31 +51,30 @@ function onFrame() {
                 btn.$icon.setAttribute("icon", icon);
         })
     }
-    if (flags.unlocked.pickit) {
-        if (tabs.collection.filters.pickit) {
-            game.time.pickit -= delta / 1000;
-            if (game.time.pickit <= 0) {
-                game.time.pickit = 0;
-                if (tabs.collection.elms.pickit) tabs.collection.elms.pickit.childNodes[0].click();
-                else tabs.collection.filters.pickit = false;
-            }
-        } else {
-            game.time.pickit = Math.min(effects.pickitMax, game.time.pickit + delta * effects.pickitRate / 60000);
+    if (flags.unlocked.pickit && tabs.collection.filters.pickit) {
+        game.time.pickit -= delta / 1000;
+        if (game.time.pickit <= 0) {
+            game.time.pickit = 0;
+            if (tabs.collection.elms.pickit) tabs.collection.elms.pickit.childNodes[0].click();
+            else tabs.collection.filters.pickit = false;
         }
     }
+    if (flags.unlocked.money) {
+        elms.currencies.$money.$amount.textContent = format.currency("money", game.res.money, 7);
+        elms.currencies.$exp.$amount.textContent = format.currency("exp", game.res.exp, 7);
+    }
 
-    game.stats.timePlayed += delta / 1000;
-
-    game.res.energy = addWithCap(game.res.energy, delta / 60000 * effects.bulkPower, effects.energyCap);
-    game.time.drawCooldown -= delta / 1000 / effects.cooldownTime;
     let cooldown = getDrawCooldown();
     elms.draw.classList.toggle("anim-card-btn-draw", !!popups.draw.elms.list);
     if (popups.draw.elms.list) {
         elms.draw.$action.textContent = "";
         elms.draw.$amount.textContent = "";
+    } else if (game.stats.cardsDrawn >= MAX_CARDS) {
+        elms.draw.$action.textContent = verbify(str.common.draw_outOfDraws());
+        elms.draw.$amount.textContent = "×-";
     } else if (cooldown > 0) {
         elms.draw.$action.textContent = str.common.draw_inCooldown();
-        elms.draw.$amount.textContent = cooldown < 60 ? format(cooldown, 2) + "s" : format.time(cooldown);
+        elms.draw.$amount.textContent = format.time(cooldown, 2, 2);
     } else {
         elms.draw.$action.textContent = verbify(str.common.draw());
         elms.draw.$amount.textContent = "×" + format(getDrawAmount(), 0, 9);
@@ -85,8 +83,73 @@ function onFrame() {
     tabs[currentTab]?.onFrame?.();
     emit("frame");
 
+    if (!game.badges[25] && game.stats.timePlayed >= 24 * 60 * 24) {
+        awardBadge(25);
+    }
+
     if (game.time.now - lastSaveTime >= 60000) saveGame();
     if (game.time.now - lastCloudSaveTime >= 300000) saveToCloud();
+}
+
+function handleOfflineProgress() {
+    if (effects.offlineLimit <= 0) return;
+    doOfflineGain((Date.now() - game.time.now) / 1000);
+}
+
+function doOfflineGain(realSec) {
+    let progressSec = cap(realSec, effects.offlineLimit, 1 / effects.offlineLimitStrength);
+    let getCurrentStat = () => ({
+        energy: format(game.res.energy, 0, 7),
+        cooldown: format.time(Math.max(0, game.time.drawCooldown * effects.cooldownTime), 2, 2),
+        skillCooldown: Object.fromEntries(Object.entries(game.time.skillCooldowns).map(
+            ([i, x]) => [i, format.time(Math.max(x, 0))])
+        ),
+        skillStack: {...game.time.skillStacks},
+        pickitTime: format.time(game.time.pickit, 2, 2),
+        adCooldown: format.time(Math.max(0, game.time.adCooldown) * effects.adCooldown, 2, 2),
+    });
+
+    let oldStats = getCurrentStat();
+    doGain(progressSec);
+    let newStats = getCurrentStat();
+    let changingStats = Object.keys(oldStats).filter(x => oldStats[x] != newStats[x]);
+
+    if (realSec >= 60) callPopup("offline", realSec, progressSec, oldStats, newStats);
+}
+
+function doGain(secDelta) {
+    game.stats.timeProgress += secDelta;
+
+    game.res.energy = addWithCap(game.res.energy, secDelta / 60 * effects.bulkPower, effects.energyCap);
+    game.time.drawCooldown -= secDelta / effects.cooldownTime;
+
+    if (flags.unlocked.skills) {
+        for (let skill in game.time.skillCooldowns) {
+            if (game.drawPref.skills[skill]) continue;
+            game.time.skillCooldowns[skill] -= secDelta;
+        }
+        
+        doSkillBulk("fire", effects.skillFireCooldown, effects.skillFireStack);
+    }
+    
+    if (flags.unlocked.pickit && !tabs.collection.filters.pickit) {
+        game.time.pickit = Math.min(effects.pickitMax, game.time.pickit + secDelta * effects.pickitRate / 60);
+    }
+
+    if (flags.unlocked.ad) {
+        game.time.adCooldown -= secDelta / effects.adCooldown;
+    }
+}
+
+function doSkillBulk(skill, cooldown, maxStack) {
+    while (game.time.skillCooldowns[skill] < 0 && (game.time.skillStacks[skill] ?? 0) < maxStack - 1) {
+        game.time.skillStacks[skill] ??= 0;
+        game.time.skillStacks[skill]++;
+        game.time.skillCooldowns[skill] += cooldown;
+    }
+    if (game.time.skillCooldowns[skill] < 0 && (game.time.skillStacks[skill] ?? 0) >= maxStack - 1) {
+        game.time.skillCooldowns[skill] = 0;
+    }
 }
 
 function updateUnlocks() {
@@ -102,7 +165,7 @@ function updateUnlocks() {
     flags.unlocked.infobook = hasCard("standard", "r", "c1");
     tabButtons.infobook.style.display = flags.unlocked.infobook ? "" : "none";
 
-
+    flags.unlocked.zip = hasCard("standard", "ex", "zip") || hasCard("standard_legacy", "ex", "zip");
     flags.unlocked.faction = hasCard("standard", "ex", "faction");
     elms.currencies.$factions.style.display = 
         elms.draw.$factionPicker.style.display = flags.unlocked.faction ? "" : "none";
@@ -113,6 +176,13 @@ function updateUnlocks() {
     elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction || flags.unlocked.skills);
 
     flags.unlocked.pickit = hasCard("standard", "ex", "pickit");
+    flags.unlocked.iris = hasCard("standard", "ex", "iris") || hasCard("standard_legacy", "ex", "pickit");
+
+    flags.unlocked.money = game.stats.accountsSold > 0;
+    elms.currencies.$moneyExp.style.display = flags.unlocked.money ? "" : "none";
+    
+    flags.unlocked.legacy = hasCard("standard_legacy", "ex", "legacy");
+    flags.unlocked.ad = hasCard("standard_legacy", "ex", "ads");
 }
 
 // ----- Effect logic
@@ -121,7 +191,7 @@ let effects = {...baseEffect};
 let cardEffects = {};
 let fx = (x) => x;
 
-function updateEffects() {
+function updateEffects(silent = false) {
     for (let eff in baseEffect) effects[eff] = baseEffect[eff];
 
     let effectors = {};
@@ -152,10 +222,30 @@ function updateEffects() {
         }
     }
 
+    buffEffects = {};
+    let getBuffEffectFx = (type, buff) => {
+        return (x) => buffEffects[type]?.[buff]?.[x] ?? 0;
+    }
+    for (let type in game.buffs.active) {
+        buffEffects[type] = {};
+        for (let buff in game.buffs.active[type]) {
+            let data = buffs[type][buff];
+            let state = game.buffs.active[type][buff];
+            let list = buffEffects[type][buff] = [];
+            fx = getCardEffectFx(type, buff);
+
+            for (let effect of data.effects) list.push(effect(state));
+            for (let eftr in data.effectors) addEffector("buff", 
+                data.effectors[eftr][0], eftr, data.effectors[eftr][1], [type, buff]
+            );
+        }
+    }
+
     let sortedEffectorPriorities = Object.keys(effectors).sort((a, b) => a - b);
     for (let eId of sortedEffectorPriorities) {
         for (let eftr of effectors[eId]) {
             if (eftr[0] == "card") fx = getCardEffectFx(...eftr[3]);
+            if (eftr[0] == "buff") fx = getBuffEffectFx(...eftr[3]);
             effects[eftr[1]] = eftr[2](effects[eftr[1]]);
         }
     }
@@ -186,7 +276,7 @@ function updateEffects() {
     }
 
 
-    emit("effect-update");
+    if (!silent) emit("effect-update");
 }
 
 // ----- Card logic
@@ -239,6 +329,40 @@ function makeLootTable() {
         let cardRarityDef = [];
         for (let id in cards[pack][rarity]) {
             let card = cards[pack][rarity][id];
+            if (card.available && !card.available()) continue;
+            if (card.condition && !card.condition()) continue;
+            if (card.faction && card.faction != faction) continue;
+
+            let cardDef = { item: `card:${pack}/${rarity}/${id}`, w: 1 };
+            if (card.pMult) cardDef.w *= card.pMult;
+            if (card.crown) cardDef.w /= 10;
+
+            cardRarityDef.push(cardDef);
+        }
+        if (cardRarityDef.length) {
+            let rlt = new lootalot.LootTable(cardRarityDef);
+            cardDef.push({ table: rlt, p: rarityChance[rarity] - chanceSum })
+            chanceSum = rarityChance[rarity];
+        }
+    }
+
+    let lt = new lootalot.LootTable(...lootDef);
+    return lt;
+}
+
+function makeLegacyLootTable() {
+    let pack = "standard_legacy";
+    let lootDef = [];
+    let cardDef = [];
+    lootDef.push(cardDef);
+    let rarityList = ["n"];
+    let rarityChance = { n: 1 }
+    let chanceSum = 0;
+    for (let rarity of rarityList) {
+        let cardRarityDef = [];
+        for (let id in cards[pack][rarity]) {
+            let card = cards[pack][rarity][id];
+            if (card.available && !card.available()) continue;
             if (card.condition && !card.condition()) continue;
             if (card.faction && card.faction != faction) continue;
 
@@ -260,53 +384,143 @@ function makeLootTable() {
 }
 
 function doDraw(count) {
-    let rawLoot = makeLootTable().loot(count);
+    let rawLoot = {}
+    // Guarantee In-Game Shop when draw for the first time after the first playthrough
+    if (game.stats.cardsDrawn == 0 && game.stats.accountsSold >= 1) {
+        rawLoot["card:standard/n/c1"] = 1;
+        count--;
+    }
+    if (count > 0) {
+        let stops = [[Infinity, () => {}]];
+        for (let buff in game.buffs.active.draw ?? {}) {
+            let state = game.buffs.active.draw[buff]
+            stops.push([state.duration, () => {
+                delete game.buffs.active.draw[buff];
+                updateEffects(true);
+            }])
+        }
+        stops.sort((x, y) => x[0] - y[0])
+        let counted = 0;
+        while (stops.length > 0) {
+            let realCount = Math.min(count, stops[0][0])
+            if (realCount > 0) {
+                let tickLoot = doDrawTick(realCount - counted);
+                for (let loot in tickLoot) {
+                    if (rawLoot[loot]) for (let c in tickLoot[loot]) rawLoot[loot][c] = (rawLoot[loot][c] || 0) + tickLoot[loot][c];
+                    else rawLoot[loot] = tickLoot[loot]
+                }
+            }
+            counted = realCount;
+            if (counted >= count) break;
+            stops[0][1]();
+            stops.shift();
+        }
+    }
+
     let lootList = {
         res: [],
         cards: [],
     };
 
-    let resLoot = {
-        shreds: 0,
-    }
-    for (let loot of rawLoot) {
-        let [type, target] = loot.item.split(":");
+    for (let loot in rawLoot) {
+        let [type, target] = loot.split(":");
+        let state = rawLoot[loot]
         if (type == "res") {
-            if (loot.count > 0) lootList.res.push([target, loot.count]);
+            if (state.count) lootList.res.push([target, state.count]);
         } else if (type == "card") {
             let [pack, rarity, id] = target.split("/");
             let data = cards[pack][rarity][id];
             if (data.faction && game.drawPref.skills.sun && effects.skillSunDup > 0) {
-                loot.count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(loot.count)[0]?.count ?? 0;
+                state.count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(loot.count)[0]?.count ?? 0;
             }
 
-            if (hasCard("standard", "ex", "zip")) {
-                lootList.cards.push([pack, rarity, id, loot.count]);
-            } else for (let i = 0; i < loot.count; i++) {
-                lootList.cards.push([pack, rarity, id, 1]);
+            let info = {};
+
+            if (!game.cards[pack]?.[rarity]?.[id]) {
+                info.isNew = true;
             }
+
+            if (flags.unlocked.zip) {
+                lootList.cards.push([pack, rarity, id, state.count, info]);
+            } else for (let i = 0; i < loot.count; i++) {
+                lootList.cards.push([pack, rarity, id, 1, info]);
+            }
+
+            if (state.shreds) info.shreds = state.shreds;
+        }
+    }
+
+    game.stats.cardsDrawn += count;
+    for (let buff in game.buffs.active.draw ?? {}) {
+        game.buffs.active.draw[buff].duration -= count;
+    }
+
+    lootList.cards.shuffle();
+    if (game.drawPref.faction && !lootList.res.find(x => x[0] == game.drawPref.faction)) lootList.res.push([game.drawPref.faction, 0]);
+    console.log(rawLoot, lootList);
+    callPopup("draw", lootList);
+}
+function doDrawTick(count) {
+    let rawLoot = Object.fromEntries(makeLootTable().loot(count).map(x => [x.item, {count: x.count}]))
+
+    for (let loot in rawLoot) {
+        let [type, target] = loot.split(":");
+        if (type == "card") {
+            let [pack, rarity, id] = target.split("/");
+            let data = cards[pack][rarity][id];
+            if (data.faction && game.drawPref.skills.sun && effects.skillSunDup > 0) {
+                rawLoot[loot].count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(loot.count)[0]?.count ?? 0;
+            }
+
+            let info = {};
 
             if (flags.unlocked.shreds) {
                 let data = cards[pack][rarity][id];
                 let state = game.cards[pack]?.[rarity]?.[id] ?? { stars: 0 };
 
                 if (data.crown || state.stars >= 5) {
-                    if (state.stars == 0) loot.count -= 1;
-                    let cardShreds = loot.count * effects.shredMult;
+                    if (state.stars == 0) rawLoot[loot].count -= 1;
+                    let cardShreds = rawLoot[loot].count * effects.shredMult;
                     if (data.crown) cardShreds *= effects.shredCrownMult;
                     let rIndex = ["r", "sr", "ssr", "ur"].indexOf(rarity);
                     let rMult = [effects.shredRMult, effects.shredSRMult, effects.shredSSRMult, effects.shredURMult];
                     for (let i = 0; i <= rIndex; i++) cardShreds *= rMult[i];
-                    resLoot.shreds += cardShreds;
-                    console.log(pack, rarity, id, cardShreds);
+                    rawLoot["res:shreds"] ??= { count: 0 }
+                    rawLoot["res:shreds"].count += cardShreds;
+                    rawLoot[loot].shreds = cardShreds;
                 }
             }
         }
     }
 
-    lootList.cards.shuffle();
-    for (let r in resLoot) if (resLoot[r]) lootList.res.push([r, resLoot[r]]);
-    callPopup("draw", lootList);
+    return rawLoot;
+}
+
+function doDrawLegacy(count) {
+    let rawLoot;
+    let lt = makeLegacyLootTable();
+    rawLoot = lt.loot(effects.legacyDrawCount);
+
+    let options = []
+
+    for (let loot of rawLoot) {
+        let [type, target] = loot.item.split(":");
+        if (type == "card") {
+            let [pack, rarity, id] = target.split("/");
+
+            let info = {};
+            if (!game.cards[pack]?.[rarity]?.[id]) {
+                info.isNew = true;
+            }
+            
+            for (let i = 0; i < loot.count; i++) {
+                options.push([pack, rarity, id, 1, info]);
+            }
+        }
+    }
+
+    options.shuffle();
+    callPopup("drawLegacy", options);
 }
 
 function onDrawButtonClick() {
@@ -337,7 +551,7 @@ function getDrawAmount() {
     count = Math.floor(count * effects.bulkMult);
     if (game.drawPref.skills.water && game.res.energy >= effects.energyCap) count = Math.floor(count * effects.skillWaterCard2);
     count = Math.min(count, MAX_CARDS - game.stats.cardsDrawn);
-    if (!hasCard("standard", "ex", "zip")) count = Math.min(count, 100);
+    if (!flags.unlocked.zip) count = Math.min(count, 100);
     return count;
 }
 
@@ -402,7 +616,7 @@ function starUpCard(pack, rarity, id, shouldEmit = true) {
 function buyCard(pack, rarity, id) {
     if (hasCard(pack, rarity, id) || popups.draw.elms.list) return;
 
-    let cost = cards[pack][rarity][id].buyCost;
+    let cost = unwrapFn(cards[pack][rarity][id].buyCost);
     if (game.res[cost[1]] < cost[0]) return;
     game.res[cost[1]] -= cost[0];
 
@@ -410,7 +624,9 @@ function buyCard(pack, rarity, id) {
     tabs.marketplace.cards[pack + " " + rarity + " " + id]?.dispatchEvent(new PointerEvent("pointerleave"));
     tabs.marketplace.cards[pack + " " + rarity + " " + id]?.$levelBtn.dispatchEvent(new PointerEvent("pointerleave"));
     tabs.marketplace.cards[pack + " " + rarity + " " + id]?.remove();
-    callPopup("draw", { res: [], cards: [[pack, rarity, id, 1]] });
+    callPopup("draw", { res: [], cards: [[pack, rarity, id, 1, {
+        isNew: !game.cards[pack]?.[rarity]?.[id],
+    }]] });
 }
 
 function getTotalStars(pack) {
@@ -452,6 +668,53 @@ function doSkillReaction() {
     elms.draw.$skills.classList.add("reaction");
     setTimeout(() => elms.draw.$skills.classList.remove("reaction"), 500);
     awardBadge(22);
+}
+
+// ----- Account sell logic
+
+function getSellValue() 
+{
+    if (game.stats.cardsDrawn < MAX_CARDS) return null;
+    if (game.stats.accountsSold == 0) return { money: 10.00, exp: 300 }
+}
+
+function sellAccount(forced = false) {
+    console.log(forced);
+    if (!forced && game.option.confirm.sellAccount) {
+        callPopup(popups.confirm.sellAccount);
+    } else {
+        let sellValue = getSellValue();
+        if (!sellValue) return;
+        game.res.money += sellValue.money;
+        game.res.exp += sellValue.exp;
+        game.stats.accountsSold++;
+
+        delete game.cards.standard;
+        for (let i of ["points", "shreds", "energy", "fire", "water", "leaf", "sun", "moon"]) game.res[i] = 0;
+        game.stats.cardsDrawn = 0;
+        game.drawPref.faction = "";
+        game.stats.reactionCount = 0;
+        game.stats.skillsUsed = {};
+        game.drawPref.skills = {};
+        game.time.skillCooldowns = {};
+        game.time.skillStacks = {};
+
+
+        updateEffects();
+        callPopup("sell", sellValue);
+    }
+}
+
+// ----- Booster pack logic
+
+function buyPack(pack, id) {
+    let data = packs[pack][id];
+    if (game.res[data.cost[1]] < data.cost[0]) return;
+
+    game.res[data.cost[1]] -= data.cost[0];
+    if (!game.flags.boughtPacks[pack]) game.flags.boughtPacks[pack] = {};
+    game.flags.boughtPacks[pack][id] = true;
+    data.onBuy();
 }
 
 // ----- Infobook logic

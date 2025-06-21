@@ -112,7 +112,7 @@ i18nStrings.zh = {
      */
     format: {
         joiner: {
-            currency: "{0} {1}",
+            currency: "{0}{1}",
         },
         marks: {
             quote: "“{0}”",
@@ -125,7 +125,7 @@ i18nStrings.zh = {
             minute: "{0}分",
             hour: "{0}时",
             day: "{0}天",
-            joiner: "{1} {0}",
+            joiner: "{1}{0}",
         },
         chance: {
             fraction: "{1}中的{0}",
@@ -221,28 +221,28 @@ i18nStrings.zh = {
                     enabled: "启用",
                 },
                 notation: {
-                    default: "默认（跟随语言）",
+                    default: "默认(跟随语言)",
                     common: "通用",
                     scientific: "科学计数法",
                     engineering: "工程计数法",
-                    si: "SI（国际单位制）",
+                    si: "SI(国际单位制)",
                     alphabet: "字母",
                     chinese: "中文",
                     korean: "韩文",
                 }
             },
             strings: {
-                save_recent: "（游戏已保存）",
-                save_timer: "（上次保存于{0}前）",
+                save_recent: "(游戏已保存)",
+                save_timer: "(上次保存于{0}前)",
 
-                cloud_type_galaxy: "（已连接到galaxy）",
-                cloud_loggedOut: "（已登出）",
-                cloud_state_saving: "（保存中...）",
-                cloud_state_loading: "（加载中...）",
-                cloud_state_checking: "（检查中...）",
+                cloud_type_galaxy: "(已连接到galaxy)",
+                cloud_loggedOut: "(已登出)",
+                cloud_state_saving: "(保存中...)",
+                cloud_state_loading: "(加载中...)",
+                cloud_state_checking: "(检查中...)",
 
                 verb_desc: "更改与{drawing}卡牌相关的动词，如游戏标题和物品描述中的动词。",
-                john_note: "（注意：链接将在此标签页中打开，按住Ctrl点击可避免意外关闭游戏）",
+                john_note: "(注意：链接将在此标签页中打开，按住Ctrl点击可避免意外关闭游戏)",
             },
         },
     },
@@ -266,32 +266,32 @@ i18nStrings.zh = {
                 brand_full: "© DUDUCAT TRADING CARD GAME CO.",
                 pack_title: "欧米伽卡牌",
                 pack_subtitle: "集换式卡牌游戏",
-                pack_count: "{0}张卡牌包",
+                pack_count: "{0}<br>张卡牌包",
             },
         },
         currency: {
             strings: {
-                amount_have: "（你拥有{0}）",
-                amount_drawn: "（你已{drawn} {0}）",
-                speed_minute: "（{0}/分钟）",
-                toCap: "（距离上限还有{0}）",
-                efficiency: "（{0}效率）",
+                amount_have: "(你拥有{0})",
+                amount_drawn: "(你已{drawn} {0})",
+                speed_minute: "({0}/分钟)",
+                toCap: "(距离上限还有{0})",
+                efficiency: "({0}效率)",
             }
         },
         card: {
             factions: {
-                fire: "（火阵营）",
-                water: "（水阵营）",
-                leaf: "（叶阵营）",
-                sun: "（日阵营）",
-                moon: "（月阵营）",
+                fire: "(火阵营)",
+                water: "(水阵营)",
+                leaf: "(叶阵营)",
+                sun: "(日阵营)",
+                moon: "(月阵营)",
             },
             strings: {
-                copies: "（{0}额外副本）",
-                stars: "（{0}星）",
-                crown: "（皇冠卡牌）",
-                level: "（等级{0}）",
-                notOwned: "（尚未拥有此卡牌）",
+                copies: "({0}额外副本)",
+                stars: "({0}星)",
+                crown: "(皇冠卡牌)",
+                level: "(等级{0})",
+                notOwned: "(尚未拥有此卡牌)",
 
                 level_title: "升级",
                 level_cost: "升级费用：",
@@ -317,18 +317,18 @@ i18nStrings.zh = {
         },
         skill: {
             strings: {
-                skill: "（技能）",
+                skill: "(技能)",
                 skill_locked: "此技能已锁定",
 
                 action_activate: "激活",
                 action_activated: "已激活",
-                action_inCooldown: "冷却中（{0}）"
+                action_inCooldown: "冷却中({0})"
             }
         },
         badge: {
             strings: {
-                state_obtained: "（已获得徽章）",
-                state_locked: "（锁定徽章）",
+                state_obtained: "(已获得徽章)",
+                state_locked: "(锁定徽章)",
 
                 lock_desc: "???",
             }
@@ -350,8 +350,8 @@ i18nStrings.zh = {
 
             saved_title: "游戏已保存",
             saved_desc: "现在可以安全关闭此标签页。",
-            saved_noteLocal: "（注意：本游戏会在上次保存后一分钟自动保存，以及在某些事件后如{draw}后和设置更改时自动保存）",
-            saved_noteCloud: "（注意：本游戏会在上次云存档后5分钟自动保存到云端）",
+            saved_noteLocal: "(注意：本游戏会在上次保存后一分钟自动保存，以及在某些事件后如{draw}后和设置更改时自动保存)",
+            saved_noteCloud: "(注意：本游戏会在上次云存档后5分钟自动保存到云端)",
             saved_text_title: "已复制存档",
             saved_text_desc: "存档数据已复制到剪贴板。",
             saved_file_title: "正在下载存档...",
@@ -379,7 +379,7 @@ i18nStrings.zh = {
             busy_saving_cloud: "正在保存到云端...",
             busy_import: "正在导入存档...",
             busy_reset: "正在硬重置...",
-            busy_desc: "（游戏将在片刻后重新加载，请勿在此过程中关闭游戏）",
+            busy_desc: "(游戏将在片刻后重新加载，请勿在此过程中关闭游戏)",
 
             error_cloudSaveCooldown: "请在云存档之间等待30秒。",
             error_cloudCheckCooldown: "请在云存档检查之间等待30秒。",
@@ -388,25 +388,25 @@ i18nStrings.zh = {
             error_loggedOut: "你尚未登录。请登录以访问云存档功能。",
 
             opt_keepPrefs: "保留偏好设置",
-            opt_keepPrefs_noteReset: "（注意：与可解锁内容绑定的偏好设置将重置为默认值）",
-            opt_keepPrefs_noteImport: "（注意：如果新存档中不存在与可解锁内容绑定的偏好设置，这些设置将重置为默认值）",
+            opt_keepPrefs_noteReset: "(注意：与可解锁内容绑定的偏好设置将重置为默认值)",
+            opt_keepPrefs_noteImport: "(注意：如果新存档中不存在与可解锁内容绑定的偏好设置，这些设置将重置为默认值)",
         },
         about: {
             blabs: [
-                "（因为我们忍不住要夸大免费{draw}次数）",
-                "（因为我们忍不住要宣传免费{draw}次数）",
-                "（无需下载的游戏，采用尖端网络技术）",
-                "（一款尽可能慷慨的扭蛋游戏）",
-                "（你以为一千多次已经很多了）",
-                "<marquee>（看妈妈，我在<marquee>标签里！）</marquee>",
+                "(因为我们忍不住要夸大免费{draw}次数)",
+                "(因为我们忍不住要宣传免费{draw}次数)",
+                "(无需下载的游戏，采用尖端网络技术)",
+                "(一款尽可能慷慨的扭蛋游戏)",
+                "(你以为一千多次已经很多了)",
+                "<marquee>(看妈妈，我在&lt;marquee&gt;标签里！)</marquee>",
             ],
             strings: {
                 game: "游戏由{0}制作",
                 libs: "使用的库：",
                 music: "音乐由{0}制作",
-                music_foot: "（嘿，那是我）",
+                music_foot: "(嘿，那是我)",
                 icons: "图标来自通过{0}的各种来源",
-                footer: "（这游戏算是恶搞，因此符合合理使用吗？<br>不知道，我又不是律师）"
+                footer: "(这游戏算是恶搞，因此符合合理使用吗？<br>不知道，我又不是律师)"
             }
         },
         complete: {
@@ -438,7 +438,7 @@ i18nStrings.zh = {
         },
         shreds: {
             name: "碎片",
-            quote: "多余卡牌的残余，已被分解成原子。这些卡牌几乎没有交易价值（除了少数<rarity rarity='ex'></rarity>卡牌），所以人们正在发明新的使用方法，比如将它们粉碎用作新的升级货币",
+            quote: "多余卡牌的残余，已被分解成原子。这些卡牌几乎没有交易价值(除了少数<rarity rarity='ex'></rarity>卡牌)，所以人们正在发明新的使用方法，比如将它们粉碎用作新的升级货币",
         },
         fire: {
             name: "火之力",
@@ -476,7 +476,7 @@ i18nStrings.zh = {
                 n1: {
                     name: "单点",
                     desc: "每次{draw}获得{+0}点数。",
-                    quote: "ここにいる（我在这里）"
+                    quote: "ここにいる(我在这里)"
                 },
                 n2: {
                     name: "半点",
@@ -691,32 +691,32 @@ i18nStrings.zh = {
                 },
                 n1a: {
                     name: "星系",
-                    desc: "根据你卡牌收藏中的总星数获得更多点数（皇冠卡牌每张算作{0}星）。<br>（当前：{1}星 ⇒ {+2%}点数获取）",
+                    desc: "根据你卡牌收藏中的总星数获得更多点数(皇冠卡牌每张算作{0}星)。<br>(当前：{1}星 ⇒ {+2%}点数获取)",
                     quote: "在一个遥远的星系中..."
                 },
                 n1b: {
                     name: "皇家垃圾",
-                    desc: "根据你收藏中的皇冠卡牌总数获得更多碎片。<br>（当前：{0}张皇冠卡牌 ⇒ {+1%}碎片获取）",
+                    desc: "根据你收藏中的皇冠卡牌总数获得更多碎片。<br>(当前：{0}张皇冠卡牌 ⇒ {+1%}碎片获取)",
                     quote: "比普通垃圾更有价值"
                 },
                 n1b2: {
                     name: "相册",
-                    desc: "根据你获得的徽章数量获得更多碎片。<br>（当前：{0}个徽章 ⇒ {+1%}碎片获取）",
+                    desc: "根据你获得的徽章数量获得更多碎片。<br>(当前：{0}个徽章 ⇒ {+1%}碎片获取)",
                     quote: "啊，这些回忆"
                 },
                 n1c: {
                     name: "额外点数",
-                    desc: "根据你收藏中的<rarity rarity='ex'></rarity>卡牌总数获得更多点数。<br>（当前：{0}张<rarity rarity='ex'></rarity>卡牌 ⇒ {+1%}点数获取）",
+                    desc: "根据你收藏中的<rarity rarity='ex'></rarity>卡牌总数获得更多点数。<br>(当前：{0}张<rarity rarity='ex'></rarity>卡牌 ⇒ {+1%}点数获取)",
                     quote: "更多点数不会有坏处，对吧？"
                 },
                 n1d: {
                     name: "未来计算器",
-                    desc: "根据你解锁的统计条目总数获得更多点数。<br>（当前：{0}个条目 ⇒ {+1%}点数获取）",
+                    desc: "根据你解锁的统计条目总数获得更多点数。<br>(当前：{0}个条目 ⇒ {+1%}点数获取)",
                     quote: "1 ^ 2 + 3 = 4"
                 },
                 n1e: {
                     name: "质疑现实的奇怪棋盘地板",
-                    desc: "根据你完成的技能反应总数获得更多碎片。<br>（当前：{0}次反应 ⇒ {+1%}碎片获取）",
+                    desc: "根据你完成的技能反应总数获得更多碎片。<br>(当前：{0}次反应 ⇒ {+1%}碎片获取)",
                     quote: "所有的技术进步，就为了这个"
                 },
                 s_fire: {
@@ -731,7 +731,7 @@ i18nStrings.zh = {
                 },
                 s_fire_2: {
                     name: "爆炸精通",
-                    desc: "<b>爆发</b>技能每次使用时，每次触发额外获得{+0s}时间跳过。<br>（当前：{1}次 ⇒ {+2s}时间跳过）",
+                    desc: "<b>爆发</b>技能每次使用时，每次触发额外获得{+0s}时间跳过。<br>(当前：{1}次 ⇒ {+2s}时间跳过)",
                     quote: "*粒子加速器噪音*"
                 },
                 s_water: {
@@ -818,7 +818,7 @@ i18nStrings.zh = {
                 },
                 n1e: {
                     name: "协同作用",
-                    desc: "<b>简化</b>的基础增益效果获得<rarity rarity=n></rarity><b>卡包</b>效果的{^0:1}。<br>（当前：{+1}）",
+                    desc: "<b>简化</b>的基础增益效果获得<rarity rarity=n></rarity><b>卡包</b>效果的{^0:1}。<br>(当前：{+1})",
                     quote: "天哪，这是协同作用的引用吗？？？？？"
                 }
             },
@@ -835,7 +835,7 @@ i18nStrings.zh = {
                 },
                 faction: {
                     name: "过度使用的阵营系统",
-                    desc: "解锁阵营。使用阵营{draws}获取阵营货币和特定阵营的卡牌。（阵营货币有小概率出现。）",
+                    desc: "解锁阵营。使用阵营{draws}获取阵营货币和特定阵营的卡牌。(阵营货币有小概率出现。)",
                     quote: "很久以前，五大阵营和谐共处。然后，一切都因火阵营的进攻而改变。"
                 },
                 pickit: {
@@ -845,7 +845,7 @@ i18nStrings.zh = {
                 },
                 skills: {
                     name: "连击",
-                    desc: "解锁主动技能。（单独技能通过阵营{drawing}解锁。）",
+                    desc: "解锁主动技能。(单独技能通过阵营{drawing}解锁。)",
                     quote: "↑↑↓↓←→←→BA"
                 },
                 skills2: {

@@ -164,7 +164,7 @@ let tooltipTemplates = {
                     let name = str.currencies[levelCost[1]].name();
                     tooltip.innerHTML += `<div class="formula"> 
                         <h4>${popupI18n.strings.level_cost()}</h4>
-                        <div><span>${name}</span>${_number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
+                        <div><span>${name}</span>${_number(format.currency(levelCost[1], game.res[levelCost[1]]) + " / " + format.currency(levelCost[1], levelCost[0]))}</div>
                     </div><div class="action">
                         ${canLevelUp ? popupI18n.strings.level_prompt() : popupI18n.strings.level_cant_cost(name)}
                     </div>`
@@ -189,13 +189,20 @@ let tooltipTemplates = {
                     </div>`
                 }
             } else if (mode == "buy") {
-                let canBuy = game.res[data.buyCost[1]] >= data.buyCost[0];
-                let name = str.currencies[data.buyCost[1]].name();
+                let buyCost = unwrapFn(data.buyCost);
+                let canBuy = game.res[buyCost[1]] >= buyCost[0];
+                let name = str.currencies[buyCost[1]].name();
                 tooltip.innerHTML += `<div class="formula"> 
                     <h4>Purchase cost:</h4>
-                    <div><span>${name}</span>${_number(format(game.res[data.buyCost[1]]) + " / " + format(data.buyCost[0]))}</div>
+                    <div><span>${name}</span>${_number(format.currency(buyCost[1], game.res[buyCost[1]]) + " / " + format.currency(buyCost[1], buyCost[0]))}</div>
                 </div><div class="action">
-                    ${canBuy ? "Click to purchase." : "Insufficient " + name + "."}
+                    ${canBuy ? popupI18n.strings.buy_prompt() : "Insufficient " + name + "."}
+                </div>`
+            } else if (mode == "legacy-draw") {
+                tooltip.innerHTML += `<div class="quote">
+                    ${str.format.marks.quote(verbify(i18n.quote()))}
+                </div><div class="action">
+                    ${popupI18n.strings.legacyDraw_prompt()}
                 </div>`
             } else {
                 tooltip.innerHTML += `<div class="quote">
@@ -222,6 +229,41 @@ let tooltipTemplates = {
             } else {
                 tooltip.textContent = popupI18n.strings.skill_locked();
             }
+        }
+    },
+    buff (type, buff) {
+        return (tooltip) => {
+            let data = buffs[type][buff];
+            let i18n = str.buffs[type][buff];
+            let state = game.buffs.active[type][buff];
+            let popupI18n = str.popups.buff;
+
+            let info;
+            tooltip.innerHTML = `
+                <div class="header">
+                    <h2>${i18n.name()}</h2>
+                    <small>${popupI18n.strings.buff()}</small>
+                </div>
+            `
+            tooltip.append(info = $make("div"));
+
+            let event = getBuffEvent(type);
+            let check = () => {
+                if (!info.isConnected || !tooltip.classList.contains("active")) {
+                    removeEvent("frame", check)
+                    removeEvent(event, update);
+                }
+            }
+            let update = () => {
+                let curFx = [];
+                fx = (x) => curFx[x];
+                for (let f of data.effects) curFx.push(f(state));
+
+                info.innerHTML = verbify(format.effect(i18n.desc(), curFx));
+            }
+            update();
+            addEvent("frame", check);  
+            addEvent(event, update);  
         }
     },
     badge(badge) {
@@ -256,6 +298,6 @@ function getCurrencyInfo(id) {
     } else if (id == "cards") {
         return verbify(i18n.strings.amount_drawn(_number(format(game.stats.cardsDrawn, 0, 14))))
     } else {
-        return i18n.strings.amount_have(_number(format(game.res[id], 0, 14)))
+        return i18n.strings.amount_have(_number(format.currency(id, game.res[id], 14)))
     }
 }

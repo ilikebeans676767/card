@@ -3,23 +3,40 @@
 }
 
 @media (max-width: 960px) {
-    body {
+    #main-container {
         margin: 0;
     }
 
-    .infobook-holder {
+    .subtab-holder {
         flex-direction: column-reverse;
+        margin: -80px -10px -90px -10px;
+        padding: 80px 0px 90px 0px;
+        height: calc(100% + 170px);  
     }
-    .infobook-holder .tab-buttons {
+    .subtab-holder .tab-buttons {
         height: 34px;
         display: flex;
         align-items: stretch;
         border-bottom: 0;
         border-top: 1px solid var(--border-1);
     }
+    .subtab-content {
+        margin: -80px 0px -90px 0px;
+        padding: 80px 10px 90px 10px;
+    }
+    .tab-buttons:not([style*="none"]) + .subtab-content {
+        margin-top: -80px;
+        margin-bottom: 0;
+        padding-bottom: 10px;
+    }
+    .subtab-holder > .tab-buttons {
+        margin: 0;
+        padding-inline: 20px;
+    }
+    
     .infobook-cards {
         --inline-padding: 20px;
-        margin-inline: -10px;
+        margin-inline: 0px;
         mask: none;
     }
     .page-indicators {
@@ -27,13 +44,13 @@
     }
     .infobook-holder .page-button.left {
         left: auto;
-        right: 45px;
-        top: -5px;
+        right: 55px;
+        top: 75px;
         transform: none;
     }
     .infobook-holder .page-button.right {
-        right: 0px;
-        top: -5px;
+        right: 10px;
+        top: 75px;
         transform: none;
     }
 
@@ -64,7 +81,7 @@
     }
     #draw-zone {
         position: fixed;
-        inset: auto 0 44px 0;
+        inset: auto 0 54px 0;
         padding: 0 max(25px, calc(50% - 180px));
         padding-top: 10px;
         min-height: 92px;
@@ -84,7 +101,7 @@
     }
     #draw-options {
         position: fixed;
-        inset: auto 10px 54px 10px;
+        inset: auto 10px 64px 10px;
         margin: 0 max(0px, calc(50% - 180px));
         min-height: auto;
         background: var(--background-2);
@@ -125,15 +142,18 @@
 
     main {
         flex-direction: column-reverse;
+        max-width: 100dvw;
     }
     #tab-buttons {
         flex: 0 0 45px;
         border-bottom: none;
         border-top: 1px solid var(--border-1);
-        padding: 0 10px 10px 10px;
+        padding: 0 20px 10px 20px;
+        margin: 0 -10px 0 -10px;
     }
     #tab-content {
         margin-bottom: 0px;
+        margin-inline: -10px;
         padding: 80px 10px 90px 10px;
     }
     .tab-buttons > button > iconify-icon {
@@ -172,6 +192,14 @@
         padding: 5px 10px;
         margin: -5px -10px;
     }
+    .popup:not(.clear) > div .split-list {
+        grid-template-columns: 1fr;
+    }
+
+    .ad-popup > div > .info > div:first-child span {
+        display: none;
+        font-size: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -186,6 +214,36 @@
         display: block;
         margin-bottom: 15px;
         font-weight: bold;
+        transition: opacity 0.3s;
+    }
+    #tab-content.scrolled::before {
+        opacity: 0;
+    }
+    .subtab-holder {
+        margin-top: calc(-1.8em - 15px);
+    }
+    .subtab-content {
+        padding-top: calc(1.8em + 35px);
+        position: relative;
+    }
+    .subtab-content::after {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: calc(1.8em + 90px);
+        background-color: var(--background-1);
+        border-bottom: 1px solid var(--border-0);
+    }
+    .tab-buttons:not([style*="none"]) + .subtab-content[tab-name]::before {
+        content: attr(tab-name);
+        font-size: 1.25em;
+        display: block;
+        margin-top: -2em;
+        margin-bottom: 25px;
+        font-weight: bold;
+        text-align: right;
+        font-style: italic;
     }
 
     .popup:not(.clear) > div {
@@ -208,8 +266,14 @@
         flex: 1;
     }
 
-    .infobook-holder {
-        margin-top: calc(-1.8em - 15px);
+    .subtab-holder {
+        margin-top: calc(-1.8em - 95px);
+    }
+    .subtab-content {
+        padding-top: calc(1.8em + 105px);
+    }
+    .tab-buttons:not([style*="none"]) + .subtab-content {
+        padding-top: calc(1.8em + 95px);
     }
 
     .popup-upg-main-action {

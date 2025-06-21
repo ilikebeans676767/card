@@ -28,7 +28,20 @@ tabs.options = {
             setLanguage(choice);
             saveGame();
         }));
-        makeEntry(i18n.items.notation(), choiceGroup = createChoiceGroup((
+        container.append(
+            $make("div.opt-entry.before",
+                $make("label", ""),
+                $make("small", 
+                    i18n.strings.language_desc()
+                )
+            )
+        );
+
+        container.append($make("hr"));
+
+        makeEntry([i18n.items.notation() + " ", 
+            createInfoButton(() => verbify(i18n.strings.notation_desc()))
+        ], choiceGroup = createChoiceGroup((
             Object.fromEntries([
                 "default", "common", "scientific", "engineering", "si", "alphabet", "chinese", "korean"
             ].map(x => [
@@ -56,7 +69,9 @@ tabs.options = {
             game.option.cardImages = +choice;
             saveGame();
         }));
+
         container.append($make("hr"));
+
         makeEntry(i18n.items.music(), choiceGroup = createChoiceGroup({
             "": i18n.values.common.disabled(),
             "conscious": i18n.values.common.enabled(),
@@ -84,7 +99,7 @@ tabs.options = {
                 if (saveGame()) {
                     let popup = callPopup("prompt", i18n.saved_title(), i18n.saved_desc());
                     popup.$content.append($make("br"), $make("small.unimportant", 
-                        i18n.saved_noteLocal()
+                        verbify(i18n.saved_noteLocal())
                     ))
                 }
             }

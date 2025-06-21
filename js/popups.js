@@ -1,4 +1,6 @@
-let popups = {};
+let popups = {
+    confirm: {},
+};
 
 function makePopup(...content) {
     let popup = $make("div.popup");
@@ -16,10 +18,11 @@ function makePopup(...content) {
 }
 
 function callPopup(popup, ...args) {
-    let popupd = popups[popup].call(...args);
+    if (typeof popup == "string") popup = popups[popup];
+    let popupd = popup.call(...args);
     let close = popupd.close;
     popupd.close = () => {
-        popups[popup].onClose?.();
+        popup.onClose?.();
         close();
     }
     return popupd;

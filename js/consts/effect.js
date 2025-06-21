@@ -58,6 +58,14 @@ const baseEffect = {
     skillMoonBuff: 5,
     skillMoonDebuff: 2,
     skillMoonCooldown: 600,
+
+    offlineLimit: 0,
+    offlineLimitStrength: 0.4,
+
+    legacyDrawCount: 3,
+    legacyPickCount: 1,
+
+    adCooldown: 900,
 }
 
 const flags = {
@@ -66,9 +74,13 @@ const flags = {
         shreds: false,
         energy: false,
         market: false,
+        zip: false,
         faction: false,
         skills: false,
         pickit: false,
+        iris: false,
+        legacy: false,
+        ad: false,
     }
 }
 
@@ -84,10 +96,24 @@ const priority = {
 const statEntries = {
     general: {
         items: {
+            timeProgress: {
+                display: () => _number(format.time(game.stats.timeProgress, 4)),
+                cost: [100, "points"],
+                event: "frame",
+            },
             timePlayed: {
                 display: () => _number(format.time(game.stats.timePlayed, 4)),
                 cost: [100, "points"],
                 event: "frame",
+            },
+        }
+    },
+    legacy: {
+        condition: () => flags.unlocked.shreds,
+        items: {
+            accountsSold: {
+                display: () => _number(format(game.stats.accountsSold)),
+                cost: [100, "points"],
             },
         }
     },

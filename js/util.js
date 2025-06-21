@@ -113,13 +113,13 @@ format.suffix.base = (number, list, max) => {
     return str;
 }
 
-format.time = (seconds, max = 2) => {
+format.time = (seconds, max = 2, precision = 0) => {
     let i18n = str.format.time;
-    let list = [i18n.second(format.decimal(seconds % 60))];
-    if ((seconds /= 60) >= 1) list.push(i18n.minute(format.decimal(seconds % 60)));
-    if ((seconds /= 60) >= 1) list.push(i18n.hour(format.decimal(seconds % 24)));
-    if ((seconds /= 24) >= 1) list.push(i18n.day(format.decimal(seconds)));
-    return list.slice(0, max).reduce((x, y) => i18n.joiner(x, y));
+    let list = [i18n.second(format.decimal(seconds % 60, seconds >= 60 ? 0 : precision))];
+    if ((seconds /= 60) >= 1) list.unshift(i18n.minute(format.decimal(seconds % 60)));
+    if ((seconds /= 60) >= 1) list.unshift(i18n.hour(format.decimal(seconds % 24)));
+    if ((seconds /= 24) >= 1) list.unshift(i18n.day(format.decimal(seconds)));
+    return list.slice(0, max).reduce((x, y) => i18n.joiner(y, x));
 }
 
 format.effect = (str, oldValues, newValues = null) => {
@@ -146,6 +146,11 @@ format.chance = (chance) => {
     else return _number(str.format.chance.percent(format(chance * 100, 2)));
 }
 
+format.currency = (cur, num, length = 4) => {
+    if (typeof cur == "string") cur = currencies[cur];
+    return (cur.prefix || "") + format(num, cur.precision ?? 0, length);
+}
+
 // ----- Math
 
 function cap(a, cap, strength = 2) {
@@ -167,13 +172,6 @@ function sumGeometricSeries(base, rate, n, owned = 0) {
     if (n == 1) return base;
     return base * (1 - rate ** (n + 1)) / (1 - rate);
 }
-
-function sumGeometricSeries(base, rate, n, owned = 0) {
-    base *= rate ** owned;
-    if (n == 1) return base;
-    return base * (1 - rate ** (n + 1)) / (1 - rate);
-}
-
 function maxGeometricSeries(base, rate, amount, owned = 0) {
     base *= rate ** owned;
     return Math.max(0, Math.floor(Math.log(amount * (rate - 1) / base + 1) / Math.log(rate)));
@@ -182,6 +180,9 @@ function maxGeometricSeries(base, rate, amount, owned = 0) {
 
 // ----- Other
 
+function unwrapFn(maybeFunc) {
+    return typeof maybeFunc == "function" ? maybeFunc() : maybeFunc;
+}
 function randomStr(len) {
     let res = "";
     let alph = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -198,7 +199,12 @@ Array.prototype.shuffle = function() {
         this[i] = this[j];
         this[j] = temp;
     }
+    return this;
 }
+Array.prototype.pick = function() {
+    return this[Math.floor(Math.random() * this.length)];
+}
+
 String.prototype.toTitleCase = function () {
     return  this.replace(
         /\w\S*/g,

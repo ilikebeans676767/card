@@ -2,6 +2,7 @@ tabs.collection = {
     name: "Collection",
     icon: "tabler:stack-2",
 
+    subtab: "regular",
     cards: {},
     elms: {},
     filters: {
@@ -9,15 +10,35 @@ tabs.collection = {
         faction: "any",
         pickit: "",
     },
+    
 
 
     onInit() {
-        let filters = this.elms.filters = $make("div.card-filters");
-        elms.tab.append(filters);
+        let holder = $make("div.subtab-holder");
+        elms.tab.append(holder);
         let hozHolder;
         let i18n = str.tabs.collection;
 
-        filters.append(hozHolder = createChoiceGroup({
+        holder.append(this.elms.tabButtons = hozHolder = createChoiceGroup({
+            "regular": [$icon("1tfd:card-1"), " " + i18n.filters.type.regular()],
+            "legacy": [$icon("1tfd:card-2"), " " + i18n.filters.type.legacy()],
+        }, this.subtab, (x) => {
+            this.subtab = x;
+            this.filters.pickit = "";
+            this.updateCards();
+        }));
+        hozHolder.className = "tab-buttons";
+        registerHorizonalScrollWheel(hozHolder);
+        holder.append(hozHolder);
+
+        let content = this.elms.content = $make("div.subtab-content");
+        content.onscroll = () => elms.tab.classList.toggle("scrolled", content.scrollTop > 0);
+        holder.append(content);
+
+        let filters = this.elms.filters = $make("div.card-filters");
+        content.append(filters);
+
+        filters.append(this.elms.filterRarity = hozHolder = createChoiceGroup({
             "": $icon("tabler:asterisk"),
             "n": $makeHTML("span", "<rarity rarity='n'>"),
             "r": $makeHTML("span", "<rarity rarity='r'>"),
@@ -41,7 +62,7 @@ tabs.collection = {
             registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(x));
         });
 
-        filters.append(hozHolder = createChoiceGroup({
+        filters.append(this.elms.filterFaction = hozHolder = createChoiceGroup({
             "any": $icon("tabler:asterisk"),
             "": $icon("tabler:circle-dashed"),
             "fire": $icon(currencies.fire.icon),
@@ -82,12 +103,26 @@ tabs.collection = {
             registerTooltip(hozHolder.childNodes[i], tooltipTemplates.text(x));
         });
         hozHolder.childNodes[1].classList.add("value");
-        hozHolder.append(this.elms.pickit.$clock = $make("div.pickit-clock", "0s"));
+        hozHolder.append(this.elms.pickit.$clock = $make("div.number", "0s"));
 
-        elms.tab.append(this.elms.placeholder = $makeHTML("div.note-container", str.tabs.common.strings.nothing()));
+        filters.append(this.elms.iris = $make("div.choice-group"));
+        this.elms.iris.append(
+            this.elms.iris.$inHand = $make("div.number", "0"),
+            this.elms.iris.$inPool = $make("div.number", "0"),
+            this.elms.iris.$inGame = $make("div.number", "0")
+        )
+        registerInfoButton(this.elms.iris, () => `
+            <p>${i18n.filters.iris.info1()}</p><ul>
+                <li><p>${i18n.filters.iris.infoInHand()}</p></li>
+                <li><p>${i18n.filters.iris.infoInPool()}</p></li>
+                <li><p>${i18n.filters.iris.infoInGame()}</p></li>
+            </ul><p>${i18n.filters.iris.info2()}</p>
+        `)
+
+        content.append(this.elms.placeholder = $makeHTML("div.note-container", str.tabs.common.strings.nothing()));
 
         let list = this.elms.list = $make("div.card-list");
-        elms.tab.append(list);
+        content.append(list);
 
         this.updateCards();
         addEvent("frame", this.onFrame);
@@ -99,29 +134,69 @@ tabs.collection = {
         this.filters.pickit = "";
         removeEvent("frame", this.onFrame);
         removeEvent("card-update", this.onCardUpdate);
+        elms.tab.classList.remove("scrolled");
     },
     onFrame() {
         let localElms = tabs.collection.elms;
         if (flags.unlocked.pickit) {
-            localElms.pickit.$clock.innerText = format(game.time.pickit, 2) + "s";
+            localElms.pickit.$clock.innerText = format.time(game.time.pickit, 2, 2);
         }
     },
 
     updateCards() {
         let destroyingCards = {...this.cards};
         let cardList = [];
-        let pack = "standard";
+        let pack = {
+            regular: "standard",
+            legacy: "standard_legacy",
+        }[this.subtab]
+
+        let canFilter = hasCard("standard", "sr", "c1") || hasCard("standard_legacy", "ex", "pickit")
+        let unlocked = {
+            regular: {
+                filterRarity: canFilter,
+                filterFaction: canFilter,
+                iris: flags.unlocked.iris,
+                pickit: flags.unlocked.pickit,
+            },
+            legacy: {
+
+            }
+        }[this.subtab]
+
+        let inHand = 0, inPool = 0, inGame = 0;
         if (game.cards[pack]) for (let rarity in cards[pack]) for (let id in cards[pack][rarity]) {
             let data = cards[pack][rarity][id];
+
+            if (data.available && !data.available()) continue;
+            if (unlocked.filterRarity && this.filters.rarity && this.filters.rarity != rarity) continue;
+            if (unlocked.filterFaction && this.filters.faction != "any" && this.filters.faction != (data.faction ?? "")) continue;
+
+            if (flags.unlocked.iris) {
+                inGame++;
+                if (game.cards[pack][rarity]?.[id]) { inHand++; inPool++; }
+                else if (!data.condition || data.condition()) inPool++;
+            }
+
             if (!game.cards[pack][rarity]?.[id]) continue;
-            if (this.filters.rarity && this.filters.rarity != rarity) continue;
-            if (this.filters.faction != "any" && this.filters.faction != (data.faction ?? "")) continue;
+
             if (this.filters.pickit) {
                 let levelCost = getCardLevelCost(pack, rarity, id, 1);
                 let starCost = getCardStarCost(pack, rarity, id);
                 if (game.res[levelCost[1]] < levelCost[0] && game.cards[pack][rarity]?.[id].amount < starCost) continue;
             }
+
             cardList.push([pack, rarity, id]);
+        }
+
+        if (this.filters.pickit) {
+            cardList.map(x => {
+                let [pack, rarity, id] = x;
+                let levelCost = getCardLevelCost(pack, rarity, id, 1);
+                x[3] = (game.res[levelCost[1]] / levelCost[0]) || 0;
+                return x;
+            });
+            cardList.sort((x, y) => y[3] - x[3]);
         }
 
         let shouldAppend = false;
@@ -142,9 +217,20 @@ tabs.collection = {
             delete this.cards[card];
         }
 
-        this.elms.filters.style.display = hasCard("standard", "sr", "c1") ? "" : "none";
-        this.elms.pickit.style.display = flags.unlocked.pickit ? "" : "none";
+        this.elms.tabButtons.style.display = flags.unlocked.legacy ? "" : "none";
+        this.elms.filterRarity.style.display = unlocked.filterRarity ? "" : "none";
+        this.elms.filterFaction.style.display = unlocked.filterFaction ? "" : "none";
+        this.elms.pickit.style.display = unlocked.pickit ? "" : "none";
+        this.elms.iris.style.display = unlocked.iris ? "" : "none";
+        this.elms.filters.style.display = unlocked.filterRarity ? "" : "none";
         this.elms.placeholder.style.display = cardList.length > 0 ? "none" : "";
+        if (flags.unlocked.iris) {
+            this.elms.iris.$inGame.innerText = inGame;
+            this.elms.iris.$inPool.innerText = inPool;
+            this.elms.iris.$inHand.innerText = inHand;
+        }
+
+        this.elms.content.setAttribute("tab-name", str.tabs.collection.filters.type[this.subtab]())
     },
     makeCard(pack, rarity, id) {
         let listId = pack + " " + rarity + " " + id;
@@ -184,12 +270,12 @@ tabs.collection = {
                 levelBtn.disabled = true;
                 levelText = _icon("tabler:check");
             } else {
-                levelBtn.removeAttribute("state");
                 let levelCost = getCardLevelCost(pack, rarity, id);
                 levelBtn.style.setProperty("--progress", game.res[levelCost[1]] / levelCost[0]);
                 let canLevelUp = game.res[levelCost[1]] >= levelCost[0];
                 levelBtn.disabled = !canLevelUp;
-                levelText = _icon("tabler:arrow-big-up");
+                levelBtn.setAttribute("state", canLevelUp ? "" : "noafford");
+                levelText = _icon(canLevelUp || levelCost[1] == "points" ? "tabler:arrow-big-up" : currencies[levelCost[1]].icon);
             }
             if (levelBtn.innerHTML != levelText) levelBtn.innerHTML = levelText;
             
@@ -203,11 +289,11 @@ tabs.collection = {
                 starBtn.disabled = true;
                 starText = _icon("tabler:check");
             } else {
-                starBtn.removeAttribute("state");
                 let starCost = getCardStarCost(pack, rarity, id);
                 starBtn.style.setProperty("--progress", state.amount / starCost);
                 let canStarUp = state.amount >= starCost;
                 starBtn.disabled = !canStarUp;
+                starBtn.setAttribute("state", canStarUp ? "" : "noafford");
                 starText = _icon("tabler:star");
             }
             if (starBtn.innerHTML != starText) starBtn.innerHTML = starText;

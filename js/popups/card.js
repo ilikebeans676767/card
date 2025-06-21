@@ -1,8 +1,8 @@
 popups.card = {
     state: {},
     elms: {},
-    call(pack, rarity, id, mode) {
-        this.state = {pack, rarity, id, mode};
+    call(pack, rarity, id, mode, args) {
+        this.state = {pack, rarity, id, mode, args};
         let popup = makePopup();
 
         let info = this.elms.info = $make("div.info");
@@ -18,7 +18,8 @@ popups.card = {
         let actions = $make("div.actions");
         popup.$body.append(actions);
 
-        let close = $make("button.primary", str.popups.common.action_close());
+        let close = $make("button", str.popups.common.action_close());
+        if (!["legacy-draw"].includes(mode)) close.classList.add("primary");
         close.onclick = () => popup.close();
         actions.append(close);
 
@@ -123,7 +124,7 @@ popups.card = {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
                         <h4>${popupI18n.strings.level_cost()}</h4>
-                        <div><span>${name}</span>${_number(format(game.res[levelCost[1]]) + " / " + format(levelCost[0]))}</div>
+                        <div><span>${name}</span>${_number(format.currency(levelCost[1], game.res[levelCost[1]]) + " / " + format.currency(levelCost[1], levelCost[0]))}</div>
                     </div>
                     <div class="actions popup-upg-actions"></div>
                 `);
@@ -163,7 +164,7 @@ popups.card = {
                 localElms.actions.insertAdjacentHTML("beforeend", `
                     <div class="formula" style="padding-inline: 10px">
                         <h4>${popupI18n.strings.star_cost()}</h4>
-                        <div><span>${popupI18n.strings.star_cost_copies(data.name)}</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
+                        <div><span>${popupI18n.strings.star_cost_copies(i18n.name)}</span>${_number(format(state.amount) + " / " + format(starCost))}</div>
                     </div>
                     <div class="actions popup-upg-actions"></div>
                 `);
@@ -179,22 +180,34 @@ popups.card = {
                 actions.append(viewBtn);
             }
         } else if (mode == "purchase") {
-            let buyCost = data.buyCost;
-            let name = currencies[buyCost[1]].name;
+            let buyCost = unwrapFn(data.buyCost);
+            let name = str.currencies[buyCost[1]].name();
             let canBuy = game.res[buyCost[1]] >= buyCost[0];
             localElms.actions.insertAdjacentHTML("beforeend", `
                 <div class="formula" style="padding-inline: 10px">
-                    <h4>Purchase cost:</h4>
-                    <div><span>${name}</span>${_number(format(game.res[buyCost[1]]) + " / " + format(buyCost[0]))}</div>
+                    <h4>${popupI18n.strings.buy_cost()}</h4>
+                    <div><span>${name}</span>${_number(format.currency(buyCost[1], game.res[buyCost[1]]) + " / " + format.currency(buyCost[1], buyCost[0]))}</div>
                 </div>
                 <div class="actions popup-upg-actions"></div>
             `);
             let actions = localElms.actions.querySelector(".popup-upg-actions:last-child");
-            let upBtn = $make("button.popup-upg-main-action", canBuy ? "Purchase" : "Can't purchase");
+            let upBtn = $make("button.popup-upg-main-action", canBuy ? popupI18n.strings.buy_button() : popupI18n.strings.buy_button_cant());
             if (canBuy) upBtn.classList.add("value");
             else upBtn.disabled = true;
             upBtn.onclick = () => { buyCard(pack, rarity, id); popups.card.state.popup.close(); }
             actions.append(upBtn);
+        } else if (mode == "legacy-draw") {
+            let { args } = popups.card.state;
+            localElms.actions.insertAdjacentHTML("beforeend", `
+                <div class="actions popup-upg-actions"></div>
+            `);
+            let actions = localElms.actions.querySelector(".popup-upg-actions:last-child");
+            let pickBtn = $make("button.popup-upg-main-action.primary", popupI18n.strings.legacyDraw_button());
+            pickBtn.onclick = () => {
+                args();
+                popups.card.state.popup.close();
+            }
+            actions.append(pickBtn);
         }
     },
     onClose() {

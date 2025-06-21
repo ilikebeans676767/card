@@ -153,6 +153,7 @@ popups.save = {
         }
 
         makeSummaryEntry(str.stats.general.items.timePlayed.name(), format.time(importData.stats.timePlayed));
+        if (importData.stats.accountsSold) makeSummaryEntry(str.stats.legacy.items.accountsSold.name(), format(importData.stats.accountsSold, 0, 13));
         makeSummaryEntry(verbify(str.stats.cards.items.cardsDrawn.name()), format(importData.stats.cardsDrawn, 0, 13));
     }
 }

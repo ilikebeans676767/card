@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateEffects();
     updateUnlocks();
     updateMusic();
+    handleOfflineProgress();
     setTab("collection");
     time = performance.now();
     requestAnimationFrame(loop);

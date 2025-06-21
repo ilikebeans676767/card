@@ -17,6 +17,9 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
 }
+#currencies .margin-bottom {
+    margin-bottom: 4px;
+}
 .currency {
     position: relative;
     background: var(--background-2);
@@ -66,7 +69,6 @@
     background: var(--rarity-gradient);
     border-radius: 5px;
     box-shadow: var(--shadow-1);
-    /* overflow: hidden; */
     text-align: center;
     box-sizing: content-box;
     padding: 1px;
@@ -119,20 +121,22 @@
 .game-card-stars {
     position: absolute;
     inset: 1px 1px auto 1px;
-    padding: 5px 10px 10px 10px;
-    color: var(--color-2);
+    padding: 5px 10px 5px 10px;
+    color: var(--color-3);
     background: linear-gradient(0deg, var(--card-gradient));
     font-size: 18px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     border-radius: 4px 4px 0 0;
+    filter: drop-shadow(0 0 2px black);
 }
 .game-card-stars:empty {
     display: none;
 }
 .game-card-stars [icon*="-fill"] {
     color: var(--card-star-color);
+    z-index: 1;
 }
 .game-card-stars.crown {
     font-size: 24px;
@@ -148,8 +152,87 @@
     left: 80%;
     top: -10px;
     transform: translateX(-50%) rotate(10deg);
-    z-index: 2;
+    z-index: 3;
     white-space: nowrap;
+}
+.game-card .new-banner-holder {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+}
+.game-card .new-banner {
+    position: absolute;
+    top: 40px;
+    left: -70%;
+    width: 200%;
+    padding: 2px;
+    transform-origin: center left;
+    transform: rotate(-15deg);
+    border-block: 1px solid var(--border-0);
+    background: var(--card-new-bg);
+    color: var(--card-new-color);
+    z-index: 2;
+    animation: new-banner-in 1s ease-out;
+}
+@keyframes new-banner-in {
+    from {
+        filter: contrast(0) brightness(15);
+        transform: rotate(-15deg) scaleX(0);
+    } 50% {
+        transform: rotate(-15deg) scaleX(1);
+    } to {
+        filter: none;
+    }
+}
+.game-card .new-banner::before {
+    content: "";
+    position: absolute;
+    inset: -250px;
+    background: white;
+    opacity: 0;
+    animation: new-banner-before-in 1s ease-out;
+}
+@keyframes new-banner-before-in {
+    from {
+        right: 250px;
+        opacity: 1;
+    } to {
+        right: -250px;
+        opacity: 0;
+    }
+}
+
+.game-card .shred-holder {
+    position: absolute;
+    inset: 1px;
+    background: var(--card-shred-bg);
+    color: var(--card-shred-color);
+    overflow: hidden;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    animation: shred-holder-in 0.6s;
+}
+@keyframes shred-holder-in {
+    50% {
+        opacity: 0;
+    }
+}
+
+.game-card .shred-holder ~ .draw-amount {
+    filter: brightness(0.5);
+    opacity: 0.5;
+    animation: shred-amount-in 0.6s;
+}
+@keyframes shred-amount-in {
+    50% {
+        filter: none;
+        opacity: 1;
+    }
 }
 
 .card-block > .game-card:not(:last-child),
@@ -173,9 +256,12 @@
     border-bottom-right-radius: 5px;
 }
 .card-block > .card-action > :is([state="off"], [state="max"]) {
-    color: var(--color-3);
+    color: var(--color-4);
 }
-.card-block > .card-action > :not([state]):disabled {
+.card-block > .card-action > [state="noafford"] {
+    color: var(--color-2);
+}
+.card-block > .card-action > [state="noafford"]:disabled {
     --fill: calc(var(--progress) * 100%);
     background: linear-gradient(var(--bg-1), var(--bg-1)), linear-gradient(var(--bg-0), var(--bg-0));
     background-position: bottom;
@@ -193,7 +279,6 @@
 
 .skill-holder {
     display: flex;
-    margin-top: 10px;
     gap: 2px;
 }
 .skill-holder.reaction {
@@ -254,14 +339,122 @@
 }
 
 
-.infobook-holder {
+.buff-holder {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+    gap: 2px;
+}
+.buff-holder:empty {
+    display: none;
+}
+.buff-holder .buff {
+    position: relative;
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    aspect-ratio: 1;
+    cursor: default;
+    overflow: hidden;
+}
+.buff-holder .buff:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: conic-gradient(transparent calc(100% * var(--progress) - 10%), #fff3 calc(100% * var(--progress)), #0007 calc(100% * var(--progress)));
+}
+.buff-holder .buff iconify-icon {
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+}
+.buff-holder .buff iconify-icon:first-child {
+    font-size: 48px;
+    color: var(--background-2);
+}
+
+
+
+
+  
+.market-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+  
+.market-item {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: end;
+    width: 400px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+.market-item h4 {
+    padding: 10px 10px 0 10px;
+    font-size: 1.25em;
+    text-align: start;
+}
+.market-item p {
+    text-align: start;
+    margin: 0;
+    padding: 5px 10px 0 10px;
+}
+.market-item > div:last-child {
+    margin-top: 10px;
+}
+
+
+.market-item.account-sell {
+    width: max(500px, 50%);
+}
+.market-item.account-sell .sell-value {
+    margin: 10px 0 0 0;
+    text-align: start;
+} 
+.market-item.account-sell .sell-value ul {
+    list-style: none;
+    display: flex;
+    gap: 2ch;
+    flex-flow: row wrap;
+    margin: 5px 10px 0px 10px;
+    padding: 0;
+}
+.market-item.account-sell .sell-value li {
+    flex: 0 0 100px;
+    min-width: fit-content;
+}
+.market-item.account-sell .sell-value li .number {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.subtab-holder {
     display: flex;
     flex-direction: column;
     height: 100%;
     position: relative;
 }
-.infobook-holder .tab-buttons {
+.subtab-holder .tab-buttons {
     padding-inline: 10px;
+    position: sticky;
+    margin: -5px -10px 0 -10px;
+}
+.subtab-content {
+    flex: 1;
+    margin: -10px;
+    padding: 10px;
+    overflow-y: auto;
+}
+.tab-buttons:not([style*="none"]) + .subtab-content {
+    margin-top: 0;
 }
 .infobook-cards {
     --inline-padding: 40px;
@@ -443,6 +636,9 @@
     margin-top: 10px;
     gap: 10px;
 }
+.opt-entry.before {
+    margin-top: 2px;
+}
 .opt-entry > label {
     flex: 0 0 200px;
     text-align: end;
@@ -545,10 +741,11 @@
     border-radius: 0 5px 5px 0;
     margin-right: 0;
 }
-.pickit-clock {
+.card-filters > .choice-group > .number {
     border: 1px solid var(--border-0);
     padding: 7px 10px;
     font-family: var(--number-font);
+    background: var(--background-1);
 }
 
 .input-group {

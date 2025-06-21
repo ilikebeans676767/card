@@ -18,7 +18,17 @@ function getI18nProxy(obj, fallback, key) {
     }
 }
 
-/** @type {typeof i18nDefault} */
+/**
+ *  @template {object} T
+ *  @typedef {{ [key in keyof T]: 
+ *      T[key] extends String ? (...args: string) => string :
+ *      T[key] extends Array ? T[key] :
+ *      T[key] extends Object ? I18nProxy<T[key]> : T[key] }} I18nProxy<T>
+ */
+
+/** @typedef {({ [key in keyof typeof i18nDefault]: key})} A */
+
+/** @type {I18nProxy<typeof i18nDefault>} */
 let str = new Proxy({}, {
     get(t, p, r) {
         return getI18nProxy(i18nStrings[game.option.language], i18nStrings.en, p);

@@ -64,3 +64,15 @@
     color: var(--color-1);
     text-align: center;
 }
+
+#tooltip > :is(ul, ol) {
+    margin-block: 0;
+    padding-inline-start: 2em;
+}
+
+#tooltip p {
+    margin-block: 5px 0;
+}
+#tooltip > p:first-child {
+    margin-block: 0;
+}

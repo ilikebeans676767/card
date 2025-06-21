@@ -1,7 +1,9 @@
 let cloud = {};
 
 function initCloud() {
-    if (document.referrer.includes("https://galaxy.click")) {
+    if (!document.referrer) {
+        console.error(`document.referrer is empty, how`)
+    } else if (new URL(document.referrer).hostname == "galaxy.click") {
         initGalaxyAPI();
     }
 }

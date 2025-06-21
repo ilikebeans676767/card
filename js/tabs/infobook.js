@@ -8,7 +8,7 @@ tabs.infobook = {
     elms: {},
 
     onInit() {
-        let holder = $make("div.infobook-holder");
+        let holder = $make("div.subtab-holder.infobook-holder");
         elms.tab.append(holder);
 
         let tabButtons = createChoiceGroup({
@@ -25,6 +25,7 @@ tabs.infobook = {
             this.updateSubtab();
         });
         tabButtons.className = "tab-buttons";
+        registerHorizonalScrollWheel(tabButtons);
         holder.append(tabButtons);
 
         let indicator = this.elms.indicator = $make("div.page-indicators");
@@ -63,7 +64,7 @@ tabs.infobook = {
             viewStyle ||= getComputedStyle(localElms.cards);
             viewWidth -= parseFloat(viewStyle.getPropertyValue("--inline-padding")) * 2;
             let gap = parseFloat(viewStyle.gap);
-            let cols = state.cols = Math.floor((viewWidth + gap) / 300);
+            let cols = state.cols = Math.max(1, Math.floor((viewWidth + gap) / 300));
             let width = state.colWidth = (viewWidth - gap * (cols - 1)) / cols;
             console.log(gap, cols, width);
             localElms.cards.style.setProperty("--item-width", width + "px");
