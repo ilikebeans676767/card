@@ -26,6 +26,11 @@ const baseEffect = {
     leafGain: 1,
     sunGain: 1,
     moonGain: 1,
+    fireDrawMult: 1,
+    waterDrawMult: 1,
+    leafDrawMult: 1,
+    sunDrawMult: 1,
+    moonDrawMult: 1,
     factionMult: 1,
     factionChance: 1e-6,
 

@@ -745,6 +745,30 @@ const cards = {
                     skillFireStack: [priority.additive, (x) => x + fx(0) - 1],
                 }
             },
+            "n1a1": {
+                faction: "fire",
+                condition: () => game.cards.standard?.sr?.n5a?.stars >= 2,
+                levelCost: [1e3, 5, "water"],
+                pMult: 0.2,
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star] + 10,
+                ],
+                effectors: {
+                    skillFireSkip: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                    skillFireCooldown: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n1a0": {
+                faction: "fire",
+                levelCost: [1e4, 3, "leaf"],
+                pMult: 0.5,
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star] + 10,
+                ],
+                effectors: {
+                    fireDrawMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
             "n1b": {
                 faction: "water",
                 condition: () => game.cards.standard?.sr?.n5b?.stars >= 2,
@@ -755,6 +779,17 @@ const cards = {
                 ],
                 effectors: {
                     skillWaterSpeed: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n1b0": {
+                faction: "water",
+                levelCost: [1e4, 3, "fire"],
+                pMult: 0.5,
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star] + 10,
+                ],
+                effectors: {
+                    waterDrawMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
             "n1c1": {
@@ -781,6 +816,17 @@ const cards = {
                     skillLeafMultBase: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
+            "n1c0": {
+                faction: "leaf",
+                levelCost: [1e4, 3, "water"],
+                pMult: 0.5,
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star] + 10,
+                ],
+                effectors: {
+                    leafDrawMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
             "n1d": {
                 faction: "sun",
                 condition: () => game.cards.standard?.sr?.n5d?.stars >= 2,
@@ -790,6 +836,17 @@ const cards = {
                 ],
                 effectors: {
                     skillSunDup: [priority.additive, (x) => x + fx(0) / 100],
+                }
+            },
+            "n1d0": {
+                faction: "sun",
+                levelCost: [1e4, 3, "moon"],
+                pMult: 0.5,
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star] + 10,
+                ],
+                effectors: {
+                    sunDrawMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
             "n1e": {
@@ -802,6 +859,17 @@ const cards = {
                 ],
                 effectors: {
                     skillMoonBuff: [priority.additive, (x) => x + fx(1)],
+                }
+            },
+            "n1e0": {
+                faction: "moon",
+                levelCost: [1e4, 3, "sun"],
+                pMult: 0.5,
+                effects: [
+                    (level, star) => level * [0, 5, 7, 10, 14, 20][star] + 10,
+                ],
+                effectors: {
+                    moonDrawMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
         },

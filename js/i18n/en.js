@@ -960,10 +960,25 @@ let i18nDefault = i18nStrings.en = {
                     desc: "Allow stacking of <b>Burst</b> skills, up to {0} uses at once.",
                     quote: "Over 9000 revolutions per second"
                 },
+                n1a1: {
+                    name: "Absorption",
+                    desc: "{+0%} <b>Burst</b> skill's time skip and cooldown.",
+                    quote: "Slow, but strong"
+                },
+                n1a0: {
+                    name: "Ash to Cards",
+                    desc: "{+0%} card multiplier when fire faction is active.",
+                    quote: "Use ashes of trees to infuse them into cards, why didn't we thought of this sooner?"
+                },
                 n1b: {
                     name: "The Sleeping Game",
                     desc: "While <b>Freeze Drop</b> is active, increase bulk power by {+0%}, but decrease time skip amount of <b>Burst</b> by the same amount.",
                     quote: "Wait, that isn't what the initials mean?"
+                },
+                n1b0: {
+                    name: "Waterproof Cards",
+                    desc: "{+0%} card multiplier when water faction is active.",
+                    quote: "Now cards can't be destroyed by getting wet—just think of how many card collections that could be saved from floods!"
                 },
                 n1c1: {
                     name: "Seed-Picking",
@@ -975,16 +990,31 @@ let i18nDefault = i18nStrings.en = {
                     desc: "<b>Fertilizer</b> also multiply base shred gains by {+0%}.",
                     quote: "It's got what plants crave"
                 },
+                n1c0: {
+                    name: "Home-grown Tree Farm",
+                    desc: "{+0%} card multiplier when leaf faction is active.",
+                    quote: "Bring Maryland to your home"
+                },
                 n1d: {
                     name: "Sticky Cards",
                     desc: "Factioned cards {drawn} while <b>Photosynthesis</b> is active have a {0%} chance to duplicate oneself.",
                     quote: "It's actually two cards stuck into one, why are there so many of them here?"
                 },
+                n1d0: {
+                    name: "Ultra-Bright Papers",
+                    desc: "{+0%} card multiplier when sun faction is active.",
+                    quote: "With our unbelivably bright papers rated 99.9999% ISO, you can make the most light-reflecting cards for the most special cards on the solar system!"
+                },
                 n1e: {
                     name: "Synergism",
                     desc: "<b>Simplification</b>'s base buff effect gains {^0:1} of <rarity rarity=n></rarity> <b>Card Pack</b>'s effect.<br>(Currently: {+1})",
                     quote: "Oh my god is that a synergism reference?????"
-                }
+                },
+                n1e0: {
+                    name: "Ultra-Dark Ink",
+                    desc: "{+0%} card multiplier when moon faction is active.",
+                    quote: "Vantablack ain't got nothing with this"
+                },
             },
             ex: {
                 zip: {
