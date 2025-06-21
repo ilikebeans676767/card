@@ -173,7 +173,7 @@ popups.draw = {
 
         // Don't save game if the first endgame occurs
         if (game.stats.cardsDrawn >= MAX_CARDS && !game.badges[31]) return;
-        if (popups.draw.state.canSave) return;
+        if (!popups.draw.state.canSave) return;
         saveGame();
     },
     onClose() {
