@@ -164,7 +164,7 @@ tabs.options = {
                     } else {
                         awardBadge(24);
                         saveGame();
-                        let waitPopup = callPopup("prompt", i18n.busy_saving_cloud(), str.popups.save.desc_pleaseWait(), {});
+                        let waitPopup = callPopup("prompt", i18n.busy_saving_cloud(), str.popups.common.desc_pleaseWait(), {});
                         saveToCloud(0, (success) => {
                             waitPopup.close();
                             if (success) {
