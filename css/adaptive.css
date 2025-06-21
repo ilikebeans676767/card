@@ -171,6 +171,15 @@
         font-weight: bold;
     }
     
+    .faction-picker.locked {
+        display: flex;
+    }
+    .faction-picker.locked > :not(#draw-opt-hide) {
+        display: none;
+    }
+    #draw-opt-hide {
+        max-width: calc(calc(100% - 18px) / 7);
+    }
 }
 
 @media (max-width: 600px) {

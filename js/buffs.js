@@ -38,6 +38,7 @@ function addBuff(type, name, args) {
     }
     
     updateEffects();
+    updateUnlocks();
     updateBuffUI();
 }
 

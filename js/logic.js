@@ -167,13 +167,13 @@ function updateUnlocks() {
 
     flags.unlocked.zip = hasCard("standard", "ex", "zip") || hasCard("standard_legacy", "ex", "zip");
     flags.unlocked.faction = hasCard("standard", "ex", "faction");
-    elms.currencies.$factions.style.display = 
-        elms.draw.$factionPicker.style.display = flags.unlocked.faction ? "" : "none";
+    elms.currencies.$factions.style.display = flags.unlocked.faction ? "" : "none";
+        elms.draw.$factionPicker.classList.toggle("locked", !flags.unlocked.faction);
 
     flags.unlocked.skills = hasCard("standard", "ex", "skills");
     elms.draw.$skills.style.display = flags.unlocked.skills ? "" : "none";
 
-    elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction || flags.unlocked.skills);
+    elms.sidebar.classList.toggle("option-unlocked", flags.unlocked.faction || flags.unlocked.skills || elms.draw.$buffs.childNodes.length > 0);
 
     flags.unlocked.pickit = hasCard("standard", "ex", "pickit");
     flags.unlocked.iris = hasCard("standard", "ex", "iris") || hasCard("standard_legacy", "ex", "pickit");

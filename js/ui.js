@@ -209,10 +209,12 @@ function createCardUI(pack, rarity, id) {
 
 function createBuffUI(type, buff) {
     let data = buffs[type][buff]
-    let i18n = str.buffs[type][buff];
 
     let div = $make("button.buff");
     registerTooltip(div, tooltipTemplates.buff(type, buff))
+    div.onclick = () => {
+        if (prefersNoTooltips()) callPopup("buff", type, buff);
+    }
 
     for (let icon of data.icons) {
         div.append($icon(icon));
