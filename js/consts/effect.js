@@ -109,7 +109,7 @@ const statEntries = {
         }
     },
     legacy: {
-        condition: () => flags.unlocked.shreds,
+        condition: () => flags.unlocked.legacy,
         items: {
             accountsSold: {
                 display: () => _number(format(game.stats.accountsSold)),
