@@ -115,6 +115,7 @@ body {
     position: fixed;
     inset: 0;
     padding: 10px;
+    margin: env(safe-area-inset-top, 0px) env(safe-area-inset-left, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
     overflow: hidden;
 }
 
