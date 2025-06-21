@@ -108,7 +108,7 @@ const statEntries = {
             },
             timePlayed: {
                 display: () => _number(format.time(game.stats.timePlayed, 4)),
-                cost: [100, "points"],
+                cost: [100000, "points"],
                 event: "frame",
             },
         }
@@ -118,7 +118,15 @@ const statEntries = {
         items: {
             accountsSold: {
                 display: () => _number(format(game.stats.accountsSold)),
-                cost: [100, "points"],
+                cost: [1, "exp"],
+            },
+            sep1: {
+                separator: true,
+                condition: () => flags.unlocked.legacy,
+            },
+            legacyCardsDrawn: {
+                display: () => _number(format(game.stats.legacyCardsDrawn)),
+                cost: [1, "exp"],
             },
         }
     },

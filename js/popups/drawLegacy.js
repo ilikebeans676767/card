@@ -87,6 +87,7 @@ popups.drawLegacy = {
                 addCard(pack, rarity, id, count);
                 delete card,onclick;
                 card.classList.add("picked");
+                game.stats.legacyCardsDrawn += count;
                 state.picksLeft--;
 
                 if (state.picksLeft <= 0) {

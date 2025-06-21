@@ -1198,6 +1198,9 @@ let i18nDefault = i18nStrings.en = {
                 accountsSold: {
                     name: "Accounts sold",
                 },
+                legacyCardsDrawn: {
+                    name: "Legacy cards {drawn}",
+                },
             }
         },    
         cards: {

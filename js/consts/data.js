@@ -42,6 +42,7 @@ function getNewGame() {
             reactionCount: 0,
 
             accountsSold: 0,
+            legacyCardsDrawn: 0,
         },
         buffs: {
             active: {},
