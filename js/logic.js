@@ -387,7 +387,7 @@ function doDraw(count) {
     let rawLoot = {}
     // Guarantee In-Game Shop when draw for the first time after the first playthrough
     if (game.stats.cardsDrawn == 0 && game.stats.accountsSold >= 1) {
-        rawLoot["card:standard/n/c1"] = 1;
+        rawLoot["card:standard/n/c1"] = { count: 1 };
         count--;
     }
     if (count > 0) {
