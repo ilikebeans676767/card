@@ -417,6 +417,8 @@ function doDraw(count) {
         }
     }
 
+        console.log(rawLoot)
+
     let lootList = {
         res: [],
         cards: [],
@@ -431,7 +433,7 @@ function doDraw(count) {
             let [pack, rarity, id] = target.split("/");
             let data = cards[pack][rarity][id];
             if (data.faction && game.drawPref.skills.sun && effects.skillSunDup > 0) {
-                state.count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(loot.count)[0]?.count ?? 0;
+                state.count += new lootalot.LootTable([{ item: "", p: effects.skillSunDup }]).loot(state.count)[0]?.count ?? 0;
             }
 
             let info = {};
@@ -442,7 +444,7 @@ function doDraw(count) {
 
             if (flags.unlocked.zip) {
                 lootList.cards.push([pack, rarity, id, state.count, info]);
-            } else for (let i = 0; i < loot.count; i++) {
+            } else for (let i = 0; i < state.count; i++) {
                 lootList.cards.push([pack, rarity, id, 1, info]);
             }
 
