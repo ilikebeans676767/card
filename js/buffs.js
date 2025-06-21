@@ -57,7 +57,7 @@ function updateBuffUI() {
                     if (!state) {
                         removeEvent(button.$event, button.$update);
                         button.remove();
-                        delete button;
+                        delete buffButtons[id];
                     } else {
                         button.update();
                     }
