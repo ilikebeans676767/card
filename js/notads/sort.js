@@ -240,6 +240,9 @@ ads.minigames.sort = {
                     } else {
                         doMove(selectedTube, i, selectedBalls, true);
                         if (puzzleSolved()) {
+                            controls.style.opacity = 0;
+                            controls.style.pointerEvents = "none";
+                            popups.ad.elms.taunt.innerText = str.popups.ad.strings.taunts.completed.pick();
                             popups.ad.state.skipTimer = 0;
                         }
                         return;

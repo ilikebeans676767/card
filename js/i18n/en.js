@@ -434,6 +434,11 @@ let i18nDefault = i18nStrings.en = {
                         "Can you solve this puzzle?",
                         "I sold my soul to complete this puzzle",
                     ],
+                    completed: [
+                        "You did it!",
+                        "Amazing!",
+                        "Congratulations!",
+                    ],
                 }
             },
 

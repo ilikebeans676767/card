@@ -6,6 +6,7 @@ function initCloud() {
     } else if (new URL(document.referrer).hostname == "galaxy.click") {
         initGalaxyAPI();
     }
+    initGalaxyAPI();
 }
 
 function initGalaxyAPI() {
