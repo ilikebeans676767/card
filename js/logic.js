@@ -385,12 +385,13 @@ function makeLegacyLootTable() {
 
 function doDraw(count) {
     let rawLoot = {}
+    let counted = 0;
     // Guarantee In-Game Shop when draw for the first time after the first playthrough
     if (game.stats.cardsDrawn == 0 && game.stats.accountsSold >= 1) {
         rawLoot["card:standard/n/c1"] = { count: 1 };
-        count--;
+        counted++;
     }
-    if (count > 0) {
+    if (counted < count) {
         let stops = [[Infinity, () => {}]];
         for (let buff in game.buffs.active.draw ?? {}) {
             let state = game.buffs.active.draw[buff]
@@ -400,7 +401,6 @@ function doDraw(count) {
             }])
         }
         stops.sort((x, y) => x[0] - y[0])
-        let counted = 0;
         while (stops.length > 0) {
             let realCount = Math.min(count, stops[0][0])
             if (realCount > 0) {
