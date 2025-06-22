@@ -1,11 +1,11 @@
-.ad-popup > div {
+.notad-popup > div {
     display: flex;
     flex-direction: column;
     padding: 0;
     font-family: Inter, Arial, Helvetica, FreeSans, sans-serif;
     position: relative;
 }
-.ad-popup > div > .taunt {
+.notad-popup > div > .taunt {
     font-size: calc(1em + min(2dvh, 1.5dvw));
     padding: 0.5em 1em;
     color: black;
@@ -13,21 +13,21 @@
     font-family: Arial, Helvetica, FreeSans, sans-serif;
     text-align: center;
 }
-.ad-popup > div > .content {
+.notad-popup > div > .content {
     flex: 1;
     position: relative;
     overflow: hidden;
     padding-bottom: 3em;
 }
 
-.ad-popup > div > .info {
+.notad-popup > div > .info {
     position: absolute;
     inset: auto 0 0 0;
     display: flex;
     padding-bottom: 1em;
     align-items: center;
 }
-.ad-popup > div > .info > div {
+.notad-popup > div > .info > div {
     background-color: #000a;
     display: flex;
     padding: 0.5em;
@@ -35,28 +35,28 @@
     align-items: center;
 }
 
-.ad-popup > div > .info > div:first-child {
+.notad-popup > div > .info > div:first-child {
     border-radius: 0 0.25em 0.25em 0;
 }
-.ad-popup > div > .info span {
+.notad-popup > div > .info span {
     display: block;
     padding-inline-end: 0.5em;
 }
-.ad-popup > div > .info > div:last-child {
+.notad-popup > div > .info > div:last-child {
     margin-inline-start: auto;
     border-radius: 0.25em 0 0 0.25em;
 }
-.ad-popup > div > .info button {
+.notad-popup > div > .info button {
     border: none;
     background: #666;
     box-shadow: none;
     font: inherit;
 }
-.ad-popup > div > .info button:disabled {
+.notad-popup > div > .info button:disabled {
     background: #444;
 }
 
-.ad-popup > div > .splash {
+.notad-popup > div > .splash {
     position: absolute;
     inset: 0;
     background: #333;
@@ -67,18 +67,18 @@
     animation: 1s ad-splash-bg forwards ease-in-out;
     z-index: 100;
 }
-.ad-popup > div > .splash.hidden {
+.notad-popup > div > .splash.hidden {
     transform: scale(1.1);
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
 
-.ad-popup > div > .splash h3 {
+.notad-popup > div > .splash h3 {
     font-size: calc(1em + min(2dvh, 1.5dvw));
     letter-spacing: -5%;
 }
-.ad-popup > div > .splash p {
+.notad-popup > div > .splash p {
     display: inline-block;
     font-size: 0.8em;
     text-transform: uppercase;
@@ -103,7 +103,7 @@
     }
 }
 
-.ad-popup .app-icon {
+.notad-popup .app-icon {
     display: inline-block;
     width: 2em;
     height: 2em;
@@ -111,7 +111,7 @@
     background: linear-gradient(30deg, #44f, #f7f);
     box-shadow: 0 .1em .3em #0007;
 }
-.ad-popup > div > .splash .app-icon {
+.notad-popup > div > .splash .app-icon {
     font-size: 4em;
     margin-bottom: 0.25em;
 }

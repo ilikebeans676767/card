@@ -4,7 +4,7 @@ popups.ad = {
 
     call(ad) {
         let popup = makePopup();
-        popup.classList.add("clear", "ad-popup");
+        popup.classList.add("clear", "notad-popup");
         let isVideo = !!ad.video;
         let i18n = str.popups.ad;
 
