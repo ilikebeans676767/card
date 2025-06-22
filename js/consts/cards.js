@@ -275,6 +275,30 @@ const cards = {
                     moonGain: [priority.additive, (x) => x + fx(0)],
                 }
             },
+            "n6a": {
+                available: () => flags.unlocked.ad,
+                pMult: 0.1,
+                levelCost: [1e9, 10, "points"],
+                starCost: x => cardStarCost.standard.n(x, 3),
+                effects: [
+                    (level, star) => (level + 5) * (2 ** star) * 0.05,
+                ],
+                effectors: {
+                    adPointBoost: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n6b": {
+                available: () => flags.unlocked.ad,
+                pMult: 0.08,
+                levelCost: [1e6, 10, "shreds"],
+                starCost: x => cardStarCost.standard.n(x, 3),
+                effects: [
+                    (level, star) => (level + 4) * (2 ** star) * 0.05,
+                ],
+                effectors: {
+                    adShredBoost: [priority.additive, (x) => x + fx(0)],
+                }
+            },
             "c1": {
                 crown: true,
                 effects: [],
@@ -448,6 +472,18 @@ const cards = {
                     skillMoonCooldown: [priority.multiplicative, (x) => x / fx(0)],
                 }
             },
+            "n6a": {
+                available: () => flags.unlocked.ad,
+                pMult: 0.1,
+                levelCost: [10, 10, "points"],
+                starCost: x => cardStarCost.standard.r(x, 1),
+                effects: [
+                    (level, star) => (level + 4) * (2 ** star) * 5,
+                ],
+                effectors: {
+                    adDrawDurationMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
             "c1": {
                 available: () => !hasCard("standard_legacy", "ex", "pickit"),
                 condition: () => flags.unlocked.faction,
@@ -561,7 +597,7 @@ const cards = {
                 }
             },
             "n1e": {
-                condition: () => game.flags.statUnlocks.skills?.reaction,
+                condition: () => flags.unlocked.skills && game.flags.statUnlocks.skills?.reaction,
                 pMult: 0.7,
                 starDiff: 0.2,
                 effects: [
@@ -951,7 +987,7 @@ const cards = {
             "n0": {
                 levelCost: [50, 1.15, "exp"],
                 effects: [
-                    (level, star) => level ** (0.9 + 0.1 * star) * [0, 10, 20, 36, 55, 80][star],
+                    (level, star) => level ** (0.9 + 0.1 * star) * 2 ** star * 50,
                 ],
                 effectors: {
                     pointsMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
@@ -960,7 +996,7 @@ const cards = {
             "n1": {
                 levelCost: [50, 1.2, "exp"],
                 effects: [
-                    (level, star) => level ** (0.7 + 0.1 * star) * [0, 10, 20, 36, 55, 80][star],
+                    (level, star) => level ** (0.7 + 0.1 * star) * 2 ** star * 40,
                 ],
                 effectors: {
                     shredMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
@@ -970,7 +1006,7 @@ const cards = {
                 levelCost: [50, 1.25, "exp"],
                 pMult: 0.25,
                 effects: [
-                    (level, star) => level ** (0.4 + 0.1 * star) * [0, 10, 20, 36, 55, 80][star],
+                    (level, star) => level ** (0.4 + 0.1 * star) * 2 ** star * 30,
                 ],
                 effectors: {
                     factionMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],

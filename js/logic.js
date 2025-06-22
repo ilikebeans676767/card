@@ -8,9 +8,11 @@ function onFrame() {
             doOfflineGain(delta / 1000);
         } else {
             doGain(5);
+            spendBuffs("time", 5);
         }
     } else {
         doGain(delta / 1000);
+        spendBuffs("time", delta / 1000);
     }
 
     elms.currencies.$cards.$title.textContent = str.currencies.cards.left();
@@ -109,10 +111,31 @@ function doOfflineGain(realSec) {
         adCooldown: format.time(Math.max(0, game.time.adCooldown) * effects.adCooldown, 2, 2),
     });
 
+    let stops = [[Infinity, () => {}]]
+    for (let buff in game.buffs.active.time ?? {}) {
+        let state = game.buffs.active.time[buff]
+        stops.push([state.duration, () => {
+            delete game.buffs.active.time[buff];
+            updateEffects(true);
+        }])
+    }
+    stops.sort((x, y) => x[0] - y[0])
+    let elapsed = 0;
+
     let oldStats = getCurrentStat();
-    doGain(progressSec);
+    while (stops.length > 0) {
+        let currentSec = Math.min(progressSec, stops[0][0])
+        if (currentSec > 0) {
+            doGain(currentSec - elapsed);
+        }
+        elapsed = currentSec;
+        if (elapsed >= progressSec) break;
+        stops[0][1]();
+        stops.shift();
+    }
+    spendBuffs("time", progressSec);
+
     let newStats = getCurrentStat();
-    let changingStats = Object.keys(oldStats).filter(x => oldStats[x] != newStats[x]);
 
     if (realSec >= 60) callPopup("offline", realSec, progressSec, oldStats, newStats);
 }
@@ -120,7 +143,7 @@ function doOfflineGain(realSec) {
 function doGain(secDelta) {
     game.stats.timeProgress += secDelta;
 
-    game.res.energy = addWithCap(game.res.energy, secDelta / 60 * effects.bulkPower, effects.energyCap);
+    game.res.energy = addWithCap(game.res.energy, secDelta / 60 * effects.bulkPower * effects.energySpeed, effects.energyCap);
     game.time.drawCooldown -= secDelta / effects.cooldownTime;
 
     if (flags.unlocked.skills) {
@@ -453,9 +476,7 @@ function doDraw(count) {
     }
 
     game.stats.cardsDrawn += count;
-    for (let buff in game.buffs.active.draw ?? {}) {
-        game.buffs.active.draw[buff].duration -= count;
-    }
+    spendBuffs("draw", count);
 
     lootList.cards.shuffle();
     if (game.drawPref.faction && !lootList.res.find(x => x[0] == game.drawPref.faction)) lootList.res.push([game.drawPref.faction, 0]);
@@ -498,7 +519,7 @@ function doDrawTick(count) {
     return rawLoot;
 }
 
-function doDrawLegacy(count) {
+function doDrawLegacy() {
     let rawLoot;
     let lt = makeLegacyLootTable();
     rawLoot = lt.loot(effects.legacyDrawCount);
@@ -679,6 +700,11 @@ function getSellValue()
 {
     if (game.stats.cardsDrawn < MAX_CARDS) return null;
     if (game.stats.accountsSold == 0) return { money: 10.00, exp: 300 }
+    let totalStars =  getTotalStars("standard");
+    return { 
+        money: game.stats.cardsDrawn / 1e11,
+        exp: totalStars.stars + totalStars.crowns * 10
+    }
 }
 
 function sellAccount(forced = false) {
@@ -701,6 +727,8 @@ function sellAccount(forced = false) {
         game.drawPref.skills = {};
         game.time.skillCooldowns = {};
         game.time.skillStacks = {};
+        game.buffs.active = {};
+        game.buffs.adOffer = "";
 
 
         updateEffects();
@@ -718,6 +746,20 @@ function buyPack(pack, id) {
     if (!game.flags.boughtPacks[pack]) game.flags.boughtPacks[pack] = {};
     game.flags.boughtPacks[pack][id] = true;
     data.onBuy();
+}
+
+// ----- Buff logic
+
+function spendBuffs(type, amount) {
+    let buffExpired = false;
+    for (let buff in game.buffs.active[type] ?? {}) {
+        game.buffs.active[type][buff].duration -= amount;
+        if (game.buffs.active[type][buff].duration <= 0) {
+            delete game.buffs.active[type][buff];
+            buffExpired = true;
+        }
+    }
+    if (buffExpired) updateEffects();
 }
 
 // ----- Infobook logic

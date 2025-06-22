@@ -9,6 +9,7 @@ const baseEffect = {
     cardURChance: 0.99999e-9,
 
     energyCap: 10,
+    energySpeed: 1,
     
     points: 0,
     pointsExtra: 0,
@@ -71,6 +72,9 @@ const baseEffect = {
     legacyPickCount: 1,
 
     adCooldown: 900,
+    adPointBoost: 4,
+    adShredBoost: 3,
+    adDrawDurationMult: 1,
 }
 
 const flags = {

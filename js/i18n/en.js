@@ -206,8 +206,9 @@ let i18nDefault = i18nStrings.en = {
 
                 ad_title: "“Ad” Booster",
                 ad_effects: {
-                    points_draw: "“Watch” an “ad” and gain {x0} more points for the next {1} {draws}!",
-                    shreds_draw: "“Watch” an “ad” and gain {x0} more shreds for the next {1} {draws}!",
+                    points_draw: "“Watch” an “ad” and gain {x0:1} more points for the next {1} {draws}!",
+                    shreds_draw: "“Watch” an “ad” and gain {x0:1} more shreds for the next {1} {draws}!",
+                    energy_time: "“Watch” an “ad” and gain passive Bulk Energy {x0:1} faster for {1s}!",
                 },
                 ad_cooldown: "New “ads” will become available in {0}",
                 ad_action: "“Watch” “Ad”",
@@ -276,9 +277,9 @@ let i18nDefault = i18nStrings.en = {
 
                 cloud_type_galaxy: "(connected to galaxy)",
                 cloud_loggedOut: "(logged out)",
-                cloud_state_saving: "(saving...)",
-                cloud_state_loading: "(loading...)",
-                cloud_state_checking: "(checking...)",
+                cloud_status_saving: "(saving...)",
+                cloud_status_loading: "(loading...)",
+                cloud_status_checking: "(checking...)",
 
                 language_desc: "Languages other than English may not be 100% finished or accurate.",
                 notation_desc: "Change how large numbers are expressed in the game. The “Default” number format is based on the current language.",
@@ -562,6 +563,15 @@ let i18nDefault = i18nStrings.en = {
             },
         },
         sellResult: {
+            title: "Account Summary",
+            pointHeaders: {
+                obtained: "Obtained",
+            },
+            points: {
+                money: "{0} Money",
+                exp: "{0} Experience",
+                legacyDraw: "{0} Legacy cards",
+            },
             action_continue: "Create New Account",
         },
         complete: {
@@ -754,6 +764,16 @@ let i18nDefault = i18nStrings.en = {
                     desc: "{+0} moon power per gain.",
                     quote: "it is our home"
                 },
+                n6a: {
+                    name: "Buttered Popcorn",
+                    desc: "{+0:1} base point boost from “Ad” Booster.",
+                    quote: "Wait, you're telling me people actually enjoy watching ads!?"
+                },
+                n6b: {
+                    name: "Caramel Popcorn",
+                    desc: "{+0:1} base shred boost from “Ad” Booster.",
+                    quote: "Sweet taste for your sweet ad revenue"
+                },
                 c1: {
                     name: "System 2",
                     desc: "Unlock the Infobook. View your stats and other things, though with a price...",
@@ -830,6 +850,11 @@ let i18nDefault = i18nStrings.en = {
                     name: "College",
                     desc: "{/0:2} <b>Simplification</b> cooldown.",
                     quote: "Teaches students about critical thinking"
+                },
+                n6a: {
+                    name: "Less Frequent Ads",
+                    desc: "“Ad” Booster buffs based on draw count last {0%} longer.",
+                    quote: "Gotta bump those retention numbers"
                 },
                 c1: {
                     name: "pick-it",
@@ -1333,11 +1358,17 @@ let i18nDefault = i18nStrings.en = {
         draw: {
             pointsMult: {
                 name: "Point UP",
-                desc: "Point gains are {x0} for the next {1} draws!",
+                desc: "Point gains are multiplied by {x0:1} for the next {1} draws!",
             },
             shredsMult: {
                 name: "Shred UP",
-                desc: "Shred gains are {x0} for the next {1} draws!",
+                desc: "Shred gains are multiplied by {x0:1} for the next {1} draws!",
+            },
+        },
+        time: {
+            energySpeed: {
+                name: "Supercharged",
+                desc: "Passive Bulk Energy gain is {x0:1} faster for {1s}!",
             },
         },
     },

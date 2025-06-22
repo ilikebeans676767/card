@@ -26,7 +26,22 @@ const buffs = {
                 shredMult: [priority.multiplicative, (x) => x * fx(0)],
             }
         }
-    }
+    },
+    time: {
+        energySpeed: {
+            icons: [
+                "mdi:radar",
+                "material-symbols:bolt-outline-rounded",
+            ],
+            effects: [
+                (args) => args.mult,
+                (args) => args.duration,
+            ],
+            effectors: {
+                energySpeed: [priority.multiplicative, (x) => x * fx(0)],
+            }
+        },
+    },
 }
 
 function addBuff(type, name, args) {
@@ -76,5 +91,5 @@ function updateBuffUI() {
 }
 
 function getBuffEvent(type) {
-    return ["time"].includes(type) ? "frame" : "effect-update";
+    return ["time"].includes(type) ? "frame" : "card-update";
 }

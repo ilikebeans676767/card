@@ -320,14 +320,15 @@ tabs.marketplace = {
             if (flags.unlocked.ad) {
                 let btnHTML, infoHTML;
                 let isCooldown = game.time.adCooldown > 0;
-                self.elms.adBox.$watchBtn.disabled = isCooldown;
-                self.elms.adBox.$watchBtn.classList.toggle("value", !isCooldown);
                 if (isCooldown) {
                     infoHTML = i18n.strings.ad_cooldown(_number(format.time(game.time.adCooldown * effects.adCooldown)));
                     btnHTML = i18n.strings.ad_actionCooldown();
                 } else {
+                    if (self.elms.adBox.$watchBtn.disabled) self.updateUI();
                     btnHTML = _icon("fluent:filmstrip-play-24-regular") + " " + i18n.strings.ad_action();
                 }
+                self.elms.adBox.$watchBtn.disabled = isCooldown;
+                self.elms.adBox.$watchBtn.classList.toggle("value", !isCooldown);
                 if (self.elms.adBox.$watchBtn.innerHTML != btnHTML)
                     self.elms.adBox.$watchBtn.innerHTML = btnHTML;
                 if (infoHTML && self.elms.adBox.$effect.innerHTML != infoHTML)
