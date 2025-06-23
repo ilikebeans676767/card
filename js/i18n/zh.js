@@ -81,6 +81,7 @@ i18nStrings.zh = {
 
         draw: "{Draw}",
         draw_inCooldown: "冷却中",
+        draw_outOfDraws: "没有更多{draws}了...",
         switch: {
             no: "切换到无阵营",
             fire: "切换到火阵营",
@@ -92,6 +93,8 @@ i18nStrings.zh = {
         skills: {
             active: "激活",
         },
+
+        new: "新!",
 
         hint_title: "你有{0}次免费{draws}！",
         hint_desc: "点击下方这个大“{Draw}”按钮开始{drawing}吧！",
@@ -145,6 +148,10 @@ i18nStrings.zh = {
         collection: {
             name: "收藏",
             filters: {
+                type: {
+                    regular: "普通",
+                    legacy: "传承",
+                },
                 rarity: {
                     any: "任意稀有度",
                     n: "<rarity rarity='n'></rarity> 卡牌",
@@ -167,13 +174,47 @@ i18nStrings.zh = {
                     off: "关闭pick-it高级版",
                     on: "显示可升级卡牌",
                 },
+                iris: {
+                    info1: "这里是irisVision提供的数字:",
+                    infoInHand: "左侧的数字表示有多少不同的卡片已经被你抽出了。",
+                    infoInPool: "中间的数字表示有多少不同的卡片已经满足条件，可以被抽出或在商店内买到了。",
+                    infoInGame: "右侧的数字表示有多少不同的卡片可以在本局游戏中被抽出。",
+                    info2: "你可以使用卡片的过滤器来影响这些数字，从而推理出取得仍未发现的卡片所需的行动。",
+                },
             }
         },
         marketplace: {
             name: "市场",
+            subtabs: {
+                meta: "线上市场",
+                ingame: "游戏内商店",
+            },
             headers: {
+                accountMarket: "账号交易所",
                 exCards: "<rarity rarity='ex'></rarity> 卡牌",
-            }
+                boosterPacks: "助力包",
+                cinema: "绝对神作影院",
+            },
+            strings: {
+                sellAccount: "账号收购服务",
+                sellAccount_desc: "我们以极具竞争力的价格购买抽卡游戏账户！",
+                sellAccount_gain: "你将获得:",
+                sellAccount_gain_money: "{0}<br>金钱",
+                sellAccount_gain_exp: "{0}<br>经验",
+                sellAccount_req: "需要 {0} 张卡片 {drawn}",
+                sellAccount_action: "出售账号！",
+                sellAccount_actionLocked: "锁定",
+
+                ad_title: "“广告” 加速",
+                ad_effects: {
+                    points_draw: "“看” 一个 “广告” 来为接下来的 {1} {draws} 获取 {x0:1} 倍更多点数！",
+                    shreds_draw: "“看” 一个 “广告” 来为接下来的 {1} {draws} 获取 {x0:1} 倍更多碎片！",
+                    energy_time: "“看” 一个 “广告” 来为接下来的 {1s} 获取 {x0:1} 倍更多批量能量！",
+                },
+                ad_cooldown: "新的 “广告” 在 {0} 后可用",
+                ad_action: "“看” “广告”",
+                ad_actionCooldown: "冷却中",
+            },
         },
         infobook: {
             name: "信息册",
@@ -237,10 +278,12 @@ i18nStrings.zh = {
 
                 cloud_type_galaxy: "(已连接到galaxy)",
                 cloud_loggedOut: "(已登出)",
-                cloud_state_saving: "(保存中...)",
-                cloud_state_loading: "(加载中...)",
-                cloud_state_checking: "(检查中...)",
+                cloud_status_saving: "(保存中...)",
+                cloud_status_loading: "(加载中...)",
+                cloud_status_checking: "(检查中...)",
 
+                language_desc: "除了英语的其他语言可能不是100%完成的翻译或精确的翻译。中文翻译来源于chen-assert与ajchen（",
+                notation_desc: "更改在游戏中大数的显示方式。 “默认”显示方式基于当前语言。",
                 verb_desc: "更改与{drawing}卡牌相关的动词，如游戏标题和物品描述中的动词。",
                 john_note: "(注意：链接将在此标签页中打开，按住Ctrl点击可避免意外关闭游戏)",
             },
@@ -257,8 +300,8 @@ i18nStrings.zh = {
             desc_error: "发生错误：{0}",
             desc_pleaseWait: "请稍等。",
 
-            action_close: "关闭",
             action_continue: "继续",
+            action_close: "关闭",
         },
         draw: {
             strings: {
@@ -269,6 +312,9 @@ i18nStrings.zh = {
                 pack_count: "{0}<br>张卡牌包",
             },
         },
+        drawLegacy: {
+            title: "选 {0} 张",
+        },
         currency: {
             strings: {
                 amount_have: "(你拥有{0})",
@@ -277,6 +323,27 @@ i18nStrings.zh = {
                 toCap: "(距离上限还有{0})",
                 efficiency: "({0}效率)",
             }
+        },
+        confirm: {
+            sellAccount: {
+                title: "真的要出售账号吗？",
+                desc1: "你将以一个新的账号重新开始游戏， 但你将获得 <b>金钱</b> 与 <b>经验</b> 。",
+                desc2: "<strong>你不能买回你的账号</strong>——游戏将在你出售账号时保存！",
+                confirm: "下次我想要出售账号的时候也询问我",
+
+                list_lose: "你将失去：",
+                list_lose1: "你的普通卡片收集进度",
+                list_lose2: "点数，碎片和阵营的货币",
+                list_lose3: "技能与技能的统计数据",
+
+                list_gain: "你将获得:",
+                list_gainMoney: "{0} 金钱",
+                list_gainExp: "{0} 经验",
+
+
+                action_no: "不，回去",
+                action_yes: "好，出售账号",
+            },
         },
         card: {
             factions: {
@@ -313,6 +380,14 @@ i18nStrings.zh = {
                 star_button: "融合",
                 star_button_cant: "无法融合",
                 star_button_max: "已达最高星级",
+
+                buy_cost: "购买需要：",
+                buy_prompt: "点击以购买。",
+                buy_button: "购买",
+                buy_button_cant: "无法购买",
+
+                legacyDraw_prompt: "点击以挑选这张卡片",
+                legacyDraw_button: "挑",
             }
         },
         skill: {
@@ -324,6 +399,53 @@ i18nStrings.zh = {
                 action_activated: "已激活",
                 action_inCooldown: "冷却中({0})"
             }
+        },
+        pack: {
+            buy_confirm: "你想要购买 “{0}” 吗？",
+            perks: "这个助力包内含：",
+            
+            buy_action_no: "不，回去",
+            buy_action_yes: "以 {0} 的价格购买",
+
+            strings: {
+                pack: "（助力包）",
+            }
+        },
+        buff: {
+            strings: {
+                buff: "(buff)",
+            }
+        },
+        ad: {
+            strings: {
+                sponsored: ["“赞助”", "“宣传”", "“广告”"],
+                taunts: {
+                    generic: [
+                        "完成这一关来提前结束广告",
+                        "我打不到粉色",
+                        "我为了打到粉色出售了我的灵魂",
+                        "最令人放松的游戏！",
+                        "比看起来的要难",
+                        "你："
+                    ],
+                    puzzle: [
+                        "如果你能解开这个谜题，你就是合法的老司机了",
+                        "如果你能解开这个谜题，你就可以合法的提前关闭这个广告了",
+                        "我不认为你能完成谜题",
+                        "我敢打赌你完不成这个谜题",
+                        "你能完成这个谜题吗？",
+                        "我把魂儿都搭进去了才解出来",
+                    ],
+                    completed: [
+                        "你做到了！",
+                        "厉害！",
+                        "恭喜！",
+                    ],
+                }
+            },
+
+            action_close: "关闭“广告”",
+            action_closeIn: "“广告”剩余 {0}",
         },
         badge: {
             strings: {
@@ -399,15 +521,59 @@ i18nStrings.zh = {
                 "(一款尽可能慷慨的扭蛋游戏)",
                 "(你以为一千多次已经很多了)",
                 "<marquee>(看妈妈，我在&lt;marquee&gt;标签里！)</marquee>",
+                "(真是一款『量』惊四座的游戏)",
             ],
             strings: {
                 game: "游戏由{0}制作",
+                openSource: "这个游戏使用 <b>MIT License</b> 开源",
+                viewLicense: "打开许可证",
+                viewSource: "打开源代码",
                 libs: "使用的库：",
                 music: "音乐由{0}制作",
                 music_foot: "(嘿，那是我)",
                 icons: "图标来自通过{0}的各种来源",
-                footer: "(这游戏算是恶搞，因此符合合理使用吗？<br>不知道，我又不是律师)"
+                footer: "(这游戏算是恶搞，因此符合合理使用吗？<br>不知道，我又不是律师)",
+                thanks: "特别感谢：",
+                thanks1: "所有的手机游戏广告",
+                thanks1_foot: "(作为灵感来源)",
             }
+        },
+        offline: {
+            title: "欢迎回来！",
+            desc_time: "你离线了 {0} 。",
+            desc_timeReduced: "(减少至 {0} 的离线进度)",
+            desc_event: "在你不在的时候：",
+            events: {
+                nothing: "没什么有意思的事发生过...",
+                energy: "批量能力从 {0} 变为 {1}",
+                cooldown: "抽卡冷却从 {0} 变为 {1}",
+                skillCooldown: "“{0}” 的冷却从 {1} 变为 {2}",
+                skillStack: "“{0}” 的层数从 {1} 变为 {2}",
+                pickitTime: "pick-it的时间从 {0} 变为 {1}",
+                adCooldown: "“广告”加成的冷却从 {0} 变为 {1}",
+            }
+        },
+        sell: {
+            decor: {
+                username: "用户名",
+                password: "密码",
+                accountSelling: "出售账号中...",
+                accountSold: "账号已出售。",
+                accountNew: "创建新账号中...",
+                accountLogIn: "登入中...",
+            },
+        },
+        sellResult: {
+            title: "账户统计",
+            pointHeaders: {
+                obtained: "取得",
+            },
+            points: {
+                money: "{0} 金钱",
+                exp: "{0} 经验",
+                legacyDraw: "{0} 传承卡片",
+            },
+            action_continue: "创建新账号",
         },
         complete: {
             strings: {
@@ -460,6 +626,15 @@ i18nStrings.zh = {
             name: "月之力",
             quote: "来自月阵营的力量。也被认为拥有控制大地的能力",
         },
+
+        money: {
+            name: "金钱",
+            quote: "这就像是世界上最通用的货币，但居然能在现实中使用！现实中几乎任何有价值的东西都离不开钱的参与！...物价上涨和购买力下降？那是什么？",
+        },
+        exp: {
+            name: "经验",
+            quote: "你通过玩抽卡游戏积累的知识量。我们原本计划让它更真实——指望你真正掌握游戏的每个细节——但如今世界上的一切都被增量游戏机制异化了，连这种东西都变成了可量化、可测量、可消耗的货币了。",
+        },
     },
 
     /**
@@ -469,9 +644,9 @@ i18nStrings.zh = {
         standard: {
             n: {
                 n0: {
-                    name: "无效方块",
+                    name: "无奖励？",
                     desc: "无效果。",
-                    quote: "那个被编程为99%几率被抽中的方块"
+                    quote: "那个被编程为99%几率被抽中的选项"
                 },
                 n1: {
                     name: "单点",
@@ -560,6 +735,11 @@ i18nStrings.zh = {
                     desc: "{+0%}卡牌倍数，但{+1%}抽卡冷却时间和卡包拆解时间。",
                     quote: "卡包接受了一些耐力训练！现在它们更难拆开，但内容增加了！"
                 },
+                n4b: {
+                    name: "反转攻击",
+                    desc: "{+0%}卡牌展示速度。",
+                    quote: "反转，跳过，抽四张"
+                },
                 n5a: {
                     name: "热门趋势",
                     desc: "每次获得{+0}火之力。",
@@ -584,6 +764,16 @@ i18nStrings.zh = {
                     name: "大地",
                     desc: "每次获得{+0}月之力。",
                     quote: "这是我们的家园"
+                },
+                n6a: {
+                    name: "黄油爆米花",
+                    desc: "{+0:1} “广告”的基础点数增幅。",
+                    quote: "等会，你是说真的有人爱看广告！？"
+                },
+                n6b: {
+                    name: "焦糖爆米花",
+                    desc: "{+0:1} “广告”的基础碎片增幅。",
+                    quote: "用甜蜜滋味换你贡献的甜蜜广告收益"
                 },
                 c1: {
                     name: "系统2",
@@ -661,6 +851,11 @@ i18nStrings.zh = {
                     name: "大学",
                     desc: "{/0:2} <b>简化</b>冷却时间。",
                     quote: "教导学生批判性思维"
+                },
+                n6a: {
+                    name: "更少的广告",
+                    desc: "“广告” 基于抽卡次数的增幅效果变长 {0%} 。",
+                    quote: "必须拉满用户留存率"
                 },
                 c1: {
                     name: "强迫症",
@@ -796,10 +991,25 @@ i18nStrings.zh = {
                     desc: "允许<b>爆发</b>技能叠加，最多同时使用{0}次。",
                     quote: "每秒超过9000转"
                 },
+                n1a1: {
+                    name: "吸收",
+                    desc: "{+0%} <b>爆发</b> 技能的时间跳跃和技能冷却时间。",
+                    quote: "更慢，但是更强"
+                },
+                n1a0: {
+                    name: "尘归尘，卡归卡",
+                    desc: "启用火阵营时增加 {+0%} 的卡牌倍数。",
+                    quote: "用树木的灰烬给卡牌附魔，我们怎么没早点想到这个？"
+                },
                 n1b: {
                     name: "沉睡游戏",
                     desc: "当<b>冻结滴落</b>激活时，增加批量功率{+0%}，但减少<b>爆发</b>的时间跳过量相同的百分比。",
-                    quote: "等等，这不是缩写的意思吗？"
+                    quote: "等等，这不是一开始的意思吗？"
+                },
+                n1b0: {
+                    name: "防水卡",
+                    desc: "启用水阵营时增加 {+0%} 的卡牌倍数。",
+                    quote: "现在卡牌再也不会被水泡坏了———想想这能从洪水手里拯救多少的卡牌收藏吧！"
                 },
                 n1c1: {
                     name: "种子挑选",
@@ -811,15 +1021,30 @@ i18nStrings.zh = {
                     desc: "<b>肥料</b>还会增加基础碎片获取{+0%}。",
                     quote: "这是植物渴望的东西"
                 },
+                n1c0: {
+                    name: "家种树场",
+                    desc: "启用草阵营时增加 {+0%} 的卡牌倍数。",
+                    quote: "把马里兰(Maryland)带回家"
+                },
                 n1d: {
                     name: "粘性卡牌",
                     desc: "在<b>光合作用</b>激活时{drawn}的阵营卡牌有{0%}几率复制自身。",
-                    quote: "实际上是两张卡牌粘在一起，为什么这里有这么多？"
+                    quote: "实际上是两张卡牌粘在一起，为什么这里有这么多？"  
+                },
+                n1d0: {
+                    name: "超亮炫彩卡纸",
+                    desc: "启用日阵营时增加 {+0%} 的卡牌倍数。",
+                    quote: "采用难以置信的99.9999%国际认证亮面处理以打造太阳系最闪亮的卡牌，保证让您的卡片成为本恒星系最耀眼的存在！"
                 },
                 n1e: {
                     name: "协同作用",
                     desc: "<b>简化</b>的基础增益效果获得<rarity rarity=n></rarity><b>卡包</b>效果的{^0:1}。<br>(当前：{+1})",
-                    quote: "天哪，这是协同作用的引用吗？？？？？"
+                    quote: "天哪，这是synergism的哏吗？？？？？"
+                },
+                n1e0: {
+                    name: "至暗深渊墨水",
+                    desc: "启用月阵营时增加 {+0%} 的卡牌倍数。",
+                    quote: "Vantablack在这墨水面前都相形见绌"
                 }
             },
             ex: {
@@ -833,6 +1058,11 @@ i18nStrings.zh = {
                     desc: "无用的重复卡牌会被粉碎成一种叫做碎片的新货币，包括皇冠卡牌和最高星级卡牌。",
                     quote: "假装什么都没发生过"
                 },
+                offline: {
+                    name: "真·挂机",
+                    desc: "允许批量能量在离线时也继续增长，但 {0} 分钟离线后进度将被削减",
+                    quote: "工作忙到窒息？我这有张为你量身定制的卡片..."
+                },
                 faction: {
                     name: "过度使用的阵营系统",
                     desc: "解锁阵营。使用阵营{draws}获取阵营货币和特定阵营的卡牌。(阵营货币有小概率出现。)",
@@ -843,9 +1073,14 @@ i18nStrings.zh = {
                     desc: "解锁筛选可升级卡牌的能力，尽管只能使用有限时间。",
                     quote: "你可以直接找到你想看的内容。没有任何阻碍。pick-it高级版将拓宽并深化你的卡牌浏览热情。"
                 },
+                iris: {
+                    name: "irisVision",
+                    desc: "解锁在收藏页面查看卡牌收集进度的能力。",
+                    quote: "irisVision的工作原理是通过搜索游戏的在线数据库来显示卡池中所有可用卡牌。你*当然可以*直接在网上查这些信息，但那样就享受不到<rarity rarity='ssr'></rarity>皇家垃圾之类的卡牌带来的加成了..."
+                },
                 skills: {
                     name: "连击",
-                    desc: "解锁主动技能。(单独技能通过阵营{drawing}解锁。)",
+                    desc: "解锁主动技能。(技能仍需通过阵营{drawing}获得相应卡牌解锁。)",
                     quote: "↑↑↓↓←→←→BA"
                 },
                 skills2: {
@@ -853,6 +1088,77 @@ i18nStrings.zh = {
                     desc: "解锁减少技能冷却时间的卡牌。",
                     quote: "你知道吗，越早学习无咒语魔法越容易掌握？"
                 }
+            }
+        },
+        standard_legacy: {
+            n: {
+                n0: {
+                    name: "更华丽的点",
+                    desc: "{+0%} 点数获取。",
+                    quote: "现在你的点可以戴帽子了！戴帽子的点比平常的点价值更高"
+                },
+                n1: {
+                    name: "军工碎纸机",
+                    desc: "{+0%} 碎片获取。",
+                    quote: "专为粉碎绝密卡牌设计，真正实现毁尸灭迹！碎的越碎，碎片越多！"
+                },
+                n2: {
+                    name: "祖传血统",
+                    desc: "{+0%} 所有阵营的货币获取。",
+                    quote: "我才知道我爸是一个非常受人尊敬的欧米茄卡片玩家"
+                },
+                n2a: {
+                    name: "Scroll of Flame",
+                    desc: "{+0%} fire power gains.",
+                    quote: "WIP"
+                },
+                n2b: {
+                    name: "Scroll of Waves",
+                    desc: "{+0%} water power gains.",
+                    quote: "WIP"
+                },
+                n2c: {
+                    name: "Scroll of Plants",
+                    desc: "{+0%} leaf power gains.",
+                    quote: "WIP"
+                },
+                n2d: {
+                    name: "Scroll of Light",
+                    desc: "{+0%} sun power gains.",
+                    quote: "WIP"
+                },
+                n2e: {
+                    name: "Scroll of Tranquillity",
+                    desc: "{+0%} moon power gains.",
+                    quote: "WIP"
+                },
+                n3: {
+                    name: "灵力获取器",
+                    desc: "{+0%} 所有阵营的力量获取几率。",
+                    quote: "从远古空间获取灵力"
+                },
+            },
+            ex: {
+                legacy: {
+                    name: "欧米茄卡传承",
+                    desc: "解锁可在账户间转移的传承卡牌。当你获得此卡或出售账户时，可从 {1} 张传承卡中选择 {0} 张加入收藏。",
+                    quote: "将此卡撕成碎片。从至少1.5米外把碎片抛向游戏区域。碎片碰到的所有东西都将永久归你所有。把卡牌和众人同时投来的怪异目光收集起来，放进你的抽牌堆底部。"
+                },
+                zip: {
+                    name: "7Stack",
+                    desc: "在{draw}视图中将重复卡牌分组。 将 <rarity rarity='ex'></rarity> <b>StackRAR</b> 卡从商店移除。",
+                    quote: "都第41天了"
+                },
+                pickit: {
+                    name: "卡牌套房",
+                    desc: "直接解锁 <rarity rarity='sr'></rarity> <b>pick-it</b> 和 <rarity rarity='ex'></rarity> <b>irisVision</b> 的卡牌筛选与进度查看功能，但这两张卡牌将不再出现在游戏中。",
+                    quote: "公告：这个广受欢迎的生活质量改善功能现已免费开放！<br/>※不过卡片人气排序功能仍需按月付费"
+                },
+                ads: {
+                    name: "你就是商品",
+                    desc: "解锁“看”“广告”获取暂时增幅的能力。",
+                    quote: "T̴̡̅̓ḧ̵̩́͌e̴̪̼̐͌r̴̼̉é̶͚'̷͎͗s̵̗̎̿ ̸̩͝ń̴̹̣̓o̴̜͒ ̶͙̪̐ȅ̶͔̰s̴̡̨͋c̷̪͑̄a̵̢̞̐́p̴͕̟̈́̊e̸͖̫̋͠"
+                },
             }
         }
     },
@@ -883,6 +1189,20 @@ i18nStrings.zh = {
         },
     },
 
+    packs: {
+        standard: {
+            legacy: {
+                name: "传承扩展包",
+                desc: 
+                    "用全新的<strong><i>可转移卡牌</i></strong>解锁全新玩法！<br>" +
+                    "包含不是一张，不是两张，而是<strong><i>整整四张</i></strong>专属<rarity rarity='ex'></rarity>卡牌！",
+                perks: [
+                    "四张全新<rarity rarity='ex'></rarity>卡牌"
+                ]
+            }
+        },
+    },
+
     /**
      * Strings related to stat entries.
      */
@@ -890,8 +1210,22 @@ i18nStrings.zh = {
         general: {
             name: "通用",
             items: {
-                timePlayed: {
+                timeProgress: {
                     name: "游戏时间",
+                },
+                timePlayed: {
+                    name: "在线游戏时间",
+                },
+            }
+        },    
+        legacy: {
+            name: "传承", 
+            items: {
+                accountsSold: {
+                    name: "账号出售次数",
+                },
+                legacyCardsDrawn: {
+                    name: "传承卡牌{drawn}",
                 },
             }
         },
@@ -1018,6 +1352,28 @@ i18nStrings.zh = {
         }
     },
 
+    /** 
+     * Strings related to buffs, such as their names or descriptions.
+    */
+    buffs: {
+        draw: {
+            pointsMult: {
+                name: "点数UP",
+                desc: "下 {1} 抽点数获取增加 {x0:1} ！",
+            },
+            shredsMult: {
+                name: "碎片UP",
+                desc: "下 {1} 抽碎片获取增加 {x0:1} ！",
+            },
+        },
+        time: {
+            energySpeed: {
+                name: "超充能",
+                desc: "{1s} 内被动批量点数获取增加 {x0:1} ！",
+            },
+        },
+    },
+
     /**
      * Strings related to badges, such as their names or descriptions.
      */
@@ -1056,11 +1412,19 @@ i18nStrings.zh = {
         },
         24: {
             name: "安全无忧",
-            desc: "手动将游戏数据保存到云端，或导出你的存档。",
+            desc: "手动将游戏数据保存到云端，或导出你的存档。",        
+        },
+        25: {
+            name: "整整两季",
+            desc: "游玩相当于24集动画长度的时间。",
         },
         31: {
             name: "想购买更多{draws}吗？",
             desc: "用完你的一万亿次免费{draws}。",
+        },
+        32: {
+            name: "阴魂不散的成就",
+            desc: "“看”一个“广告”。",
         },
     },
 
@@ -1113,6 +1477,64 @@ i18nStrings.zh = {
                 ["image", "7"],
                 ["text", "...你肯定要在这里待上一段时间。"],
             ]
-        }
+        },
+        2: {
+            name: "免费试用已结束",
+            directives: [
+                ["image", "1"],
+                ["text", "..."],
+                ["image", "2"],
+                ["text", "...等会，这就没了？"],
+                ["image", "1"],
+                ["text", "..."],
+                ["image", "2"],
+                ["text", "...好吧，这就没了！"],
+                ["image", "3"],
+                ["text", "一万亿次免费抽卡，全用光了！"],
+                ["text", "这比你想的要快得多。"],
+                ["text", "一开始你还觉得，一张一张的抽，这辈子都抽不完这么多次卡。"],
+                ["image", "1"],
+                ["text", "...不过现在，你还能干啥呢？"],
+                ["text", "既然没有抽卡次数了，游戏里也没剩多少可玩的了。"],
+                ["text", "这游戏里的一切都跟抽卡挂钩，但你再也不能那么干了，整个游戏只剩了个索然无味的界面。"],
+                ["text", "你不能就充钱买更多抽卡次数，试着交房租和晚饭就已经把你的最后一分钱花干净了！"],
+                ["text", "..."],
+                ["text", "除非..."],
+                ["image", "4"],
+                ["text", "...你去干那事..."],
+            ]
+        },
+        3: {
+            name: "New Game+",
+            directives: [
+                ["image", "1"],
+                ["text", "好了，现在你有点小钱了—但代价是什么？"],
+                ["text", "丢掉你辛辛苦苦肝的所有进度，回到开头？"],
+                ["image", "2"],
+                ["text", "..."],
+                ["image", "3"],
+                ["text", "...仔细想想的话好像也没那么差。"],
+                ["text", "至少你能重新拿到新手送的一万亿抽卡次数。"],
+                ["text", "用现在这点启动资金买个新手礼包加速进度..."],
+                ["text", "...就能更快挥霍完这一万亿抽，然后更快把账号卖掉套现。"],
+                ["text", "多循环几次，说不定就能赚够足够钱糊口！甚至说，发家致富走向人生巅峰！"],
+                ["image", "4"],
+                ["text", "...你确实没预料到游戏账号黑市规模如此庞大"],
+                ["text", "嘛，毕竟在法律灰色地带，倒卖抽卡账号根本没人管"],
+                ["text", "听说政府还立法禁止游戏公司封禁卖号行为呢！"],
+                ["text", "在这个机器人抢走所有正经工作的年代，这居然成了个新兴职业。"],
+                ["image", "5"],
+                ["text", "...是时候开启新一轮抽卡之旅了？"],
+            ]
+        },
     },
+
+    ads: {
+        minigames: {
+            sort: {
+                action_undo: "撤销",
+                action_restart: "重置",
+            }
+        }
+    }
 }
