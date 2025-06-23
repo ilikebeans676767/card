@@ -81,6 +81,7 @@ i18nStrings.zh = {
 
         draw: "{Draw}",
         draw_inCooldown: "冷却中",
+        draw_outOfDraws: "没有更多{draws}了...",
         switch: {
             no: "切换到无阵营",
             fire: "切换到火阵营",
@@ -92,6 +93,8 @@ i18nStrings.zh = {
         skills: {
             active: "激活",
         },
+
+        new: "新!",
 
         hint_title: "你有{0}次免费{draws}！",
         hint_desc: "点击下方这个大“{Draw}”按钮开始{drawing}吧！",
@@ -275,9 +278,9 @@ i18nStrings.zh = {
 
                 cloud_type_galaxy: "(已连接到galaxy)",
                 cloud_loggedOut: "(已登出)",
-                cloud_state_saving: "(保存中...)",
-                cloud_state_loading: "(加载中...)",
-                cloud_state_checking: "(检查中...)",
+                cloud_status_saving: "(保存中...)",
+                cloud_status_loading: "(加载中...)",
+                cloud_status_checking: "(检查中...)",
 
                 language_desc: "除了英语的其他语言可能不是100%完成的翻译或精确的翻译。中文翻译来源于chen-assert与ajchen（",
                 notation_desc: "更改在游戏中大数的显示方式。 “默认”显示方式基于当前语言。",
