@@ -28,7 +28,7 @@ tabs.collection = {
             this.updateCards();
         }));
         hozHolder.className = "tab-buttons";
-        registerHorizonalScrollWheel(hozHolder);
+        registerHorizontalScrollWheel(hozHolder);
         holder.append(hozHolder);
 
         let content = this.elms.content = $make("div.subtab-content");
@@ -36,6 +36,7 @@ tabs.collection = {
         holder.append(content);
 
         let filters = this.elms.filters = $make("div.card-filters");
+        registerHorizontalScrollWheel(filters);
         content.append(filters);
 
         filters.append(this.elms.filterRarity = hozHolder = createChoiceGroup({

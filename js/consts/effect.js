@@ -2,6 +2,7 @@ const baseEffect = {
     bulk: 1,
     bulkPower: 0,
     bulkMult: 1,
+    bulkMultBonus: 1,
 
     cardRChance: 1e-3,
     cardSRChance: 0.99999e-5,

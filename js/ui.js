@@ -36,7 +36,7 @@ function _number(inside) {
 
 function initUI() {
     elms.currencies = $("#currencies");
-    registerHorizonalScrollWheel(elms.currencies);
+    registerHorizontalScrollWheel(elms.currencies);
     let hozHolder;
     elms.currencies.append(elms.currencies.$moneyExp = hozHolder = $make("div.hoz-group.margin-bottom"));
     hozHolder.append(elms.currencies.$money = createCurrencyUI("money"));
@@ -252,14 +252,23 @@ function registerInfoButton(elm, text) {
 }
 
 /** @param {HTMLElement} elm */
-function registerHorizonalScrollWheel(elm) {
+function registerHorizontalScrollWheel(elm) {
     elm.addEventListener("wheel", (e) => {
-        if (elm.scrollWidth > elm.clientWidth && elm.scrollHeight <= elm.clientHeight) {
+        if (elm.scrollWidth > elm.clientWidth && elm.scrollHeight <= elm.clientHeight && !e.shiftKey) {
+            console.log("scrolling", elm)
             e.preventDefault();
-            elm.scrollBy({
+            let now = Date.now();
+            let lastScroll = now - elm._scroll?.scrollTime < 100 ? elm._scroll.scrollTarget : elm.scrollLeft;
+            let scrollTarget = lastScroll + [1, 10, elm.clientWidth][e.deltaMode] * e.deltaY;
+            elm.scrollTo({
                 behavior: "smooth",
-                left: [0, 16, elm.clientWidth][e.deltaMode] * e.deltaY
+                left: scrollTarget
             })
+            elm._scroll = {
+                scrollTarget,
+                scrollTime: now
+            }
+            console.log("scrolling", elm, "to", scrollTarget)
         }
     })
 }

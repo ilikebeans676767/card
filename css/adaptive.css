@@ -205,13 +205,13 @@
         grid-template-columns: 1fr;
     }
 
-    .ad-popup > div > .info > div:first-child span {
+    .notad-popup > div > .info > div:first-child span {
         display: none;
         font-size: 0;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
     .tab-buttons > button {
         font-size: 0;
         width: 50px;

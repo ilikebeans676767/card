@@ -349,7 +349,7 @@
 }
 .buff-holder .buff {
     position: relative;
-    background: var(--background-1);
+    background: conic-gradient(var(--background-1) calc(100% * var(--progress)), var(--background-0) calc(100% * var(--progress))) no-repeat;
     border: 1px solid var(--border-0);
     border-radius: 5px;
     aspect-ratio: 1;

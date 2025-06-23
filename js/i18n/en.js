@@ -545,7 +545,7 @@ let i18nDefault = i18nStrings.en = {
             events: {
                 nothing: "Nothing particularly interesting happened...",
                 energy: "Bulk energy changed from {0} to {1}",
-                cooldown: "Draw cooldown changed from {0} to {1}",
+                cooldown: "{Draw} cooldown changed from {0} to {1}",
                 skillCooldown: "“{0}” cooldown changed from {1} to {2}",
                 skillStack: "“{0}” stack changed from {1} to {2}",
                 pickitTime: "pick-it time changed from {0} to {1}",
@@ -741,27 +741,27 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n5a: {
                     name: "Trending",
-                    desc: "{+0} fire power per gain.",
+                    desc: "{+0} base fire power gain.",
                     quote: "ah,<br>that's hot,<br>..., that's hot"
                 },
                 n5b: {
                     name: "Ocean",
-                    desc: "{+0} water power per gain.",
+                    desc: "{+0} base water power gain.",
                     quote: "i'm blue da be dee da be die"
                 },
                 n5c: {
                     name: "Forest",
-                    desc: "{+0} leaf power per gain.",
+                    desc: "{+0} base leaf power gain.",
                     quote: "team trees ftw"
                 },
                 n5d: {
                     name: "Air",
-                    desc: "{+0} sun power per gain.",
+                    desc: "{+0} base sun power gain.",
                     quote: "feel the breath"
                 },
                 n5e: {
                     name: "Earth",
-                    desc: "{+0} moon power per gain.",
+                    desc: "{+0} base moon power gain.",
                     quote: "it is our home"
                 },
                 n6a: {
@@ -854,7 +854,7 @@ let i18nDefault = i18nStrings.en = {
                 n6a: {
                     name: "Less Frequent Ads",
                     desc: "“Ad” Booster buffs based on draw count last {0%} longer.",
-                    quote: "Gotta bump those retention numbers"
+                    quote: "Apprarently there was a limit on how much we could spam ads to players before it starts being counter-productive and drive people away from our game. Maybe we should try reducing the frequency where player watch ads?"
                 },
                 c1: {
                     name: "pick-it",
@@ -935,12 +935,12 @@ let i18nDefault = i18nStrings.en = {
                 },
                 s_water_1: {
                     name: "Slow, but Steady",
-                    desc: "{+0%} card multiplier while <b>Freeze Drop</b> is active.",
+                    desc: "{+0%} bonus card multiplier while <b>Freeze Drop</b> is active.",
                     quote: "Better be slow to be sure"
                 },
                 s_water_2: {
                     name: "Top of the Mountain",
-                    desc: "{+0%} <b>Freeze Drop</b>'s energy cap boost, but {+1%} card multiplier when energy cap is reached while <b>Freeze Drop</b> is active.",
+                    desc: "You draw {+1%} more cards when energy cap is reached while <b>Freeze Drop</b> is active.<br>{+0%} <b>Freeze Drop</b>'s energy cap boost.",
                     quote: "🍓"
                 },
                 s_leaf: {
@@ -1134,6 +1134,11 @@ let i18nDefault = i18nStrings.en = {
                 n3: {
                     name: "Mana Gatherer",
                     desc: "{+0%} faction power chance.",
+                    quote: "Collects mana power from ambient space"
+                },
+                n4: {
+                    name: "Starting Deck",
+                    desc: "{+0} base bulk.<br>{+0} card multiplier.",
                     quote: "Collects mana power from ambient space"
                 },
             },

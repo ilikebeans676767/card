@@ -47,10 +47,10 @@ popups.offline = {
             } else if (event == "skillStack") {
                 continue;
             } else if (oldStats[event] != newStats[event]) {
-                list.append($makeHTML("li", i18n.events[event](
+                list.append($makeHTML("li", verbify(i18n.events[event](
                     _number(oldStats[event]), 
                     _number(newStats[event])
-                )));
+                ))));
             }
         }
         if (list.childCount <= 0) {

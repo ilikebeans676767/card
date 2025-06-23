@@ -19,7 +19,7 @@ tabs.marketplace = {
             this.rebuildUI();
         });
         tabButtons.className = "tab-buttons";
-        registerHorizonalScrollWheel(tabButtons);
+        registerHorizontalScrollWheel(tabButtons);
         holder.append(tabButtons);
 
         let content = this.elms.content = $make("div.subtab-content");

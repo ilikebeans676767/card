@@ -25,7 +25,7 @@ tabs.infobook = {
             this.updateSubtab();
         });
         tabButtons.className = "tab-buttons";
-        registerHorizonalScrollWheel(tabButtons);
+        registerHorizontalScrollWheel(tabButtons);
         holder.append(tabButtons);
 
         let indicator = this.elms.indicator = $make("div.page-indicators");

@@ -276,8 +276,8 @@ function updateEffects(silent = false) {
     // Skill effects
     if (game.drawPref.skills.water) {
         effects.energyCap *= effects.skillWaterGain;
-        effects.bulkMult *= effects.skillWaterCard;
-        effects.bulkPower *= effects.skillWaterSpeed;
+        effects.bulkMultBonus *= effects.skillWaterCard;
+        effects.energySpeed *= effects.skillWaterSpeed;
         effects.skillFireSkip /= effects.skillWaterSpeed;
     }
     if (game.drawPref.skills.leaf) {
@@ -571,7 +571,7 @@ function getDrawCooldown() {
 
 function getDrawAmount() {
     let count = Math.floor(effects.bulk) + getUsedEnergy();
-    count = Math.floor(count * effects.bulkMult);
+    count = Math.floor(count * effects.bulkMult * effects.bulkMultBonus);
     if (game.drawPref.skills.water && game.res.energy >= effects.energyCap) count = Math.floor(count * effects.skillWaterCard2);
     if (game.drawPref.faction) count = Math.floor(count * effects[game.drawPref.faction + "DrawMult"]);
     count = Math.min(count, MAX_CARDS - game.stats.cardsDrawn);
