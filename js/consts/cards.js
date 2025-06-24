@@ -289,6 +289,7 @@ const cards = {
             },
             "n6b": {
                 available: () => flags.unlocked.ad,
+                condition: () => flags.unlocked.shreds,
                 pMult: 0.08,
                 levelCost: [1e6, 10, "shreds"],
                 starCost: x => cardStarCost.standard.n(x, 3),
@@ -297,6 +298,19 @@ const cards = {
                 ],
                 effectors: {
                     adShredBoost: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n6c": {
+                available: () => flags.unlocked.ad,
+                condition: () => flags.unlocked.faction,
+                pMult: 0.06,
+                levelCost: [10, 10, "leaf"],
+                starCost: x => cardStarCost.standard.n(x, 3),
+                effects: [
+                    (level, star) => (level + 4) * (2 ** star) * 0.05,
+                ],
+                effectors: {
+                    adFactionBoost: [priority.additive, (x) => x + fx(0)],
                 }
             },
             "c1": {
@@ -482,6 +496,18 @@ const cards = {
                 ],
                 effectors: {
                     adDrawDurationMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n6b": {
+                available: () => flags.unlocked.ad,
+                pMult: 0.1,
+                levelCost: [100, 100, "shreds"],
+                starCost: x => cardStarCost.standard.r(x, 1),
+                effects: [
+                    (level, star) => (level + 4) * (star) * 5,
+                ],
+                effectors: {
+                    adTimeDurationMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
             "c1": {
@@ -957,6 +983,20 @@ const cards = {
                 },
                 effects: [],
                 effectors: {}
+            },
+            "autobuy": {
+                available: () => game.stats.accountsSold > 0,
+                condition: () => flags.unlocked.pickit,
+                crown: true,
+                buyCost: () => {
+                    return [55e6, "shreds"];
+                },
+                effects: [
+                    () => 30,
+                ],
+                effectors: {
+                    autobuySpeed: [priority.additive, (x) => x + fx(0)],
+                }
             },
             "iris": {
                 available: () => !hasCard("standard_legacy", "ex", "pickit"),

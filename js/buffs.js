@@ -25,6 +25,19 @@ const buffs = {
             effectors: {
                 shredMult: [priority.multiplicative, (x) => x * fx(0)],
             }
+        },
+        factionMult: {
+            icons: [
+                "mynaui:fat-arrow-up-solid",
+                "majesticons:bookmark-line",
+            ],
+            effects: [
+                (args) => args.mult,
+                (args) => args.duration,
+            ],
+            effectors: {
+                factionMult: [priority.multiplicative, (x) => x * fx(0)],
+            }
         }
     },
     time: {

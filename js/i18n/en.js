@@ -208,6 +208,7 @@ let i18nDefault = i18nStrings.en = {
                 ad_effects: {
                     points_draw: "“Watch” an “ad” and gain {x0:1} more points for the next {1} {draws}!",
                     shreds_draw: "“Watch” an “ad” and gain {x0:1} more shreds for the next {1} {draws}!",
+                    faction_draw: "“Watch” an “ad” and gain {x0:1} more faction power for the next {1} {draws}!",
                     energy_time: "“Watch” an “ad” and gain passive Bulk Energy {x0:1} faster for {1s}!",
                 },
                 ad_cooldown: "New “ads” will become available in {0}",
@@ -774,6 +775,11 @@ let i18nDefault = i18nStrings.en = {
                     desc: "{+0:1} base shred boost from “Ad” Booster.",
                     quote: "Sweet taste for your sweet ad revenue"
                 },
+                n6c: {
+                    name: "Chocolate Popcorn",
+                    desc: "{+0:1} base faction power boost from “Ad” Booster.",
+                    quote: "Dirty taste for your dirty money"
+                },
                 c1: {
                     name: "System 2",
                     desc: "Unlock the Infobook. View your stats and other things, though with a price...",
@@ -855,6 +861,11 @@ let i18nDefault = i18nStrings.en = {
                     name: "Less Frequent Ads",
                     desc: "“Ad” Booster buffs based on draw count last {0%} longer.",
                     quote: "Apprarently there was a limit on how much we could spam ads to players before it starts being counter-productive and drive people away from our game. Maybe we should try reducing the frequency where player watch ads?"
+                },
+                n6b: {
+                    name: "Longer Ad Boosts",
+                    desc: "“Ad” Booster buffs based on time last {0%} longer.",
+                    quote: "We can now leech off players from those “Watch ads for 10 seconds of boost” games"
                 },
                 c1: {
                     name: "pick-it",
@@ -1072,6 +1083,11 @@ let i18nDefault = i18nStrings.en = {
                     desc: "Unlock the pick-it Premium sorting, which sorts cards by cheapest upgrade price first and filters out un-upgradable cards, albeit for a limited time.",
                     quote: "You can go right to what you want to see. Nothing to get in your way. pick-it Premium will widen and deepen your card-browsing passions."
                 },
+                autobuy: {
+                    name: "Auto-Buyer",
+                    desc: "While pick-it Premium is active, automatically upgrade the first upgradeable card in the collection {0} times per second.",
+                    quote: "Talk about irresponsible spending"
+                },
                 iris: {
                     name: "irisVision",
                     desc: "Unlock the ability to view your card collection progress on the Collection tab.",
@@ -1139,7 +1155,7 @@ let i18nDefault = i18nStrings.en = {
                 n4: {
                     name: "Starting Deck",
                     desc: "{+0} base bulk.<br>{+0} card multiplier.",
-                    quote: "Collects mana power from ambient space"
+                    quote: "Obviously you need a way to properly start your card collecting journey!... Would you like to buy this started deck?"
                 },
             },
             ex: {
@@ -1368,6 +1384,10 @@ let i18nDefault = i18nStrings.en = {
             shredsMult: {
                 name: "Shred UP",
                 desc: "Shred gains are multiplied by {x0:1} for the next {1} draws!",
+            },
+            factionMult: {
+                name: "Power UP",
+                desc: "Faction power gains are multiplied by {x0:1} for the next {1} draws!",
             },
         },
         time: {

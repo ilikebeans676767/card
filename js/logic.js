@@ -1,5 +1,7 @@
 const MAX_CARDS = 1e12;
 
+let autobuyTime = 0;
+
 function onFrame() {
     game.stats.timePlayed += delta / 1000;
 
@@ -59,6 +61,30 @@ function onFrame() {
             game.time.pickit = 0;
             if (tabs.collection.elms.pickit) tabs.collection.elms.pickit.childNodes[0].click();
             else tabs.collection.filters.pickit = false;
+        }
+        if (effects.autobuySpeed) {
+            autobuyTime += delta / 1000 * effects.autobuySpeed;
+            let autobuyCount = Math.floor(autobuyTime);
+            autobuyTime -= autobuyCount;
+            let upgradedAny = false;
+            for (let elm of tabs.collection.cardList) {
+                let [pack, rarity, id] = elm;
+                let canBought = getCardLevelMax(pack, rarity, id);
+                console.log("Buying", canBought, "of", pack, rarity, id);
+                if (canBought > 0) {
+                    canBought = Math.min(canBought, autobuyCount);
+                    autobuyCount -= canBought;
+                    game.stats.autobuyBought += canBought;
+                    levelUpCard(pack, rarity, id, canBought, false, false);
+                    upgradedAny = true;
+                }
+                if (autobuyCount <= 0) break;
+            }
+            if (upgradedAny) {
+                updateEffects();
+                updateUnlocks();
+                emit("card-upgrade");
+            }
         }
     }
     if (flags.unlocked.money) {
@@ -602,10 +628,10 @@ function getCardLevelMax(pack, rarity, id) {
     let data = cards[pack][rarity][id];
     let state = game.cards[pack]?.[rarity]?.[id];
     if (!state || !data.levelCost) return 0;
-    let [base, rate, res] = data.levelCost;
+    let [base, rate, res = "points"] = data.levelCost;
     return maxGeometricSeries(base, rate, game.res[res], state.level - 1);
 }
-function levelUpCard(pack, rarity, id, amount = 1, shouldEmit = true) {
+function levelUpCard(pack, rarity, id, amount = 1, shouldEmit = true, shouldSave = true) {
     let cost = getCardLevelCost(pack, rarity, id, amount);
     if (game.res[cost[1]] < cost[0]) return;
     game.res[cost[1]] -= cost[0];
@@ -615,6 +641,8 @@ function levelUpCard(pack, rarity, id, amount = 1, shouldEmit = true) {
         updateEffects();
         updateUnlocks();
         emit("card-upgrade");
+    }
+    if (shouldSave) {
         saveGame();
     }
 }

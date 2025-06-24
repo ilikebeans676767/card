@@ -40,6 +40,7 @@ function getNewGame() {
             cardsDrawn: 0,
             skillsUsed: {},
             reactionCount: 0,
+            autobuyBought: 0,
 
             accountsSold: 0,
             legacyCardsDrawn: 0,

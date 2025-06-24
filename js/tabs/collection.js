@@ -4,6 +4,7 @@ tabs.collection = {
 
     subtab: "regular",
     cards: {},
+    cardList: [],
     elms: {},
     filters: {
         rarity: "",
@@ -131,6 +132,7 @@ tabs.collection = {
     },
     onDestroy() {
         this.cards = {};
+        this.cardList = [];
         this.elms = {};
         this.filters.pickit = "";
         removeEvent("frame", this.onFrame);
@@ -146,7 +148,7 @@ tabs.collection = {
 
     updateCards() {
         let destroyingCards = {...this.cards};
-        let cardList = [];
+        let cardList = this.cardList = [];
         let pack = {
             regular: "standard",
             legacy: "standard_legacy",
