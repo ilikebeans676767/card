@@ -1130,27 +1130,27 @@ let i18nDefault = i18nStrings.en = {
                 n2a: {
                     name: "Scroll of Flame",
                     desc: "{+0%} fire power gains.",
-                    quote: "WIP"
+                    quote: "Chapter 2, Section 18:<br>Your body radiates magic in the form of heat inside your body."
                 },
                 n2b: {
                     name: "Scroll of Waves",
                     desc: "{+0%} water power gains.",
-                    quote: "WIP"
+                    quote: "Chapter 2, Section 21:<br>Soak your feet in water. Do you feel colder? That's because water can absorb magic faster than any other materials."
                 },
                 n2c: {
                     name: "Scroll of Plants",
                     desc: "{+0%} leaf power gains.",
-                    quote: "WIP"
+                    quote: "Chapter 2, Section 27:<br>Feel the movement of the ground below you. Tiny little movement does matter."
                 },
                 n2d: {
                     name: "Scroll of Light",
                     desc: "{+0%} sun power gains.",
-                    quote: "WIP"
+                    quote: "Chapter 2, Section 32:<br>Try to think about your idea of a world everybody would like to live in."
                 },
                 n2e: {
                     name: "Scroll of Tranquillity",
                     desc: "{+0%} moon power gains.",
-                    quote: "WIP"
+                    quote: "Chapter 2, Section 36:<br>Close your eyes. Try to ignore all surrounding sounds. Feel the calmness from the soul inside you."
                 },
                 n3: {
                     name: "Mana Gatherer",
@@ -1160,7 +1160,7 @@ let i18nDefault = i18nStrings.en = {
                 n4: {
                     name: "Starting Deck",
                     desc: "{+0} base bulk.<br>{+0} card multiplier.",
-                    quote: "Obviously you need a way to properly start your card collecting journey!... Would you like to buy this started deck?"
+                    quote: "Obviously you need a way to properly start your card collecting journey!... Would you like to buy this starter deck?"
                 },
             },
             ex: {
