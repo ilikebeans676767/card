@@ -622,6 +622,19 @@ const cards = {
                     pointsMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
                 }
             },
+            "n1d2": {
+                faction: "moon",
+                available: () => game.stats.accountsSold > 0,
+                condition: () => game.stats.autobuyBought > 0,
+                starDiff: 0.5,
+                effects: [
+                    (level, star) => game.stats.autobuyBought,
+                    (level, star) => fx(0) ** (star * .1 + .9),
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
             "n1e": {
                 condition: () => flags.unlocked.skills && game.flags.statUnlocks.skills?.reaction,
                 pMult: 0.7,

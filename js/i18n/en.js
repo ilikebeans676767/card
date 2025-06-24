@@ -919,6 +919,11 @@ let i18nDefault = i18nStrings.en = {
                     desc: "Gain more Points based on the total amount of stat entries you've unlocked.<br>(Currently: {0} entries ⇒ {+1%} point gain)",
                     quote: "1 ^ 2 + 3 = 4"
                 },
+                n1d2: {
+                    name: "Black Fridays",
+                    desc: "Gain more Points based on the total amount of level ups made with pick-it Premium.<br>(Currently: {0} times ⇒ {+1%} point gain)",
+                    quote: "Buy them while the sale still lasts!"
+                },
                 n1e: {
                     name: "Weirdly AI-Generated Checkerboard Floor to Question Reality to",
                     desc: "Gain more Shreds based on the total amount of skill reactions you've done.<br>(Currently: {0} reactions ⇒ {+1%} shred gain)",
