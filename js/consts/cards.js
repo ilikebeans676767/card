@@ -853,6 +853,7 @@ const cards = {
                     (level, star) => level * [0, 10, 20, 36, 55, 80][star],
                 ],
                 effectors: {
+                    bulkPower: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                     skillWaterSpeed: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
