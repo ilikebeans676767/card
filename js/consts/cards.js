@@ -203,10 +203,10 @@ const cards = {
                 }
             },
             "n4b": {
-                condition: () => flags.unlocked.zip,
+                condition: () => flags.unlocked.zip && flags.unlocked.shreds,
                 pMult: 0.6,
-                levelCost: [64000, 2, "shreds"],
-                maxLevel: 50,
+                levelCost: [10, 2, "shreds"],
+                maxLevel: 100,
                 starDiff: 1.2,
                 effects: [
                     (level, star) => (9 + level) * star,
