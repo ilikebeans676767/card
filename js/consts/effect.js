@@ -44,6 +44,7 @@ const baseEffect = {
 
     pickitRate: 1,
     pickitMax: 5,
+    autobuySpeed: 0,
 
     skillFireSkip: 60,
     skillFireStack: 1,
@@ -75,7 +76,9 @@ const baseEffect = {
     adCooldown: 900,
     adPointBoost: 4,
     adShredBoost: 3,
+    adFactionBoost: 2,
     adDrawDurationMult: 1,
+    adTimeDurationMult: 1,
 }
 
 const flags = {

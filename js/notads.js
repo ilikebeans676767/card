@@ -29,12 +29,25 @@ let adOffers = {
         },
         getDisplayArgs: (offer) => [offer.mult, offer.duration],
     },
+    faction_draw: {
+        condition: () => flags.unlocked.faction,
+        getOffer(args) {
+            return {
+                mult: effects.adFactionBoost,
+                duration: (adFuncs.drawMult(4 + args.rng * 2) + 1000000) * effects.adDrawDurationMult,
+            }
+        },
+        onAward(offer) {
+            addBuff("draw", "factionMult", offer);
+        },
+        getDisplayArgs: (offer) => [offer.mult, offer.duration],
+    },
     energy_time: {
         condition: () => effects.bulkPower > 0,
         getOffer(args) {
             return {
                 mult: 2,
-                duration: 300,
+                duration: 300 * effects.adTimeDurationMult,
             }
         },
         onAward(offer) {

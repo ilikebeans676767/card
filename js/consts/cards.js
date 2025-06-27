@@ -203,10 +203,10 @@ const cards = {
                 }
             },
             "n4b": {
-                condition: () => flags.unlocked.zip,
+                condition: () => flags.unlocked.zip && flags.unlocked.shreds,
                 pMult: 0.6,
-                levelCost: [64000, 2, "shreds"],
-                maxLevel: 50,
+                levelCost: [10, 2, "shreds"],
+                maxLevel: 100,
                 starDiff: 1.2,
                 effects: [
                     (level, star) => (9 + level) * star,
@@ -289,6 +289,7 @@ const cards = {
             },
             "n6b": {
                 available: () => flags.unlocked.ad,
+                condition: () => flags.unlocked.shreds,
                 pMult: 0.08,
                 levelCost: [1e6, 10, "shreds"],
                 starCost: x => cardStarCost.standard.n(x, 3),
@@ -297,6 +298,19 @@ const cards = {
                 ],
                 effectors: {
                     adShredBoost: [priority.additive, (x) => x + fx(0)],
+                }
+            },
+            "n6c": {
+                available: () => flags.unlocked.ad,
+                condition: () => flags.unlocked.faction,
+                pMult: 0.06,
+                levelCost: [10, 10, "leaf"],
+                starCost: x => cardStarCost.standard.n(x, 3),
+                effects: [
+                    (level, star) => (level + 4) * (2 ** star) * 0.05,
+                ],
+                effectors: {
+                    adFactionBoost: [priority.additive, (x) => x + fx(0)],
                 }
             },
             "c1": {
@@ -484,6 +498,18 @@ const cards = {
                     adDrawDurationMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
+            "n6b": {
+                available: () => flags.unlocked.ad,
+                pMult: 0.1,
+                levelCost: [100, 100, "shreds"],
+                starCost: x => cardStarCost.standard.r(x, 1),
+                effects: [
+                    (level, star) => (level + 4) * (star) * 5,
+                ],
+                effectors: {
+                    adTimeDurationMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
             "c1": {
                 available: () => !hasCard("standard_legacy", "ex", "pickit"),
                 condition: () => flags.unlocked.faction,
@@ -591,6 +617,19 @@ const cards = {
                 effects: [
                     (level, star) => Object.values(game.flags.statUnlocks).map(x => Object.keys(x).length).reduce((x, y) => x + y, 0),
                     (level, star) => fx(0) ** (star * .1 + .9) * 5,
+                ],
+                effectors: {
+                    pointsMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
+            "n1d2": {
+                faction: "moon",
+                available: () => game.stats.accountsSold > 0,
+                condition: () => game.stats.autobuyBought > 0,
+                starDiff: 0.5,
+                effects: [
+                    (level, star) => game.stats.autobuyBought,
+                    (level, star) => fx(0) ** (star * .1 + .9),
                 ],
                 effectors: {
                     pointsMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
@@ -957,6 +996,20 @@ const cards = {
                 },
                 effects: [],
                 effectors: {}
+            },
+            "autobuy": {
+                available: () => game.stats.accountsSold > 0,
+                condition: () => flags.unlocked.pickit,
+                crown: true,
+                buyCost: () => {
+                    return [55e6, "shreds"];
+                },
+                effects: [
+                    () => 30,
+                ],
+                effectors: {
+                    autobuySpeed: [priority.additive, (x) => x + fx(0)],
+                }
             },
             "iris": {
                 available: () => !hasCard("standard_legacy", "ex", "pickit"),
