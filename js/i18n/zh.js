@@ -283,7 +283,7 @@ i18nStrings.zh = {
                 cloud_status_loading: "(加载中...)",
                 cloud_status_checking: "(检查中...)",
 
-                language_desc: "除了英语的其他语言可能不是100%完成的翻译或精确的翻译。中文翻译来源于chen-assert与ajchen（",
+                language_desc: "因为该游戏频繁更新，除了英语的其他语言可能没有100%跟上进度，完成的翻译也可能充满机翻风味。中文翻译来源于chen-assert与ajchen（",
                 notation_desc: "更改在游戏中大数的显示方式。 “默认”显示方式基于当前语言。",
                 verb_desc: "更改与{drawing}卡牌相关的动词，如游戏标题和物品描述中的动词。",
                 john_note: "(注意：链接将在此标签页中打开，按住Ctrl点击可避免意外关闭游戏)",
