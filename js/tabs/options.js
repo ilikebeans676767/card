@@ -27,6 +27,7 @@ tabs.options = {
         ), game.option.language, (choice) => {
             setLanguage(choice);
             saveGame();
+            onUIFrame();
         }));
         container.append(
             $make("div.opt-entry.before",
@@ -36,6 +37,17 @@ tabs.options = {
                 )
             )
         );
+
+        let updateRates = [0, 1, 2, 5, 10, 20, 30, 60];
+        container.append($make("hr"));
+        makeEntry([i18n.items.updateRate(),
+        ], createSliderGroup(0, updateRates.length - 1, 1, updateRates.indexOf(game.option.updateRate), (value) => {
+            game.option.updateRate = updateRates[value]
+            saveGame();
+            onUIFrame();
+        }, (value) => {
+            return value == 0 ? i18n.values.updateRate.auto() : i18n.values.updateRate.perSec(format(updateRates[value]));
+        }));
 
         container.append($make("hr"));
 
@@ -50,6 +62,7 @@ tabs.options = {
         ), game.option.notation, (choice) => {
             game.option.notation = choice;
             saveGame();
+            onUIFrame();
         }));
         makeEntry([i18n.items.verb() + " ", 
             createInfoButton(() => verbify(i18n.strings.verb_desc()))
@@ -61,6 +74,7 @@ tabs.options = {
             game.option.verb = choice;
             updateVerb();
             saveGame();
+            onUIFrame();
         }));
         makeEntry(i18n.items.cardImages(), choiceGroup = createChoiceGroup({
             0: i18n.values.common.hidden(),

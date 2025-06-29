@@ -159,6 +159,11 @@ const statEntries = {
                 display: () => _number("×" + format(effects.bulkMult, 2, 7)),
                 cost: [1e10, "points"],
             },
+            energySpeed: {
+                condition: () => flags.unlocked.ad || hasCard("standard", "ur", "n1b"),
+                display: () => _number("×" + format(effects.energySpeed, 2, 7)),
+                cost: [1e16, "points"],
+            },
             sep1: {
                 separator: true,
                 condition: () => flags.unlocked.shreds,

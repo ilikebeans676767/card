@@ -89,7 +89,7 @@ let tooltipTemplates = {
                     info.innerHTML = getCurrencyInfo(id);
                 }
             }
-            update();
+            info.innerHTML = getCurrencyInfo(id);
             addEvent("frame", update);  
         }
     },
@@ -258,7 +258,6 @@ let tooltipTemplates = {
                 let curFx = [];
                 fx = (x) => curFx[x];
                 for (let f of data.effects) curFx.push(f(state));
-
                 info.innerHTML = verbify(format.effect(i18n.desc(), curFx));
             }
             update();
@@ -291,7 +290,7 @@ function getCurrencyInfo(id) {
             ${i18n.strings.amount_have(_number(format(game.res[id], 0, 14)))}<br>
             ${i18n.strings.speed_minute(_number(format(effects.bulkPower * eff)))}
             ${effects.bulkPower == 0 ? "" 
-                : eff == 1 ? i18n.strings.toCap(_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower * 60)))
+                : eff == 1 ? i18n.strings.toCap(_number(format.time((effects.energyCap - game.res[id]) / effects.bulkPower / effects.energySpeed * 60)))
                 : i18n.strings.efficiency(_number(format.chance(eff)))
             }
         `

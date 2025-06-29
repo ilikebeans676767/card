@@ -156,6 +156,10 @@ button:disabled {
     background: linear-gradient(var(--bg-0), var(--bg-0));
     cursor: default;
 }
+button:focus-visible {
+    outline: none;
+    box-shadow: inset var(--shadow-0), 0 0 0 2px var(--border-1);
+}
 button.thick {
     padding: 10px 13px;
 }

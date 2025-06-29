@@ -2,6 +2,7 @@ function $(query) {
     return document.querySelector(query);
 }
 
+/** @returns {HTMLElement} */
 function $make(def, ...content) {
     if (Array.isArray(content[0])) content = content[0];
     let classes = def.split(".");
@@ -307,6 +308,67 @@ function createChoiceGroup(options, value, onChoice) {
             div.scrollTo({ left: (btnRect.left + btnRect.right - divRect.width) / 2 - divRect.left });
             console.log(divRect, btnRect);
         }
+    }
+
+    update(value);
+    return div;
+}
+function createSliderGroup(min, max, step, value, onChange, displayFunc) {
+    let div = $make("div.slider-group");
+    let tempValue = div.value = value;
+
+    let sliderThumb;
+    let slider = $make("div.custom-slider", 
+        $make("div.custom-slider-track"),
+        sliderThumb = $make("div.custom-slider-thumb")
+    )
+    div.append(slider);
+    if (step) slider.classList.add("stepped");
+    slider.tabIndex = 0;
+
+    function drag(e) {
+        let pos = (e.offsetX - sliderThumb.offsetWidth / 2) / (slider.offsetWidth - sliderThumb.offsetWidth / 2);
+        let value = pos * (max - min) + min;
+        if (step) value = Math.round(value / step) * step;
+        value = Math.min(max, Math.max(min, value));
+        update(value);
+    }
+    function register(e) {
+        slider.addEventListener("pointermove", drag);
+        slider.addEventListener("pointerup", unregister);
+        slider.setPointerCapture(e.pointerId);
+    }
+    function unregister(e) {
+        slider.removeEventListener("pointermove", drag);
+        slider.removeEventListener("pointerup", unregister);
+        slider.releasePointerCapture(e.pointerId);
+        set(tempValue);
+    }
+
+    slider.onkeydown = (e) => {
+        if (e.key == "ArrowLeft") set(div.value - step);
+        if (e.key == "ArrowRight") set(div.value + step);
+    }
+    slider.onpointerdown = (e) => {
+        if (e.target != sliderThumb) drag(e);
+        register(e);
+    }
+
+    let label = $make("label");
+    div.append(label);
+
+    function set(value) {
+        value = Math.min(max, Math.max(min, value));
+        if (div.value == value) return;
+        div.value = value;
+        update(value);
+        onChange(value);
+    }
+
+    function update(value) {
+        tempValue = value;
+        slider.style.setProperty("--position", (value - min) / (max - min));
+        label.innerText = displayFunc?.(value) ?? value;
     }
 
     update(value);

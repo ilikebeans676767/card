@@ -119,6 +119,17 @@ function onFrame() {
     if (game.time.now - lastCloudSaveTime >= 300000) saveToCloud();
 }
 
+function onUIFrame() {
+    if (game.option.updateRate > 0 && game.option.updateRate < 30) {
+        delta = performance.now() - time;
+        time += delta;
+        game.time.now = Date.now();
+
+        onFrame();
+        updateNotifs();
+    }
+}
+
 function handleOfflineProgress() {
     if (effects.offlineLimit <= 0) return;
     doOfflineGain((Date.now() - game.time.now) / 1000);

@@ -28,5 +28,6 @@ function loop() {
     onFrame();
     updateNotifs();
 
-    requestAnimationFrame(loop);
+    if (game.option.updateRate) setTimeout(loop, 1000 / game.option.updateRate);
+    else requestAnimationFrame(loop);
 }

@@ -690,6 +690,85 @@
     flex: 1;
 }
 
+
+.slider-group {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    gap: 10px;
+}
+.slider-group .custom-slider {
+    flex: 0 1 250px;
+}
+.slider-group label {
+    font-weight: bold;
+}
+
+.custom-slider {
+    min-height: calc(1.2em + 16px);
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.custom-slider::before {
+    content: " ";
+    padding-block: 8px;
+    display: inline-block;
+}
+.custom-slider-track {
+    border-radius: 1000vw;
+    border: 1px solid var(--border-0);
+    position: absolute;
+    background: linear-gradient(var(--background-0), var(--background-1)) -2px -2px / calc(100% + 4px) calc(100% + 4px);
+    inset: 40% 0 40% 0;
+}
+.custom-slider-thumb {
+    --bg-0: var(--button-bg-0);
+    --bg-1: var(--button-bg-1);
+    --bg-2: var(--button-bg-2);
+    position: absolute;
+    top: 4px;
+    left: calc(var(--position) * 100%);
+    transform: translateX(calc(var(--position) * -100%));
+    height: calc(1.2em + 8px);
+    aspect-ratio: 1;
+    border-radius: 1000vw;
+    border: 1px solid var(--border-0);
+    background: var(--background-1) linear-gradient(var(--bg-2), var(--bg-1)) border-box -1px -1px / calc(100% + 2px) calc(100% + 2px);
+    box-shadow: inset var(--shadow-0), var(--shadow-1);
+}
+.custom-slider.stepped .custom-slider-thumb {
+    transition: inset .05s, transform .05s;
+}
+.custom-slider-thumb::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 3px;
+    border: 1px solid var(--border-0);
+    background: linear-gradient(var(--bg-1), var(--bg-2)) border-box -1px -1px / calc(100% + 2px) calc(100% + 2px);
+    border-radius: 1000vw;
+}
+.custom-slider:focus-visible {
+    outline: none;
+}
+.custom-slider:focus-visible .custom-slider-thumb {
+    border-color: var(--border-1);
+    box-shadow: inset var(--shadow-0), 0 0 0 2px var(--border-1);
+}
+
+.custom-slider:hover .custom-slider-thumb {
+    border-color: var(--border-1);
+}
+.custom-slider:active .custom-slider-thumb {
+    border-color: var(--border-0);
+    background-image: linear-gradient(var(--bg-1), var(--bg-0));
+}
+.custom-slider:active .custom-slider-thumb::before {
+    background-image: linear-gradient(var(--bg-0), var(--bg-1));
+}
+
+
 .note-container {
     background: var(--background-1);
     border: 1px solid var(--border-0);

@@ -57,6 +57,7 @@ function getNewGame() {
         },
         option: {
             language: "en",
+            updateRate: 20,
             notation: "default",
             cardImages: 1,
             verb: "draw",

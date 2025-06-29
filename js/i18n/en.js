@@ -237,6 +237,7 @@ let i18nDefault = i18nStrings.en = {
             },
             items: {
                 language: "Language",
+                updateRate: "Update Rate",
                 notation: "Number Format",
                 verb: "Verb",
                 cardImages: "Card Images",
@@ -247,6 +248,10 @@ let i18nDefault = i18nStrings.en = {
                 otherOther: "Other other",
             },
             values: {
+                updateRate: {
+                    auto: "Auto",
+                    perSec: "{0} TPS",
+                },
                 items: {
                     manualSave: "Manual Save",
                     importExport: "Import/Export Save",
@@ -1268,6 +1273,9 @@ let i18nDefault = i18nStrings.en = {
                 },
                 bulkMult: {
                     name: "Card multiplier",
+                },
+                energySpeed: {
+                    name: "Bonus energy speed",
                 },
                 cardRChance: {
                     name: "<rarity rarity='r'></rarity> appear chance",
