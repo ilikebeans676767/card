@@ -449,7 +449,7 @@
 }
 .subtab-content {
     flex: 1;
-    margin: -10px;
+    margin: -10px -10px -20px -10px;
     padding: 10px;
     overflow-y: auto;
 }
@@ -693,7 +693,7 @@
 
 .slider-group {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
     align-items: baseline;
     gap: 10px;
 }
@@ -702,6 +702,7 @@
 }
 .slider-group label {
     font-weight: bold;
+    min-width: 10em;
 }
 
 .custom-slider {
@@ -716,45 +717,98 @@
     display: inline-block;
 }
 .custom-slider-track {
+    --offset: 0px;
+    --val-1: calc(calc(100% - 1.2em - 8px) * var(--position, 0) + .6em + 4px);
+    --val-2: calc(calc(100% - 1.2em - 8px) * var(--start, -1) + .6em + 4px);
     border-radius: 1000vw;
-    border: 1px solid var(--border-0);
+    border: 1px solid var(--border-1);
     position: absolute;
-    background: linear-gradient(var(--background-0), var(--background-1)) -2px -2px / calc(100% + 4px) calc(100% + 4px);
     inset: 40% 0 40% 0;
+    background: 
+        linear-gradient(var(--background-0), var(--background-1)) -1px -8px / calc(min(var(--val-1), var(--val-2)) - var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) -1px -8px / calc(max(var(--val-1), var(--val-2)) + var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--background-0), var(--background-1)) -1px -8px / calc(100% + 4px) calc(100% + 16px);
+}
+.custom-slider-track::after {
+    content: "";
+    border-radius: 1000vw;
+    position: absolute;
+    inset: 0;
+    background: 
+        linear-gradient(var(--background-0), var(--background-1)) -2px -8px / calc(min(var(--val-1), var(--val-2)) - var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) -1px -8px / calc(max(var(--val-1), var(--val-2)) + var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--background-0), var(--background-1)) -2px -8px / calc(100% + 4px) calc(100% + 16px);
+    z-index: 2;
+
+}
+.custom-slider.stepped .custom-slider-track {
+    --offset: calc(0.2em + 5px);
+    transition: background-size;
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(0, 0.925, 0, 1.075);
+}
+.custom-slider.stepped .custom-slider-track::before {
+    transition: background-size;
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(0, 0.925, 0, 1.075);
 }
 .custom-slider-thumb {
-    --bg-0: var(--button-bg-0);
-    --bg-1: var(--button-bg-1);
-    --bg-2: var(--button-bg-2);
+    --bg-0: var(--button-primary-bg-0);
+    --bg-1: var(--button-primary-bg-1);
+    --bg-2: var(--button-primary-bg-2);
     position: absolute;
     top: 4px;
-    left: calc(var(--position) * 100%);
-    transform: translateX(calc(var(--position) * -100%));
+    left: calc(var(--position, 0) * 100%);
+    transform: translateX(calc(var(--position, 0) * -100%));
     height: calc(1.2em + 8px);
     aspect-ratio: 1;
     border-radius: 1000vw;
     border: 1px solid var(--border-0);
-    background: var(--background-1) linear-gradient(var(--bg-2), var(--bg-1)) border-box -1px -1px / calc(100% + 2px) calc(100% + 2px);
+    background: var(--background-1) linear-gradient(var(--bg-2), var(--bg-1)) -1px -1px / calc(100% + 2px) calc(100% + 2px);
     box-shadow: inset var(--shadow-0), var(--shadow-1);
+    z-index: 3;
 }
 .custom-slider.stepped .custom-slider-thumb {
-    transition: inset .05s, transform .05s;
+    transition: inset, transform;
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(0, 0.925, 0, 1.075);
 }
 .custom-slider-thumb::before {
     content: "";
     display: block;
     position: absolute;
     inset: 3px;
-    border: 1px solid var(--border-0);
-    background: linear-gradient(var(--bg-1), var(--bg-2)) border-box -1px -1px / calc(100% + 2px) calc(100% + 2px);
+    border: 1px solid var(--border-1);
+    background: linear-gradient(var(--bg-0), var(--bg-1)) -1px -1px / calc(100% + 2px) calc(100% + 2px);
     border-radius: 1000vw;
+    box-shadow: inset var(--shadow-0);
 }
 .custom-slider:focus-visible {
     outline: none;
 }
 .custom-slider:focus-visible .custom-slider-thumb {
     border-color: var(--border-1);
-    box-shadow: inset var(--shadow-0), 0 0 0 2px var(--border-1);
+    box-shadow: inset var(--shadow-0), 0 0 0 2px var(--color-highlighted);
+}
+.custom-slider-tick {
+    --val-1: calc(1000vw * max(calc(var(--position, 0) - var(--tick-pos, 0)), 0));
+    --val-2: calc(1000vw * max(calc(var(--tick-pos, 0) - var(--start, -1)), 0));
+    --val-3: calc(1000vw * max(calc(var(--tick-pos, 0) - var(--position, 0)), 0));
+    --val-4: calc(1000vw * max(calc(var(--start, -1) - var(--tick-pos, 0)), 0));
+    display: block;
+    position: absolute;
+    top: calc(4px + .4em);
+    left: calc(var(--tick-pos, 0) * calc(100% - 1.2em - 8px) + 0.4em);
+    height: calc(0.4em + 8px);
+    aspect-ratio: 1;
+    border-radius: 1000vw;
+    border: 1px solid var(--border-1);
+    background: 
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) max(var(--val-1), var(--val-2)) -1px / calc(100% + 4px) calc(100% + 4px) no-repeat,
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) max(var(--val-3), var(--val-4)) -1px / calc(100% + 4px) calc(100% + 4px) no-repeat,
+        linear-gradient(var(--background-0), var(--background-1)) -2px -2px / calc(100% + 4px) calc(100% + 4px);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .custom-slider:hover .custom-slider-thumb {
@@ -765,6 +819,7 @@
     background-image: linear-gradient(var(--bg-1), var(--bg-0));
 }
 .custom-slider:active .custom-slider-thumb::before {
+    border-color: var(--border-0);
     background-image: linear-gradient(var(--bg-0), var(--bg-1));
 }
 

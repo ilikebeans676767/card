@@ -6,20 +6,23 @@ function updateMusic() {
         music = new Audio();
         music.loop = true;
         music.autoplay = true;
-        music.volume = 0.7;
     }
     if (game.option.music) {
         let src = {
             "conscious": "res/music/consciousness_uploader.mp3",
         }[game.option.music];
+        music.volume = game.option.volume.music;
         if (!src) return;
-        if (music.src != src) music.src = src;
-        music.play().catch(e => {
+        if (music._music != game.option.music) {
+            music.src = src;
+            music._music = game.option.music;
+        }
+        if (music.paused) music.play().catch(e => {
             let d = () => {
                 updateMusic();
                 document.body.removeEventListener("pointerdown", d);
             };
-            spawnNotif(str.notif.music_needsInteract()).style.textAlign = "center";
+            spawnNotif(str.notifs.music_needsInteract()).style.textAlign = "center";
             document.body.addEventListener("pointerdown", d);
         });
     } else {

@@ -5,7 +5,7 @@ window.onerror = (message, source, lineno, colno, error) => {
             "The game is being updated! Your browser probably are still keeping some old scripts."
         + "\nIf you still see this message after a hard reload (Ctrl+F5) please contact the developer.";
 
-    navigator.clipboard.write(message + "\n" + source + ":" + lineno + ":" + colno + "\n\n" + error.stack);
+    navigator.clipboard.writeText(message + "\n" + source + ":" + lineno + ":" + colno + "\n\n" + error.stack);
     alert(
         "An error has occurred:\n" + message + "\n" + source + ":" + lineno + ":" + colno
         + "\n\n" + instruction

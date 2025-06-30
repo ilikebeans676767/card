@@ -84,14 +84,14 @@ popups.draw = {
         }
         result.append(close);
 
-        addEvent("frame", this.onFrame);
+        addEvent("anim-frame", this.onFrame);
         return popup;
     },
     onFrame() {
         let state = popups.draw.state;
         let localElms = popups.draw.elms;
 
-        state.timer -= delta / 1000;
+        state.timer -= animDelta / 1000;
         if (state.phase == "breaking") {
             if (state.timer <= 0) {
                 localElms.bigCard.classList.add("broken");
@@ -116,7 +116,7 @@ popups.draw = {
                     localElms.list.classList.add("done");
                     if (localElms.list.scrollHeight > localElms.list.clientHeight) localElms.list.style.setProperty("--padding", localElms.result.scrollHeight + "px");
                     localElms.result.style.setProperty("--height", localElms.list.scrollHeight + localElms.result.scrollHeight * 2 + "px");
-                    removeEvent("frame", popups.draw.onFrame);
+                    removeEvent("anim-frame", popups.draw.onFrame);
                     break;
                 } else {
                     let [pack, rarity, id, count, info] = state.loot.cards[state.index];
@@ -169,6 +169,7 @@ popups.draw = {
         game.drawPref.skills = {};
         updateEffects();
         updateUnlocks();
+        onUIFrame();
         emit("card-update");
 
         // Don't save game if the first endgame occurs
@@ -179,6 +180,6 @@ popups.draw = {
     onClose() {
         this.state = {};
         this.elms = {};
-        removeEvent("frame", this.onFrame);
+        removeEvent("anim-frame", this.onFrame);
     }
 }

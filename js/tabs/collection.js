@@ -33,7 +33,7 @@ tabs.collection = {
         holder.append(hozHolder);
 
         let content = this.elms.content = $make("div.subtab-content");
-        content.onscroll = () => elms.tab.classList.toggle("scrolled", content.scrollTop > 0);
+        content.onscroll = (e) => elms.tab.style.setProperty("--scroll", content.scrollTop + "px")
         holder.append(content);
 
         let filters = this.elms.filters = $make("div.card-filters");
@@ -97,6 +97,7 @@ tabs.collection = {
         }, this.filters.pickit, (x) => {
             this.filters.pickit = x;
             this.updateCards();
+            if (x) onUIFrame();
         }));
         [
             i18n.filters.pickit.off,
@@ -137,7 +138,7 @@ tabs.collection = {
         this.filters.pickit = "";
         removeEvent("frame", this.onFrame);
         removeEvent("card-update", this.onCardUpdate);
-        elms.tab.classList.remove("scrolled");
+        elms.tab.style.removeProperty("--scroll");
     },
     onFrame() {
         let localElms = tabs.collection.elms;

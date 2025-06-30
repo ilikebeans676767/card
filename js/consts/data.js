@@ -62,6 +62,9 @@ function getNewGame() {
             cardImages: 1,
             verb: "draw",
             music: "",
+            volume: {
+                music: 0.7,
+            },
             confirm: {
                 sellAccount: true,
             }

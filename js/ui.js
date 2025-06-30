@@ -318,16 +318,24 @@ function createSliderGroup(min, max, step, value, onChange, displayFunc) {
     let tempValue = div.value = value;
 
     let sliderThumb;
-    let slider = $make("div.custom-slider", 
+    let slider = div.$slider = $make("div.custom-slider", 
         $make("div.custom-slider-track"),
         sliderThumb = $make("div.custom-slider-thumb")
     )
     div.append(slider);
-    if (step) slider.classList.add("stepped");
+    if (step && (max - min) / step < 15) {
+        slider.classList.add("stepped");
+        let steps = (max - min) / step;
+        for (let i = 0; i <= steps + 1e-6; i++) {
+            let tick = $make("span.custom-slider-tick");
+            tick.style.setProperty("--tick-pos", i / steps);
+            div.$slider.append(tick);
+        }
+    }
     slider.tabIndex = 0;
 
     function drag(e) {
-        let pos = (e.offsetX - sliderThumb.offsetWidth / 2) / (slider.offsetWidth - sliderThumb.offsetWidth / 2);
+        let pos = (e.offsetX - sliderThumb.offsetWidth / 2) / (slider.offsetWidth - sliderThumb.offsetWidth);
         let value = pos * (max - min) + min;
         if (step) value = Math.round(value / step) * step;
         value = Math.min(max, Math.max(min, value));
@@ -354,7 +362,7 @@ function createSliderGroup(min, max, step, value, onChange, displayFunc) {
         register(e);
     }
 
-    let label = $make("label");
+    let label = div.$label = $make("label");
     div.append(label);
 
     function set(value) {
@@ -368,7 +376,7 @@ function createSliderGroup(min, max, step, value, onChange, displayFunc) {
     function update(value) {
         tempValue = value;
         slider.style.setProperty("--position", (value - min) / (max - min));
-        label.innerText = displayFunc?.(value) ?? value;
+        label.innerHTML = displayFunc?.(value) ?? value;
     }
 
     update(value);

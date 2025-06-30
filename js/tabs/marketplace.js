@@ -23,7 +23,7 @@ tabs.marketplace = {
         holder.append(tabButtons);
 
         let content = this.elms.content = $make("div.subtab-content");
-        content.onscroll = () => elms.tab.classList.toggle("scrolled", content.scrollTop > 0);
+        content.onscroll = (e) => elms.tab.style.setProperty("--scroll", content.scrollTop + "px")
         holder.append(content);
 
         this.rebuildUI();
@@ -35,7 +35,7 @@ tabs.marketplace = {
         this.elms = {};
         removeEvent("card-update", this.onCardUpdate);
         removeEvent("frame", this.onFrame);
-        elms.tab.classList.remove("scrolled");
+        elms.tab.style.removeProperty("--scroll");
     },
     
     rebuildUI() {

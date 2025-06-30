@@ -223,10 +223,7 @@
         display: block;
         margin-bottom: 15px;
         font-weight: bold;
-        transition: opacity 0.3s;
-    }
-    #tab-content.scrolled::before {
-        opacity: 0;
+        transform: translateY(calc(var(--scroll) * -1));
     }
     .subtab-holder {
         margin-top: calc(-1.8em - 15px);

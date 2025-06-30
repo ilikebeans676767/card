@@ -230,10 +230,24 @@ let i18nDefault = i18nStrings.en = {
         },
         options: {
             name: "Options",
-            headers: {
+            subtabs: {
                 prefs: "Preferences",
-                saves: "Save Management",
+                saves: "Storage",
                 other: "Other"
+            },
+            headers: {
+                prefs: {
+                    i18n: "Localization & Data Expression",
+                    video: "Visual & User Interface",
+                    audio: "Audio"
+                },
+                saves: {
+                    storage: "Storage"
+                },
+                other: {
+                    info: "Info",
+                    bonus: "Bonus"
+                },
             },
             items: {
                 language: "Language",
@@ -242,6 +256,7 @@ let i18nDefault = i18nStrings.en = {
                 verb: "Verb",
                 cardImages: "Card Images",
                 music: "Background Music",
+                musicVolume: "Volume",
                 localSave: "Local Save",
                 cloudSave: "Cloud Save",
                 info: "Info",

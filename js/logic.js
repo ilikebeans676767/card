@@ -119,14 +119,18 @@ function onFrame() {
     if (game.time.now - lastCloudSaveTime >= 300000) saveToCloud();
 }
 
+let uiFrameTimeout = 0;
 function onUIFrame() {
-    if (game.option.updateRate > 0 && game.option.updateRate < 30) {
-        delta = performance.now() - time;
-        time += delta;
-        game.time.now = Date.now();
+    if (game.option.updateRate > 0 && game.option.updateRate < 30 && !uiFrameTimeout) {
+        uiFrameTimeout = setTimeout(() => {
+            uiFrameTimeout = 0;
+            delta = performance.now() - time;
+            time += delta;
+            game.time.now = Date.now();
 
-        onFrame();
-        updateNotifs();
+            onFrame();
+            updateNotifs();
+        }, 0)
     }
 }
 
@@ -337,6 +341,7 @@ function updateEffects(silent = false) {
 
 
     if (!silent) emit("effect-update");
+    onUIFrame();
 }
 
 // ----- Card logic

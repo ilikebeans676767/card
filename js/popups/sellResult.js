@@ -44,12 +44,12 @@ popups.sellResult = {
             () => doDrawLegacy(), () => !popups.drawLegacy.elms.popup
         );
 
-        addEvent("frame", this.onFrame)
+        addEvent("anim-frame", this.onFrame)
         return popup;
     },
     onFrame() {
         let self = popups.sellResult;
-        self.state.timer -= delta;
+        self.state.timer -= animDelta;
         if (self.state.timer <= 0) {
             let points = self.state.points;
             if (points[0].onActivate) {
@@ -77,7 +77,7 @@ popups.sellResult = {
     onClose() {
         this.state = {};
         this.elms = {};
-        removeEvent("frame", this.onFrame)
+        removeEvent("anim-frame", this.onFrame)
         setTimeout(() => {
             popups.sell.resume();
         }, 500);
