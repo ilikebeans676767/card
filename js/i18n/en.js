@@ -322,6 +322,7 @@ let i18nDefault = i18nStrings.en = {
 
             action_continue: "Continue",
             action_close: "Close",
+            action_reload: "Reload",
         },
         draw: {
             strings: {

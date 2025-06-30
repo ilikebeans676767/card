@@ -307,6 +307,17 @@ tabs.options = {
                             <iframe src="https://john.citrons.xyz/embed?ref=ducdat0507.github.io" class="john"></iframe>
                             <small class="unimportant">${i18n.strings.john_note()}</small>
                         `
+                        let frame = popup.$content.querySelector(".john");
+                        let button = $make("button", str.popups.common.action_reload());
+                        button.disabled = true;
+                        button.onclick = () => {
+                            frame.src += "";
+                            button.disabled = true;
+                        }
+                        frame.onload = () => {
+                            button.disabled = false;
+                        }
+                        popup.$actions.prepend(button, $make("span.flex-fill"));
                     }
                     holder.append(btn);
         
