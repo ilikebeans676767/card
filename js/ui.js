@@ -333,8 +333,8 @@ function createSliderGroup(min, max, step, value, onChange, displayFunc) {
         }
     }
     slider.tabIndex = 0;
-
     function drag(e) {
+        e.preventDefault();
         let pos = (e.offsetX - sliderThumb.offsetWidth / 2) / (slider.offsetWidth - sliderThumb.offsetWidth);
         let value = pos * (max - min) + min;
         if (step) value = Math.round(value / step) * step;
@@ -342,11 +342,13 @@ function createSliderGroup(min, max, step, value, onChange, displayFunc) {
         update(value);
     }
     function register(e) {
+        e.preventDefault();
         slider.addEventListener("pointermove", drag);
         slider.addEventListener("pointerup", unregister);
         slider.setPointerCapture(e.pointerId);
     }
     function unregister(e) {
+        e.preventDefault();
         slider.removeEventListener("pointermove", drag);
         slider.removeEventListener("pointerup", unregister);
         slider.releasePointerCapture(e.pointerId);
@@ -354,10 +356,12 @@ function createSliderGroup(min, max, step, value, onChange, displayFunc) {
     }
 
     slider.onkeydown = (e) => {
+        e.preventDefault();
         if (e.key == "ArrowLeft") set(div.value - step);
         if (e.key == "ArrowRight") set(div.value + step);
     }
     slider.onpointerdown = (e) => {
+        if (e.button != 0) return;
         if (e.target != sliderThumb) drag(e);
         register(e);
     }

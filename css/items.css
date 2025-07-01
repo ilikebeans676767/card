@@ -710,6 +710,7 @@
     position: relative;
     user-select: none;
     -webkit-user-select: none;
+    touch-action: none;
 }
 .custom-slider::before {
     content: " ";
