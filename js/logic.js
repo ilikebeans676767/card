@@ -249,6 +249,10 @@ function updateUnlocks() {
     flags.unlocked.ad = hasCard("standard_legacy", "ex", "ads");
 }
 
+function updatePrefs() {
+    document.body.style.setProperty("--card-size", game.option.cardSize / 100);
+}
+
 // ----- Effect logic
 
 let effects = {...baseEffect};

@@ -238,6 +238,7 @@ let i18nDefault = i18nStrings.en = {
             headers: {
                 prefs: {
                     i18n: "Localization & Data Expression",
+                    logic: "Game Behavior",
                     video: "Visual & User Interface",
                     audio: "Audio"
                 },
@@ -252,11 +253,12 @@ let i18nDefault = i18nStrings.en = {
             items: {
                 language: "Language",
                 updateRate: "Update Rate",
+                confirm: "Confirmations",
                 notation: "Number Format",
                 verb: "Verb",
                 cardImages: "Card Images",
-                music: "Background Music",
-                musicVolume: "Volume",
+                cardSize: "Card Size",
+                musicVolume: "BGM Volume",
                 localSave: "Local Save",
                 cloudSave: "Cloud Save",
                 info: "Info",
@@ -268,6 +270,7 @@ let i18nDefault = i18nStrings.en = {
                     perSec: "{0} TPS",
                 },
                 items: {
+                    showConfirms: "Show Confirmation Settings",
                     manualSave: "Manual Save",
                     importExport: "Import/Export Save",
                     hardReset: "Hard Reset",
@@ -307,6 +310,15 @@ let i18nDefault = i18nStrings.en = {
                 verb_desc: "Change the verb associated with {drawing} cards, in places such as the game title and item descriptions.",
                 john_note: "(Note: links open in this tab, ctrl+click to not accidentally close the game)",
             },
+            popups: {
+                confirm: {
+                    title: "Confirmation Settings",
+                    desc: "Ask me for confirmation:",
+                    types: {
+                        sellAccount: "When I sell my account",
+                    }
+                }
+            }
         },
     },
 

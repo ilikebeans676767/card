@@ -60,10 +60,11 @@ function getNewGame() {
             updateRate: 20,
             notation: "default",
             cardImages: 1,
+            cardSize: 100,
             verb: "draw",
             music: "",
             volume: {
-                music: 0.7,
+                music: 0,
             },
             confirm: {
                 sellAccount: true,

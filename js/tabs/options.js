@@ -67,6 +67,18 @@ tabs.options = {
                     )
                 )
             );
+            makeEntry([i18n.items.verb() + " ", 
+                createInfoButton(() => verbify(i18n.strings.verb_desc()))
+            ], choiceGroup = createChoiceGroup((
+                Object.fromEntries(Object.entries(
+                    i18nStrings[game.option.language].verbs
+                ).map(([key, item]) => [key, item[i18nStrings[game.option.language].primaryVerb].toTitleCase()]))
+            ), game.option.verb, (choice) => {
+                game.option.verb = choice;
+                updateVerb();
+                saveGame();
+                onUIFrame();
+            }));
 
             container.append($make("hr"));
 
@@ -83,23 +95,11 @@ tabs.options = {
                 saveGame();
                 onUIFrame();
             }));
-            makeEntry([i18n.items.verb() + " ", 
-                createInfoButton(() => verbify(i18n.strings.verb_desc()))
-            ], choiceGroup = createChoiceGroup((
-                Object.fromEntries(Object.entries(
-                    i18nStrings[game.option.language].verbs
-                ).map(([key, item]) => [key, item[i18nStrings[game.option.language].primaryVerb].toTitleCase()]))
-            ), game.option.verb, (choice) => {
-                game.option.verb = choice;
-                updateVerb();
-                saveGame();
-                onUIFrame();
-            }));
 
 
 
             elms.content.append(container = $make("div.opt-container"));
-            container.append($make("h3", i18n.headers.prefs.video()));
+            container.append($make("h3", i18n.headers.prefs.logic()));
 
             let updateRates = [0, 1, 2, 5, 10, 20, 30, 60];
             makeEntry([i18n.items.updateRate(),
@@ -111,9 +111,59 @@ tabs.options = {
                 return value == 0 ? i18n.values.updateRate.auto() : i18n.values.updateRate.perSec(_number(format(updateRates[value])));
             }));
             sliderGroup.$slider.style.setProperty("--start", 1 / (updateRates.length - 1));
+            
+            if (game.stats.accountsSold > 0) {
 
-            container.append($make("hr"));
+                container.append($make("hr"));
 
+                entry = makeEntry(i18n.items.confirm(), ...(() => {
+                    let list = [];
+                    let btn;
+        
+                    let holder = $make("div.choice-group");
+                    list.push(holder);
+        
+                    btn = $make("button", i18n.values.items.showConfirms());
+                    btn.onclick = () => {
+                        let popup = callPopup("prompt", i18n.popups.confirm.title(), i18n.popups.confirm.desc());
+                        let holder = $make("div.info");
+                        holder.style.marginTop = "10px";
+                        holder.style.gap = "5px";
+                        popup.$content.append(holder);
+                        function makeItem(id) {
+                            let group, checkbox, label;
+                            holder.append(group = $make("div.input-group", 
+                                checkbox = $make("input"),
+                                label = $make("label", i18n.popups.confirm.types[id]())
+                            ))
+                            checkbox.id = label.htmlFor = Math.random();
+                            checkbox.type = "checkbox";
+                            checkbox.checked = game.option.confirm[id];
+                            checkbox.onchange = () => {
+                                game.option.confirm[id] = checkbox.checked;
+                                saveGame();
+                            }
+                        }
+                        makeItem("sellAccount");
+                    }
+                    holder.append(btn);
+        
+                    return list;
+                })());
+            }
+
+
+            elms.content.append(container = $make("div.opt-container"));
+            container.append($make("h3", i18n.headers.prefs.video()));
+
+            makeEntry([i18n.items.cardSize(),
+            ], sliderGroup = createSliderGroup(50, 150, 5, game.option.cardSize, (value) => {
+                game.option.cardSize = value;
+                updatePrefs();
+                saveGame();
+            }, (value) => {
+                return _number(format(value) + "%");
+            }));
             makeEntry(i18n.items.cardImages(), choiceGroup = createChoiceGroup({
                 0: i18n.values.common.hidden(),
                 1: i18n.values.common.shown(),
@@ -127,16 +177,7 @@ tabs.options = {
             elms.content.append(container = $make("div.opt-container"));
             container.append($make("h3", i18n.headers.prefs.audio()));
 
-            makeEntry(i18n.items.music(), choiceGroup = createChoiceGroup({
-                "": i18n.values.common.disabled(),
-                "conscious": i18n.values.common.enabled(),
-            }, game.option.music, (choice) => {
-                game.option.music = choice;
-                this.elms.volumeSlider.style.display = choice ? "" : "none";
-                updateMusic();
-                saveGame();
-            }));
-            this.elms.volumeSlider = makeEntry([i18n.items.musicVolume(),
+            makeEntry([i18n.items.musicVolume(),
             ], createSliderGroup(0, 1, 0, game.option.volume.music, (value) => {
                 game.option.volume.music = value
                 updateMusic();
@@ -144,7 +185,6 @@ tabs.options = {
             }, (value) => {
                 return _number(format(value * 100) + "%");
             }));
-            this.elms.volumeSlider.style.display = game.option.music ? "" : "none";
 
 
         }
@@ -267,7 +307,6 @@ tabs.options = {
         else if (this.subtab == "other") {
 
             elms.content.append(container = $make("div.opt-container"));
-            container.append($make("h3", i18n.headers.other.info()));
 
             entry = makeEntry(i18n.items.info(), ...(() => {
                 let list = [];
@@ -286,7 +325,6 @@ tabs.options = {
             })());
 
             elms.content.append(container = $make("div.opt-container"));
-            container.append($make("h3", i18n.headers.other.bonus()));
 
             if (!cloud.type) {
                 entry = makeEntry(i18n.items.otherOther(), ...(() => {
@@ -304,7 +342,7 @@ tabs.options = {
                         popup.$content.style.margin = "0";
                         popup.$content.style.textAlign = "center";
                         popup.$content.innerHTML = `
-                            <iframe src="https://john.citrons.xyz/embed?ref=ducdat0507.github.io" class="john"></iframe>
+                            <iframe src="https://john.citrons.xyz/embed?ref=duducat.moe" class="john"></iframe>
                             <small class="unimportant">${i18n.strings.john_note()}</small>
                         `
                         let frame = popup.$content.querySelector(".john");
@@ -318,6 +356,17 @@ tabs.options = {
                             button.disabled = false;
                         }
                         popup.$actions.prepend(button, $make("span.flex-fill"));
+                        let confirm = (event) => {
+                            event.preventDefault();
+                            event.returnValue = '';
+                        }
+
+                        window.addEventListener('beforeunload', confirm);
+                        let realClose = popup.close
+                        popup.close = () => {
+                            window.removeEventListener('beforeunload', confirm);
+                            realClose();
+                        }
                     }
                     holder.append(btn);
         

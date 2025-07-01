@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initCloud();
     loadGame();
     initUI();
+    updatePrefs();
     updateEffects();
     updateUnlocks();
     updateMusic();
