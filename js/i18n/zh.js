@@ -231,7 +231,7 @@ i18nStrings.zh = {
         },
         options: {
             name: "选项",
-            headers: {
+            subtabs: {
                 prefs: "偏好设置",
                 saves: "存档管理",
                 other: "其他"

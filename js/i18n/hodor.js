@@ -86,7 +86,7 @@ i18nStrings.hodor = {
         },
         options: {
             name: "Hodor",
-            headers: {
+            subtabs: {
                 prefs: "Hodor",
                 saves: "Hodor",
                 other: "Hodor"
