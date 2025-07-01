@@ -762,7 +762,7 @@
     left: calc(var(--position, 0) * 100%);
     transform: translateX(calc(var(--position, 0) * -100%));
     height: calc(1.2em + 8px);
-    aspect-ratio: 1;
+    width: calc(1.2em + 8px);
     border-radius: 1000vw;
     border: 1px solid var(--border-0);
     background: var(--background-1) linear-gradient(var(--bg-2), var(--bg-1)) -1px -1px / calc(100% + 2px) calc(100% + 2px);
@@ -801,7 +801,7 @@
     top: calc(4px + .4em);
     left: calc(var(--tick-pos, 0) * calc(100% - 1.2em - 8px) + 0.4em);
     height: calc(0.4em + 8px);
-    aspect-ratio: 1;
+    width: calc(0.4em + 8px);
     border-radius: 1000vw;
     border: 1px solid var(--border-1);
     background: 
