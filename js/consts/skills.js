@@ -7,7 +7,7 @@ const skills = {
             ) + "<br>" + str.format.skill.cooldown(_number(format.time(effects.skillFireCooldown)));
         },
         trigger: () => {
-            game.res.energy = addWithCap(game.res.energy, effects.skillFireSkip / 60 * effects.bulkPower, effects.energyCap);
+            game.res.energy = addWithCap(game.res.energy, effects.skillFireSkip / 60 * effects.bulkPower * effects.skillWaterSpeed, effects.energyCap);
             if (game.time.skillStacks.fire > 0) game.time.skillStacks.fire--;
             else game.time.skillCooldowns.fire = effects.skillFireCooldown;
         },
