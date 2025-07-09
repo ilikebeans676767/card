@@ -12,7 +12,10 @@ popups.pack = {
         info.insertAdjacentHTML("afterend", `
             <div class="header">
                 <h2>${i18n.name()}</h2>
-                <small>${popupI18n.strings.pack()}</small>
+                <small>
+                    ${game.debug ? `(ID: ${pack}/${id})<br>` : ""}
+                    ${popupI18n.strings.pack()}
+                </small>
             </div>
             <p>
                 ${popupI18n.buy_confirm(i18n.name())}

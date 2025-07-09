@@ -11,7 +11,10 @@ popups.buff = {
         let holder = $makeHTML("div.info", `
             <div class="header">
                 <h2>${i18n.name()}</h2>
-                <small>${popupI18n.strings.buff()}</small>
+                <small>
+                    ${game.debug ? `(ID: ${type}/${buff})<br>` : ""}
+                    ${popupI18n.strings.buff()}
+                </small>
             </div>
         `)
         popup.$body.append(holder);

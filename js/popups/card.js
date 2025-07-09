@@ -68,25 +68,28 @@ popups.card = {
         localElms.info.innerHTML = `
             <div class="header">
                 <h2><rarity rarity="${rarity}"></rarity> ${i18n.name()}</h2>
-                <small>${state ? `
-                    ${data.faction
-                        ? `${popupI18n.factions[data.faction]()}<br>`
-                        : ``
-                    }
-                    ${data.crown 
-                        ? ``
-                        : `${popupI18n.strings.copies(_number(`+${format(state.amount)}`))}<br>`
-                    }
-                    ${data.crown 
-                        ? popupI18n.strings.crown()
-                        : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
-                    }
-                    ${data.levelCost ? data.maxLevel
-                        ? popupI18n.strings.stars(_number(`${format(state.level)}/${format(data.maxLevel)}`))
-                        : popupI18n.strings.stars(_number(format(state.level)))
-                        : ``
-                    }
-                ` : popupI18n.strings.notOwned()}</small>
+                <small>
+                    ${game.debug ? `(ID: ${pack}/${rarity}/${id})<br>` : ""}
+                    ${state ? `
+                        ${data.faction
+                            ? `${popupI18n.factions[data.faction]()}<br>`
+                            : ``
+                        }
+                        ${data.crown 
+                            ? ``
+                            : `${popupI18n.strings.copies(_number(`+${format(state.amount)}`))}<br>`
+                        }
+                        ${data.crown 
+                            ? popupI18n.strings.crown()
+                            : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
+                        }
+                        ${data.levelCost ? data.maxLevel
+                            ? popupI18n.strings.level(_number(`${format(state.level)}/${format(data.maxLevel)}`))
+                            : popupI18n.strings.level(_number(format(state.level)))
+                            : ``
+                        }
+                    ` : popupI18n.strings.notOwned()}
+                </small>
             </div>
             <div>
                 ${verbify(format.effect(i18n.desc(), curFx, newFx))}
