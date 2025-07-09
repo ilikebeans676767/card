@@ -57,7 +57,7 @@ tabs.options = {
             ), game.option.language, (choice) => {
                 setLanguage(choice);
                 saveGame();
-                onUIFrame();
+                doUIFrame();
             }));
             container.append(
                 $make("div.opt-entry.before",
@@ -77,7 +77,7 @@ tabs.options = {
                 game.option.verb = choice;
                 updateVerb();
                 saveGame();
-                onUIFrame();
+                doUIFrame();
             }));
 
             container.append($make("hr"));
@@ -93,7 +93,7 @@ tabs.options = {
             ), game.option.notation, (choice) => {
                 game.option.notation = choice;
                 saveGame();
-                onUIFrame();
+                doUIFrame();
             }));
 
 
@@ -106,7 +106,7 @@ tabs.options = {
             ], sliderGroup = createSliderGroup(0, updateRates.length - 1, 1, updateRates.indexOf(game.option.updateRate), (value) => {
                 game.option.updateRate = updateRates[value]
                 saveGame();
-                onUIFrame();
+                doUIFrame();
             }, (value) => {
                 return value == 0 ? i18n.values.updateRate.auto() : i18n.values.updateRate.perSec(_number(format(updateRates[value])));
             }));

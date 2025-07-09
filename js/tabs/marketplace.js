@@ -61,7 +61,9 @@ tabs.marketplace = {
             adBox.append(adBox.$effect = $make("p"), $make("div.flex-fill"))
             let watchBtn = adBox.$watchBtn = $make("button.value");
             watchBtn.onclick = () => playAd();
-            let buttons = $make("div", watchBtn);
+            let rerollBtn = adBox.$rerollBtn = $make("button", i18n.strings.ad_reroll());
+            rerollBtn.onclick = () => rerollAd();
+            let buttons = $make("div.buttons", rerollBtn, $make("span.flex-fill"), watchBtn);
             adBox.append(buttons);
             list.append(adBox);
 
@@ -90,7 +92,7 @@ tabs.marketplace = {
                 card.append($make("div.flex-fill"));
                 let button = card.$button = $make("button.value");
                 button.onclick = () => sellAccount();
-                let buttons = $make("div", button);
+                let buttons = $make("div.buttons", button);
                 card.append(buttons);
                 list.append(card);
             }
@@ -134,6 +136,7 @@ tabs.marketplace = {
                                 rng: Math.random()
                             }
                         }
+                        saveGame();
                     }
                     let offer = game.buffs.adOffer;
                     let offerData = adOffers[offer.type].getOffer(offer.args);
@@ -189,8 +192,8 @@ tabs.marketplace = {
                 this.elms.accountSell.$button.disabled = true;
                 this.elms.accountSell.$button.innerHTML = i18n.strings.sellAccount_actionLocked();
             }
-
         }
+        this.onFrame();
     },
 
     updateCards(packs, rarity, list, cardCondition) {
@@ -324,7 +327,10 @@ tabs.marketplace = {
                     infoHTML = i18n.strings.ad_cooldown(_number(format.time(game.time.adCooldown * effects.adCooldown)));
                     btnHTML = i18n.strings.ad_actionCooldown();
                 } else {
-                    if (self.elms.adBox.$watchBtn.disabled) self.updateUI();
+                    if (self.elms.adBox.$watchBtn.disabled) {
+                        self.elms.adBox.$watchBtn.disabled = false;
+                        self.updateUI();
+                    }
                     btnHTML = _icon("fluent:filmstrip-play-24-regular") + " " + i18n.strings.ad_action();
                 }
                 self.elms.adBox.$watchBtn.disabled = isCooldown;
@@ -333,7 +339,8 @@ tabs.marketplace = {
                     self.elms.adBox.$watchBtn.innerHTML = btnHTML;
                 if (infoHTML && self.elms.adBox.$effect.innerHTML != infoHTML)
                     self.elms.adBox.$effect.innerHTML = infoHTML;
-            }
+                self.elms.adBox.$rerollBtn.style.display = isCooldown || !flags.unlocked.adReroll ? "none" : "";
+            } 
         }
     }
 }

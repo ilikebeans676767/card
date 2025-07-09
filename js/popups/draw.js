@@ -169,7 +169,7 @@ popups.draw = {
         game.drawPref.skills = {};
         updateEffects();
         updateUnlocks();
-        onUIFrame();
+        doUIFrame();
         emit("card-update");
 
         // Don't save game if the first endgame occurs

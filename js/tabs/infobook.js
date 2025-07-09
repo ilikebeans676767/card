@@ -43,7 +43,7 @@ tabs.infobook = {
         holder.append(btnRight);
 
         this.updateSubtab();
-        addEvent("frame", this.onFrame);
+        addEvent("anim-frame", this.onFrame);
         addEvent("effect-update", this.updateItems);
     },
     onDestroy() {
@@ -51,7 +51,7 @@ tabs.infobook = {
         this.elms = {};
         this.items = {};
         this.state = {};
-        removeEvent("frame", this.onFrame);
+        removeEvent("anim-frame", this.onFrame);
         removeEvent("effect-update", this.updateItems);
     },
     onFrame() {

@@ -492,7 +492,7 @@ const cards = {
                 levelCost: [10, 10, "points"],
                 starCost: x => cardStarCost.standard.r(x, 1),
                 effects: [
-                    (level, star) => (level + 4) * (2 ** star) * 5,
+                    (level, star) => (level ** (0.9 + star * 0.1) + 4) * (2 ** star) * 5,
                 ],
                 effectors: {
                     adDrawDurationMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
@@ -645,6 +645,18 @@ const cards = {
                 ],
                 effectors: {
                     shredMult: [priority.multiplicative, (x) => x * (1 + fx(1) / 100)]
+                }
+            },
+            "n2": {
+                available: () => flags.unlocked.ad,
+                pMult: 0.7,
+                starDiff: 1.2,
+                effects: [
+                    (level, star) => 60 - star * 10,
+                    (level, star) => effects.adCooldown * fx(0) / 100,
+                ],
+                effectors: {
+                    adRerollCost: [priority.multiplicative, (x) => x * fx(0) / 100]
                 }
             },
             "s_fire": {
@@ -1127,6 +1139,17 @@ const cards = {
                 ],
                 effectors: {
                     factionChance: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
+                }
+            },
+            "n4": {
+                levelCost: [50, 1.75, "exp"],
+                effects: [
+                    (level, star) => (level) * 2 ** star,
+                    (level, star) => (level) * star,
+                ],
+                effectors: {
+                    bulk: [priority.additive, (x) => x + fx(0)],
+                    bulkMult: [priority.multiplicative, (x) => x * (1 + fx(0) / 100)],
                 }
             },
         },
