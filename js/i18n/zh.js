@@ -1310,7 +1310,7 @@ i18nStrings.zh = {
                     name: "卡牌倍率",
                 },
                 energySpeed: {
-                    name: "额外能量速率",
+                    name: "额外批能速率",
                 },
                 cardRChance: {
                     name: "<rarity rarity='r'></rarity>出现几率",
