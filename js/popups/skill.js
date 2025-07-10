@@ -12,7 +12,10 @@ popups.skill = {
         info.innerHTML = `
             <div class="header">
                 <h2>${i18n.name()}</h2>
-                <small>${popupI18n.strings.skill()}</small>
+                <small>
+                    ${game.debug ? `(ID: ${skill})<br>` : ""}
+                    ${popupI18n.strings.skill()}
+                </small>
             </div>
             <div>
                 ${verbify(data.desc())}

@@ -74,6 +74,7 @@ const baseEffect = {
     legacyPickCount: 1,
 
     adCooldown: 900,
+    adRerollCost: 1,
     adPointBoost: 4,
     adShredBoost: 3,
     adFactionBoost: 2,
@@ -94,6 +95,7 @@ const flags = {
         iris: false,
         legacy: false,
         ad: false,
+        adReroll: false,
     }
 }
 

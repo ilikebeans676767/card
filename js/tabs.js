@@ -38,7 +38,7 @@ function setTab(tab) {
     currentTab = tab;
     elms.tab.setAttribute("tab-name", str.tabs[currentTab].name());
     tabs[currentTab]?.onInit?.();
-    onUIFrame();
+    doUIFrame();
 
     for (let id in tabButtons) tabButtons[id].disabled = id == tab;
 }

@@ -9,7 +9,10 @@ popups.badge = {
         info.innerHTML = `
             <div class="header">
                 <h2>${verbify(str.badges[badge].name())}</h2>
-                <small>${str.popups.badge.strings["state_" + (obtained ? "obtained" : "locked")]()}</small>
+                <small>
+                    ${game.debug ? `(ID: ${badge})<br>` : ""}
+                    ${str.popups.badge.strings["state_" + (obtained ? "obtained" : "locked")]()}
+                </small>
             </div>
             <div>
                 ${obtained ? verbify(str.badges[badge].desc()) : str.popups.badge.strings.lock_desc()}

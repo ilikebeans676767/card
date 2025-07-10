@@ -124,25 +124,28 @@ let tooltipTemplates = {
             tooltip.innerHTML = `
                 <div class="header">
                     <h2><rarity rarity="${rarity}"></rarity> ${i18n.name()}</h2>
-                    <small>${state ? `
-                        ${data.faction
-                            ? `${popupI18n.factions[data.faction]()}<br>`
-                            : ``
-                        }
-                        ${data.crown 
-                            ? ``
-                            : `${popupI18n.strings.copies(_number(`+${format(state.amount)}`))}<br>`
-                        }
-                        ${data.crown 
-                            ? popupI18n.strings.crown()
-                            : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
-                        }
-                        ${data.levelCost ? data.maxLevel
-                            ? popupI18n.strings.level(_number(`${format(state.level)}/${format(data.maxLevel)}`))
-                            : popupI18n.strings.level(_number(format(state.level)))
-                            : ``
-                        }
-                    ` : popupI18n.strings.notOwned()}</small>
+                    <small>
+                        ${game.debug ? `(ID: ${pack}/${rarity}/${id})<br>` : ""}
+                        ${state ? `
+                            ${data.faction
+                                ? `${popupI18n.factions[data.faction]()}<br>`
+                                : ``
+                            }
+                            ${data.crown 
+                                ? ``
+                                : `${popupI18n.strings.copies(_number(`+${format(state.amount)}`))}<br>`
+                            }
+                            ${data.crown 
+                                ? popupI18n.strings.crown()
+                                : popupI18n.strings.stars(_number(`${format(state.stars)}/${format(5)}`))
+                            }
+                            ${data.levelCost ? data.maxLevel
+                                ? popupI18n.strings.level(_number(`${format(state.level)}/${format(data.maxLevel)}`))
+                                : popupI18n.strings.level(_number(format(state.level)))
+                                : ``
+                            }
+                        ` : popupI18n.strings.notOwned()}
+                    </small>
                 </div>
                 <div>
                     ${verbify(format.effect(i18n.desc(), curFx, newFx))}
@@ -220,7 +223,9 @@ let tooltipTemplates = {
                 tooltip.innerHTML = `
                     <div class="header">
                         <h2>${i18n.name()}</h2>
-                        <small>${popupI18n.strings.skill()}</small>
+                        <small>level
+                            ${popupI18n.strings.skill()}
+                        </small>
                     </div>
                     <div>
                         ${verbify(data.desc())}
@@ -242,7 +247,10 @@ let tooltipTemplates = {
             tooltip.innerHTML = `
                 <div class="header">
                     <h2>${i18n.name()}</h2>
-                    <small>${popupI18n.strings.buff()}</small>
+                    <small>
+                        ${game.debug ? `(ID: ${type}/${buff})<br>` : ""}
+                        ${popupI18n.strings.buff()}
+                    </small>
                 </div>
             `
             tooltip.append(info = $make("div"));
@@ -272,7 +280,10 @@ let tooltipTemplates = {
             tooltip.innerHTML = `
                 <div class="header">
                     <h2>${verbify(str.badges[badge].name())}</h2>
-                    <small>${str.popups.badge.strings["state_" + (obtained ? "obtained" : "locked")]()}</small>
+                    <small>
+                        ${game.debug ? `(ID: ${badge})<br>` : ""}
+                        ${str.popups.badge.strings["state_" + (obtained ? "obtained" : "locked")]()}
+                    </small>
                 </div>
                 <div>
                     ${obtained ? verbify(str.badges[badge].desc()) : str.popups.badge.strings.lock_desc()}
@@ -284,9 +295,13 @@ let tooltipTemplates = {
 
 function getCurrencyInfo(id) {
     let i18n = str.popups.currency;
+    let result = "";
+
+    if (game.debug) result += `(ID: ${id})<br>`;
+
     if (id == "energy") {
         let eff = addWithCapEfficiency(game.res[id], effects.energyCap, 2);
-        return `
+        result += `
             ${i18n.strings.amount_have(_number(format(game.res[id], 0, 14)))}<br>
             ${i18n.strings.speed_minute(_number(format(effects.bulkPower * eff)))}
             ${effects.bulkPower == 0 ? "" 
@@ -295,8 +310,10 @@ function getCurrencyInfo(id) {
             }
         `
     } else if (id == "cards") {
-        return verbify(i18n.strings.amount_drawn(_number(format(game.stats.cardsDrawn, 0, 14))))
+        result += verbify(i18n.strings.amount_drawn(_number(format(game.stats.cardsDrawn, 0, 14))))
     } else {
-        return i18n.strings.amount_have(_number(format.currency(id, game.res[id], 14)))
+        result += i18n.strings.amount_have(_number(format.currency(id, game.res[id], 14)))
     }
+
+    return result;
 }

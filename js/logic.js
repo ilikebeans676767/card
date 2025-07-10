@@ -120,7 +120,7 @@ function onFrame() {
 }
 
 let uiFrameTimeout = 0;
-function onUIFrame() {
+function doUIFrame() {
     if (game.option.updateRate > 0 && game.option.updateRate < 30 && !uiFrameTimeout) {
         uiFrameTimeout = setTimeout(() => {
             uiFrameTimeout = 0;
@@ -247,6 +247,7 @@ function updateUnlocks() {
     
     flags.unlocked.legacy = hasCard("standard_legacy", "ex", "legacy");
     flags.unlocked.ad = hasCard("standard_legacy", "ex", "ads");
+    flags.unlocked.adReroll = hasCard("standard", "ssr", "n2");
 }
 
 function updatePrefs() {
@@ -323,7 +324,6 @@ function updateEffects(silent = false) {
         effects.energyCap *= effects.skillWaterGain;
         effects.bulkMultBonus *= effects.skillWaterCard;
         effects.energySpeed *= effects.skillWaterSpeed;
-        effects.skillFireSkip /= effects.skillWaterSpeed;
     }
     if (game.drawPref.skills.leaf) {
         effects.shredRMult *= effects.skillLeafMult;
@@ -345,7 +345,7 @@ function updateEffects(silent = false) {
 
 
     if (!silent) emit("effect-update");
-    onUIFrame();
+    doUIFrame();
 }
 
 // ----- Card logic

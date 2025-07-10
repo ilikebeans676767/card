@@ -214,6 +214,7 @@ let i18nDefault = i18nStrings.en = {
                 ad_cooldown: "New “ads” will become available in {0}",
                 ad_action: "“Watch” “Ad”",
                 ad_actionCooldown: "On cooldown",
+                ad_reroll: "Reroll offer",
             },
         },
         infobook: {
@@ -962,6 +963,11 @@ let i18nDefault = i18nStrings.en = {
                     desc: "Gain more Shreds based on the total amount of skill reactions you've done.<br>(Currently: {0} reactions ⇒ {+1%} shred gain)",
                     quote: "All the technological advancements, just for this"
                 },
+                n2: {
+                    name: "Saying “No” Permit",
+                    desc: "Allow rerolling the current ad offer, at the cost of {0%} of the watch cooldown ({1s}).",
+                    quote: "It isn't that hard"
+                },
                 s_fire: {
                     name: "Burst",
                     desc: "Unlock the <b>Burst</b> skill.",
@@ -1051,7 +1057,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n1b: {
                     name: "The Sleeping Game",
-                    desc: "While <b>Freeze Drop</b> is active, increase bulk power by {+0%}, but decrease time skip amount of <b>Burst</b> by the same amount.",
+                    desc: "While <b>Freeze Drop</b> is active, increase bonus Bulk Energy speed by {+0%}.",
                     quote: "Wait, that isn't what the initials mean?"
                 },
                 n1b0: {
@@ -1192,7 +1198,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n4: {
                     name: "Starting Deck",
-                    desc: "{+0} base bulk.<br>{+0} card multiplier.",
+                    desc: "{+0} base bulk.<br>{x1%} card multiplier.",
                     quote: "Obviously you need a way to properly start your card collecting journey!... Would you like to buy this starter deck?"
                 },
             },

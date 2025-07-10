@@ -97,7 +97,7 @@ tabs.collection = {
         }, this.filters.pickit, (x) => {
             this.filters.pickit = x;
             this.updateCards();
-            if (x) onUIFrame();
+            if (x) doUIFrame();
         }));
         [
             i18n.filters.pickit.off,

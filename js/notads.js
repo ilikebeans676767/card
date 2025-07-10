@@ -67,3 +67,9 @@ function playAd() {
 
     callPopup("ad", ad);
 }
+
+function rerollAd() {
+    game.time.adCooldown = effects.adRerollCost;
+    saveGame();
+    doUIFrame();
+}
