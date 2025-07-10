@@ -223,7 +223,8 @@ let tooltipTemplates = {
                 tooltip.innerHTML = `
                     <div class="header">
                         <h2>${i18n.name()}</h2>
-                        <small>level
+                        <small>
+                            ${game.debug ? `(ID: ${skill})<br>` : ""}
                             ${popupI18n.strings.skill()}
                         </small>
                     </div>

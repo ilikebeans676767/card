@@ -1198,7 +1198,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n4: {
                     name: "Starting Deck",
-                    desc: "{+0} base bulk.<br>{x1%} card multiplier.",
+                    desc: "{+0} base bulk.<br>{+1%} card multiplier.",
                     quote: "Obviously you need a way to properly start your card collecting journey!... Would you like to buy this starter deck?"
                 },
             },

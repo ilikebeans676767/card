@@ -70,6 +70,7 @@ function playAd() {
 
 function rerollAd() {
     game.time.adCooldown = effects.adRerollCost;
+    game.buffs.adOffer = "";
     saveGame();
     doUIFrame();
 }
