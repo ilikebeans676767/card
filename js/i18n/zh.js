@@ -27,7 +27,7 @@ i18nStrings.zh = {
      */
     verbs: {
         draw: {
-            draw: "抽卡",
+            draw: "抽",
             draws: "抽卡",
             drew: "抽了",
             drawn: "抽到",
@@ -76,10 +76,10 @@ i18nStrings.zh = {
      * Common or uncategorized strings.
      */
     common: {
-        title: "一万亿次免费{Draws}",
-        title_rich: "<span class='number'>一万亿</span>次免费{Draws}",
+        title: "万亿免费{draw}",
+        title_rich: "<span class='number'>一万亿</span>次免费{draws}",
 
-        draw: "{Draw}",
+        draw: "{draws}",
         draw_inCooldown: "冷却中",
         draw_outOfDraws: "没有更多{draws}了...",
         switch: {
@@ -97,7 +97,7 @@ i18nStrings.zh = {
         new: "新!",
 
         hint_title: "你有{0}次免费{draws}！",
-        hint_desc: "点击下方这个大“{Draw}”按钮开始{drawing}吧！",
+        hint_desc: "点击下方这个大“{drawing}”按钮开始{draws}吧！",
         hint_ios_title: "获得最佳体验：",
         hint_ios_desc: "点击{0} -> “添加到主屏幕” -> “添加”",
     },
@@ -209,12 +209,13 @@ i18nStrings.zh = {
                 ad_effects: {
                     points_draw: "“看” 一个 “广告” 来为接下来的{1}{draws}获取{x0:1}倍更多点数！",
                     shreds_draw: "“看” 一个 “广告” 来为接下来的{1}{draws}获取{x0:1}倍更多碎片！",
-                    faction_draw: "“看” 一个 “广告” 来为接下来的{1s}获取{x0:1}倍更多阵营之力！",
+                    faction_draw: "“看” 一个 “广告” 来为接下来的{1}{draws}获取{x0:1}倍更多阵营之力！",
                     energy_time: "“看” 一个 “广告” 来为接下来的{1s}获取{x0:1}倍更多批量能量！",
                 },
                 ad_cooldown: "新的 “广告” 在 {0} 后可用",
                 ad_action: "“看” “广告”",
                 ad_actionCooldown: "冷却中",
+                ad_reroll: "重置加成",
             },
         },
         infobook: {
@@ -236,19 +237,42 @@ i18nStrings.zh = {
                 saves: "存档管理",
                 other: "其他"
             },
+            headers: {
+                prefs: {
+                    i18n: "本地化 & 存档数据",
+                    logic: "游戏行为",
+                    video: "图像 & UI",
+                    audio: "声音"
+                },
+                saves: {
+                    storage: "保存"
+                },
+                other: {
+                    info: "信息",
+                    bonus: "其他"
+                },
+            },
             items: {
                 language: "语言",
+                updateRate: "图像更新频率",
+                confirm: "确定弹窗",
                 notation: "数字格式",
                 verb: "动词",
                 cardImages: "卡牌图像",
-                music: "背景音乐",
+                cardSize: "卡牌大小",
+                musicVolume: "背景音乐音量",
                 localSave: "本地存档",
                 cloudSave: "云存档",
                 info: "信息",
                 otherOther: "其他其他",
             },
             values: {
+                updateRate: {
+                    auto: "自动",
+                    perSec: "{0} TPS",
+                },
                 items: {
+                    showConfirms: "打开确定弹窗设置",
                     manualSave: "手动保存",
                     importExport: "导入/导出存档",
                     hardReset: "硬重置",
@@ -288,6 +312,15 @@ i18nStrings.zh = {
                 verb_desc: "更改与{drawing}卡牌相关的动词，如游戏标题和物品描述中的动词。",
                 john_note: "(注意：链接将在此标签页中打开，按住Ctrl点击可避免意外关闭游戏)",
             },
+            popups: {
+                confirm: {
+                    title: "确定弹窗设置界面",
+                    desc: "当...时询问我是否确定:",
+                    types: {
+                        sellAccount: "出售账号时",
+                    }
+                }
+            }
         },
     },
 
@@ -303,6 +336,7 @@ i18nStrings.zh = {
 
             action_continue: "继续",
             action_close: "关闭",
+            action_reload: "刷新",
         },
         draw: {
             strings: {
@@ -546,7 +580,7 @@ i18nStrings.zh = {
             desc_event: "在你不在的时候：",
             events: {
                 nothing: "没什么有意思的事发生过...",
-                energy: "批量能力从 {0} 变为 {1}",
+                energy: "批量能量从 {0} 变为 {1}",
                 cooldown: "抽卡冷却从 {0} 变为 {1}",
                 skillCooldown: "“{0}” 的冷却从 {1} 变为 {2}",
                 skillStack: "“{0}” 的层数从 {1} 变为 {2}",
@@ -666,7 +700,7 @@ i18nStrings.zh = {
                 },
                 n4: {
                     name: "自填充包",
-                    desc: "{+0}批量功率。批量功率被动生成批量能量。",
+                    desc: "{+0}批能速率。批能速率被动生成批量能量。",
                     quote: "增量游戏，也被称为放置游戏"
                 },
                 n5: {
@@ -718,12 +752,12 @@ i18nStrings.zh = {
                 },
                 n3: {
                     name: "卡牌开启工厂",
-                    desc: "{+0%}批量功率，但{+1%}抽卡冷却时间。",
+                    desc: "{+0%}批能速率，但{+1%}抽卡冷却时间。",
                     quote: "生产大量卡牌开启器"
                 },
                 n3b: {
                     name: "回收利用",
-                    desc: "{+0%}批量功率。",
+                    desc: "{+0%}批能速率。",
                     quote: "把抽到的卡牌回收了继续抽——仔细想想还挺环保？"
                 },
                 n3c: {
@@ -930,6 +964,11 @@ i18nStrings.zh = {
                     desc: "根据你完成的技能反应次数获得更多碎片。<br>(当前：{0}次反应 ⇒ {+1%}碎片获取)",
                     quote: "所有的技术进步，就为了这个"
                 },
+                n2: {
+                    name: "拒看许可证",
+                    desc: "允许你以 {0%}({1s}) 的冷却时间重新刷新当前广告增益。",
+                    quote: "这有啥难的"
+                },
                 s_fire: {
                     name: "爆发",
                     desc: "解锁<b>爆发</b>技能。",
@@ -999,7 +1038,7 @@ i18nStrings.zh = {
             ur: {
                 n0: {
                     name: "妈",
-                    desc: "{+0%}基础批量、批量功率、能量上限和卡牌倍率。<br>{+1%}碎片获取。<br>{x2}点数获取。",
+                    desc: "{+0%}基础批量、批能速率、能量上限和卡牌倍率。<br>{+1%}碎片获取。<br>{x2}点数获取。",
                     quote: "<rarity rarity='ur'></rarity>妈强化得太狠，成了游戏中最强的单位<br>（译注：原文<rarity rarity='ur'></rarity> mom谐音your mom）"
                 },
                 n1a: {
@@ -1019,7 +1058,7 @@ i18nStrings.zh = {
                 },
                 n1b: {
                     name: "沉睡游戏",
-                    desc: "当<b>冻结滴落</b>激活时，增加批量功率{+0%}，但减少<b>爆发</b>的时间跳过量相同的百分比。",
+                    desc: "当<b>冻结滴落</b>激活时，增加批能速率{+0%}。",
                     quote: "等等，这不是一开始的意思吗？"
                 },
                 n1b0: {
@@ -1265,10 +1304,13 @@ i18nStrings.zh = {
                     name: "基础批量",
                 },
                 bulkPower: {
-                    name: "批量功率",
+                    name: "批能速率",
                 },
                 bulkMult: {
                     name: "卡牌倍率",
+                },
+                energySpeed: {
+                    name: "额外批能速率",
                 },
                 cardRChance: {
                     name: "<rarity rarity='r'></rarity>出现几率",
