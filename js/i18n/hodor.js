@@ -1,4 +1,3 @@
-/** @type {typeof i18nDefault} */
 i18nStrings.hodor = {
     name: "Hodor",
     notation: "hodor",
@@ -16,6 +15,7 @@ i18nStrings.hodor = {
 
         draw: "Hodor",
         draw_inCooldown: "Hodor",
+        draw_outOfDraws: "Hodor",
         switch: {
             no: "Hodor",
             fire: "Hodor",
@@ -28,10 +28,17 @@ i18nStrings.hodor = {
             active: "Hodor",
         },
 
+        new: "Hodor",
+
         hint_title: "Hodor",
         hint_desc: "Hodor",
         hint_ios_title: "Hodor",
         hint_ios_desc: "Hodor",
+    },
+
+    notifs: {
+        badge_earn: "Hodor",
+        music_needsInteract: "Hodor",
     },
 
     format: {
@@ -42,7 +49,7 @@ i18nStrings.hodor = {
             quote: "Hodor",
         },
         skill: {
-            cooldown: "Hodor"
+            cooldown: "Hodor",
         },
         time: {
             second: "Hodor",
@@ -53,7 +60,7 @@ i18nStrings.hodor = {
         },
         chance: {
             fraction: "Hodor",
-            percent: "Hodor"
+            percent: "Hodor",
         }
     },
 
@@ -65,12 +72,76 @@ i18nStrings.hodor = {
         },
         collection: {
             name: "Hodor",
+            filters: {
+                type: {
+                    regular: "Hodor",
+                    legacy: "Hodor",
+                },
+                rarity: {
+                    any: "Hodor",
+                    n: "Hodor", 
+                    r: "Hodor", 
+                    sr: "Hodor", 
+                    ssr: "Hodor", 
+                    ur: "Hodor",
+                    ex: "Hodor",
+                },
+                faction: {
+                    any: "Hodor", 
+                    none: "Hodor",
+                    fire: "Hodor", 
+                    water: "Hodor", 
+                    leaf: "Hodor", 
+                    sun: "Hodor", 
+                    moon: "Hodor",
+                },
+                pickit: {
+                    off: "Hodor",
+                    on: "Hodor",
+                },
+                iris: {
+                    info1: "Hodor",
+                    infoInHand: "Hodor",
+                    infoInPool: "Hodor",
+                    infoInGame: "Hodor",
+                    info2: "Hodor",
+                },
+            }
         },
         marketplace: {
             name: "Hodor",
+            subtabs: {
+                meta: "Hodor",
+                ingame: "Hodor",
+            },
             headers: {
+                accountMarket: "Hodor",
                 exCards: "Hodor",
-            }
+                boosterPacks: "Hodor",
+                cinema: "Hodor",
+            },
+            strings: {
+                sellAccount: "Hodor",
+                sellAccount_desc: "Hodor",
+                sellAccount_gain: "Hodor",
+                sellAccount_gain_money: "Hodor",
+                sellAccount_gain_exp: "Hodor",
+                sellAccount_req: "Hodor",
+                sellAccount_action: "Hodor",
+                sellAccount_actionLocked: "Hodor",
+
+                ad_title: "Hodor",
+                ad_effects: {
+                    points_draw: "Hodor",
+                    shreds_draw: "Hodor",
+                    faction_draw: "Hodor",
+                    energy_time: "Hodor",
+                },
+                ad_cooldown: "Hodor",
+                ad_action: "Hodor",
+                ad_actionCooldown: "Hodor",
+                ad_reroll: "Hodor",
+            },
         },
         infobook: {
             name: "Hodor",
@@ -89,26 +160,49 @@ i18nStrings.hodor = {
             subtabs: {
                 prefs: "Hodor",
                 saves: "Hodor",
-                other: "Hodor"
+                other: "Hodor",
+            },
+            headers: {
+                prefs: {
+                    i18n: "Hodor",
+                    logic: "Hodor",
+                    video: "Hodor",
+                    audio: "Hodor",
+                },
+                saves: {
+                    storage: "Hodor",
+                },
+                other: {
+                    info: "Hodor",
+                    bonus: "Hodor",
+                },
             },
             items: {
                 language: "Hodor",
+                updateRate: "Hodor",
+                confirm: "Hodor",
                 notation: "Hodor",
                 verb: "Hodor",
                 cardImages: "Hodor",
-                music: "Hodor",
+                cardSize: "Hodor",
+                musicVolume: "Hodor",
                 localSave: "Hodor",
                 cloudSave: "Hodor",
                 info: "Hodor",
                 otherOther: "Hodor",
             },
             values: {
+                updateRate: {
+                    auto: "Hodor",
+                    perSec: "Hodor",
+                },
                 items: {
+                    showConfirms: "Hodor",
                     manualSave: "Hodor",
                     importExport: "Hodor",
                     hardReset: "Hodor",
                     checkSaves: "Hodor",
-                    about: "Hodor",
+                    about: "Hodor", 
                     john: "Hodor",
                 },
                 common: {
@@ -134,13 +228,24 @@ i18nStrings.hodor = {
 
                 cloud_type_galaxy: "Hodor",
                 cloud_loggedOut: "Hodor",
-                cloud_state_saving: "Hodor",
-                cloud_state_loading: "Hodor",
-                cloud_state_checking: "Hodor",
+                cloud_status_saving: "Hodor",
+                cloud_status_loading: "Hodor",
+                cloud_status_checking: "Hodor",
 
+                language_desc: "Hodor",
+                notation_desc: "Hodor",
                 verb_desc: "Hodor",
                 john_note: "Hodor",
             },
+            popups: {
+                confirm: {
+                    title: "Hodor",
+                    desc: "Hodor",
+                    types: {
+                        sellAccount: "Hodor",
+                    }
+                }
+            }
         },
     },
 
@@ -151,8 +256,9 @@ i18nStrings.hodor = {
             desc_error: "Hodor",
             desc_pleaseWait: "Hodor",
 
-            action_close: "Hodor",
             action_continue: "Hodor",
+            action_close: "Hodor",
+            action_reload: "Hodor",
         },
         draw: {
             strings: {
@@ -163,6 +269,9 @@ i18nStrings.hodor = {
                 pack_count: "Hodor",
             },
         },
+        drawLegacy: {
+            title: "Hodor",
+        },
         currency: {
             strings: {
                 amount_have: "Hodor",
@@ -172,13 +281,34 @@ i18nStrings.hodor = {
                 efficiency: "Hodor",
             }
         },
+        confirm: {
+            sellAccount: {
+                title: "Hodor",
+                desc1: "Hodor",
+                desc2: "Hodor",
+                confirm: "Hodor",
+
+                list_lose: "Hodor",
+                list_lose1: "Hodor",
+                list_lose2: "Hodor",
+                list_lose3: "Hodor",
+
+                list_gain: "Hodor",
+                list_gainMoney: "Hodor",
+                list_gainExp: "Hodor",
+
+
+                action_no: "Hodor",
+                action_yes: "Hodor",
+            },
+        },
         card: {
             factions: {
-                fire: "Hodor", 
-                water: "Hodor", 
-                leaf: "Hodor", 
-                sun: "Hodor", 
-                moon: "Hodor", 
+                fire: "Hodor",
+                water: "Hodor",
+                leaf: "Hodor",
+                sun: "Hodor",
+                moon: "Hodor",
             },
             strings: {
                 copies: "Hodor",
@@ -207,6 +337,14 @@ i18nStrings.hodor = {
                 star_button: "Hodor",
                 star_button_cant: "Hodor",
                 star_button_max: "Hodor",
+
+                buy_cost: "Hodor",
+                buy_prompt: "Hodor",
+                buy_button: "Hodor",
+                buy_button_cant: "Hodor",
+
+                legacyDraw_prompt: "Hodor",
+                legacyDraw_button: "Hodor",
             }
         },
         skill: {
@@ -219,10 +357,40 @@ i18nStrings.hodor = {
                 action_inCooldown: "Hodor",
             }
         },
+        pack: {
+            buy_confirm: "Hodor",
+            perks: "Hodor",
+            
+            buy_action_no: "Hodor",
+            buy_action_yes: "Hodor",
+
+            strings: {
+                pack: "Hodor",
+            }
+        },
+        buff: {
+            strings: {
+                buff: "Hodor",
+            }
+        },
+        ad: {
+            strings: {
+                sponsored: ["Hodor"],
+                taunts: {
+                    generic: ["Hodor"],
+                    puzzle: ["Hodor"],
+                    completed: ["Hodor"],
+                }
+            },
+
+            action_close: "Hodor",
+            action_closeIn: "Hodor",
+        },
         badge: {
             strings: {
                 state_obtained: "Hodor",
                 state_locked: "Hodor",
+
                 lock_desc: "Hodor",
             }
         },
@@ -287,15 +455,64 @@ i18nStrings.hodor = {
         about: {
             blabs: [
                 "Hodor",
+                "Hodor",
+                "Hodor",
+                "Hodor",
+                "Hodor",
+                "Hodor",
+                "Hodor",
             ],
             strings: {
                 game: "Hodor",
+                openSource: "Hodor",
+                viewLicense: "Hodor",
+                viewSource: "Hodor",
                 libs: "Hodor",
                 music: "Hodor",
                 music_foot: "Hodor",
                 icons: "Hodor",
                 footer: "Hodor",
+                thanks: "Hodor",
+                thanks1: "Hodor",
+                thanks1_foot: "Hodor",
             }
+        },
+        offline: {
+            title: "Hodor",
+            desc_time: "Hodor",
+            desc_timeReduced: "Hodor",
+            desc_event: "Hodor",
+            events: {
+                nothing: "Hodor",
+                energy: "Hodor",
+                cooldown: "Hodor",
+                skillCooldown: "Hodor",
+                skillStack: "Hodor",
+                pickitTime: "Hodor",
+                adCooldown: "Hodor",
+            }
+        },
+        sell: {
+            decor: {
+                username: "Hodor",
+                password: "Hodor",
+                accountSelling: "Hodor",
+                accountSold: "Hodor",
+                accountNew: "Hodor",
+                accountLogIn: "Hodor",
+            },
+        },
+        sellResult: {
+            title: "Hodor",
+            pointHeaders: {
+                obtained: "Hodor",
+            },
+            points: {
+                money: "Hodor",
+                exp: "Hodor",
+                legacyDraw: "Hodor",
+            },
+            action_continue: "Hodor",
         },
         complete: {
             strings: {
@@ -305,11 +522,6 @@ i18nStrings.hodor = {
                 line3: "Hodor",
             }
         },
-    },
-
-    notifs: {
-        badge_earn: "Hodor",
-        music_needsInteract: "Hodor",
     },
 
     currencies: {
@@ -350,6 +562,15 @@ i18nStrings.hodor = {
             name: "Hodor",
             quote: "Hodor",
         },
+
+        money: {
+            name: "Hodor",
+            quote: "Hodor",
+        },
+        exp: {
+            name: "Hodor",
+            quote: "Hodor",
+        },
     },
 
     cards: {
@@ -358,388 +579,549 @@ i18nStrings.hodor = {
                 n0: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n3: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n6: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n7: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 c1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 }
             },
             r: {
                 n0: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n0b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n3: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n3b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n3c: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n4b: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 n5a: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5c: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5d: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5e: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n6a: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n6b: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n6c: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 c1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 }
             },
             sr: {
                 n0: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n3: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4a: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4c: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4d: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n4e: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5a: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5c: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5d: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n5e: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n6a: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n6b: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 c1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 }
             },
             ssr: {
                 n0: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n0b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n0c: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n0d: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1a: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1b2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1c: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1d: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n1d2: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 n1e: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n2: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 s_fire: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_fire_1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_fire_2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_water: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_water_1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_water_2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_leaf: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_leaf_1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_sun: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_sun_1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_moon: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_moon_1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 s_moon_2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 }
             },
             ur: {
                 n0: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1a: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n1a1: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n1a0: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 n1b: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n1b0: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 n1c1: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 n1c2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n1c0: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 n1d: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                n1d0: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 n1e: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
-                }
+                    quote: "Hodor",
+                },
+                n1e0: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
             },
             ex: {
                 zip: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 shred: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                offline: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 faction: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 pickit: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
+                },
+                autobuy: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                iris: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
                 },
                 skills: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 },
                 skills2: {
                     name: "Hodor",
                     desc: "Hodor",
-                    quote: "Hodor"
+                    quote: "Hodor",
                 }
+            }
+        },
+        standard_legacy: {
+            n: {
+                n0: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n1: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n2: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n2a: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n2b: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n2c: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n2d: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n2e: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n3: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                n4: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+            },
+            ex: {
+                legacy: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                zip: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                pickit: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
+                ads: {
+                    name: "Hodor",
+                    desc: "Hodor",
+                    quote: "Hodor",
+                },
             }
         }
     },
@@ -759,19 +1141,48 @@ i18nStrings.hodor = {
         },
         sun: {
             name: "Hodor",
-            desc: "Hodor"
+            desc: "Hodor",
         },
         moon: {
             name: "Hodor",
-            desc: "Hodor"
+            desc: "Hodor",
         },
     },
 
+    packs: {
+        standard: {
+            legacy: {
+                name: "Hodor",
+                desc: "Hodor",
+                perks: ["Hodor"]
+            },
+            starter: {
+                name: "Hodor",
+                desc: "Hodor",
+                perks: ["Hodor"]
+            }
+        },
+    },
+    
     stats: {
         general: {
             name: "Hodor", 
             items: {
+                timeProgress: {
+                    name: "Hodor",
+                },
                 timePlayed: {
+                    name: "Hodor",
+                },
+            }
+        },    
+        legacy: {
+            name: "Hodor", 
+            items: {
+                accountsSold: {
+                    name: "Hodor",
+                },
+                legacyCardsDrawn: {
                     name: "Hodor",
                 },
             }
@@ -789,6 +1200,9 @@ i18nStrings.hodor = {
                     name: "Hodor",
                 },
                 bulkMult: {
+                    name: "Hodor",
+                },
+                energySpeed: {
                     name: "Hodor",
                 },
                 cardRChance: {
@@ -899,6 +1313,29 @@ i18nStrings.hodor = {
         }
     },
 
+    buffs: {
+        draw: {
+            pointsMult: {
+                name: "Hodor",
+                desc: "Hodor",
+            },
+            shredsMult: {
+                name: "Hodor",
+                desc: "Hodor",
+            },
+            factionMult: {
+                name: "Hodor",
+                desc: "Hodor",
+            },
+        },
+        time: {
+            energySpeed: {
+                name: "Hodor",
+                desc: "Hodor",
+            },
+        },
+    },
+
     badges: {
         11: {
             name: "Hodor",
@@ -936,7 +1373,15 @@ i18nStrings.hodor = {
             name: "Hodor",
             desc: "Hodor",
         },
+        25: {
+            name: "Hodor",
+            desc: "Hodor",
+        },
         31: {
+            name: "Hodor",
+            desc: "Hodor",
+        },
+        32: {
             name: "Hodor",
             desc: "Hodor",
         },
@@ -963,6 +1408,49 @@ i18nStrings.hodor = {
                 ["image", "7"],
                 ["text", "Hodor"],
             ]
-        }
+        },
+        2: {
+            name: "Hodor",
+            directives: [
+                ["image", "1"],
+                ["text", "Hodor"],
+                ["image", "2"],
+                ["text", "Hodor"],
+                ["image", "1"],
+                ["text", "Hodor"],
+                ["image", "2"],
+                ["text", "Hodor"],
+                ["image", "3"],
+                ["text", "Hodor"],
+                ["image", "1"],
+                ["text", "Hodor"],
+                ["image", "4"],
+                ["text", "Hodor"],
+            ]
+        },
+        3: {
+            name: "Hodor",
+            directives: [
+                ["image", "1"],
+                ["text", "Hodor"],
+                ["image", "2"],
+                ["text", "Hodor"],
+                ["image", "3"],
+                ["text", "Hodor"],
+                ["image", "4"],
+                ["text", "Hodor"],
+                ["image", "5"],
+                ["text", "Hodor"],
+            ]
+        },
     },
+
+    ads: {
+        minigames: {
+            sort: {
+                action_undo: "Hodor",
+                action_restart: "Hodor",
+            }
+        }
+    }
 }
