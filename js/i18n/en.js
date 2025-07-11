@@ -1263,6 +1263,19 @@ let i18nDefault = i18nStrings.en = {
                 perks: [
                     "Four new <rarity rarity='ex'></rarity> cards"
                 ]
+            },
+            starter: {
+                name: "Starter Pack",
+                desc: 
+                    "Obtain <rarity rarity='ex'></rarity> <b>Truly Idle</b>, <rarity rarity='ex'></rarity> <b>Shredder</b>, and <rarity rarity='ex'></rarity> <b>pick-it Premium</b> right at the start of the game!<br>" +
+                    "Also includes a whopping {0} bonus points and {1} bonus shreds!",
+                perks: [
+                    "<rarity rarity='ex'></rarity> Truly Idle",
+                    "<rarity rarity='ex'></rarity> Shredder",
+                    "<rarity rarity='ex'></rarity> pick-it Premium",
+                    "{0} points",
+                    "{1} shreds",
+                ]
             }
         },
     },

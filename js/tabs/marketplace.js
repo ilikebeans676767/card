@@ -284,11 +284,13 @@ tabs.marketplace = {
         let listId = pack + " " + id;
         let i18n = str.packs[pack][id]
 
-        let div = $makeHTML("div.market-item", `
-            <h4>${i18n.name()}</h4>
-            <p>${i18n.desc()}</p>
-            <span class="flex-fill"></span>
-        `)
+        let desc;
+
+        let div = $make("div.market-item", 
+            $makeHTML("h4", i18n.name()),
+            desc = $make("p"),
+            $make("span.flex-fill")
+        );
 
         let buyBtn = $make("button.value");
         buyBtn.onclick = () => callPopup("pack", pack, id);
@@ -303,6 +305,8 @@ tabs.marketplace = {
             buyBtn.disabled = !canBuy;
             buyBtn.classList.toggle("value", canBuy);
             levelText = _icon("tabler:shopping-cart") + " " + _number(format.currency(data.cost[1], data.cost[0]));
+
+            desc.innerHTML = format.effect(i18n.desc(), data.effects);
 
             if (buyBtn.innerHTML != levelText) buyBtn.innerHTML = levelText;
             

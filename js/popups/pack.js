@@ -29,7 +29,7 @@ popups.pack = {
         popup.$body.append(perks);
 
         for (let item of i18n.perks) {
-            perks.append($makeHTML("li", item));
+            perks.append($makeHTML("li", format.effect(item, data.effects)));
         }
 
         let actions = $make("div.actions");
