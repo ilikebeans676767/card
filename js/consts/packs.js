@@ -15,7 +15,7 @@ const packs = {
             effects: [],
         },
         starter: {
-            cost: [2.99, "money"],
+            cost: [1.99, "money"],
             condition: () => game.stats.accountsSold >= 2 && !hasCard("standard", "ex", "offline")
                 && !hasCard("standard", "ex", "pickit") && !hasCard("standard", "ex", "shred"),
             onBuy() {
@@ -25,11 +25,11 @@ const packs = {
                     ["standard", "ex", "shred"],
                 ].map(([pack, rarity, id]) => [pack, rarity, id, 1, true])
                 callPopup("draw", {cards, res: [
-                    ["points", 1e6],
-                    ["shreds", 1e3],
+                    ["points", 1e9],
+                    ["shreds", 1e5],
                 ]});
             },
-            effects: [1e6, 1e3],
+            effects: [1e9, 1e5],
         }
     }
 }

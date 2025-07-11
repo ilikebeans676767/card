@@ -704,7 +704,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n5: {
                     name: "Bigger Wrap",
-                    desc: "{+0} bulk energy cap. Bulk energy production past the energy cap are slowed down.",
+                    desc: "{+0} bulk energy cap. Bulk energy production past the energy cap are reduced.",
                     quote: "You can idle for real this time"
                 },
                 n6: {
@@ -714,7 +714,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n7: {
                     name: "Fast Delivery",
-                    desc: "{+0%} cooldown speed.",
+                    desc: "{+0%} pack cooldown speed.",
                     quote: "Restock faster with our new fast delivery service — applied to all orders 1 card and above!",
                 },
                 c1: {
@@ -1109,12 +1109,12 @@ let i18nDefault = i18nStrings.en = {
                 },
                 shred: {
                     name: "Shredder",
-                    desc: "Duplicate cards that are useless are shredded into a new currency called Shreds, including crowned cards and cards with max stars.",
+                    desc: "Unlocks the ability to gain Shreds by obtaining card copies that do not count toward a fusable card, including crowned cards and cards with max stars.",
                     quote: "Act as if nothing has ever happened"
                 },
                 offline: {
                     name: "Truly Idle",
-                    desc: "Allow Bulk Energy to accumulate while the game is not open, but gains are reduced after {0} minutes of offline time.",
+                    desc: "Allow the game to progress while the game is not open, with reduced speed after {0} minutes of offline time.",
                     quote: "Drowning at work? I've got just the perfect card for you..."
                 },
                 faction: {
@@ -1124,7 +1124,8 @@ let i18nDefault = i18nStrings.en = {
                 },
                 pickit: {
                     name: "pick-it Premium",
-                    desc: "Unlock the pick-it Premium sorting, which sorts cards by cheapest upgrade price first and filters out un-upgradable cards, albeit for a limited time.",
+                    desc: "Unlock the ability to turn on pick-it Premium sorting, albeit for a limited time.<br/>"
+                        + "pick-it Premium sorting filters out non-upgradable cards and sorts cards by cheapest upgrade price first.",
                     quote: "You can go right to what you want to see. Nothing to get in your way. pick-it Premium will widen and deepen your card-browsing passions."
                 },
                 autobuy: {
@@ -1206,7 +1207,7 @@ let i18nDefault = i18nStrings.en = {
                 legacy: {
                     name: "Omega Cards Legacy",
                     desc: "Unlock Legacy cards that are transferrable between accounts. When you obtain this card or sell an account, choose {0} out of {1} Legacy cards to add to your collection.",
-                    quote: "Tear this card into pieces. Throw the pieces into the playing area from a distance of at least five feet. Everything the pieces touch now permanently belongs to you. Collect the cards and put them into the bottom of your draw pile while everyone look at you in a weird way"
+                    quote: "Tear this card into pieces. Throw the pieces into the playing area from a distance of at least five feet. Everything the pieces touch now permanently belongs to you. Collect the cards and put them into the bottom of your draw pile while everyone looks at you in a weird way"
                 },
                 zip: {
                     name: "7Stack",
