@@ -395,7 +395,7 @@ function verbify(str) {
 function getVerb(verb) {
     let verbs = i18nStrings[game.option.language].verbs;
     let v = verbs[game.option.verb][verb.toLowerCase()];
-    if (verb[0].toUpperCase() == verb[0]) {
+    if (verb.length >= 2 && verb[0].toUpperCase() == verb[0]) {
         v = v[verb[1].toUpperCase() == verb[1] ? "toUpperCase" : "toTitleCase"]();
     }
     return v;
