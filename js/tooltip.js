@@ -34,6 +34,7 @@ function registerTooltipEvent(event) {
     let elm = tooltip.element;
     let func = tooltip.contentFunc;
     let callback = () => {
+        if (!elm.parent) leave();
         requestAnimationFrame(() => func(elms.tooltip));
     }
     let leave = () => {
