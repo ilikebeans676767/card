@@ -22,12 +22,13 @@ function $makeHTML(def, html) {
 function $icon(source, inline = true) {
     let icon = $make("iconify-icon");
     icon.setAttribute("icon", source);
+    icon.setAttribute("noobserver", "");
     if (inline) icon.setAttribute("inline", "");
     return icon;
 }
 
 function _icon(source, inline = true) {
-    return `<iconify-icon icon="${source}"${inline ? ' inline=""' : ""}></iconify-icon>`;
+    return `<iconify-icon icon="${source}" noobserver=""${inline ? ' inline=""' : ""}></iconify-icon>`;
 }
 
 function _number(inside) {
