@@ -279,7 +279,7 @@ tabs.collection = {
                 let canLevelUp = game.res[levelCost[1]] >= levelCost[0];
                 levelBtn.disabled = !canLevelUp;
                 levelBtn.setAttribute("state", canLevelUp ? "" : "noafford");
-                levelText = _icon(canLevelUp || levelCost[1] == "points" ? "tabler:arrow-big-up" : currencies[levelCost[1]].icon);
+                levelText = _icon(levelCost[1] == "points" ? "tabler:arrow-big-up" : currencies[levelCost[1]].icon);
             }
             if (levelBtn.innerHTML != levelText) levelBtn.innerHTML = levelText;
             
