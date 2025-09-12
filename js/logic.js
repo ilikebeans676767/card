@@ -829,6 +829,9 @@ function awardBadge(badge) {
     if (game.badges[badge]) return;
     game.badges[badge] = Date.now();
     spawnBadgeNotif(badge);
+    if (Object.keys(game.badges).length == Object.keys(badges).length) {
+        callPopup("endgame");
+    }
     updateEffects();
 }
 

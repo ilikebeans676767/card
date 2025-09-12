@@ -572,6 +572,15 @@ let i18nDefault = i18nStrings.en = {
                 thanks1_foot: "(for the inspiration)",
             }
         },
+        endgame: {
+            title: "Congratulations",
+            strings: {
+                body1: "You have obtained all badges and thus reached the end game! Look out for the next content update!",
+                body2: "In the meantime, you can {0} or continue grinding accounts if you like.",
+                body2_link0: "check out my other stuff",
+                time: "Total time played: {0}",
+            }
+        },
         offline: {
             title: "Welcome back!",
             desc_time: "You were away for {0}.",
