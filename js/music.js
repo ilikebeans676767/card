@@ -9,7 +9,7 @@ function updateMusic() {
     }
     if (game.option.volume.music > 0) {
         let sources = {
-            "conscious": "res/music/consciousness_uploader.mp3",
+            "conscious": "./res/music/consciousness_uploader.mp3",
         }
         let src = sources[game.option.music || "conscious"];
         music.volume = game.option.volume.music;
