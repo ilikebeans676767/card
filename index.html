@@ -76,6 +76,21 @@
     </div>
     <div id="notifs"></div>
     <div id="tooltip"></div>
+    <audio id="startup-audio" src="wiwiwi.mp3" autoplay muted loop></audio>
+<script>
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    var audio = document.getElementById('startup-audio');
+    function tryPlay() {
+      audio.muted = false;
+      audio.play();
+      document.removeEventListener('click', tryPlay);
+      document.removeEventListener('keydown', tryPlay);
+    }
+    document.addEventListener('click', tryPlay);
+    document.addEventListener('keydown', tryPlay);
+  });
+</script>
 </body>
 <!-- Scripts -->
     <script src="js/error.js"></script>
@@ -136,21 +151,7 @@
     <script src="js/data.js"></script>
     <script src="js/logic.js"></script>
     <script src="js/ui.js"></script>
-    <audio id="startup-audio" src="wiwiwi.mp3" autoplay muted loop></audio>
-<script>
-  
-  document.addEventListener('DOMContentLoaded', function () {
-    var audio = document.getElementById('startup-audio');
-    function tryPlay() {
-      audio.muted = false;
-      audio.play();
-      document.removeEventListener('click', tryPlay);
-      document.removeEventListener('keydown', tryPlay);
-    }
-    document.addEventListener('click', tryPlay);
-    document.addEventListener('keydown', tryPlay);
-  });
-</script>
+    <script src="js/music.js"></script>
     <script src="js/tooltip.js"></script>
     <script src="js/notif.js"></script>
     <script src="js/util.js"></script>
