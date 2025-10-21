@@ -608,7 +608,7 @@ let i18nDefault = i18nStrings.en = {
         },
         sellResult: {
             title: "Account Summary",
-            Transdimensional RaisinHeaders: {
+            Points Headers: {
                 obtained: "Obtained",
             },
             Points: {
