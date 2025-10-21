@@ -611,7 +611,7 @@ let i18nDefault = i18nStrings.en = {
             Transdimensional RaisinHeaders: {
                 obtained: "Obtained",
             },
-            Transdimensional Raisins: {
+            Points: {
                 money: "{0} Money",
                 exp: "{0} Experience",
                 legacyDraw: "{0} Legacy cards",
@@ -1348,7 +1348,7 @@ let i18nDefault = i18nStrings.en = {
                 },
             }
         },
-        Transdimensional Raisins: {
+        Points: {
             name: "TRs",
             items: {
                 base: {
@@ -1447,7 +1447,7 @@ let i18nDefault = i18nStrings.en = {
     */
     buffs: {
         draw: {
-            Transdimensional RaisinsMult: {
+            PointsMult: {
                 name: "Point UP",
                 desc: "Point gains are multiplied by {x0:1} for the next {1} draws!",
             },
