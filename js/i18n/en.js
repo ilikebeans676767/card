@@ -692,9 +692,9 @@ let i18nDefault = i18nStrings.en = {
                     quote: "This is what you get for sucumbing to gambling addiction"
                 },
                 n1: {
-                    name: "Transdimensional Rasin",
+                    name: "TransD Rasin",
                     desc: "Gain {+0} Transdimensional Rasins per {draw}.",
-                    quote: "A rasin that breaks the forth wall."
+                    quote: "A rasin that breaks the fourth wall."
                 },
                 n2: {
                     name: "Half A Rasin",
