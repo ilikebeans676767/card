@@ -206,7 +206,7 @@ let i18nDefault = i18nStrings.en = {
 
                 ad_title: "“Ad” Booster",
                 ad_effects: {
-                    s_draw: "“Watch” an “ad” and gain {x0:1} more Transdimensional Raisins for the next {1} {draws}!",
+                    points_draw: "“Watch” an “ad” and gain {x0:1} more points for the next {1} {draws}!",
                     shreds_draw: "“Watch” an “ad” and gain {x0:1} more shreds for the next {1} {draws}!",
                     faction_draw: "“Watch” an “ad” and gain {x0:1} more faction power for the next {1} {draws}!",
                     energy_time: "“Watch” an “ad” and gain passive Bulk Energy {x0:1} faster for {1s}!",
@@ -608,7 +608,7 @@ let i18nDefault = i18nStrings.en = {
         },
         sellResult: {
             title: "Account Summary",
-            points headers: {
+            pointHeaders: {
                 obtained: "Obtained",
             },
             points: {
@@ -642,8 +642,8 @@ let i18nDefault = i18nStrings.en = {
             quote: "Used as Omega Cards' loyalty program currency to allow you to trade in multiple card {draws} at once",
         },
         points: {
-            name: "Transdimensional Rasins",
-            quote: "The world's most ungeneric currency. It is ungeneric enough to be assigned any use case imaginable",
+            name: "Points",
+            quote: "The world's most generic currency. It is generic enough to be assigned any use case imaginable",
         },
         shreds: {
             name: "Shreds",
@@ -689,16 +689,16 @@ let i18nDefault = i18nStrings.en = {
                 n0: {
                     name: "No Rewards?",
                     desc: "No effect.",
-                    quote: "This is what you get for sucumbing to gambling addiction"
+                    quote: "That one option that is programmed to be picked 99% of the time"
                 },
                 n1: {
-                    name: "TransD Rasin",
-                    desc: "Gain {+0} Transdimensional Rasins per {draw}.",
-                    quote: "A rasin that breaks the fourth wall."
+                    name: "A Single Dot",
+                    desc: "Gain {+0} points per {draw}.",
+                    quote: "ここにいる"
                 },
                 n2: {
-                    name: "Half A Rasin",
-                    desc: "Randomly gain zero to {+0} Transdimensional Raisins per {draw}.",
+                    name: "Half A Dot",
+                    desc: "Randomly gain zero to {+0} points per {draw}.",
                     quote: "To explain what half a dot even is, we'll need to talk about parallel universes-"
                 },
                 n3: {
@@ -745,13 +745,13 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n1: {
                     name: "Point Multiplier",
-                    desc: "{+0%} Transdimensional Raisin multiplier.",
-                    quote: "Every incremental game needs exponential growth, a ungeneric currency needs a generic multiplier upgrade"
+                    desc: "{+0%} point multiplier.",
+                    quote: "Every incremental game needs exponential growth, a generic currency needs a generic multiplier upgrade"
                 },
                 n1b: {
                     name: "Point Press",
-                    desc: "{+0%} Transdimensional Raisin multiplier.",
-                    quote: "Press some of your shreds into rasins. This is precisely how legal rasins are made too, people won't even be able to notice a difference"
+                    desc: "{+0%} point multiplier.",
+                    quote: "Press some of your shreds into points. This is precisely how legal points are made too, people won't even be able to notice a difference"
                 },
                 n2: {
                     name: "Bulkier Card Packs",
@@ -810,7 +810,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n6a: {
                     name: "Buttered Popcorn",
-                    desc: "{+0:1} base Transdimensional Raisin boost from “Ad” Booster.",
+                    desc: "{+0:1} base point boost from “Ad” Booster.",
                     quote: "Wait, you're telling me people actually enjoy watching ads!?"
                 },
                 n6b: {
@@ -832,11 +832,11 @@ let i18nDefault = i18nStrings.en = {
             sr: {
                 n0: {
                     name: "Perfectly Generic Card",
-                    desc: "{+0%} Transdimensional Raisin multiplier.",
+                    desc: "{+0%} point multiplier.",
                     quote: "A perfectly generic card that boosts the perfectly generic currency, the genericness is getting too perfect to handle"
                 },
                 n1: {
-                    name: "A Pair of Rasins",
+                    name: "A Pair of Points",
                     desc: "Raise the level in <b><rarity rarity='n'></rarity> A Single Dot</b>'s effect by {^0:1}",
                     quote: "This is called a line"
                 },
@@ -852,27 +852,27 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n4a: {
                     name: "Fire Power Mastery",
-                    desc: "{+0%} fire power, leaf power, and Transdimensional Raisin gains.",
+                    desc: "{+0%} fire power, leaf power, and point gains.",
                     quote: "Yes, our commentary for these <rarity rarity='sr'></rarity> cards really are just copy-and-pasted from each other, you don't think every gacha game does this all the time?"
                 },
                 n4b: {
                     name: "Water Power Mastery",
-                    desc: "{+0%} water power, fire power, and Transdimensional Raisin gains.",
+                    desc: "{+0%} water power, fire power, and point gains.",
                     quote: "Yes, our commentary for these <rarity rarity='sr'></rarity> cards really are just copy-and-pasted from each other, you don't think every gacha game does this all the time?"
                 },
                 n4c: {
                     name: "Leaf Power Mastery",
-                    desc: "{+0%} leaf power, water power, and Transdimensional Raisin gains.",
+                    desc: "{+0%} leaf power, water power, and point gains.",
                     quote: "Yes, our commentary for these <rarity rarity='sr'></rarity> cards really are just copy-and-pasted from each other, you don't think every gacha game does this all the time?"
                 },
                 n4d: {
                     name: "Sun Power Mastery",
-                    desc: "{+0%} sun power, moon power, and Transdimensional Raisin gains.",
+                    desc: "{+0%} sun power, moon power, and point gains.",
                     quote: "Yes, our commentary for these <rarity rarity='sr'></rarity> cards really are just copy-and-pasted from each other, you don't think every gacha game does this all the time?"
                 },
                 n4e: {
                     name: "Moon Power Mastery",
-                    desc: "{+0%} moon power, sun power, and Transdimensional Raisin gains.",
+                    desc: "{+0%} moon power, sun power, and point gains.",
                     quote: "Yes, our commentary for these <rarity rarity='sr'></rarity> cards really are just copy-and-pasted from each other, you don't think every gacha game does this all the time?"
                 },
                 n5a: {
@@ -939,7 +939,7 @@ let i18nDefault = i18nStrings.en = {
                 },
                 n1a: {
                     name: "Galaxy",
-                    desc: "Gain more Transdimensional Raisins based on the total amount of stars you have in your card collection (crowned cards count as {0} stars each).<br>(Currently: {1} stars ⇒ {+2%} Transdimensional Raisin gain)",
+                    desc: "Gain more Points based on the total amount of stars you have in your card collection (crowned cards count as {0} stars each).<br>(Currently: {1} stars ⇒ {+2%} point gain)",
                     quote: "In a galaxy, far, far away..."
                 },
                 n1b: {
@@ -953,18 +953,18 @@ let i18nDefault = i18nStrings.en = {
                     quote: "Ahhh the memories"
                 },
                 n1c: {
-                    name: "Extra Transdimensional Raisins",
-                    desc: "Gain more Transdimensional Raisins based on the total amount of <rarity rarity='ex'></rarity> cards you have in your collection.<br>(Currently: {0} <rarity rarity='ex'></rarity> cards ⇒ {+1%} Transdimensional Raisin gain)",
-                    quote: "More Transdimensional Raisins doesn't hurt, right?"
+                    name: "Extra Points",
+                    desc: "Gain more Points based on the total amount of <rarity rarity='ex'></rarity> cards you have in your collection.<br>(Currently: {0} <rarity rarity='ex'></rarity> cards ⇒ {+1%} point gain)",
+                    quote: "More points doesn't hurt, right?"
                 },
                 n1d: {
                     name: "Future Calculator",
-                    desc: "Gain more Transdimensional Raisins based on the total amount of stat entries you've unlocked.<br>(Currently: {0} entries ⇒ {+1%} Transdimensional Raisin gain)",
+                    desc: "Gain more Points based on the total amount of stat entries you've unlocked.<br>(Currently: {0} entries ⇒ {+1%} point gain)",
                     quote: "1 ^ 2 + 3 = 4"
                 },
                 n1d2: {
                     name: "Black Fridays",
-                    desc: "Gain more Transdimensional Raisins based on the total amount of level ups made with pick-it Premium.<br>(Currently: {0} times ⇒ {+1%} Transdimensional Raisin gain)",
+                    desc: "Gain more Points based on the total amount of level ups made with pick-it Premium.<br>(Currently: {0} times ⇒ {+1%} point gain)",
                     quote: "Buy them while the sale still lasts!"
                 },
                 n1e: {
@@ -1046,7 +1046,7 @@ let i18nDefault = i18nStrings.en = {
             ur: {
                 n0: {
                     name: "mom",
-                    desc: "{+0%} base bulk, bulk power, energy cap, and card multiplier.<br>{+1%} shred gain.<br>{x2} Transdimensional Raisin gain.",
+                    desc: "{+0%} base bulk, bulk power, energy cap, and card multiplier.<br>{+1%} shred gain.<br>{x2} point gain.",
                     quote: "<rarity rarity='ur'></rarity> mom's so buffed she's the strongest unit in the game"
                 },
                 n1a: {
@@ -1163,7 +1163,7 @@ let i18nDefault = i18nStrings.en = {
             n: {
                 n0: {
                     name: "Fancier Dots",
-                    desc: "{+0%} Transdimensional Raisin gains.",
+                    desc: "{+0%} point gains.",
                     quote: "Now your dots can wear hats! Dots that wear hats are worth more than regular dots"
                 },
                 n1: {
@@ -1255,11 +1255,11 @@ let i18nDefault = i18nStrings.en = {
         },
         sun: {
             name: "Photosynthesis",
-            desc: "Increase faction power gain by {0} for the next {draw}, but decrease Transdimensional Raisin and shred gain by {1}."
+            desc: "Increase faction power gain by {0} for the next {draw}, but decrease point and shred gain by {1}."
         },
         moon: {
             name: "Simplification",
-            desc: "Increase Transdimensional Raisin gain by {0} for the next {draw}, but decrease faction power gain by {1}."
+            desc: "Increase point gain by {0} for the next {draw}, but decrease faction power gain by {1}."
         },
     },
 
@@ -1278,12 +1278,12 @@ let i18nDefault = i18nStrings.en = {
                 name: "Starter Pack",
                 desc: 
                     "Obtain <rarity rarity='ex'></rarity> <b>Truly Idle</b>, <rarity rarity='ex'></rarity> <b>Shredder</b>, and <rarity rarity='ex'></rarity> <b>pick-it Premium</b> right at the start of the game!<br>" +
-                    "Also includes a whopping {0} bonus Transdimensional Raisins and {1} bonus shreds!",
+                    "Also includes a whopping {0} bonus points and {1} bonus shreds!",
                 perks: [
                     "<rarity rarity='ex'></rarity> Truly Idle",
                     "<rarity rarity='ex'></rarity> Shredder",
                     "<rarity rarity='ex'></rarity> pick-it Premium",
-                    "{0} Transdimensional Raisins",
+                    "{0} points",
                     "{1} shreds",
                 ]
             }
@@ -1349,7 +1349,7 @@ let i18nDefault = i18nStrings.en = {
             }
         },
         points: {
-            name: "TRs",
+            name: "Points",
             items: {
                 base: {
                     name: "Base gain",
@@ -1543,11 +1543,11 @@ let i18nDefault = i18nStrings.en = {
                 ["text", "Gacha gaming has become a way of life."],
                 ["text", "The thrilling experience of not knowing what items you'll get, the satisfying feeling when you get a rare {draw}, the flexibility and easiness to add gacha mechanics to every game in existence..."],
                 ["text", "People have found gacha games to be the best way to pass time, for casual players and the more competitive-minded players alike."],
-                ["text", "Though, when people talk about gacha games, that's not the most significant Transdimensional Raisin to keep in mind."],
+                ["text", "Though, when people talk about gacha games, that's not the most significant point to keep in mind."],
                 ["text", "It's the fact that..."],
                 ["image", "3"],
                 ["text", "They make a <i>lot</i> of money."],
-                ["text", "The gacha gaming scene has grown into a multi-millillion-rasin worth industry, far greater than any entertainment scene's worth, combined."],
+                ["text", "The gacha gaming scene has grown into a multi-millillion-dollar worth industry, far greater than any entertainment scene's worth, combined."],
                 ["text", "To chase the money, billions of gacha games are coming out every single blink of an eye."],
                 ["text", "Of course, since the market has become diluted with so many games, they need a way to introduce itself to players and prove that they're worth their time."],
                 ["image", "4"],
