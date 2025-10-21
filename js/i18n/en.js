@@ -642,8 +642,8 @@ let i18nDefault = i18nStrings.en = {
             quote: "Used as Omega Cards' loyalty program currency to allow you to trade in multiple card {draws} at once",
         },
         points: {
-            name: "Points",
-            quote: "The world's most generic currency. It is generic enough to be assigned any use case imaginable",
+            name: "Transdimensional Rasins",
+            quote: "The world's most ungeneric currency. It is ungeneric enough to be assigned any use case imaginable",
         },
         shreds: {
             name: "Shreds",
@@ -746,12 +746,12 @@ let i18nDefault = i18nStrings.en = {
                 n1: {
                     name: "Point Multiplier",
                     desc: "{+0%} point multiplier.",
-                    quote: "Every incremental game needs exponential growth, a generic currency needs a generic multiplier upgrade"
+                    quote: "Every incremental game needs exponential growth, a ungeneric currency needs a generic multiplier upgrade"
                 },
                 n1b: {
                     name: "Point Press",
                     desc: "{+0%} point multiplier.",
-                    quote: "Press some of your shreds into points. This is precisely how legal points are made too, people won't even be able to notice a difference"
+                    quote: "Press some of your shreds into rasins. This is precisely how legal rasins are made too, people won't even be able to notice a difference"
                 },
                 n2: {
                     name: "Bulkier Card Packs",
@@ -836,7 +836,7 @@ let i18nDefault = i18nStrings.en = {
                     quote: "A perfectly generic card that boosts the perfectly generic currency, the genericness is getting too perfect to handle"
                 },
                 n1: {
-                    name: "A Pair of Points",
+                    name: "A Pair of Rasins",
                     desc: "Raise the level in <b><rarity rarity='n'></rarity> A Single Dot</b>'s effect by {^0:1}",
                     quote: "This is called a line"
                 },
@@ -1349,7 +1349,7 @@ let i18nDefault = i18nStrings.en = {
             }
         },
         points: {
-            name: "Points",
+            name: "TRs",
             items: {
                 base: {
                     name: "Base gain",
@@ -1547,7 +1547,7 @@ let i18nDefault = i18nStrings.en = {
                 ["text", "It's the fact that..."],
                 ["image", "3"],
                 ["text", "They make a <i>lot</i> of money."],
-                ["text", "The gacha gaming scene has grown into a multi-millillion-dollar worth industry, far greater than any entertainment scene's worth, combined."],
+                ["text", "The gacha gaming scene has grown into a multi-millillion-rasin worth industry, far greater than any entertainment scene's worth, combined."],
                 ["text", "To chase the money, billions of gacha games are coming out every single blink of an eye."],
                 ["text", "Of course, since the market has become diluted with so many games, they need a way to introduce itself to players and prove that they're worth their time."],
                 ["image", "4"],
