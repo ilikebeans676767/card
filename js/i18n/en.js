@@ -689,15 +689,15 @@ let i18nDefault = i18nStrings.en = {
                 n0: {
                     name: "No Rewards?",
                     desc: "No effect.",
-                    quote: "That one option that is programmed to be picked 99% of the time"
+                    quote: "This is what you get for sucumbing to gambling addiction"
                 },
                 n1: {
-                    name: "A Single Dot",
-                    desc: "Gain {+0} points per {draw}.",
-                    quote: "ここにいる"
+                    name: "Transdimensional Rasin",
+                    desc: "Gain {+0} Transdimensional Rasins per {draw}.",
+                    quote: "A rasin that breaks the forth wall."
                 },
                 n2: {
-                    name: "Half A Dot",
+                    name: "Half A Rasin",
                     desc: "Randomly gain zero to {+0} points per {draw}.",
                     quote: "To explain what half a dot even is, we'll need to talk about parallel universes-"
                 },
