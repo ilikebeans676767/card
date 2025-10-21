@@ -608,10 +608,10 @@ let i18nDefault = i18nStrings.en = {
         },
         sellResult: {
             title: "Account Summary",
-            Points Headers: {
+            points headers: {
                 obtained: "Obtained",
             },
-            Points: {
+            points: {
                 money: "{0} Money",
                 exp: "{0} Experience",
                 legacyDraw: "{0} Legacy cards",
@@ -641,7 +641,7 @@ let i18nDefault = i18nStrings.en = {
             name: "Bulk Energy",
             quote: "Used as Omega Cards' loyalty program currency to allow you to trade in multiple card {draws} at once",
         },
-        Transdimensional Raisins: {
+        points: {
             name: "Transdimensional Rasins",
             quote: "The world's most ungeneric currency. It is ungeneric enough to be assigned any use case imaginable",
         },
@@ -1348,7 +1348,7 @@ let i18nDefault = i18nStrings.en = {
                 },
             }
         },
-        Points: {
+        points: {
             name: "TRs",
             items: {
                 base: {
@@ -1447,7 +1447,7 @@ let i18nDefault = i18nStrings.en = {
     */
     buffs: {
         draw: {
-            PointsMult: {
+            pointsMult: {
                 name: "Point UP",
                 desc: "Point gains are multiplied by {x0:1} for the next {1} draws!",
             },
