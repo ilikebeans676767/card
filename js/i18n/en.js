@@ -642,7 +642,7 @@ let i18nDefault = i18nStrings.en = {
             quote: "Used as Omega Cards' loyalty program currency to allow you to trade in multiple card {draws} at once",
         },
         points: {
-            name: "Points",
+            name: "Transdimensional Rasins",
             quote: "The world's most generic currency. It is generic enough to be assigned any use case imaginable",
         },
         shreds: {
@@ -688,18 +688,18 @@ let i18nDefault = i18nStrings.en = {
             n: {
                 n0: {
                     name: "No Rewards?",
-                    desc: "No effect.",
-                    quote: "That one option that is programmed to be picked 99% of the time"
+                    desc: "This does absolutely Nothing",
+                    quote: "This is what you get for sucumbing to gambling addiction"
                 },
                 n1: {
-                    name: "A Single Dot",
-                    desc: "Gain {+0} points per {draw}.",
-                    quote: "ここにいる"
+                    name: "A Single Rasin",
+                    desc: "Gain {+0} Transdimensional Rasins per {draw}.",
+                    quote: "Why is this in a card pack?"
                 },
                 n2: {
-                    name: "Half A Dot",
+                    name: "Half A Rasin",
                     desc: "Randomly gain zero to {+0} points per {draw}.",
-                    quote: "To explain what half a dot even is, we'll need to talk about parallel universes-"
+                    quote: "To explain what half a rasin even is, we'll need to talk about parallel universes-"
                 },
                 n3: {
                     name: "Card Pack",
@@ -722,9 +722,9 @@ let i18nDefault = i18nStrings.en = {
                     quote: "If you haven't noticed it yet, you can click the pack while it's breaking to break it faster"
                 },
                 n7: {
-                    name: "Fast Delivery",
+                    name: "Card Gun",
                     desc: "{+0%} pack cooldown speed.",
-                    quote: "Restock faster with our new fast delivery service — applied to all orders 1 card and above!",
+                    quote: "Get cards faster as we shoot them at your face!",
                 },
                 c1: {
                     name: "In-Game Shop",
