@@ -642,7 +642,7 @@ let i18nDefault = i18nStrings.en = {
             quote: "Used as Omega Cards' loyalty program currency to allow you to trade in multiple card {draws} at once",
         },
         points: {
-            name: "Transdimensional Rasins",
+            name: "Transdimensional Raisins",
             quote: "The world's most generic currency. It is generic enough to be assigned any use case imaginable",
         },
         shreds: {
@@ -689,17 +689,17 @@ let i18nDefault = i18nStrings.en = {
                 n0: {
                     name: "No Rewards?",
                     desc: "This does absolutely Nothing",
-                    quote: "This is what you get for sucumbing to gambling addiction"
+                    quote: "This is what you get for succumbing to gambling addiction"
                 },
                 n1: {
-                    name: "A Single Rasin",
-                    desc: "Gain {+0} Transdimensional Rasins per {draw}.",
+                    name: "A Single Raisin",
+                    desc: "Gain {+0} Transdimensional Raisins per {draw}.",
                     quote: "Why is this in a card pack?"
                 },
                 n2: {
-                    name: "Half A Rasin",
+                    name: "Half A Raisin",
                     desc: "Randomly gain zero to {+0} points per {draw}.",
-                    quote: "To explain what half a rasin even is, we'll need to talk about parallel universes-"
+                    quote: "To explain what half a raisin even is, we'll need to talk about parallel universes-"
                 },
                 n3: {
                     name: "Card Pack",
