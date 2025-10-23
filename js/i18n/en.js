@@ -779,9 +779,9 @@ let i18nDefault = i18nStrings.en = {
                     quote: "The card packs got some endurance training! Now they are harder to break into, but the contents are increased!"
                 },
                 n4b: {
-                    name: "Flip Attack",
+                    name: "Angry Indian Man",
                     desc: "{+0%} card revealing speed.",
-                    quote: "Reverse card, block, draw 4"
+                    quote: "You know how angry they get when you try and scam them!"
                 },
                 n5a: {
                     name: "Trending",
