@@ -1,2 +1,2 @@
 # ![One Trillion Free Draws](./res/thumbnail.png)
-https://duducat.moe/gacha
+[Link ➞ read the end of the readme i forget the url](https://duducat.moe/gacha)
